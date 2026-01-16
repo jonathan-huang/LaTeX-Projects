@@ -1,0 +1,194 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\newenvironment{exerciseManual}[1]{%
+  \renewcommand{\theexercise}{#1}%
+  \begin{exercise}%
+  \addtocounter{exercise}{-1}%
+}{%
+  \end{exercise}%
+}
+
+\newenvironment{solutionManual}[1]{%
+  \renewcommand{\thesolution}{#1}%
+  \begin{solution}%
+  \addtocounter{solution}{-1}%
+}{%
+  \end{solution}%
+}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+    \textbf{PHYS 359 Winter 2026 - Problem Set 0} \\
+    \vspace{0.5cm}
+    \large 
+    Due Jan 12, 2026\\
+    \vspace{0.1cm}
+    Instructor: Professor Alan Jamison
+}
+\author{Jonathan Huang 21232848 MATH}
+
+\maketitle
+
+% Exercise 0
+\begin{exerciseManual}{0} [\textbf{Math Challenge}]
+    Unlike most exercises, this one is not here to help you get a better grasp of core principles in the course. If you want a math challenge, give it a go! (Hey, it's early in the term. Youre not busy yet, right?)
+    \begin{enumerate}[(a)]
+        \item In class we derived Stirling’s approximation by Taylor expanding the exponent in
+        \[
+        e^{(n \log t - t)}
+        \]
+        to second order. Find the third-order term in that expansion.
+
+        \item The second-order term grows rapidly outside the region where it is less than or equal to 1. Show that, for large $n$, the third-order term is much less than 1 when the second-order term equals 1.
+
+        \item Your integral now looks like
+        \begin{equation}
+        \Gamma(n+1)
+        = n^n e^{-n} \int_0^{\infty} dt \,
+        e^{-\frac{1}{2n}(t-n)^2}
+        e^{a_3 (t-n)^3}.
+        \end{equation}
+
+        Part b is telling you that you can Taylor expand the last exponential, because it will still be nearly 1 while the Gaussian is rapidly dropping to 0. Make this Taylor expansion to first order, extend your integration domain to $(-\infty,\infty)$ as we did in class, and then perform the two integrals. The first is just the Gaussian integral we did in class. The other may be solved by a $u$ substitution followed by integration by parts.
+    \end{enumerate}
+
+    This expansion can be carried out to higher order, both in the exponent and when we expand the exponential. These expansions have some formal similarities to the sorts of expansions used to study interacting quantum field theories that lead to Feynman diagrams.
+\end{exerciseManual}
+
+\begin{solutionManual}{0}
+    ~
+
+    \begin{enumerate}[(a)]
+        \item The exponent $ n \log t - t $ may be Taylor expanded about $ t = n $ as
+        \begin{equation}
+            \begin{split}
+                n \log t - t &= n \log \left(n \cdot \frac{t}{n}\right) - t \\
+                &= n \log n + n \log \left(1 + \frac{t-n}{n}\right) - t \\
+                &= n \log n + n \left( \frac{t-n}{n} - \frac{1}{2} \left(\frac{t-n}{n}\right)^2 + \frac{1}{3} \left(\frac{t-n}{n}\right)^3 + O\!((t-n)^4) \right) - t \\
+                &= n \log n - n - \frac{1}{2n} (t-n)^2 + \frac{1}{3n^2} (t-n)^3 + O\!((t-n)^4).
+            \end{split}
+        \end{equation}
+
+        \item The second-order term is equal to 1 when $ |t-n| = \sqrt{2n} $. At this point, the third-order term is
+        \[
+        \left| \frac{1}{3n^2} (t-n)^3 \right| = \frac{1}{3n^2} (2n)^{3/2} = \frac{2\sqrt{2}}{3\sqrt{n}},
+        \]
+        which approaches 0 as $ n \to \infty $. Thus, for large $ n $, the third-order term is much less than 1 when the second-order term equals 1.
+
+        \item The integral may be approximated as
+        \begin{equation}
+            \begin{split}
+                \Gamma (n+1) &= n^n e^{-n} \int_0^{\infty} \mathrm{d}t\, \exp \left(-\frac{1}{2n}(t-n)^2 \right) \exp \left(\frac{1}{3n^2}(t-n)^3\right) \\
+                &= n^n e^{-n} \int_0^{\infty} \mathrm{d}t\, \exp \left(-\frac{1}{2n}(t-n)^2 \right) \left[ 1 + \frac{1}{3n^2}(t-n)^3 + O\!((t-n)^6) \right] \\
+                &\approx n^n e^{-n} \int_{-\infty}^{\infty} \mathrm{d}t\, \exp \left(-\frac{1}{2n}(t-n)^2 \right) \\
+                &\quad+ n^n e^{-n} \cdot \frac{1}{3n^2} \int_{-\infty}^{\infty} \mathrm{d}t\, (t-n)^3 \exp \left(-\frac{1}{2n}(t-n)^2 \right).
+            \end{split}
+        \end{equation}
+
+        The approximation in the last step is valid because the Gaussian decays rapidly outside the region where the Taylor expansion is valid ($ t \approx n $ ), as shown in part (b). The first integral evaluates to $ \sqrt{2 \pi n} $ as shown in class. The second integral may be solved by the substitution $ u = \frac{t-n}{\sqrt{2n}} $, giving
+        \begin{equation}
+            \begin{split}
+                \int_{-\infty}^{\infty} \mathrm{d}t\, (t-n)^3 \exp \left(-\frac{1}{2n}(t-n)^2 \right) &= \int_{-\infty}^{\infty} \sqrt{2n} \mathrm{d}u\, (\sqrt{2n} u)^3 e^{-u^2} \\
+                &= (2n)^2 \int_{-\infty}^{\infty} \mathrm{d}u\, u^3 e^{-u^2} = 0
+            \end{split}
+        \end{equation}
+        as the integrand is an odd function. Thus, the third-order correction vanishes exponentially. 
+    \end{enumerate}
+
+    \begin{remark}
+        In QFT, for example in $ \phi^4 $ theory, we can evaluate the expansion of the integral 
+        \begin{equation}
+            F(\lambda) = \int \mathrm{d}\phi\, e^{-\frac{1}{2} \phi^2 - \frac{\lambda}{4!} \phi^4}
+        \end{equation}
+        and pick out terms by order in $ \lambda $, which will correspond to Feynman diagrams with different numbers of vertices.
+    \end{remark}
+\end{solutionManual}
+
+% 
+\begin{exerciseManual}{1}
+    What are the two most interesting things you’ve learned thus far in your physics courses at U Waterloo, and why did they interest you?
+\end{exerciseManual}
+
+\begin{solutionManual}{1}
+    I am an exchange student having arrived just a few days ago in Canada, so I have not yet taken any physics courses at U Waterloo. However, I can share two interesting things from my home institution, National Taiwan University. My favorite courses were Electromagnetism, and Quantum Field Theory I and II. We had a professor working on string theory (Professor Pei-Ming Ho) teach the E\&M course, and his lectures were very engaging both mathematically and practically, as he told one nerdy joke every lecture. In QFT, I did a final project, with short paper and oral presentation, on percolation theory and its field theory description. This topic was very interesting to me, as it connected statistical mechanics, field theory, mathematics, and critical phenomena.
+\end{solutionManual}
+
+% 
+\newpage
+\begin{exerciseManual}{2}
+    If you could change one thing from your experience in physics at U Waterloo, what would it be?
+\end{exerciseManual}
+
+\begin{solutionManual}{2}
+    As mentioned above, I have only arrived here a short while ago, so I have no prior experience in physics at U Waterloo. However, I can give some thoughts on what I hope happens in physics at U Waterloo. I would like more discussion time in class, and in-class group problem solving, as I find physics is best learned through active engagement.
+\end{solutionManual}
+
+
+\end{CJK}
+\end{document}

@@ -1,0 +1,549 @@
+\chapter{The Blowup Method}
+
+% \lecture{7}{4 Jan. 10:30}{reading notes}
+
+\textbf{Main idea:} Introduce geometric desingularization of nonhyperbolic equilibrium
+points using the so-called blowup method.  
+
+\section{Basics}
+
+\begin{note}
+    There are two unrelated notions of "blow up" in mathematics. 
+    \begin{itemize}
+        \item Finite-time existence of solution in the context of ODEs/PDEs.
+        \item Geometric desingularization of nonhyperbolic equilibrium points using the so-called blowup method.
+    \end{itemize}
+\end{note}
+
+\textbf{Main idea:} Blowup is a geometric \emph{desingularization} tool for nonhyperbolic equilibria, where we "replace" a singular point by a manifold (e.g., a circle/sphere) so that the induced dynamics becomes partially or fully hyperbolic. 
+
+\begin{eg}[nonhyperbolic equilibrium points]
+    Consider a planar system
+    \begin{equation}
+        \begin{split}
+            \dot{z}_1 &= z_1^2 - 2 z_1 z_2 \coloneqq F_1 (z_1, z_2), \\
+            \dot{z}_2 &= z_2^2 - 2 z_1 z_2 \coloneqq F_2 (z_1, z_2).
+        \end{split}
+    \end{equation}
+    Let $ F(z_1, z_2) = \left(F_1 (z_1, z_2), F_2 (z_1, z_2 )\right) $. The origin $ (0,0) $ is a nonhyperbolic equilibrium point since the Jacobian matrix
+    \begin{equation}
+        \mathrm{D}F (0,0) =
+        \begin{pmatrix}
+            0 & 0 \\
+            0 & 0
+        \end{pmatrix}.
+    \end{equation}
+\end{eg}
+
+The simplest examples come from planar systems with nice analytical properties. Consider $ \dot{z} = F(z) $, with $ z \in \mathbb{R}^2 $, $ F \in C^{\infty} $, and $ F(0) = 0 $. 
+
+\begin{definition}[polar blowup]
+    Consider the polar coordinate transformation $ \phi : S^1 \times I \to \mathbb{R}^2 $ given by 
+    \begin{equation}
+        \phi (\theta, r) = (r \cos \theta, r \sin \theta),
+    \end{equation} 
+    where $ I $ is a possibly infinite interval in $ \mathbb{R} $ containing $ 0 $. The \emph{polar blowup} of the vector field $ F $ is the map $ \hat{F} $ given by 
+    \begin{equation}
+        \hat{F}(\theta , r) = \left(\mathrm{D}\phi^{-1}_{(\theta , r)} \circ F \circ \phi\right)(\theta , r)
+    \end{equation}
+    for $ r \neq 0 $ and extended continuously to $ r=0 $. $ \hat{F} $ is a vector field on the manifold $ S^1 \times I $.
+\end{definition}
+
+\begin{remark}
+     The polar coordinate change is not one-to-one at the origin. Therefore, we have to show that this is a good definition for $ r = 0 $.
+\end{remark}
+
+\begin{remark}
+    Since $ \phi $ is a diffeomorphism for $ r \neq 0 $, the vector fields $ F $ and $ \hat{F} $ are equivalent away from the origin, i.e. on $ S^1 \times (0, \infty) $. The idea is to study the dynamics of $ \hat{F} $ on the "blown-up" space $ S^1 \times I $, especially on the set $ r = 0 $, called the \emph{blowup sphere} or \emph{blowup circle} in this case.
+\end{remark}
+
+\begin{eg}[Finding $ \hat{F} $]
+    We have 
+    \begin{equation}
+        F \circ \phi (\theta , r) = 
+        \begin{pmatrix}
+            r^2 \cos^2 \theta - 2 r^2 \cos \theta \sin \theta \\
+            r^2 \sin^2 \theta - 2 r^2 \cos \theta \sin \theta
+        \end{pmatrix}, 
+    \end{equation}    
+    and 
+    \begin{equation}
+        \begin{split}
+            \hat{F} (\theta , r) &= 
+            \begin{pmatrix}
+                - \frac{\sin \theta}{r} & \frac{\cos \theta}{r} \\
+                \cos \theta & \sin \theta
+            \end{pmatrix}
+            \begin{pmatrix}
+                r^2 \cos^2 \theta - 2 r^2 \cos \theta \sin \theta \\
+                r^2 \sin^2 \theta - 2 r^2 \cos \theta \sin \theta
+            \end{pmatrix} \\
+            &= \begin{pmatrix}
+                3 r \sin \theta \cos \theta \left(\sin \theta - \cos \theta \right) \\
+                \frac{1}{4} r^2 \left(\cos \theta + 3 \cos(3 \theta) + \sin \theta - 3\sin (3\theta) \right)
+                \end{pmatrix}.
+        \end{split}
+    \end{equation}
+    Define 
+    \begin{equation}
+        \overline{F} = \frac{1}{r} \hat{F} = 
+        \begin{pmatrix}
+            3 \sin \theta \cos \theta \left(\sin \theta - \cos \theta \right) \\
+            \frac{1}{4} r \left(\cos \theta + 3 \cos(3 \theta) + \sin \theta - 3\sin (3\theta) \right)
+        \end{pmatrix}.
+    \end{equation}
+    The phase portrait now has six equilibrium points on the blowup circle $ r = 0 $, located at $ \theta = 0, \frac{\pi}{3}, \frac{2\pi}{3}, \pi, \frac{4\pi}{3}, \frac{5\pi}{3} $. All of them are hyperbolic saddles as we can verify: 
+    \begin{equation}
+        \mathrm{D}\overline{F} (\theta, 0) = \begin{pmatrix}
+            ? & 0 \\
+            0 & \frac{1}{4} \left(\cos \theta + 3 \cos(3 \theta) + \sin \theta - 3\sin (3\theta) \right)
+        \end{pmatrix}. 
+    \end{equation}
+    Then 
+    \begin{equation}
+        \begin{split}
+            \mathrm{D} \overline{F}_(0, 0) &=
+            \begin{pmatrix}
+                0 & 0 \\
+                0 & 1
+            \end{pmatrix}, \\ 
+            \mathrm{D} \overline{F}_{\frac{\pi}{2},0} &= 
+            \begin{pmatrix}
+                -3 & 0 \\
+                0 & 1
+            \end{pmatrix}, \\
+        \end{split}
+    \end{equation}
+
+    \begin{note}
+        Dividing by $ r $ will not change the qualitative structure of the phase portrait of $ \hat{F} $ away from $ r = 0 $. This is further pursued in Section 7.7.
+    \end{note}
+\end{eg}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/7.1.png}
+    \caption{Polar blownup at $ (0,0) $.}
+    \label{fig:blowup_phase_portrait}
+\end{figure}
+
+\begin{exercise}
+    Complete the phase portrait of $ \overline{F} $ on $ S^1 \times I $.
+\end{exercise}
+\begin{answer}
+    
+\end{answer}
+
+\textbf{Result:} All equilibrium points of new vector field are hyperbolic saddles. However, a single equilibrium is blown up to a full circle, which has six equilibrium points on it. 
+
+Algebraically, $ \hat{F} $ is the map that makes the diagram Fig~\ref{fig:phi-comm-diagram-1} induced by $ \phi $ commute. 
+\begin{figure}[h]
+    \centering
+    \[
+        \begin{tikzcd}[column sep=4.5em, row sep=3.5em]
+        T(S^{1}\times I) \arrow[r, "D\phi"] &
+        T\mathbb{R}^{2} \\
+        S^{1}\times I \arrow[u, dashed, "\hat{F}"'] \arrow[r, "\phi"'] &
+        \mathbb{R}^{2} \arrow[u, "F"']
+        \end{tikzcd}
+    \]
+    \caption{Commutative diagram relating $\phi$, $D\phi$, and their lifts}
+    \label{fig:phi-comm-diagram-1}
+\end{figure}
+
+\begin{definition}[\label{def:generalized_polar_blowup}generalized polar blowup]
+    Let $F$ be a smooth vector field on $\mathbb{R}^n$ with $F(0) = 0$. Consider the generalized polar coordinate transformation $ \phi : S^{n-1} \times I \to \mathbb{R}^n $ given by 
+    \begin{equation}
+        \phi (\overline{z}_1, \overline{z}_2, \dots \overline{z}_n, r) = (r \overline{z}_1, r \overline{z}_2, \dots r \overline{z}_n),
+    \end{equation}
+    where $ \sum_{i=1}^n \overline{z}_i^2 = 1 $, and $ I $ is a possibly infinite interval in $ \mathbb{R} $ containing $ 0 $. The (generalized) \emph{polar blowup} of the vector field $ F $ is the map $ \hat{F} $ given by
+    \begin{equation}
+        \hat{F} (\overline{z}_1, \overline{z}_2, \dots \overline{z}_n, r) = \left(\mathrm{D}\phi^{-1}_{(\overline{z}_1, \overline{z}_2, \dots \overline{z}_n, r)} \circ F \circ \phi\right)(\overline{z}_1, \overline{z}_2, \dots \overline{z}_n, r).
+    \end{equation}
+\end{definition}
+
+For example, the ambient coordinates could be explicitly parametrized as 
+\begin{equation}
+    \begin{split}
+        \overline{z}_1 &= \cos \theta_1, \\
+        \overline{z}_2 &= \sin \theta_1 \cos \theta_2, \\
+        \overline{z}_3 &= \sin \theta_1 \sin \theta_2 \cos \theta_3, \\
+        &\ \vdots \\
+        \overline{z}_{n-1} &= \sin \theta_1 \sin \theta_2 \cdots \sin \theta_{n-2} \cos \theta_{n-1}, \\
+        \overline{z}_n &= \sin \theta_1 \sin \theta_2 \cdots \sin \theta_{n-2} \sin \theta_{n-1},
+    \end{split}
+\end{equation}
+where $ \theta_i \in [0, \pi] $ for $ 1 \leq i \leq n-2 $ and $ \theta_{n-1} \in [0, 2\pi) $. In physics, this is known as the \emph{hyperspherical coordinates}.
+
+\begin{theorem}[well-definedness]
+    Let $ F $ be a smooth vector field on $ \mathbb{R}^n $ with $ F(0) = 0 $. Then the map $ \hat{F} $ in defnition \ref{def:generalized_polar_blowup} is a well-defined smooth vector field on $ S^{n-1} \times I $.
+\end{theorem}
+
+\begin{proof}
+    To show this, we first define two vector fields: 
+    \begin{equation}
+        R = \sum_{i=1}^n \overline{z}_i \frac{\partial}{\partial \overline{z}_i}, \quad \text{and} \quad T S^{n-1} = \left\{ v \in T \mathbb{R}^n : v \perp R \right\}. 
+    \end{equation}
+    Here $ R $ represents the \emph{radial} component and $ V_{ij} $ the \emph{rotational} components of the vector field $ F $.
+\end{proof}
+
+\begin{note}
+    ~
+
+    \begin{itemize}
+        \item Equation () gives an explicit way to calculate polar blowup.
+        \item Dividing it by $r^k$ with $k$ as large as possible appears to be useful to desingularize a vector field.
+    \end{itemize}
+\end{note}
+
+For the following discussion, it is useful to understand the definition of \emph{jets}. 
+
+\begin{note}
+    
+\end{note}
+
+
+\begin{eg}[When blowing up fails to yield hyperbolic points]
+    Consider the following system of ODEs: 
+    \begin{align}
+        \dot{z}_1 &= z_2 &= F_z (z_1, z_2), \\
+        \dot{z}_2 &= z_1^2 + z_1 z+2 &= F_2 (z_1, z_2),
+    \end{align}
+    with $ F(z_1, z_2) = \left(F_1 (z_1, z_2), F_2 (z_1, z_2) \right) $. We have $ F(0) = 0 $, and the Jacobian matrix at the origin is
+    \begin{equation}
+        \mathrm{D}F(0,0) = 
+        \begin{pmatrix}
+            0 & 1 \\
+            0 & 0
+        \end{pmatrix},
+    \end{equation}
+    which has a double zero eigenvalue. Thus, the origin is a nonhyperbolic equilibrium. We attempt a blow up at $ (0,0) $: 
+    \begin{equation}
+        \begin{split}
+            \hat{F} (\theta, r) &= \left(\mathrm{D}\phi^{-1}_{(\theta,r)} \circ F \circ \phi\right)(\theta,r) \\
+            &= \begin{pmatrix}
+                - \frac{\sin \theta}{r} & \frac{\cos \theta}{r} \\
+                \cos \theta & \sin \theta
+            \end{pmatrix}
+            \begin{pmatrix}
+                r \sin \theta \\
+                r^2 \cos^2 \theta + r^2 \cos \theta \sin \theta 
+            \end{pmatrix} \\
+            &= \begin{pmatrix}
+                r \cos^3 \theta + r \cos^2 \theta \sin \theta - \sin^2 \theta \\
+                r \cos \theta \sin \theta \left(1 + r\cos \theta + r \sin \theta \right)
+            \end{pmatrix}.
+        \end{split}
+    \end{equation} 
+
+    \begin{remark}
+        This is expected since $ \mathrm{D}F_{(0,0)} \neq 0 $ the zero matrix. Hence, the lowest order terms in the Taylor expansion of $ F $ at $ (0,0) $ are linear ($ j_1 (F) (0) \neq 0 $ ), and so $ \hat{F} = \overline{F} $. 
+    \end{remark}
+
+    The two singular points of $ \overline{F} $ on $ S^1 \times \{r=0\} $ are $ (\pi , 0) $ and $ (-\pi , 0) $. We calculate that 
+    \begin{equation}
+        \mathrm{D}\overline{F} (\theta, 0) =
+        \begin{pmatrix}
+            hi
+        \end{pmatrix}
+    \end{equation}
+    Therefore, 
+    \[
+        \mathrm{D} \overline{F}_(\pi , 0) = \begin{pmatrix}
+            0 & -1 \\ 0 & 0 
+        \end{pmatrix}.
+    \]
+    The two new equilibrium points are still not hyperbolic.
+\end{eg}
+
+The Figure 7.2 in the textbook shows the same dynamics rewritten on a space where $ (0,0) $ has been replaced by a circle of directions. It would be great if we could blowup again at the points $ (\pi , 0) $ and $ (-\pi , 0) $ and see what we get. 
+
+\begin{proposition}\label{prop:blowup_equiv}
+    Define
+    \[ T_1 \colon S^1 \times \left(-\tfrac12,\infty\right) \longrightarrow S^1 \times \left(\tfrac12,\infty\right), 
+    \qquad
+    T_1(\alpha,r) = (\alpha,r+1), 
+    \]
+    and
+    \[
+    \psi \colon \mathbb{R}^2 \to \mathbb{R}^2,
+    \qquad
+    \psi(z) = z - \frac{z}{\lVert z\rVert}.
+    \]
+    Then the diagram
+    \[
+    \begin{tikzcd}[row sep=3.5em, column sep=5.5em]
+    & \mathbb{R}^2 \\
+    \{ z : \lVert z\rVert > \tfrac12 \}
+    \arrow[ru, "\psi"]
+    &
+    S^1 \times \left(-\tfrac12,\infty\right)
+    \arrow[u, "\phi"']
+    \arrow[l, "\phi^{-1}\circ T_1"]
+    \end{tikzcd}
+    \]
+    is commutative, i.e.
+    \[
+    \psi \circ \phi^{-1} \circ T_1 = \phi.
+    \]
+    Furthermore, blowing up by $\phi$ and dividing by $r^k$ is equivalent to blowing up by $\psi$ and dividing by $(\lVert z\rVert - 1)^k$.
+\end{proposition}
+
+The next exercise asks us to prove Proposition~\ref{prop:blowup_equiv}.
+\begin{proof}
+    Write $ z = \lVert z \rVert \alpha $, where $ \alpha = \exp (i \operatorname{arg} z) \in S^1 $ is the phase. Then
+    \[
+        \psi (z) = z - \frac{z}{\lVert z \rVert} = (\lVert z \rVert - 1) \alpha
+    \]  
+    sends the radius $ \lVert z \rVert \mapsto \lVert z \rVert - 1 $. The blowup map $ \phi (\alpha , r) = r \alpha $ has an inverse given by
+    \[
+        \phi^{-1} (z) = \left( \frac{z}{\lVert z \rVert}, \lVert z \rVert \right).
+    \]
+    Then, we can easily check commutativity of the diagram:
+    \[
+        \psi \circ \phi^{-1} \circ T_1 (\alpha , r) = \psi \circ \phi^{-1} (\alpha , r + 1) = \psi ((r + 1) \alpha) = r \alpha = \phi (\alpha , r), 
+    \]
+    for all $ (\alpha , r) \in S^1 \times \left(-\tfrac12, \infty\right) $. Finally, the radius $ r $ in the $ \psi $-picture is $ \lVert z \rVert - 1 $, so dividing by $ r^k $ in the $ \phi $-picture is equivalent to dividing by $ (\lVert z \rVert - 1)^k $ in the $ \psi $-picture.
+\end{proof}
+
+After we pull back the vector field by $ \psi $ and desingularize, the new equilibrium points lie on the unit circle, since 
+\[
+    \psi (z) = 0 \iff z = \frac{z}{\lVert z \rVert} \iff \lVert z \rVert = 1.
+\] 
+
+\begin{note}[repeated blowups]
+    Now we can do repeated blowups in $ \mathbb{R}^2 $ at nonhyperbolic equilibrium points using $ \psi $: Let $ z_1 $ be an equilibrium point on the unit circle $ \{z \in \mathbb{R}^2 \mid \lVert z \rVert = 1 \} $ after the first blowup. Then blowup using $ T_{z_0} \circ \psi $, where $ T_{z_0}(z) = z+ z_0 $.
+\end{note}
+
+At the $ n $-th step we choose a point $ z_n $, which is typically an equilibrium point, and define the next blowup map $ \psi_n = T_{z_n} \circ \phi $ as a translate of $ \psi $. 
+
+\begin{eg}
+    Refer to Figure~\ref{fig:repeated}. There is a degenerate equilibrium at the origin. First blow up with $ \psi $ to get equilibrium points on the exceptional circle: $ \psi^{-1} (0) = \{z \mid \lVert z \rVert = 1 \} $. Then we shift the origin to $ (1,0) $ and blow up again with $ \psi_2 = T_{(1,0)} \circ \psi $. Now the preimage becomes $ \left(\phi_1 \circ \phi_2\right)^{-1} (0) $. The dashed lines represent the inner annulus of radius $ \frac{1}{2} $, and the solid lines represent the unit circle.
+\end{eg}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Figures/7.3.png}
+    \caption{Repeated blow-ups.}
+    \label{fig:repeated}
+\end{figure}
+
+\begin{notation}
+    Denote the sequences of blown-up and rescaled blown-up vector fields by $ \hat{F}_{[n]} $ and $ \overline{F}_{[n]} $, respectively, i.e.
+    \[
+    \hat{F}_{[n]} = \left(\mathrm{D}(\psi_1 \circ \cdots \circ \psi_n)^{-1} \circ F \circ (\psi_1 \circ \cdots \circ \psi_n)\right), \quad \overline{F}_{[n]} = \frac{1}{r^k} \hat{F}_{[n]}, \quad k \in \mathbb{N}.
+    \]
+\end{notation}
+
+\begin{proposition}
+Let $ \Gamma_n = (\psi_1 \circ \cdots \circ \psi_n)^{-1}(0) $. Then the following hold:
+\begin{enumerate}
+    \item[(R1)] There exists only one connected component of
+    $\mathbb{R}^2 \setminus \Gamma_n$ that is unbounded. Call it $A_n$.
+
+    \item[(R2)] $\partial A_n \subset \Gamma_n$ and $\partial A_n$ is homeomorphic to $S^1$.
+
+    \item[(R3)] $A_n$ consists of finitely many smooth arcs meeting transversally.
+
+    \item[(R4)] $(\psi_1 \circ \cdots \circ \psi_n)\rvert_{A_n}$ is an analytic diffeomorphism sending $A_n$ onto $\mathbb{R}^2 \setminus \{0\}$.
+
+    \item[(R5)] $\widehat{F}_{[n]}$ restricted to $A_n$ is analytically equivalent to
+    $F$ restricted to $\mathbb{R}^2 \setminus \{0\}$.
+
+    \item[(R6)] Up to rescaling by a positive function, the analytic equivalence on $A_n$ holds also for $\overline{F}_{[n]}$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{definition}[Lojasiewicz inequality]
+    A vector field $ F $ on $ \mathbb{R}^2 $ is said to satisfy a \emph{Lojasiewicz inequality} if there exist constants $ c > 0 $, $ k \in \mathbb{N} $, and a neighborhood $ U $ of the origin such that
+    \begin{equation}
+        \lVert F \rVert \geq c \lVert z \rVert^k, \quad \text{for all } z \in U. 
+    \end{equation}
+\end{definition}
+
+\begin{note}[Machine learning]
+    A special case of the Lojasiewicz inequality, called the \emph{Polyak inequality}, which is commonly used to prove linear convergence of gradient descent algorithms.
+    
+    \begin{definition}[Polyak inequality]
+        $f$ is a function of type $\mathbb{R}^d \to \mathbb{R}$, and has a continuous derivative $\nabla f$.
+
+        $X^\star$ is the subset of $\mathbb{R}^d$ on which $f$ achieves its global minimum (if one exists). Throughout this section we assume such a global minimum value $f^\star$ exists, unless otherwise stated. The optimization objective is to find some point $x \in X^\star$.
+
+        $\mu, L > 0$ are constants.
+
+        $\nabla f$ is $L$-Lipschitz continuous iff
+        \[
+        \|\nabla f(x) - \nabla f(y)\| \le L \|x - y\|, \qquad \forall x,y.
+        \]
+
+        $f$ is $\mu$-strongly convex iff
+        \[
+        f(y) \ge f(x) + \nabla f(x)^{T}(y-x) + \frac{\mu}{2}\|y-x\|^2,
+        \qquad \forall x,y.
+        \]
+
+        $f$ is $\mu$-PL (where ``PL'' means ``Polyak--{\L}ojasiewicz'') iff
+        \[
+        \frac{1}{2}\|\nabla f(x)\|^2 \ge \mu\bigl(f(x)-f(x^\star)\bigr),
+        \qquad \forall x.
+        \]
+    \end{definition}
+
+    Gradient descent is an important unconstrained optimization algorithm for minimizing the loss function in machine learning. The following theorem shows its convergence. 
+
+    \begin{theorem}[Linear convergence of gradient descent]
+        If $f$ is $\mu$-PL and $\nabla f$ is $L$-Lipschitz, then gradient descent with
+        constant step size $\eta$
+        \[
+        x_{k+1} = x_k - \eta \nabla f(x_k)
+        \]
+        converges linearly as
+        \[
+        f(x_k) - f(x^\star)
+        \le \bigl(1 - 2\mu\eta(1 - L\eta/2)\bigr)^k
+        \bigl(f(x_0) - f(x^\star)\bigr),
+        \qquad \eta \in (0, 2/L).
+        \]
+        The convergence is the fastest when $\eta = 1/L$, at which point
+        \[
+        f(x_k) - f(x^\star)
+        \le \bigl(1 - \mu/L\bigr)^k
+        \bigl(f(x_0) - f(x^\star)\bigr).
+        \]
+    \end{theorem}
+    \begin{proof}
+        Since $\nabla f$ is $L$-Lipschitz, we have the parabolic upper bound
+        \[
+        f(x_{k+1}) \le f(x_k)
+        + \langle \nabla f(x_k), x_{k+1} - x_k \rangle
+        + \frac{L}{2}\|x_{k+1} - x_k\|^2.
+        \]
+        Plugging in the gradient descent step,
+        \begin{align*}
+        f(x_{k+1}) - f(x_k)
+        &\le \langle \nabla f(x_k), -\eta \nabla f(x_k) \rangle
+        + \frac{L}{2}\| -\eta \nabla f(x_k)\|^2 \\
+        &= \left(\frac{L\eta^2}{2} - \eta\right)\|\nabla f(x_k)\|^2 \\
+        &\le 2\mu\left(\frac{L\eta^2}{2} - \eta\right)
+        \bigl(f(x_k) - f(x^\star)\bigr),
+        \end{align*}
+        where the last inequality uses the $\mu$-PL condition. Thus,
+        \[
+        f(x_k) - f(x^\star)
+        \le \bigl(1 - 2\mu\eta(1 - L\eta/2)\bigr)^k
+        \bigl(f(x_0) - f(x^\star)\bigr).
+        \]
+    \end{proof}
+\end{note}
+
+Analytic vector fields satisfy a Lojasiewicz inequality at an isolated equilibrium point.
+
+\begin{theorem}[Dum78, Dum93]
+If $F$ is a vector field on $\mathbb{R}^2$ that satisfies a \L ojasiewicz
+inequality, then there exists a finite sequence of blowups desingularizing $F$. Mainore precisely, there exists a sequence
+\[
+    \psi_1 \circ \cdots \circ \psi_n
+\]
+defining a rescaled blown-up vector field $\widehat{F}_{[n]}$ such that the
+equilibrium points of $\widehat{F}_{[n]}$ on $\partial A_n$ are either
+\begin{itemize}
+    \item hyperbolic or partially hyperbolic isolated equilibrium points $\bar z$, such that
+    \[
+    j_\infty\bigl(\widehat{F}_{[n]}\rvert_{W^c}\bigr)(\bar z) \neq 0,
+    \]
+    where $W^c$ is a center manifold for $\widehat{F}_{[n]}$ at $\bar z$, or
+
+    \item regular smooth closed curves with boundary along which $\widehat{F}_{[n]}$ is normally hyperbolic.
+\end{itemize}
+\end{theorem}
+
+\begin{definition}
+    The rescaled blown-up vector field $ \overline{F}_{[n]} $ in the above theorem is called the \emph{desingularization} of $ F $.
+\end{definition}
+
+% 2
+\section{}
+% 3
+\section{}
+% 4
+\section{}
+% 5
+\section{}
+% 6
+\section{}
+% 7
+\section{Remarks On Rescaling}
+
+\begin{note}
+After rescaling, trajectories follow the same curves but at different speeds; anything depending on time-of-flight is not preserved.
+\end{note}
+
+Multiplication transformation for desingularization:
+\[
+\dot r = r^{k}(\cdots), \qquad
+\dot\theta = r^{k}(\cdots)
+\;\;\longrightarrow\;\;
+\dot r = (\cdots), \qquad
+\dot\theta = (\cdots),
+\]
+or
+\[
+\dot x = x^{k}(\cdots), \qquad
+\dot y = x^{k}(\cdots)
+\;\;\longrightarrow\;\;
+\dot x = (\cdots), \qquad
+\dot y = (\cdots).
+\]
+
+
+\begin{eg}[van der Pol equation]
+    Consider the van der Pol equation (again)
+    \begin{equation}
+        \varepsilon \frac{dx}{d\tau} = \varepsilon \dot{x} = y - \frac{x^3}{3} + x,
+        \qquad
+        \frac{dy}{d\tau} = \dot{y} = -x.
+    \end{equation}
+    Setting $\varepsilon=0$ yields $C_0 = \{y = \tfrac{x^3}{3} - x\}$. Differentiating the algebraic constraint gives $\dot{y} = (x^2-1)\dot{x}$. Therefore, the slow subsystem can be written as
+    \begin{equation}
+        \dot{x} = \frac{x}{1-x^2}.
+    \end{equation}
+    Away from the two fold points at $x=\pm 1$, one expects that the ODE is related to the ODEs $\dot{x}=x$ or $\dot{x}=-x$ obtained from
+    multiplication by $\pm(1-x^2)$.
+\end{eg}
+
+
+\begin{theorem}[Chi10]
+    Let $J \subset \mathbb{R}$ be an interval with $0 \in J$ and suppose
+    $\gamma=\gamma(t)$ solves \eqref{7.50}. Then the function
+    $B \colon J \to \mathbb{R}$ defined by
+    \begin{equation}
+        B(t) := \int_0^t \frac{1}{G(\gamma(s))}\, ds
+    \tag{7.52}
+    \end{equation}
+    is invertible on its range $K \subset \mathbb{R}$. Let
+    $\beta \colon K \to J$ denote the inverse of $B$. Then
+    \[
+        \beta'(t) = G(\gamma(\beta(t))),
+    \]
+    holds for all $t \in K$. Furthermore, $\tilde{\gamma}(t) := \gamma(\beta(t))$
+    solves the above equation.
+\end{theorem}
+
+\begin{proof}
+    Note that $B'(t)=1/G(\gamma(t))$ is a continuous positive function. Hence,
+    $B(t)$ is invertible. For the inverse $\beta(t)$, one obtains
+    \[
+    \beta'(t)=\frac{1}{B'(\beta(t))}=G(\gamma(\beta(t))).
+    \]
+    To check the last statement involves another direct calculation:
+    \[
+    \tilde{\gamma}'(t)
+    = \beta'(t)\gamma'(\beta(t))
+    = G(\gamma(\beta(t)))F(\gamma(\beta(t)))
+    = G(\tilde{\gamma}(t))F(\tilde{\gamma}(t)).
+    \]
+\end{proof}
+
+\begin{remark}
+    It is usually not possible to find an explicit formula for the time rescaling we need.  
+\end{remark}

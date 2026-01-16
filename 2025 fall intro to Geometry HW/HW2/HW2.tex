@@ -1,0 +1,333 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem*{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+  \textbf{2025 Fall Introduction to Geometry} \\
+  \vspace{0.5cm}
+  \large 
+  Homework 2 (Due Sep 19, 2025)\\
+}
+\author{物理、數學三 黃紹凱 B12202004}
+\date{\today}
+
+\maketitle
+
+\begin{remark}[1]
+In the particular case of a plane curve $\alpha : I \to \mathbb{R}^2$, it is possible to give the curvature $k$ a sign. For that, let $\{e_1, e_2\}$ be the natural basis (see Sec.~1-4) of $\mathbb{R}^2$ and define the normal vector $n(s)$, $s \in I$, by requiring the basis $\{t(s), n(s)\}$ to have the same orientation as the basis $\{e_1, e_2\}$. The curvature $k$ is then \emph{defined} by
+\[
+    \frac{dt}{ds} = k n
+\]
+and might be either positive or negative. It is clear that $|k|$ agrees with the previous definition and that $k$ changes sign when we change either the orientation of $\alpha$ or the orientation of $\mathbb{R}^2$ (Fig.~1-16).
+\end{remark}
+
+
+% Problem 1
+\begin{problem}[Do Carmo 1.5.7]
+    Let $\alpha:I\to\mathbb{R}^2$ be a regular parametrized plane curve (arbitrary parameter), and define $n=n(t)$ and $k=k(t)$ as in Remark~1. Assume that $k(t)\neq 0$, $t\in I$. In this situation, the curve
+    \begin{equation}
+        \label{equ:evolute}
+        \beta(t)=\alpha(t)+\frac{1}{k(t)}\,n(t),\qquad t\in I,
+    \end{equation}
+    is called the \emph{evolute} of $\alpha$ (Fig.~1--17).
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Show that the tangent at $t$ of the evolute of $\alpha$ is the normal to $\alpha$ at $t$.
+        \item Consider the normal lines of $\alpha$ at two neighboring points $t_1,t_2$, $t_1\neq t_2$. Let $t_1$ approach $t_2$ and show that the intersection points of the normals converge to a point on the trace of the evolute of $\alpha$.
+    \end{enumerate}
+\end{problem}
+\begin{solution} 
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Let $ \beta $ be the evolute. By the chain rule, we have 
+        \begin{equation*}
+            n^{\prime} (t) = \frac{\mathrm{d}n}{\mathrm{d}s} \frac{\mathrm{d}s}{t} = -k(t) \frac{\alpha^{\prime} (t)}{\vert \alpha ^{\prime} (t) \vert} \vert \alpha^{\prime} (t) \vert = - k(t)\, \alpha^{\prime} (t).
+        \end{equation*}
+        By direct differentiation of $ \beta $, we get 
+        \begin{equation*}
+            \beta^{\prime} (t) = \alpha^{\prime} (t) + \frac{- k(t)^{2} \, \alpha^{\prime} (t) - n(t)\, k(t)}{k(t)^{2}} = - \frac{k^{\prime} (t)}{k(t)^{2}}n(t). 
+        \end{equation*}
+        Hence, the tangent at $ t $ of $ \beta $ is precisely $ n(t) $. 
+        \item Let the normal be given by $ n(t) = (a(t), b(t)) $, then $ a^{\prime} (t) \neq 0 $ or $ b^{\prime} (t) \neq 0 $ for all $ t $ since $ \alpha $ is regular. Take some $ t_{2} \in I $, assume without loss of generality that $ a^{\prime} (t_{2}) \neq 0 $. For $ t \in J = (t_2 - \delta, t_2 + \delta) $, we have 
+        \begin{equation*}
+            \vert a^{\prime} (t_2) \vert - \left\vert \frac{a_{t_2} - a_{t}}{t_2 - t} \right\vert \leq \left\vert a^{\prime} (t_2) \frac{a_{t_2} - a_{t}}{t_2 - t} \right\vert < \frac{1}{2} \vert a^{\prime} (t_2) \vert, 
+        \end{equation*}
+        and 
+        \begin{equation*}
+            \left\vert \frac{a(t_2) - a(t)}{t_2 - t} \right\vert > \frac{\vert a^{\prime} (t_2) \vert }{2} > 0, 
+        \end{equation*}
+        hence $ a(t) \neq a(t_2) $ for any $ t $ in a neighborhood of $ t_2 $. Therefore, if we fix $ t_1 \in J $, $ t_1 \neq t_2 $, then the normal lines $ N_1, N_2 $ of $ \alpha $ at $ t_1, t_2 $ will have a unique intersection. $ L_1, L_2 $ are well-defined given that $ n(t) \neq 0 $ for all $ t \in I $. Let $ h \in \mathbb{R}^{2} $ be the intersection point, then 
+        \begin{equation*}
+            h = \alpha (t_1) + p_1 n(t_1) = \alpha (t_2) + p_2 n(t_2),
+        \end{equation*}  
+        where $ p_1, p_2 \in I $ are constants. We shall show that as $ t_1 \to t_2 $, $ p_2 \to 1 / k (t_2) $. The area spanned by $ n(t_1) $ and $ \alpha (t_1) $ is 
+        \begin{equation*}
+            \operatorname{det} (\alpha (t_1), n(t_1)) = \operatorname{det} (\alpha (t_2), n(t_1)) + p_1\operatorname{det} (n (t_2), n(t_1)),
+        \end{equation*}
+        then 
+        \begin{equation*}
+            p_2 = \frac{\operatorname{det}(\alpha (t_1) - \alpha (t_2), \; n(t_1))}{\operatorname{det}(n (t_2) , \; n(t_1)) }. 
+        \end{equation*}
+        Taking the limit $ t_1 \to t_2 $ gives, by L'Hôpital's rule,
+        \begin{equation*}
+            \begin{split}
+                \lim_{t_1 \to t_2} p_2 &= \frac{\operatorname{det}(\alpha^{\prime} (t_2), n(t_2))}{\operatorname{det}(n(t_2), n^{\prime} (t_2))} = \frac{1}{k(t_2)} \\
+                &= \lim_{t_1 \to t_2} \frac{\operatorname{det}(\alpha^{\prime} (t_1), \; n(t_1)) - \operatorname{det} (\alpha (t_1) - \alpha (t_2), \; -k(t_1) \, \alpha^{\prime} (t_1))}{\operatorname{det}(n(t_2), - k(t_1)\, \alpha^{\prime} (t_1))} \\
+                &= \lim_{t_1 \to t_2} \frac{\vert \alpha^{\prime} (t_1) \vert }{k(t_1) \, \vert  \vert } + \lim_{t_1 \to t_2} \frac{\operatorname{det}(k(t_1) \, \alpha^{\prime} (t_1), \; \alpha(t_1) - \alpha (t_2))}{k(t_1) \, \vert \alpha^{\prime} (t_1) \vert } \\
+                &= \frac{1}{k(t_2)}. 
+            \end{split}
+        \end{equation*}
+        Therefore, 
+        \begin{equation*}
+            \lim_{t_1 \to t_2} h = \alpha (t_2) + \frac{1}{k(t_2)} n(t_2) = \beta (t_2), 
+        \end{equation*}
+        which is a point on the evolute of $ \alpha $.
+    \end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 2
+\begin{problem}[Do Carmo 1.5.8]
+    The trace of the parametrized curve (arbitrary parameter)
+    \begin{equation}
+        \alpha(t)=(t,\cosh t),\qquad t\in\mathbb{R},
+    \end{equation}
+    is called the \emph{catenary}.
+    \begin{enumerate}[label=\textbf{\alph*.}]
+    \item Show that the signed curvature (cf.\ Remark~1) of the catenary is
+    \begin{equation}
+        k(t) = \frac{1}{\cosh^2 t}.
+    \end{equation}
+    \item Show that the evolute (cf.\ Exercise~7) of the catenary is
+    \begin{equation}
+        \beta(t)=\bigl(t-\sinh t\,\cosh t,\; 2\cosh t\bigr).
+    \end{equation}
+    \end{enumerate}
+\end{problem}
+\begin{solution}
+    ~
+
+    To keep the notation unambiguous, we will denote the (unit) tangent vector by $T$. Recall that $ n(t) = T^{\prime} (t) / \vert T^{\prime} (t) \vert $, by remark 1, the signed curvature is given by
+    \begin{equation}
+        k(t) \, n(t) = \frac{dT}{ds} = \frac{dT/dt}{ds/dt} = \frac{T'(t)}{|\alpha'(t)|}.
+    \end{equation}
+    Plugging in the expression for $ n(t) $ simplifies it to 
+    \begin{equation}
+        \label{equ:curvature}
+        k(t) = \frac{|T'(t)|}{|\alpha'(t)|}.
+    \end{equation}
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item We have $ \alpha^{\prime} (t) = (1, \sinh t) $, $ |\alpha^{\prime} (t)| = \sqrt{1+\sinh^2 t} = \cosh t $. Then $ T(t) = \alpha^{\prime} (t) / \vert \alpha^{\prime} (t) \vert = \operatorname{sech} t (1, \sinh t) $ and 
+        \begin{equation*}
+            T^{\prime} (t) = \operatorname{sech}^{2} t \left(- \sinh t, 1\right), 
+        \end{equation*}
+        \begin{equation*}
+            \vert T^{\prime} (t) \vert = \operatorname{sech}^{2} t \sqrt{\sinh^2 t + 1} = \operatorname{sech} t,
+        \end{equation*}
+        By equation \eqref{equ:curvature}, we have
+        \begin{equation}
+            k(t) = \frac{\operatorname{sech} t}{\cosh t} = \operatorname{sech}^2 t = \frac{1}{\cosh^2 t}.
+        \end{equation}
+        \item By definition in Exercise 7, the evolute is given by
+        \begin{equation}
+            \begin{split}
+                \beta(t) &= \alpha(t) + \frac{1}{k(t)} n(t) \\
+                &= (t, \cosh t) + \cosh^2 t \, \operatorname{sech} t (-\sinh t, 1) \\
+                &= (t - \sinh t \cosh t, 2 \cosh t).
+            \end{split}
+        \end{equation}
+    \end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 3
+\begin{problem}[Do Carmo 1.5.9]
+    Given a differentiable function $k(s)$, $s\in I$, show that the parametrized plane curve having $k(s)=k$ as curvature is given by
+    \begin{equation}
+        \alpha(s)=\left(\int \mathrm{d}s \, \cos\theta(s)+a,\;\int \mathrm{d}s \,\sin\theta(s)+b\right),
+    \end{equation}
+    where
+    \begin{equation}
+        \theta(s)=\int \mathrm{d}s \, k(s) +\varphi,
+    \end{equation}
+    and that the curve is determined up to a translation of the vector $(a,b)$ and a rotation of the angle $\varphi$.
+\end{problem}
+\begin{solution}
+    Let $ \alpha (s) $ be as given, we have 
+    \begin{equation}
+        \alpha'(s) = \left( \cos \theta(s), \sin \theta(s) \right) = \left( \cos \left( \int k(s)\,ds+\varphi \right), \sin \left( \int k(s)\,ds+\varphi \right) \right), 
+    \end{equation}
+    and
+    \begin{equation}
+        \alpha^{\prime \prime} (s) = k(s) \left( -\sin \theta(s), \cos \theta(s) \right),
+    \end{equation}
+    hence $ \vert \alpha^{\prime \prime} (s) \vert = k(s) $. By the definition of translation, the curve is determined up to a translation of the vector $ (a,b) $, so suppose $ a = b = 0 $. Now suppose we rotate the curve by an angle $ \varphi $ counterclockwise, then the new curve $ \tilde{\alpha} (s) $ is given by
+    \begin{equation*}
+        \begin{split}
+            \tilde{\alpha} (s) &= \begin{pmatrix}
+            \cos \varphi & -\sin \varphi \\
+            \sin \varphi & \cos \varphi
+            \end{pmatrix} \alpha (s) \\
+            &= \begin{pmatrix}
+                \cos \varphi \int \mathrm{d}s\, \cos \theta (s) -\sin \varphi \int \mathrm{d}s\, \sin \theta (s) \\
+                \sin \varphi \int \mathrm{d}s\, \cos \theta (s) + \cos \varphi \int \mathrm{d}s\, \sin \theta (s)
+            \end{pmatrix} \\ 
+            &= \begin{pmatrix}
+                \int \mathrm{d}s\, \cos (\theta (s) + \varphi) \\
+                \int \mathrm{d}s\, \sin (\theta (s) + \varphi)
+            \end{pmatrix}.
+        \end{split}
+    \end{equation*}
+    Thus, the curve is determined up to an arbitrary rotation of the angle $ \varphi $.
+
+    \begin{remark}
+        This exercises shows how to construct a curve with any given curvature functions $ k(s) $, up to a translation and rotation. This is a special case of the \textbf{Fundamental Theorem of the Local Theory of Curves}.
+    \end{remark}
+\end{solution}
+
+\medskip
+
+% Problem 4
+\begin{problem}[Do Carmo 1.5.11]
+    One often gives a plane curve in polar coordinates by $\rho=\rho(\theta)$, $a\leq \theta \leq b$.
+    \begin{enumerate}[label=\textbf{\alph*.}]
+    \item Show that the arc length is
+    \begin{equation}
+         \int_a^b \mathrm{d}\theta \, \sqrt{\rho^2+(\rho')^2},
+    \end{equation}
+    where the prime denotes the derivative relative to $\theta$.
+    \item Show that the curvature is
+    \begin{equation}
+        k(\theta)=\frac{2(\rho')^2-\rho\rho''+\rho^2}{\bigl((\rho')^2+\rho^2\bigr)^{3/2}}.
+    \end{equation}
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    ~ 
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Calculate the curve vector in Cartesian coordinates:
+        \begin{equation*}
+            \alpha(\theta) = (\rho(\theta) \cos \theta, \; \rho(\theta) \sin \theta),
+        \end{equation*}
+        Then 
+        \begin{equation*}
+            \alpha'(\theta) = (\rho'(\theta) \cos \theta - \rho(\theta) \sin \theta, \; \rho'(\theta) \sin \theta + \rho(\theta) \cos \theta),
+        \end{equation*}
+        and computing the norm gives
+        \begin{equation*}
+            \vert \alpha^{\prime} (\theta) \vert = \sqrt{(\rho'(\theta))^2 + \rho^2(\theta)}. 
+        \end{equation*}
+        The arclength is defined to be  
+        \begin{equation}
+            s(a,b) = \int_a^b \mathrm{d}\theta \, |\alpha'(\theta)| = \int_a^b \mathrm{d}\theta \, \sqrt{\rho^2 + (\rho')^2} .
+        \end{equation}
+        \item The unit tangent is 
+        \begin{equation*}
+            T(\theta) = \frac{\alpha'(\theta)}{|\alpha'(\theta)|} = \frac{1}{\sqrt{(\rho')^2 + \rho^2}} (\rho'(\theta) \cos \theta - \rho(\theta) \sin \theta, \; \rho'(\theta) \sin \theta + \rho(\theta) \cos \theta).
+        \end{equation*}
+        Then we calculate $ T'(\theta) $ and its magnitude, where prime denotes derivative with respect to $ \theta $. After some cumbersome algebra, we get 
+        \begin{equation*}
+            T'(\theta) = \frac{1}{((\rho')^2 + \rho^2)^{3/2}} \left( (2(\rho')^2 - \rho \rho'' + \rho^2) (-\sin \theta, \; \cos \theta) \right),
+        \end{equation*}
+        By equation \eqref{equ:curvature}, we have
+        \begin{equation}
+            k(\theta) = \frac{|T'(\theta)|}{|\alpha'(\theta)|} = \frac{2(\rho')^2 - \rho \rho'' + \rho^2}{((\rho')^2 + \rho^2)^{3/2}}.
+        \end{equation}
+    \end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 5
+\begin{problem}[Do Carmo 1.5.14]
+    Let $\alpha:(a,b)\to\mathbb{R}^2$ be a regular parametrized plane curve. Assume that there exists $t_0$, $a<t_0<b$, such that the distance $\lvert \alpha(t)\rvert$ from the origin to the trace of $\alpha$ will be a maximum at $t_0$. Prove that the curvature $k$ of $\alpha$ at $t_0$ satisfies
+    \begin{equation*}
+        \lvert k(t_0)\rvert \geq \frac{1}{\lvert \alpha(t_0)\rvert}.
+    \end{equation*}
+\end{problem}
+\begin{solution}
+    Notice that $ f(t) = \vert \alpha (t) \vert $ is nonnegative, so $ f^{2}(t) = \alpha (t) \cdot \alpha (t) $ also attains a maximum at $ t_0 $. Then
+    \begin{equation*}
+        \frac{d}{dt} f^{2} (t) \Big|_{t=t_0} = 2 \alpha(t_0) \cdot \alpha^{\prime} (t_0) = 0,
+    \end{equation*}
+    differentiating again gives
+    \begin{equation*}
+        \frac{d^2}{dt^2} f^{2} (t) \Big|_{t=t_0} =  \alpha^{\prime} (t_0) \cdot \alpha^{\prime} (t_0) + \alpha(t_0) \cdot \alpha^{\prime\prime} (t_0) \leq 0,
+    \end{equation*}
+    since $ f(t) $ attains a maximum at $ t_0 $. We also have $ \alpha^{\prime} (t_0) \cdot \alpha^{\prime} (t_0) = 1 $ since it is a parametrization by arclength, and $ \alpha^{\prime\prime} (t_0) = k(t_0) n(t_0) $. Then let $ \theta $ be the angle between $ \alpha(t_0) $ and $ \alpha^{\prime\prime} $, we have
+    \begin{equation*}
+        k(t_0) n(t_0) \alpha(t_0) = \vert k(t_0) \vert \vert n(t_0) \vert \vert \alpha(t_0) \vert \cos \theta \leq -1.
+    \end{equation*}
+    Notice that $ \vert n(t_0) \vert = 1 $ and $ \cos \theta < 0 $, we have
+    \begin{equation*}
+        k(t_0) \geq \frac{1}{\vert \alpha(t_0) \cos \theta \vert} \geq \frac{1}{\vert \alpha (t_0) \vert }.
+    \end{equation*} 
+\end{solution}
+
+\end{CJK}
+\end{document}

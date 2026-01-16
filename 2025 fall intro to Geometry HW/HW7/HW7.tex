@@ -1,0 +1,232 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+  \textbf{2025 Fall Introduction to Geometry} \\
+  \vspace{0.5cm}
+  \large 
+  Homework 7 (Due Nov 7, 2025)\\
+}
+\author{物理、數學三 黃紹凱 B12202004}
+
+\maketitle
+
+% Exercise 1
+\begin{exercise}[Do Carmo 3.2.2]
+    Show that if a surface is tangent to a plane along a curve, then the points of this curve are either parabolic or planar.
+\end{exercise}
+
+\begin{solution}
+    Suppose a surface $S$ is tangent to a plane $\Pi$ along a curve $C$. Let $p \in C$ be an arbitrary point on the curve. Parametrize the curve $C$ by $\alpha: I \to S \cap \Pi$, where $I$ is an open interval containing $0$ and $\alpha(0) = p$. Let $ N: S \to S^2 $ be the Gauss map of $ S $. Since the tangent plane of $ S $ is $ \Pi $ for all $ p \in S $, the unit normal $ N(\alpha (s)) $ is equal to the constant normal $ n $ of $ \Pi $. Thus, 
+    \[
+        0 = \frac{\mathrm{d}}{\mathrm{d}s} N(\alpha (s)) = \mathrm{d} N_{\alpha (s)}(\alpha'(s)).
+    \]
+    Therefore, the differential of the Gauss map $ \bvec{d}N_p $ has a nontrivial kernel containing $ \alpha'(0) \neq 0 $ for all $ \alpha(s) \in S $. But $ \bvec{d}N_p: T_p(S) \to T_{N(p)}(S^2) $ is a linear map between finite-dimensional vector spaces, $ \mathrm{d}N_p $ is not invertible, and hence $ \det \left(\mathrm{d}N_p\right) \neq 0 $ for all $ p \in C $. Thus, all points on $ C $ are either parabolic or planar.
+\end{solution}
+
+% Exercise 2
+\begin{exercise}[Do Carmo 3.2.8]
+    Describe the region of the unit sphere covered by the image of the Gauss map of the following surfaces:
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Paraboloid of revolution $z = x^2 + y^2$.
+        \item Hyperboloid of revolution $x^2 + y^2 - z^2 = 1$.
+        \item Catenoid $x^2 + y^2 = \cosh^2 z$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    Let's take the natural orientation: upward normal for graphs and outward normal for surfaces of revolution. 
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Let the graph be $ z = f(x,y) = x^2 + y^2 $, then the normal to the surface is 
+        \[
+            N = \frac{(-f_x, -f_y, 1)}{\sqrt{f_x^2 + f_y^2 + 1}},
+        \]
+        where $ f_x = 2x $, $ f_y = 2y $. Since $ (x,y) \in \mathbb{R}^2 $ and the z component $ N^z = 1 / \sqrt{1 + 4(x^2 + y^2)} \in (0,1] $, the Gauss map is the open upper hemisphere of the unit sphere.
+        \item As a level set $ F(x,y,z) = x^2 + y^2 - z^2 - 1 $, the (outward) normal vector is
+        \[
+            N = \frac{\nabla F}{|\nabla F|} = \frac{(2x, 2y, -2z)}{\sqrt{4x^2 + 4y^2 + 4z^2}} = \frac{(x,y,-z)}{\sqrt{x^2 + y^2 + z^2}}.
+        \]
+        Since $ x^2 + y^2 = z^2 + 1 \geq 1 $, the z component
+        \[
+            N^z = - \frac{z}{\sqrt{x^2 + y^2 + z^2}} = - \frac{z}{\sqrt{2z^2 + 1}} \in \left(-\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}\right).
+        \]
+        Thus, the Gauss map covers the open band $ \{p \in S^2 \mid \vert N^z \vert < \frac{1}{\sqrt{2}} \} $. 
+        \item Let's write this in the following parametrization: 
+        \[
+            \bvec{x}(z, \theta) = (\cosh z \cos \theta, \cosh z \sin \theta, z), \quad z \in \mathbb{R}, \theta \in [0, 2\pi).
+        \]
+        Then, 
+        \[
+            \bvec{x}_z = (\sinh z \cos \theta, \sinh z \sin \theta, 1), \quad \bvec{x}_\theta = (-\cosh z \sin \theta, \cosh z \cos \theta, 0).
+        \]
+        The normal vector is given by
+        \[
+            N = \frac{\bvec{x}_z \times \bvec{x}_\theta}{|\bvec{x}_z \times \bvec{x}_\theta|} = \frac{(-\cosh z \cos \theta, -\cosh z \sin \theta, \sinh z \cosh z)}{\sqrt{\cosh^2 z + \sinh^2 z \cosh^2 z}} = \frac{(-\cos \theta, -\sin \theta, \sinh z)}{\sqrt{1 + \sinh^2 z}}.
+        \]
+        \[
+            \Longrightarrow\; N = (-\operatorname{sech} z \cos \theta, -\operatorname{sech} z \sin \theta, \tanh z).
+        \]
+        Since $ \theta \in [0, 2\pi) $ and $ N^z = - \tanh z \in (-1,1) $, the spherical image $N(C) = S^2 \setminus \{(0,0,\pm 1)\} $.
+    \end{enumerate}
+\end{solution}
+
+% Exercise 3
+\begin{exercise}[Do Carmo 3.2.9]
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Prove that the image $N \circ \alpha$ by the Gauss map $N: S \to S^2$ of a parametrized regular curve $\alpha: I \to S$ which contains no planar or parabolic points is a parametrized regular curve on the sphere $S^2$ (called the \emph{spherical image} of $\alpha$).
+        \item If $C = \alpha(I)$ is a line of curvature, and $k$ is its curvature at $p$, then
+        \[
+            k = |k_n k_N|,
+        \]
+        where $k_n$ is the normal curvature at $p$ along the tangent line of $C$ and $k_N$ is the curvature of the spherical image $N(C) \subset S^2$ at $N(p)$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+    
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Suppose $ \alpha: I \to S $ is a parametrized regular curve with no planar or parabolic points. Then, the Gauss map $ N: S \to S^2 $ satisfies $ \det \left(\mathrm{d}N_p\right) \neq 0 $, and $ \mathrm{d}N_p $ is invertible, and hence injective for all $ p \in C $. Since $ \alpha $ is a regular curve, $ \alpha^{\prime} (t) \neq 0 $ for all $ t \in I $, and hence
+        \[
+            (N \circ \alpha)'(t) = \mathrm{d}N_{\alpha(t)}(\alpha'(t)) \neq 0,
+        \]
+        which shows that the spherical image $N(C)$ is a regular curve on $S^2$.
+        \item Since $ C $ is a line of curvature, the tangent vector $ t = \alpha' (s) $ at $ p = \alpha(s) $ is a principal direction. Hence, $ \mathcal{S} (t) = k_n t $ where $ k_n $ is the normal curvature along $ t $ at $ p $. Let $ N : S \to S^2 $ be the Gauss map of $ S $. Using $ \mathrm{d}N = - \mathcal{S} (t) $, we have
+        \[
+            \frac{\mathrm{d}}{\mathrm{d}s} N (\alpha (s)) = \mathrm{d}N_{\alpha(s)}(\alpha'(s)) = - \mathcal{S} (t) = - k_n t.
+        \]
+        Thus, $ \vert N^{\prime} \vert = \vert k_n \vert $, and the tangent vector of the spherical image $ N(C) $ at $ N(p) $ is
+        \[
+            t_N = \frac{N^{\prime}}{|N^{\prime}|} = \frac{- k_n t}{|k_n|} = - \operatorname{sgn} (k_n) t.
+        \]
+        Let $ s_N $ be the arc length parameter of the spherical image $ N(C) $. Then,
+        \[
+            \vert k_N \vert = \left\vert \frac{\mathrm{d} t_N}{\mathrm{d} s_N} \right\vert = \frac{\vert \mathrm{d} t_N / \mathrm{d} s \vert}{\vert \mathrm{d} s_N / \mathrm{d} s \vert} = \frac{\mathrm{d} t_N / \mathrm{d} s}{|N^{\prime}|} = \frac{k}{|k_n|},
+        \]
+        where we used $ t^{\prime} = kn $ in the last equality. Therefore, $ k = |k_n k_N| $.
+    \end{enumerate}
+\end{solution}
+
+% Exercise 4
+\begin{exercise}[Do Carmo 3.2.10]
+    Assume that the osculating plane of a line of curvature $C \subset S$, which is nowhere tangent to an asymptotic direction, makes a constant angle with the tangent plane of $S$ along $C$. Prove that $C$ is a plane curve.
+\end{exercise}
+
+\begin{solution}
+    Let $ t $, $ n $, $ b $ be the Frenet frame of the curve $ C $. Since the osculating plane makes a constant angle with the tangent plane of $ S $, the unit normal $ N $ of $ S $ along $ C $ satisfies 
+    \[
+        b \cdot N = \text{const.}
+    \]  
+    Differentiate both sides with respect to the arc length parameter $ s $ of $ C $ and use Frenet's formula:
+    \[
+        b^{\prime} \cdot N + b \cdot N^{\prime} = 0 \;\Longrightarrow\; -\tau n \cdot N + b \cdot N^{\prime} = 0.
+    \] 
+    Next, $ N^{\prime} = - \mathcal{S} (t) $ by the Weingarten formula, where $ \mathcal{S} $ is the shape operator of $ S $. Since $ C $ is a line of curvature, $ t $ is a principal direction of $ S $, and $ \mathcal{S} (t) = k_n t $, where $ k_n $ is the normal curvature of $ S $ along $ C $. Thus, 
+    \[
+        -\tau n \cdot N - k_n b \cdot t = -\tau k_n / k = 0, 
+    \]
+    where $ k $ is the curvature of $ C $.  Since $ C $ is nowhere tangent to an asymptotic direction, $ k_n \neq 0 $, so $ \tau = 0 $. This implies $ b^{\prime} = - \tau n = 0 $, so 
+    \[
+        \frac{\mathrm{d}}{\mathrm{d}s} (b \cdot c) = c b^{\prime} = 0 \;\Longrightarrow\; b = \text{const.}
+    \] 
+    and hence $ C $ is a plane curve. 
+\end{solution}
+
+% Exercise 5
+\begin{exercise}[\textbf{*}Do Carmo 3.2.14]
+    If the surface $S_1$ intersects the surface $S_2$ along the regular curve $C$, then the curvature $k$ of $C$ at $p \in C$ is given by
+    \[
+    k^2 \sin^2 \theta = \lambda_1^2 + \lambda_2^2 - 2 \lambda_1 \lambda_2 \cos \theta,
+    \]
+    where $\lambda_1$ and $\lambda_2$ are the normal curvatures at $p$, along the tangent line to $C$, of $S_1$ and $S_2$, respectively, and $\theta$ is the angle made up by the normal vectors of $S_1$ and $S_2$ at $p$.
+\end{exercise}
+
+\begin{solution}
+    Suppose $ S_1 $ and $ S_2 $ intersect along the regular curve $ C $. Let $ N_1 $, $ N_2 $ be the unit normals and let $ \lambda_1 $, $ \lambda_2 $ be the normal curvatures along the tangent line to $ C $ of $ S_1 $ and $ S_2 $, respectively. Let $ t $, $ n $, $ b $ be the Frenet frame of the curve $ C $. Since $ C $ lies on $ S_1 $ and $ S_2 $, $ t \perp N_i $, $ i = 1,2 $. Thus, we can write $ N_i = n \cos \phi_i + b \sin \phi_i $ for some $ \phi_i \in [0, \frac{\pi}{2}] $, $ i = 1, 2 $. The normal curvatures are given by
+    \[
+        \lambda_i = \alpha^{\prime\prime} \cdot N_i = k n \cdot N_i = k \cos \phi_i, \quad i = 1, 2.
+    \]
+    By definition, the angle $ \theta $ between $ N_1 $ and $ N_2 $ satisfies
+    \[
+        \cos \theta = N_1 \cdot N_2 = \cos \phi_1 \cos \phi_2 + \sin \phi_1 \sin \phi_2 = \cos (\phi_1 - \phi_2).
+    \] 
+    By direct computation, we have 
+    \begin{align*}
+        \lambda_1^2 + \lambda_2^2 - 2 \lambda_1 \lambda_2 \cos \theta &= k^2 (\cos^2 \phi_1 + \cos^2 \phi_2 - 2 \cos \phi_1 \cos \phi_2 \cos (\phi_1 - \phi_2)) \\
+        &= k^2 \left( \cos^2 \phi_1 + \cos^2 \phi_2 - 2 \cos \phi_1 \cos \phi_2 ( \cos \phi_1 \cos \phi_2 + \sin \phi_1 \sin \phi_2) \right) \\
+        &= k^2 \left(\cos^2 \phi_1 + \cos^2 \phi_2 - \cos^2 \phi_1 (1-\sin^2 \phi_2) \right. \\ 
+        &\quad \left. - \cos^2 \phi_2 (1-\sin^2 \phi_1) - 2 \sin \phi_1 \sin \phi_2 \cos \phi_1 \cos \phi_2 \right)\\
+        &= k^2 \left(\sin^2 \phi_1 \cos^2 \phi_2 + \sin^2 \phi_2 \cos^2 \phi_1 - 2 \sin \phi_1 \sin \phi_2 \cos \phi_1 \cos \phi_2 \right) \\
+        &= k^2 \sin^2 (\phi_1 - \phi_2) = k^2 \sin^2 \theta.
+    \end{align*}
+\end{solution}
+
+\end{CJK}
+\end{document}

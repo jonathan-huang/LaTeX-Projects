@@ -1,0 +1,80 @@
+\documentclass{article}
+\input{header.tex}
+
+\begin{document}
+
+\begin{CJK}{UTF8}{bkai} % Mandarin
+\pagestyle{fancy}
+\rhead{2025 QIC Written Report}
+\lhead{QRAM: Its Architectures and Applications}
+\cfoot{\thepage}
+
+\Large
+\begin{center}
+    Quantum Information and Computing Final Project \\
+    Quantum Random Access Memory (QRAM): Its Architectures and Applications \\ 
+    
+    \vspace{4em}
+    
+    % Author names and affiliations
+    \large
+    黃紹凱（B12202004）$^1$、陳昱綸（B12901107）$^2$、劉育成（B11901182）$^3$
+    
+    \vspace{3em}
+    
+    \small  
+    $^1$) Department of Physics, National Taiwan University\\
+    $^2$, $^3$) Department of Electrical Engineering, National Taiwan University\\
+    
+    \vspace{3em}
+    
+    Here we present an overview of the various architectures, physical implementations, and recent research progress on quantum random access memory (QRAM). Also, we will demonstrate the famous Grover's unstructured search algorithm on Qiskit, using two different types of QRAM schemes: bucket brigade and flip-flop QRAM. Our result fits the theory very well, and the simulation exhibits great searching ability.
+    
+    \vspace{1em}
+     
+    The YouTube link to our final presentation video is \href{https://www.youtube.com/watch?v=7m-PsVA49BA}{here}, and detailed task distribution of speakers is in section \ref{sec:AI}. Also, the Google Drive link to our video presentation is \href{https://drive.google.com/drive/u/0/folders/1LP-L7g8INZSMGbMS9pSj1a7_TrC7T80F}{here}.
+    
+    \vspace{1em}
+    
+    Our \href{https://github.com/AndersenJohn/QIC_final}{GitHub Repository}  includes files of our main reference materials, written report, and a rough outline of the final project.
+\end{center}
+\normalsize
+
+\end{CJK} % End Mandarin
+
+\newpage
+
+%
+\section{Introduction to Quantum RAM (QRAM)}
+\input{sections/1 introduction}
+\newpage
+
+%
+\section{\label{sec:arch}Comparison of QRAM Architectures}
+\input{sections/2 architecture}
+\newpage
+
+%
+\section{Error Analysis}
+\input{sections/3 error_analysis}
+\newpage
+
+%
+\section{Application of QRAM}
+\input{sections/4 applications}
+\newpage 
+
+%
+\section{Conclusion and Future Work}
+\input{sections/5 conclusion}
+
+%
+\section{\label{sec:AI}Additional Information}
+\input{sections/6 additional info}
+
+%
+\vspace{3em}
+\hrulefill 
+\printbibliography
+
+\end{document}

@@ -1,0 +1,128 @@
+\usepackage{scrextend}
+\usepackage{geometry}
+ \geometry{
+	 a4paper,
+ 	total={170mm,257mm},
+ 	left=20mm,
+	 top=20mm,
+ }
+
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem} %enumerate with letters
+\usepackage[normalem]{ulem}
+\usepackage{indentfirst}
+\usepackage{pifont}
+\usepackage{fancyhdr}   % 頁首頁尾
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+
+% \usepackage{xeCJK}      % 中文
+% \setCJKmainfont{AR PL KaitiM Big5}
+% \setCJKsansfont{AR PL KaitiM Big5}
+% \setCJKmonofont{AR PL KaitiM Big5}
+% \defaultCJKfontfeatures{AutoFakeBold=3,AutoFakeSlant=.4}
+% \newCJKfontfamily\Kai{標楷體}
+% The above is for XeLaTeX
+\usepackage{CJKutf8}
+% bkai = 標楷體
+% bsmi = 新細明體
+% To call, use 
+% \begin{CJK}{UTF8}{bkai} \end{CJK}
+% \begin{CJK}{UTF8}{bsmi} \end{CJK}
+
+\usepackage{graphicx} % Required for inserting images
+
+% paragraph
+%\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{2em}
+%
+\usepackage{lmodern,bm}                
+\usepackage[T1]{sansmath} 
+\SetMathAlphabet{\mathsfbf}{sans}{\sansmathencoding}{\sfdefault}{bx}{sl}
+\usepackage{etoolbox}
+\AtBeginEnvironment{sansmath}{\let\bm\mathsfbf}{}{}
+\usepackage{mdframed}
+\usepackage{braket} % braket notation
+\usepackage{amsmath, nccmath}
+
+\usepackage{bbm}
+\usepackage{dsfont} % bold numerals
+\usepackage{bbold} % blackboard bold font
+\usepackage{mathrsfs} % script
+
+%% custom norm
+\newcommand{\Norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\Abs}[1]{\left\lvert#1\right\rvert}
+%%
+
+% circled number
+\newcommand*\circlednum[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt} {#1}}}}
+
+\usepackage{relsize} % math symbol size
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{mydef}{Definition}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}{Property}
+
+\newtheoremstyle{problemstyle}
+        {5pt} % <space above>
+        {15pt} % <space below>
+        {\normalfont} % <body font>
+        {} % <indent amount}
+        {\bfseries} % <theorem head font>
+        {\normalfont\bfseries.} % <punctuation after theorem head>
+        {.5em} % <space after theorem head>
+        {} % <theorem head spec (can be left empty, meaning `normal')>
+\theoremstyle{problemstyle}
+\newtheorem{problem}{Problem}[section]
+\newtheorem{solution}{Solution}[section]
+\newtheorem{example}{Example}[section]
+
+\newenvironment{problembk}[1][]{%
+  \begin{problem}[#1]$ $\par\nobreak\ignorespaces
+}{%
+  \end{problem}
+}
+\newenvironment{solutionbk}[1][]{%
+  \begin{solution}[#1]$ $\par\nobreak\ignorespaces
+}{%
+  \end{solution}
+}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\usepackage{mdframed}
+\newenvironment{fthm}
+    {\begin{mdframed}\begin{thm}}
+    {\end{thm}\end{mdframed}}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+
+% calculus
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\Par}{\partial}
+
+% figures
+\usepackage{wrapfig} 
+\usepackage{subfig}
+
+% ckickable table of contents
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=cyan,
+    filecolor=cyan,
+    linkcolor=cyan,
+    urlcolor=cyan
+}
+
+\usepackage{array}
+\newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{2.5ex}}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}

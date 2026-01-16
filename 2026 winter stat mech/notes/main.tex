@@ -1,0 +1,371 @@
+\documentclass[12pt, A4, twoside]{article}
+%\documentclass[a4paper]{article}
+
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./Figures/}{#1.pdf_tex}
+}
+
+\usepackage{scrextend}
+\usepackage{geometry}
+    \geometry{
+        a4paper,
+        total={170mm,257mm},
+        left=20mm,
+        top=20mm,
+    }
+
+% table settings
+\usepackage{multirow} 
+\def\arraystretch{2} % 1 is the default, change whatever you need
+
+\usepackage[version=4,arrows=pgf-filled,
+textfontname=sffamily,
+mathfontname=mathsf]{mhchem} % chemistry
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem} % enumerate with letters
+\usepackage[normalem]{ulem}
+\usepackage{indentfirst}
+\usepackage{pifont}
+\usepackage{fancyhdr}   % 頁首頁尾
+\usepackage{amssymb}
+
+% Mandarin
+\usepackage{CJKutf8}
+% bkai = 標楷體
+% bsmi = 新細明體
+
+\usepackage{graphicx} % Required for inserting images
+
+%
+\usepackage{lmodern,bm}                
+\usepackage[T1]{sansmath} 
+\SetMathAlphabet{\mathsfbf}{sans}{\sansmathencoding}{\sfdefault}{bx}{sl}
+\usepackage{etoolbox}
+\AtBeginEnvironment{sansmath}{\let\bm\mathsfbf}{}{}
+\usepackage{mdframed}
+\usepackage{braket} % braket notation
+\usepackage{amsmath, nccmath}
+\usepackage{mathtools} % for text above and under arrows
+
+\usepackage{bbm}
+\usepackage{dsfont} % bold numerals
+\usepackage{bbold} % blackboard bold font
+\usepackage{mathrsfs} % script
+
+\usepackage{url}
+
+% set to equal
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\vcentcolon}
+
+% circled number
+\newcommand*\circlednum[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt} {#1}}}}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+
+% question mark styling
+\newcommand{\?}{\stackrel{?}{=}}
+
+\usepackage{relsize} % math symbol size
+\usepackage{amsthm}
+
+\newcommand{\daggerequ}{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily $\dagger$}}}{=}}} % equal with dagger on top
+\newcommand{\ddaggerequ}{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily $\ddagger$}}}{=}}} % equal with ddagger on top
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{property}{Property}
+
+\newtheoremstyle{problemstyle}
+        {5pt} % <space above>
+        {15pt} % <space below>
+        {\normalfont} % <body font>
+        {} % <indent amount}
+        {\bfseries} % <theorem head font>
+        {\normalfont\bfseries.} % <punctuation after theorem head>
+        {.5em} % <space after theorem head>
+        {} % <theorem head spec (can be left empty, meaning `normal')>
+\theoremstyle{problemstyle}
+\newtheorem{problem}{Problem}[section]
+\newtheorem{solution}{Solution}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{exercise}{Exercise}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\usepackage{mdframed}
+\newenvironment{fthm}
+    {\begin{mdframed}\begin{thm}}
+    {\end{thm}\end{mdframed}}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+
+% figures
+\usepackage{wrapfig} 
+\usepackage{subfig}
+
+% ckickable table of contents
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=cyan,
+    urlcolor=blue,
+    pdftitle={notes on classical gravitation}, % opened pdf settings
+    pdfpagemode=FullScreen,
+}
+
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{
+    UWaterloo 2026 Winter PHYS359 - Statistical Mechanics
+    \\ 
+    \vspace{1cm}
+    \large Instructor: Professor \textbf{Alan} 
+    \\ 
+    \large Student: \textbf{Shao-Kai Jonathan Huang}    
+}
+% \author{Shao-Kai Jonathan Huang}
+\date{\today}
+\cfoot{\thepage}
+% header and footer
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\rhead{Shao-Kai Jonathan Huang}
+\lhead{PHYS359 Statistical Mechanics}
+
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Einstein Solid and Oscillators}
+Lecture on 5/1/2026 by ().
+
+Consider 
+
+\section{Stirling's Approximation}
+Lecture on 7/1/2026 by ().
+
+\begin{definition}[Gamma Function]
+    The Gamma function is defined as
+    \begin{equation}
+        \Gamma (n) = \int_0^{\infty} \mathrm{d}t\, t^{n-1} e^{-t}
+    \end{equation}
+    for \( n > 0 \).    
+\end{definition}
+
+The gamma function is related to the factorial function via $ \Gamma (n+1) = n! $ for integers $ n \geq 0 $. Consider 
+\begin{equation}
+    n! = \Gamma (n+1) = \int_0^{\infty} \mathrm{d}t\, t^n e^{-t}  = \int_0^{\infty} \mathrm{d}t\, e^{n \ln t - t}.
+\end{equation}
+
+Since the complexity of calculating the factorial function grows rapidly with \( n \), we look for an approximation for large \( n \). The integrand is sharply peaked around \( t = n \) for large \( n \) because the exponent \( n \log t - t \) attains its maximum there. 
+
+\begin{proposition}[Stirling]
+    For large $ n $, we have 
+    \begin{equation}
+        n! = \sqrt{2 \pi n} \left( \frac{n}{e} \right)^n \left(1 + \frac{1}{12n} + O\!\left(\frac{1}{n^2}\right)\right).
+    \end{equation}
+\end{proposition}
+
+In asymptotic notation, this is written as $ n! \sim \sqrt{2 \pi n} e^{-n} n^n $. The exponent $ n \log t - t $ may be Taylor expanded about $ t = n $ and write the remainder terms as $ \dots $:
+\begin{equation}
+    \begin{split}
+        n \log t - t &= n \log \left(n \cdot \frac{t}{n}\right) - t \\
+        &= n \log n + n \log \left(1 + \frac{t-n}{n}\right) - t \\
+        &= n \log n + n \left( \frac{t-n}{n} - \frac{1}{2} \left(\frac{t-n}{n}\right)^2 + \frac{1}{3} \left(\frac{t-n}{n}\right)^3 - \frac{1}{4} \left(\frac{t-n}{n}\right)^4 + \cdots \right) - t \\
+        &= n \log n - n - \frac{1}{2n} (t-n)^2 + \frac{1}{3n^2} (t-n)^3 - \frac{1}{4n^3} (t-n)^4 + \cdots .
+    \end{split}
+\end{equation}
+
+Then, the integral becomes 
+\[
+    \begin{split}
+        n! &= \int_0^{\infty} \mathrm{d}t\, e^{n \log n - n} e^{-\frac{1}{2n}(t-n)^2} e^{\frac{1}{3n^2}(t-n)^3} e^{-\frac{1}{4n^3}(t-n)^4} \cdots \\
+        &= n^n e^{-n} \int_0^{\infty} \mathrm{d}t\, e^{-\frac{1}{2n}(t-n)^2} e^{\frac{1}{3n^2}(t-n)^3} e^{-\frac{1}{4n^3}(t-n)^4} \cdots \\
+        &= n^n e^{-n} \int_0^{\infty} \mathrm{d}t\, e^{-\frac{1}{2n}(t-n)^2} \left( 1 + \frac{1}{3n^2}(t-n)^3 - \frac{1}{4n^3}(t-n)^4 + \cdots \right) \\
+        &= n^n e^{-n} \left\{ \int_0^{\infty} \mathrm{d}t\, e^{-\frac{1}{2n}(t-n)^2} + \frac{1}{3n^2} \int_0^{\infty} \mathrm{d}t\, e^{-\frac{1}{2n}(t-n)^2}(t-n)^3 - \frac{1}{4n^3} \int_0^{\infty} \mathrm{d}t\, (t-n)^4 e^{-\frac{1}{2n}(t-n)^2} + \cdots \right\} \\
+        &\equiv n^n e^{-n} \left(I_1 + I_2 + I_3 + \cdots\right) .
+    \end{split}
+\]
+Since most of the Gaussian is centered about $ t=n>0 $, we may extend the lower limits of integration to $ -\infty $. Then, $ I_1 = \sqrt{2 \pi n} $, $ I_2 = 0 $ since the integrand is odd, and $ I_3 $ may be evaluated as follows: 
+
+
+\section{Entropy}
+Lecture 3 on 14/1/2026 by ().
+
+Entropy is a physical measure of disorder in a system. The Boltzmann entropy formula is given by
+\begin{equation}
+    S = k_{\text{B}} \ln \Omega,
+\end{equation}
+where $ \Omega $ is the number of microstates corresponding to a macrostate, and $ k_{\text{B}} \approx 1.38 \times 10^{-23} \, \text{J/K} $ is the Boltzmann constant.
+
+\begin{example}[Einstein solid]
+    The number of microstates in an Einstein solid consisting of $ N $ oscillators and $ q $ energy quanta is given by
+    \begin{equation}
+        \Omega (N,q) = \left(\frac{qe}{N}\right)^N
+    \end{equation}
+    for large $ N $ and $ q $. The entropy of the Einstein solid is therefore
+    \begin{equation}
+        S = k_{\text{B}} \ln \Omega = k_{\text{B}} N \left( \ln q - \ln N + 1 \right).
+    \end{equation}
+    Since $ q = E / \hbar \omega $ and $ E / N \propto k_\text{B} T $, the term $ qe / N $ in the logarithm is proportional to $ k_\text{B} T / \hbar \omega $.
+\end{example}
+
+"There is no dumb questions, but there is a dumb time to ask a question."
+
+
+\section{Canonical Ensemble}
+Consider a system $ \mathcal{A} $ in thermal equilibrium with a heat reservoir $ \mathcal{R} $ at (constant) temperature $ T $. If the temperature of $ \mathcal{A} $ is not equal to $ T $, then energy will flow between $ \mathcal{A} $ and $ \mathcal{R} $ until thermal equilibrium is reached. The combined system $ \mathcal{A} + \mathcal{R} $ is isolated, so its total energy $ E_{\text{tot}} = E_{\mathcal{A}} + E_{\mathcal{R}} $ is constant, and hence the total system $ \mathcal{U} $ satisfies
+\begin{equation}
+    \Omega_{\mathcal{U}} = \Omega_{\mathcal{A}} \Omega_{\mathcal{R}}.    
+\end{equation}
+
+For a fixed temperature, or microstate, of $ \mathcal{A} $, we can count the number of microstates of $ \mathcal{R} $ consistent with that microstate of $ \mathcal{A} $. That is, for microstate $ \mathcal{A}_1 $ of $ \mathcal{A} $, $ \Omega (\mathcal{A}_1) = \Omega_{\mathcal{R}}(\mathcal{A}_1) $, $ \Omega (\mathcal{A}_2) = \Omega_{\mathcal{R}} (\mathcal{A}_2) $, and so on. 
+
+By the Fundamental Assumption, the probability of finding the system $ \mathcal{A} $ in microstate $ \mathcal{A}_i $ is proportional to the number of microstates of the reservoir consistent with that microstate of $ \mathcal{A} $:
+\begin{equation}
+    \frac{P(\mathcal{A}_i)}{P(\mathcal{A}_j)} = \frac{\Omega_{\mathcal{R}} (\mathcal{A}_i)}{\Omega_{\mathcal{R}} (\mathcal{A}_j)}. 
+\end{equation}
+Therefore, 
+\begin{equation}
+    \frac{P(\mathcal{A}_i)}{P(\mathcal{A}_j)} = \exp \left[\frac{1}{k}\left( S_{\mathcal{R}} (\mathcal{A}_i)- S_{\mathcal{R}} (\mathcal{A}_j)\right)\right]. 
+\end{equation}
+Recall that 
+\begin{equation}
+    \mathrm{d}U = T \mathrm{d}S - P \mathrm{d}V + \mu \mathrm{d}N,
+\end{equation}
+so that at constant volume and particle number, we have
+\begin{equation}
+    \Delta S = \int \frac{\mathrm{d}U}{T} = \frac{\Delta U}{T}, 
+\end{equation}
+since temperature is constant for the reservoir. Thus,
+\begin{equation}
+    \begin{split}
+        \frac{P(\mathcal{A}_i)}{P(\mathcal{A}_j)} &= e^{\frac{1}{kT} \left[U_{\mathcal{R}} (\mathcal{A}_i)- U_{\mathcal{R}} (\mathcal{A}_j)\right]} = e^{-\frac{1}{kT} \left[U_{\mathcal{A}} (\mathcal{A}_i)- U_{\mathcal{A}} (\mathcal{A}_j)\right]} = \frac{e^{- \frac{1}{kT} U_{\mathcal{A}} (\mathcal{A}_i)}}{e^{- \frac{1}{kT} U_{\mathcal{A}} (\mathcal{A}_j)}}. 
+    \end{split}
+\end{equation}
+The probability of finding the system $ \mathcal{A} $ in microstate $ \mathcal{A}_i $ is therefore proportional to $ e^{-\frac{1}{kT} U_{\mathcal{A}} (\mathcal{A}_i)} $, which is known as the \emph{Boltzmann factor}. 
+
+\begin{example}[thermal excitation]
+    The energy of an hydrogen atom in the $ n $th energy level is given by
+    \begin{equation}
+        E_n = - \frac{13.6}{n^2} \, \text{eV}.
+    \end{equation}
+    For a hydrogen atom at $ T=300\, \text{K} $, we have 
+    \begin{equation}
+        \frac{P(2\text{s})}{P(1\text{s})} = \frac{e^{- \beta E_{1\text{s}}}}{e^{- \beta E_{2\text{s}}}} = \frac{e^{- \beta \left(-3.4 \,\text{eV}\right)}}{e^{- \beta \left(-13.6 \,\text{eV}\right)}} = e^{- \beta \left(10.2 \, \text{eV}\right)} \approx 10^{-171},
+    \end{equation}
+    where we have used the notation $ \beta = \left(kT\right)^{-1} $, known as the \emph{thermodynamic beta} or \emph{coldness}. It is helpful to remember that $ kT \approx \frac{1}{40} \, \text{eV} $ at room temperature. On the surface of the sun, $ T_{sun}=6000  \, \text{K} = 20 T_{\text{RT}} $, we have 
+    \begin{equation}
+        \frac{P(2\text{s})}{P(1\text{s})} = e^{- \beta \left(10.2 \, \text{eV}\right)} \approx 2.8 \times 10^{-9}.
+    \end{equation}
+
+    Now the probability is just one in a billion, and we expect hydrogen 1s $ \to  $ 2s transitions to occur often on the surface of the sun due to thermal excitation.
+\end{example}
+
+\begin{quote}
+    "...and I can't do this anymore. I don't mean teaching of course."
+\end{quote}
+
+\begin{quote}
+    "Thank goodness the number is only e to the power of -395 and not 10 to the power of -408."
+\end{quote}
+
+\begin{quote}
+    "How many hydrogen atoms are there in the sun? I dunno, a bunch?"
+\end{quote}
+
+It turns out that the Boltzmann factor is not the actual probabilty, as it is not normalized. Defining the \emph{partition function} $ Z $ as
+\begin{equation}
+    Z = \sum_i e^{-\frac{1}{kT} E_{\mathcal{A}} (\mathcal{A}_i)},
+\end{equation}
+the probability of finding the system $ \mathcal{A} $ in microstate $ \mathcal{A}_i $ is given by
+\begin{equation}
+    P(\mathcal{A}_i) = \frac{1}{Z} \exp \left[-\frac{1}{kT} E_{\mathcal{A}} (\mathcal{A}_i) \right].
+\end{equation}
+The partition function $ Z $ is a constant, in that it does not depend on the state. However, it still depends on $ \beta $, and hence the name partition \textit{function}. Moreover, shifting $E$ by a constant does not change the probability.
+
+\begin{quote}
+    "At some point I tried becoming a zed player. It didn't work. So will just call it zee, but you will hear zed being thrown around randomly here and there throughout the course."
+\end{quote}
+
+\begin{remark}
+    When we are thinking microscopically, we tend to use $ E $, and when we are thinking macroscopically we tend to use $ U $.
+\end{remark}
+
+The probability of a microstate of a system in contact with a heat reservoir depends on the energy of the microstate. The equal likelihood assumption only applies to an isolated system. 
+
+
+\section{Random Walk}
+TA Class on 12/1/2026 by (). 
+
+\medskip
+
+Consider the following problem: 
+
+\begin{example}[1D random walk]
+    \noindent \textbf{Question:} A particle is confined to move on a line starting at the origin. The experimenter flips a fair coin $ N $ times and moves the particle one unit to the right for heads and one unit to the left for tails. What is the formula for $ \Omega (x) $ of the number of ways to reach position $ x $ after $ N $ steps? 
+
+    \medskip 
+
+    Let $ N_\text{R} $ and $ N_\text{L} $ be the number of steps to the right and left, respectively. Then, we have
+    \begin{equation}
+        N = N_\text{R} + N_\text{L}, \quad x = N_\text{R} - N_\text{L}.
+    \end{equation}
+    We can then solve for $ N_\text{R} $, and 
+    \begin{equation}
+        \Omega (x) = \binom{N}{N_\text{R}} = \frac{N!}{N_\text{R}!N_\text{L}!},
+    \end{equation} 
+    and in fact 
+    \begin{equation}
+        \Omega (x) = \binom{N}{\frac{N+x}{2}} = \frac{N!}{\left(\frac{N+x}{2}\right)! \left(\frac{N-x}{2}\right)!}.
+    \end{equation}
+
+    Let's find the first derivative of $ \Omega (x) $ with respect to $ x $. Suppose $ N \gg x $, i.e. $ N, (N+x)/2, (N-x)/2 \gg 1 $, then we can apply Stirling's approximation without the prefactor: $ n! \sim n^n e^{-n} $. Then,  
+    \begin{equation}
+        \begin{split}
+            \Omega (x) &= \frac{N!}{\left(\frac{N+x}{2}\right)! \left(\frac{N-x}{2}\right)!} \\
+            &\sim \frac{\left(\frac{N}{e}\right)^N}{\left(\frac{N+x}{2e}\right)^{\frac{N+x}{2}} \left(\frac{N-x}{2e}\right)^{\frac{N-x}{2}}} \\
+            &= \frac{(2N)^N}{(N+x)^{\frac{N+x}{2}} (N-x)^{\frac{N-x}{2}}} \\
+            &= \left(\frac{2N}{N+x}\right)^{\frac{N+x}{2}} \left(\frac{2N}{N-x}\right)^{\frac{N-x}{2}}. 
+        \end{split}
+    \end{equation}
+    Since $ \ln $ is a monotonic function, we can find the extrema of $ \Omega (x) $ by finding the extrema of $ \ln \Omega (x) $. We have
+    \begin{equation}
+        \begin{split}
+            \ln \Omega (x) &\sim \left(\frac{N+x}{2}\right) \ln \left(\frac{2N}{N+x}\right) + \left(\frac{N-x}{2}\right) \ln \left(\frac{2N}{N-x}\right) \\
+            &= \left(\frac{N}{2}\right) \ln \left(4N^2\right) - \left(\frac{N}{2}\right) \ln \left[(N+x)(N-x)\right] + \left(\frac{x}{2}\right) \ln \left(\frac{N-x}{N+x}\right).
+        \end{split}
+    \end{equation}
+    Then, 
+    \begin{equation}
+        \begin{split}
+            \frac{\partial \ln \Omega}{\partial x} &\sim - \frac{Nx}{(N+x)(N-x)} + \frac{1}{2} \ln \left(\frac{N-x}{N+x}\right) - \frac{Nx}{(N+x)(N-x)} \\
+            &= - \frac{2Nx}{(N+x)(N-x)} + \frac{1}{2} \ln \left(\frac{N-x}{N+x}\right) \\
+            &= \frac{1}{2} \ln \left(\frac{N-x}{N+x}\right) + O\! \left(\frac{1}{N}\right). 
+        \end{split}
+    \end{equation}
+    Setting this to zero, we find that the maximum occurs at $ x=0 $. Therefore, the most probable position after $ N $ steps ($ N\gg 1 $) is the origin.
+
+    Let's set $ N-x = \delta \ll 1 $. Then, we have 
+    
+\end{example}
+
+
+\end{CJK}
+\end{document}

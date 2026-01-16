@@ -1,0 +1,1238 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\newenvironment{exerciseManual}[1]{%
+  \renewcommand{\theexercise}{#1}%
+  \begin{exercise}%
+  \addtocounter{exercise}{-1}%
+}{%
+  \end{exercise}%
+}
+
+\newenvironment{solutionManual}[1]{%
+  \renewcommand{\thesolution}{#1}%
+  \begin{solution}%
+  \addtocounter{solution}{-1}%
+}{%
+  \end{solution}%
+}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+  \textbf{2025 Fall Introduction to Geometry} \\
+  \vspace{0.5cm}
+  \Large Solutions to Exercises in Do Carmo \\
+}
+\author{黃紹凱 B12202004}
+\date{\today}
+
+\maketitle
+
+\section{Chapter 1.1}
+\section{Chapter 1.2}
+
+% 1.2.5
+\begin{exerciseManual}{1.2.5}
+    Let $\alpha \colon I \to \mathbb{R}^3$ be a parametrized curve, with $\alpha'(t) \neq 0$ for all $t \in I$. Show that $|\alpha(t)|$ is a nonzero constant if and only if $\alpha(t)$ is orthogonal to $\alpha'(t)$ for all $t \in I$.
+\end{exerciseManual}
+
+\begin{solutionManual}{1.2.5} 
+    Suppose $|\alpha(t)| = c \neq 0$ for all $t \in I$. Then,
+    \[
+        \frac{\mathrm{d}}{\mathrm{d}t}\vert \alpha(t) \vert^{2} = 2 \alpha (t) \cdot \alpha^{\prime} (t) = \frac{\mathrm{d}}{\mathrm{d}t} c^{2} = 0. 
+    \]
+    Thus $ \alpha (t) \cdot \alpha^{\prime} (t) = 0 $, and $ \alpha (t) $ and $ \alpha^{\prime} (t) $ are orthogonal. Conversely, suppose $ \alpha (t) $ and $ \alpha^{\prime} (t) $ are orthogonal for all $ t \in I $, so $ \alpha (t) \cdot \alpha^{\prime} (t) = 0 $. Then, we have
+    \[
+        \frac{\mathrm{d}}{\mathrm{d}t}\vert \alpha(t) \vert^{2} = 2 \alpha (t) \cdot \alpha^{\prime} (t) = 0.
+    \]
+    Thus $ \vert \alpha (t) \vert $ is a constant.
+\end{solutionManual}
+
+\section{Chapter 1.3}
+
+\begin{definition}[regular curve]
+    A parametrized curve $ \alpha : I \to \mathbb{R}^3 $ is said to be \emph{regular} if $ \alpha^{\prime} (t) \neq 0 $ for all $ t \in I $.
+\end{definition}
+
+% 1.3.2
+\begin{exerciseManual}{1.3.2}
+    A circular disk of radius 1 in the plane $xy$ rolls without slipping along the $x$-axis. The figure described by a point on the circumference of the disk is called a \textbf{cycloid} (Figure 1-7).
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Obtain a parametrized curve $\alpha \colon \mathbb{R} \to \mathbb{R}^2$ the trace of which is the cycloid, and determine its singular points.
+        \item Compute the arc length of the cycloid corresponding to a complete rotation of the disk.
+    \end{enumerate}
+\end{exerciseManual}
+
+\begin{solutionManual}{1.3.2}
+    ~
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Let \( \alpha(t) = (x(t), y(t)) \) be the parametrized curve of the cycloid. As the disk rolls without slipping and the radius of the disk is 1, the distance traveled along the $ x $-axis is $ t $ and the $ y $-coordinate is given by the height of the point on the circumference. Therefore, we have:
+        \begin{equation}
+            \begin{split}
+                x(t) &= t - \sin(t), \\
+                y(t) &= 1 - \cos(t).
+            \end{split}
+        \end{equation}
+        The singular points occur when $ \alpha ^{\prime} (t) = 0 $. This is equivalent to 
+        \begin{equation}
+            \begin{split}
+                x^{\prime} (t) &= 1 - \cos(t) = 0, \\
+                y^{\prime} (t) &= \sin(t) = 0.
+            \end{split}
+        \end{equation} 
+        Hence the singular points are at $ t = 2n \pi $ for all $ n \in \mathbb{Z} $.  
+        \item The arc length of the cycloid for a complete rotation is given by integrating over $ [0, 2\pi ] $. 
+        \begin{equation}
+            \begin{split}
+                L &= \int_0^{2\pi} \mathrm{d} t\, |\alpha'(t)| = \int_0^{2\pi} \mathrm{d} t\, \sqrt{(1 - \cos(t))^2 + (\sin(t))^2} \\
+                &= \int_0^{2\pi} \mathrm{d} t\, \sqrt{2 - 2\cos(t)} = 8.
+            \end{split}
+        \end{equation}
+    \end{enumerate}
+\end{solutionManual}
+
+% 1.3.4
+\begin{exerciseManual}{1.3.4}
+    Let \( \alpha: (0, \pi) \to \mathbb{R}^2 \) be given by
+    \[
+    \alpha(t) = \left( \sin t, \, \cos t + \log \tan \frac{t}{2} \right),
+    \]
+    where \( t \) is the angle that the \( y \)-axis makes with the vector \( \alpha(t) \). The trace of \( \alpha \) is called the \textit{tractrix} (see Fig. 1-9). Show that:
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item \( \alpha \) is a differentiable parametrized curve, regular except at \( t = \pi/2 \).
+        \item The length of the segment of the tangent of the tractrix between the point of tangency and the \( y \)-axis is constantly equal to \( 1 \).
+    \end{enumerate}
+\end{exerciseManual}
+
+\begin{solutionManual}{1.3.4}
+    Recall that a \textbf{regular}  curve is a smooth, parametrized curve with a non-vanishing derivative.
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item First we shall compute the derivative of $ \alpha (t) $ as 
+        \begin{equation}
+            \begin{split}
+                \alpha^{\prime} (t) &= \left( \cos t, \, -\sin t + \frac{1}{\sin t} \right) \\
+                &= \left(\cos t, \cot t \cos t\right)
+            \end{split}
+        \end{equation}
+        Since $ \alpha^{\prime} (t) $ is continuous on \( (0, \pi) \) and \( \alpha^{\prime} (t) \neq 0 \) for all \( t \in (0, \pi) \setminus \{ \pi/2 \} \), \( \alpha(t) \) is a differentiable parametrized curve, regular except at \( t = \pi/2 \).
+        \item The equation of the tangent line at \( \alpha(t) \) is given by
+        \begin{equation}
+            y - y_{0} (t) = \cot t \left( x - x_{0} (t) \right),
+        \end{equation}
+        where $ y_{0} = \cos t + \log \tan \frac{t}{2}$ and $ x_{0} = \sin t $. Setting \( x = 0 \) to find the intersection with the \( y \)-axis, we have
+        \begin{equation}    
+            \begin{split}
+                \Delta y &\equiv y - y_{0} (t) = -\cot t \sin t = - \cos t, \\
+                \Delta x &\equiv x - x_{0} (t) = -\sin t.
+            \end{split}
+        \end{equation}
+        Then the distance is $ \sqrt{(\Delta y)^{2} + (\Delta x)^{2} } = 1 $.
+    \end{enumerate}
+\end{solutionManual}
+
+% 1.3.7
+\begin{exerciseManual}{1.3.7}
+    A map \( \alpha: I \to \mathbb{R}^3 \) is called a curve of class \( C^k \) if each of the coordinate functions in the expression \( \alpha(t) = (x(t), y(t), z(t)) \) has continuous derivatives up to order \( k \). If \( \alpha \) is merely continuous, we say that \( \alpha \) is of class \( C^0 \). A curve \( \alpha \) is called simple if the map \( \alpha \) is one-to-one. Thus, the curve in Example 3 of Sec. 1-2 is not simple.
+
+    Let \( \alpha: I \to \mathbb{R}^3 \) be a simple curve of class \( C^0 \). We say that \( \alpha \) has a weak tangent at \( t = t_0 \in I \) if the line determined by \( \alpha(t_0 + h) \) and \( \alpha(t_0) \) has a limit position when \( h \to 0 \). We say that \( \alpha \) has a strong tangent at \( t = t_0 \) if the line determined by \( \alpha(t_0 + h) \) and \( \alpha(t_0 + k) \) has a limit position when \( h, k \to 0 \). Show that
+    \begin{enumerate}
+        \item[a.] \( \alpha(t) = (t^3, t^2), t \in \mathbb{R}, \) has a weak tangent but not a strong tangent at \( t = 0 \).
+        \item[b.] If \( \alpha: I \to \mathbb{R}^3 \) is of class \( C^1 \) and regular at \( t = t_0 \), then it has a strong tangent at \( t = t_0 \).
+        \item[c.] The curve given by
+        \[
+        \alpha(t) =
+        \begin{cases}
+            (t^2, t^2), & t \geq 0, \\
+            (t^2, -t^2), & t \leq 0,
+        \end{cases}
+        \]
+        is of class \( C^1 \) but not of class \( C^2 \). Draw a sketch of the curve and its tangent vectors.
+    \end{enumerate}
+\end{exerciseManual}
+
+\begin{solutionManual}{1.3.7}
+    
+\end{solutionManual}
+
+% 1.3.8
+\begin{exercise}
+    Let $\alpha:I\rightarrow\mathbb{R}^3$ be a differentiable curve and let $[a, b]\subseteq I$ be a closed interval. For every partition
+    \[
+        a=t_0<t_1<\cdots <t_n =b
+    \]
+    of $[a, b]$, consider the sum $\sum_{i=1}^n |\alpha(t_i)-\alpha(t_{i-1})|=l(\alpha, P)$, where $P$ stands for the given partition. The norm $|P|$ of a partition $P$ is define as 
+    $$
+        |P|=\max (t_{i}-t_{i-1}), \, i=1,\dots, n
+    $$
+    Geometrically, $l(\alpha, P)$ is the length of the polygon inscribed in $\alpha([a, b])$ with the vertices in $\alpha(t_i)$. The point of the exercise is to show that the arc length of $\alpha([a, b])$ is, in some sense, a limit of the length of the inscribed polygons. 
+    Prove that given $\epsilon>0$ there exists $\delta>0$ such that if $|P|<\delta$ then 
+    \[
+        \left|\int_a^b |\alpha'(t)| \mathrm{d} t - l(\alpha, P)\right|<\epsilon
+    \]
+\end{exercise}
+
+\begin{solution}
+    Since $ \alpha (t) $ is differentiable on the closed interval $ [a, b] $, $ \alpha^{\prime} (t) $ is continuous. Thus, for any $ \epsilon^{\prime} > 0 $ there exists $ \delta^{\prime} > 0 $ such that $ \alpha^{\prime} (t_2) - \alpha^{\prime} (t_1) < \epsilon $ whenever $ \vert t_2 - t_1 \vert < \delta^{\prime} $.
+    For a partition $ P $, let $ \epsilon^{\prime} > 0 $. The integral can be bounded as:
+    \begin{equation}
+        \begin{split}
+            \left| \int_a^b \mathrm{d} t \, |\alpha'(t)| - l(\alpha, P) \right| &= \left| \int_a^b \mathrm{d} t\, |\alpha'(t)| - \sum_{i=1}^n |\alpha(t_i) - \alpha(t_{i-1})| \right| \\
+            &\leq \sum_{i=1}^n \left| \int_{t_{i-1}}^{t_i}\mathrm{d} t |\alpha'(t)| - |\alpha(t_i) - \alpha(t_{i-1})| \right| \\
+            &\leq \sum_{i=1}^n \int_{t_{i-1}}^{t_i} \mathrm{d} t\, \left| |\alpha'(t)| - \frac{|\alpha(t_i) - \alpha(t_{i-1})|}{t_i - t_{i-1}} \right| \\
+            &\leq \sum_{i=1}^{n} \int^{t_i}_{t_{i-1}} \mathrm{d}t\, \left\vert \alpha^{\prime} (t) - \alpha^{\prime} (\xi) \right\vert \\
+            &< n (b-a) \epsilon^{\prime} . 
+        \end{split}
+    \end{equation}
+    whenever $ t - \xi < \vert P \vert < \operatorname{min}_{i \in \{1, \dots, n\}} \left(\delta^{\prime}_{i}\right) $. We have used the Mean Value Theorem to obtain $ \xi $. Now, let $ \epsilon^{\prime} = \epsilon / n(b-a) $, $ \delta = \delta^{\prime} $, then for any partition $ P $ with $ |P| < \delta $, we have
+    \begin{equation}
+        \left| \int_a^b \mathrm{d} t \, |\alpha'(t)| - l(\alpha, P) \right| < \epsilon.
+    \end{equation}
+\end{solution}
+
+\subsection{Chapter 1.4}
+
+% 1.4.11
+\begin{exercise}
+    ~
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Show that the volume $V$ of a parallelepiped generated by three linearly independent vectors $u, v, w\in \mathbb{R}^3$ is given by $V=|(u\land v)\cdot w|$, and introduce an oriented volume in $\mathbb{R}^3$.
+        \item Prove that 
+        \[
+            V^2=\begin{vmatrix}
+                u \cdot u & u \cdot v & u \cdot w\\
+                v \cdot u &v \cdot v& v \cdot w\\
+                w \cdot u & w \cdot v& w \cdot w
+            \end{vmatrix} \tag{1}
+        \]
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item By definition, the volume of the parallelepiped is given by the area of the base times the height. The area of the base formed by $ u $ and $ v $ is given by $ |u \land v| $, and the height is given by the projection of $ w $ onto the normal vector of the base, which is $ \frac{(u \land v)}{|u \land v|} $. Therefore, the volume $ V $ is given by
+        \begin{equation}
+            V = |u \land v| \cdot \left| w \cdot \frac{(u \land v)}{|u \land v|} \right| = |(u \land v) \cdot w|.
+        \end{equation}
+        The oriented volume can be introduced as $ V = (u \land v) \cdot w $. If the vectors $ u, v, w $ (in order) form a right-handed system, the oriented volume is positive; otherwise, it is negative.
+        \item Recall that the vector product $ u \land v \in \mathbb{R}$ is the unique vector where $ (u \land v) \cdot w = \operatorname{det} (u, v, w)$. By (a), the volume of the parallelepiped is given by
+        \begin{equation}
+            V = |(u \land v) \cdot w|.
+        \end{equation} 
+        Then,
+        \begin{equation}
+            \begin{split}
+                V^2 &= ((u \land v) \cdot w) ((u \land v) \cdot w) \\
+                &= \operatorname{det} (u, v, w)^{2} \\
+                &= \begin{vmatrix}
+                    u_1 & u_2 & u_3 \\
+                    v_1 & v_2 & v_3 \\
+                    w_1 & w_2 & w_3
+                \end{vmatrix}
+                \begin{vmatrix}
+                    u_1 & u_2 & u_3 \\
+                    v_1 & v_2 & v_3 \\
+                    w_1 & w_2 & w_3
+                \end{vmatrix} \\
+                &= \left\vert
+                \begin{pmatrix}
+                    u_1 & u_2 & u_3 \\
+                    v_1 & v_2 & v_3 \\
+                    w_1 & w_2 & w_3
+                \end{pmatrix}
+                \begin{pmatrix}
+                    u_1 & v_1 & w_1 \\
+                    u_2 & v_2 & w_2 \\
+                    u_3 & v_3 & w_3
+                \end{pmatrix}
+                \right\vert \\
+                &= \begin{vmatrix}
+                    u \cdot u & u \cdot v & u \cdot w\\
+                    v \cdot u &v \cdot v& v \cdot w\\
+                    w \cdot u & w \cdot v& w \cdot w
+                \end{vmatrix}.
+            \end{split}
+        \end{equation}
+    \end{enumerate}
+\end{solution}
+
+\subsection{Chapter 1.5}
+
+\begin{definition}[curvature]
+    \label{def:curvature}
+    Let $ \alpha : I \to \mathbb{R}^3 $ be a curve parametrized by arc length. The number $ \vert \alpha^{\prime\prime} \vert = k(s) $ is called the \emph{curvature} of $ \alpha $ at $ s \in I $. 
+\end{definition}
+
+\begin{definition}[torsion]
+    \label{def:torsion}
+    Let $ \alpha : I \to \mathbb{R}^3 $ be a curve parametrized by arc length such that $ k(s) \neq 0 $, $ s \in I $. The number $ \tau (s) $ defined by $ b^{\prime} (s) = \tau (s) n(s) $ is called the \emph{torsion} of $ \alpha $ at $ s $. 
+\end{definition}
+
+\begin{theorem}[Fundamental Theorem of the Local Theory of Curves]
+    Given differentiable functions $ k(s) > 0 $ and $ \tau (s) $, $ s\in I $, there exists a regular parametrized curve $ \alpha : T \to \mathbb{R}^3 $ such that $ s $ is the arc length, $ k(s) $ is the curvature, and $ \tau (s) $ is the torsion of $ \alpha $. Moreover, $ \alpha $ is unique up to rigid motion, i.e. for any other curve $ \overline{\alpha} $ satisfying the same conditions, there exists an orthogonal linear map $ \rho $, $ \operatorname{det} \rho > 0 $, and a translation $ t \in \mathbb{R}^3 $ such that $ \overline{\alpha} = \rho \circ \alpha + t $.
+\end{theorem}
+
+\begin{remark}
+    The requirements on $ k(s) > 0 $ are required. Otherwise, consider two arc length parametrized curves on $ I = [0,1] $ given by 
+    \begin{align*}
+        \alpha (s) &= \begin{dcases}
+            (\cos s, \sin s, 0), &\quad 0 \leq s \leq \frac{1}{2}, \\
+            (\cos \frac{1}{2}, \sin \frac{1}{2}, 0) + (s- \frac{1}{2})(1,0,0), &\quad \frac{1}{2} < s \leq 1.
+        \end{dcases} \\
+        \overline{\alpha} (s) &= \begin{dcases}
+            (\cos s, \sin s, 0), &\quad 0 \leq s \leq \frac{1}{2}, \\
+            (\cos \frac{1}{2}, \sin \frac{1}{2}, 0) + (s- \frac{1}{2})(0,0,1), &\quad \frac{1}{2} < s \leq 1.
+        \end{dcases}
+    \end{align*}
+    Both curves have curvature $ k(s) = 1 $ for $ s \in [0, 1/2) $ and $ k(s) = 0 $ for $ s \in (1/2, 1] $, and torsion $ \tau (s) = 0 $ for all $ s \in I $. However, there is no rigid motion mapping $ \alpha $ to $ \overline{\alpha} $ as the ray segments point in different directions.
+\end{remark}
+% 1.5.1
+\begin{exercise}
+    Given the parametrized curve (helix)
+    \[
+    \alpha(s) = \left(a\cos\frac{s}{c},\, a\sin\frac{s}{c},\, b\frac{s}{c}\right), \quad s \in \mathbb{R},
+    \]
+    where \(c^2 = a^2 + b^2\).
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Show that the parameter \(s\) is the arc length.
+        \item Determine the curvature and the torsion of \(\alpha\).
+        \item Determine the osculating plane of \(\alpha\).
+        \item Show that the lines containing \(n(s)\) and passing through \(\alpha(s)\) meet the \(z\)-axis under a constant angle equal to \(\pi/2\).
+        \item Show that the tangent lines to \(\alpha\) make a constant angle with the \(z\)-axis.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item The parameter $ s $ is the arc length since its derivative is unity:  
+        \[
+            \alpha^{\prime} (s) = \left(- \frac{a}{c} \sin \frac{s}{c}, \frac{a}{c} \cos \frac{s}{c}, \frac{b}{c}\right) \;\Longrightarrow\; \vert \alpha^{\prime} (s) \vert = \left(\frac{a}{c}\right)^2 + \left(\frac{b}{c}\right)^2 = 1. 
+        \]
+        \item The curvature $ k(s) $ is given by $ \alpha^{\prime\prime} (s) = k(s)n(s) $, so $ k(s) = \vert \alpha^{\prime\prime} (s) \vert $. Therefore, 
+        \[
+            k(s) = \left\vert \left(- \frac{a}{c^2} \cos \frac{s}{c}, - \frac{a}{c^2} \sin \frac{s}{c}, 0\right) \right\vert = \frac{a}{c^2}.
+        \]
+        The torsion $ \tau (s) $ is given by $ b^{\prime} (s) = \tau (s) n(s) $. Let's compute $ t(s) = \alpha^{\prime} (s) $, 
+        \[
+            n(s) = \frac{1}{k(s)} \alpha^{\prime\prime} (s) = \left(- \cos \frac{s}{c}, -\sin \frac{s}{c}, 0 \right),
+        \] 
+        \[
+            b(s) = t(s) \wedge n(s) = \left(\frac{b}{c} \sin \frac{s}{c}, - \frac{b}{c} \cos \frac{s}{c}, \frac{a}{c}\right) \;\Longrightarrow\; b^{\prime} (s) = \left(\frac{b}{c^2} \cos \frac{s}{c}, \frac{b}{c^2} \sin \frac{s}{c}, 0\right).
+        \]
+        Comparing coefficients, we get $ \tau (s) = - b / c^2 $.  
+        \item The osculating plane is the plane spanned by $ t(s) $ and $ n(s) $. So it is defined by the normal vector
+        \[
+            b(s) = t(s) \wedge n(s) = \left(\frac{b}{c} \sin \frac{s}{c}, - \frac{b}{c} \cos \frac{s}{c}, \frac{a}{c}\right).
+        \]
+        \item The line containing $ n(s) $ and passing through $ \alpha (s) $ is given by 
+        \[
+            \alpha (s) + \lambda n(s), \quad \lambda \in \mathbb{R}, 
+        \]
+        with direction vector $ n(s) $ such that $ n(s) \cdot (0,0,1) = 0 $, so it is always perpendicular to the $ z $-axis. 
+        \item By the above computation, 
+        \[
+            t(s) = \left(- \frac{a}{c} \sin \frac{s}{c}, \frac{a}{c} \cos \frac{s}{c}, \frac{b}{c}\right).
+        \]
+        Let $ \theta $ be the angle between $ t(s) $ and the $ z $-axis. Then $ \cos \theta = t(s) \cdot (0,0,1) = \frac{b}{c} $.
+    \end{enumerate}
+\end{solution}
+
+% 1.5.2
+\begin{exercise}[\textbf{*}]
+    Show that the torsion \(\tau\) of \(\alpha\) is given by
+    \[
+    \tau(s) = -\frac{\alpha'(s) \wedge \alpha''(s) \cdot \alpha'''(s)}{|k(s)|^2}.
+    \]
+\end{exercise}
+
+\begin{solution}
+    The torsion $ \tau (s) $ is defined as 
+    \begin{equation}
+        \label{def:torsion}
+        b^{\prime} (s) = \tau (s) n(s).
+    \end{equation}
+    Given $ \alpha (s) $, we have $  = \alpha^{\prime} $, $ \alpha^{\prime\prime} = k n $, and $ \alpha^{\prime\prime\prime} = k^{\prime} n + k n^{\prime} = k^{\prime} n - k^2 t - k \tau b $ by the Frenet-Serret formulas. Let's compute the wedge product $ \alpha^{\prime} \wedge \alpha^{\prime\prime} = t \wedge k n = k b $. Thus, the triple product is 
+    \[
+        (\alpha ^{\prime} \wedge \alpha^{\prime\prime}) \cdot \alpha^{\prime\prime\prime} = k b \cdot (k^{\prime} n - k^2 t - k \tau b) = - k^2 \tau,
+    \]
+    and we have 
+    \[
+        \tau (s) = - \frac{(\alpha^{\prime} (s) \wedge \alpha^{\prime\prime} (s)) \cdot \alpha^{\prime\prime\prime} (s)}{k(s)^2}.
+    \]
+\end{solution}
+
+% 1.5.3
+\begin{exercise}
+    Assume that \(\alpha(I) \subset \mathbb{R}^2\) (i.e., \(\alpha\) is a plane curve) and give \(k\) a sign as in the text.  
+    Transport the vectors \(t(s)\) parallel to themselves in such a way that the origins of \(t(s)\) agree with the origin of \(\mathbb{R}^2\); the end points of \(t(s)\) then describe a parametrized curve \(s \mapsto t(s)\) called the \emph{indicatrix of tangents} of \(\alpha\).  
+    Let \(\theta(s)\) be the angle from \(e_1\) to \(t(s)\) in the orientation of \(\mathbb{R}^2\).  
+    Prove (a) and (b) (notice that we are assuming that \(k \neq 0\)).
+
+    \begin{enumerate}[label=\textbf{(\alph*)}]
+        \item The indicatrix of tangents is a regular parametrized curve.
+        \item \(\displaystyle \frac{dt}{ds} = \left(\frac{d\theta}{ds}\right)n,\) that is, \(k = \frac{d\theta}{ds}.\)
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    
+\end{solution}
+
+% 1.5.4
+\begin{exercise}[\textbf{*}]
+    Assume that all normals of a parametrized curve pass through a fixed point. Prove that the trace of the curve is contained in a circle.
+\end{exercise}
+
+\begin{solution}
+    Let $ \alpha (s) $ be an arc length parametrization of the curve. Without loss of generality, assume the fixed point to be the origin. The normal at $ \alpha (s) $ passes through the origin, so it is $ \alpha (s) = \lambda (s) n(s) $ for some $ \lambda (s) $. Then,
+    \[
+        \frac{\mathrm{d}}{\mathrm{d}s} \vert \alpha (s) \vert^{2} = 2 \alpha (s) \cdot \alpha^{\prime} (s) = 2 \lambda (s) n(s) \cdot \alpha^{\prime} (s) = 0,
+    \]
+    so $ \vert \alpha (s) \vert $ is constant. We may set it to $ R > 0 $, so the trace is contained in a \textit{sphere} of radius $ R $ centered at the origin. Next, notice that
+    \[
+        \alpha^{\prime} = t = \lambda^{\prime} n + \lambda n^{\prime} = \lambda n - \lambda k t - \lambda \tau b \;\Longrightarrow\; (1 +\lambda k) t - \lambda^{\prime} n + \lambda \tau b = 0. 
+    \]
+    Since $ \{t, n, b\} $ forms an orthonormal basis for $ \mathbb{R}^3 $, we have $ 1 + k \lambda = \lambda^{\prime} = \lambda \tau = 0 $. Hence, $ \lambda \neq 0 $ is a constant, $ k = -1 / \lambda $, and $ \tau = 0 $. Therefore, $ \alpha $ is planar with constant curvature and magnitude, and hence a circle.  
+\end{solution}
+
+% 1.5.5
+\begin{exercise}
+    A regular parametrized curve \(\alpha\) has the property that all its tangent lines pass through a fixed point.
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Prove that the trace of \(\alpha\) is a (segment of a) straight line.
+        \item Does the conclusion in part (a) still hold if \(\alpha\) is not regular?
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Let $ \alpha (s) $ be an arc length regular parametrization of the curve. Without loss of generality, assume the fixed point to be the origin. The tangent at $ \alpha (s) $ passes through the origin, so it satisfies $ \alpha (s) = \lambda (s) t(s) = \lambda (s) \alpha^{\prime} $. Then,
+        \[
+            \alpha^{\prime} (s) = \lambda^{\prime} (s) \alpha^{\prime} (s) + \lambda (s) \alpha^{\prime\prime} (s) \;\Longrightarrow\; (1 - \lambda^{\prime} (s)) \alpha^{\prime} (s) - \lambda (s) \alpha^{\prime\prime} (s) = 0 .
+        \]
+        Since $ \alpha(s) $ is parametrized by arc length, 
+        \[ \alpha^{\prime} (s) \cdot \alpha^{\prime\prime} (s) = \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d}s}\vert \alpha^{\prime} (s) \vert^2 = 0. \]
+        Therefore, $ \alpha^{\prime} (s) $ and $ \alpha^{\prime\prime} (s) $ are linearly independent, and $ \lambda (s) = 0 $, $ \lambda^{\prime} (s) = 1 $ whenever $ \alpha^{\prime\prime} \neq 0 $. However, consider the set $ S = \{ s \in \mathbb{R} \vert \alpha^{\prime\prime} (s) \neq 0 \} $, which is open since $ \alpha^{\prime\prime} (s) $ is continuous and $ S = \left(\alpha^{\prime\prime}\right)^{-1} (\mathbb{R} \setminus \{0\}) $ is the inverse image of an open set. Then $ S $ contains intervals if it is non-empty, so $ \lambda (s) = 0 $ and $ \lambda^{\prime} (s) = 1 $ cannot hold for all $ s \in S $. Thus, $ S = \varnothing $, and $ \alpha^{\prime\prime} (s) = 0 $ for all $ s $. Therefore, the trace of $ \alpha (s) $ is a segment of a straight line.
+        \item No, since if $ \alpha (s) $ is not regular, then $ \alpha^{\prime} (s) $ may vanish for some $ s $, at which we cannot assume $ \alpha^{\prime} (s) $ and $ \alpha^{\prime\prime} (s) $ are linearly independent.
+    \end{enumerate}
+\end{solution}
+
+% 1.5.6
+\begin{exercise}
+    A \emph{translation} by a vector \(v\) in \(\mathbb{R}^3\) is the map \(A: \mathbb{R}^3 \to \mathbb{R}^3\) given by  
+    \(A(p) = p + v, \, p \in \mathbb{R}^3.\)  
+    A linear map \(\rho: \mathbb{R}^3 \to \mathbb{R}^3\) is an \emph{orthogonal transformation} when  
+    \(\rho u \cdot \rho v = u \cdot v\) for all vectors \(u, v \in \mathbb{R}^3.\)  
+    A \emph{rigid motion} in \(\mathbb{R}^3\) is the result of composing a translation with an orthogonal transformation with positive determinant (this last condition is included because we expect rigid motions to preserve orientation).
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Demonstrate that the norm of a vector and the angle \(\theta\) between two vectors, \(0 \le \theta \le \pi\), are invariant under orthogonal transformations with positive determinant.
+        \item Show that the vector product of two vectors is invariant under orthogonal transformations with positive determinant.  
+        Is the assertion still true if we drop the condition on the determinant?
+        \item Show that the arc length, the curvature, and the torsion of a parametrized curve are (whenever defined) invariant under rigid motions.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Since an orthogonal transformation preserves the inner product, it also preserves $ \sqrt{u \cdot u} $ and $ \cos^{-1} \frac{u \cdot v}{\vert u \vert \vert v \vert} $ for all vectors $ u, v \in \mathbb{R}^3 $. 
+        \item Let $ u, v, w \in \mathbb{R}^3 $ be arbitrary vectors. Then consider the inner product of $ \rho u \wedge \rho v $ with $ w $:
+        \begin{equation*}
+            \begin{split}
+                \left(\rho u \wedge \rho v \right) \cdot w &= \operatorname{det} (\rho u, \rho v, w) \\
+                &= \operatorname{det} (\rho) \operatorname{det} (u, v, \rho^{-1} w) \\
+                &= \operatorname{det}(\rho) \left((u \wedge v) \cdot \rho^{-1} w\right) \\
+                &= \operatorname{det}(\rho) \left(\rho (u \wedge v) \cdot w\right),
+            \end{split}
+        \end{equation*}
+        for all $ w \in \mathbb{R}^3 $. Hence, $ \rho u \cdot \rho v = \operatorname{det}(\rho) \rho (u \wedge v) = \rho (u \wedge v) $ whenever $ \operatorname{det}(\rho) = 1 $. Therefore, the assertion is false when $ \operatorname{det}(\rho) \neq 1 $. 
+        \item Let $ R = A \circ \rho : \mathbb{R}^3 \to \mathbb{R}^3 $ be a rigid motion. Then, for all parametrized curves $ \alpha (t) $, we have $ \tilde{\alpha} = R \alpha = \rho \alpha + p $. The arc length is then given by
+        \[
+            \tilde{s}(t) = \int \mathrm{d}\tau \, \vert \tilde{\alpha}^{\prime} (\tau) \vert = \int \mathrm{d}\tau \, \vert \rho \alpha^{\prime} (\tau) \vert = \int \mathrm{d}\tau \, \vert \alpha^{\prime} (\tau) \vert = s(t),
+        \]
+        since $ \rho $ preserves the norm. Now, we use the arc length parametrization. The curvature is given by
+        \[
+            \tilde{k}(\tilde{s}) = \vert \tilde{\alpha}^{\prime\prime} (\tilde{s}) \vert = \vert \rho \alpha^{\prime\prime} (s) \vert = \vert \alpha^{\prime\prime} (s) \vert = k(s),
+        \]
+        and the torsion is given by
+        \begin{equation*}
+            \begin{split}
+                \tilde{\tau} (\tilde{s}) &= - \frac{(\tilde{\alpha}^{\prime} (\tilde{s}) \wedge \tilde{\alpha}^{\prime\prime} (\tilde{s})) \cdot \tilde{\alpha}^{\prime\prime\prime} (\tilde{s})}{\tilde{k}(\tilde{s})^2} = - \frac{(\rho \alpha^{\prime} (s) \wedge \rho \alpha^{\prime\prime} (s)) \cdot \rho \alpha^{\prime\prime\prime} (s)}{k(s)^2} \\
+                &= - \frac{\rho (\alpha^{\prime} (s) \wedge \alpha^{\prime\prime} (s)) \cdot \rho \alpha^{\prime\prime\prime} (s)}{k(s)^2} = - \frac{(\alpha^{\prime} (s) \wedge \alpha^{\prime\prime} (s)) \cdot \alpha^{\prime\prime\prime} (s)}{k(s)^2} = \tau (s),
+            \end{split}
+        \end{equation*}
+        since $ \rho $ preserves the vector and the inner product.
+    \end{enumerate}    
+\end{solution}
+
+% 1.5.7
+\begin{exercise}[\textbf{*}]
+    Let $\alpha:I\to\mathbb{R}^2$ be a regular parametrized plane curve (arbitrary parameter), and define $n=n(t)$ and $k=k(t)$ as in Remark~1. Assume that $k(t)\neq 0$, $t\in I$. In this situation, the curve
+    \begin{equation}
+        \label{equ:evolute}
+        \beta(t)=\alpha(t)+\frac{1}{k(t)}\,n(t),\qquad t\in I,
+    \end{equation}
+    is called the \emph{evolute} of $\alpha$ (Fig.~1--17).
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Show that the tangent at $t$ of the evolute of $\alpha$ is the normal to $\alpha$ at $t$.
+        \item Consider the normal lines of $\alpha$ at two neighboring points $t_1,t_2$, $t_1\neq t_2$. Let $t_1$ approach $t_2$ and show that the intersection points of the normals converge to a point on the trace of the evolute of $\alpha$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution} 
+    ~
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Let $ \beta $ be the evolute. By the chain rule, we have 
+        \begin{equation*}
+            n^{\prime} (t) = \frac{\mathrm{d}n}{\mathrm{d}s} \frac{\mathrm{d}s}{t} = -k(t) \frac{\alpha^{\prime} (t)}{\vert \alpha ^{\prime} (t) \vert} \vert \alpha^{\prime} (t) \vert = - k(t)\, \alpha^{\prime} (t).
+        \end{equation*}
+        By direct differentiation of $ \beta $, we get 
+        \begin{equation*}
+            \beta^{\prime} (t) = \alpha^{\prime} (t) + \frac{- k(t)^{2} \, \alpha^{\prime} (t) - n(t)\, k(t)}{k(t)^{2}} = - \frac{k^{\prime} (t)}{k(t)^{2}}n(t). 
+        \end{equation*}
+        Hence, the tangent at $ t $ of $ \beta $ is precisely $ n(t) $. 
+        \item Let the normal be given by $ n(t) = (a(t), b(t)) $, then $ a^{\prime} (t) \neq 0 $ or $ b^{\prime} (t) \neq 0 $ for all $ t $ since $ \alpha $ is regular. Take some $ t_{2} \in I $, assume without loss of generality that $ a^{\prime} (t_{2}) \neq 0 $. For $ t \in J = (t_2 - \delta, t_2 + \delta) $, we have 
+        \begin{equation*}
+            \vert a^{\prime} (t_2) \vert - \left\vert \frac{a_{t_2} - a_{t}}{t_2 - t} \right\vert \leq \left\vert a^{\prime} (t_2) \frac{a_{t_2} - a_{t}}{t_2 - t} \right\vert < \frac{1}{2} \vert a^{\prime} (t_2) \vert, 
+        \end{equation*}
+        and 
+        \begin{equation*}
+            \left\vert \frac{a(t_2) - a(t)}{t_2 - t} \right\vert > \frac{\vert a^{\prime} (t_2) \vert }{2} > 0, 
+        \end{equation*}
+        hence $ a(t) \neq a(t_2) $ for any $ t $ in a neighborhood of $ t_2 $. Therefore, if we fix $ t_1 \in J $, $ t_1 \neq t_2 $, then the normal lines $ N_1, N_2 $ of $ \alpha $ at $ t_1, t_2 $ will have a unique intersection. $ L_1, L_2 $ are well-defined given that $ n(t) \neq 0 $ for all $ t \in I $. Let $ h \in \mathbb{R}^{2} $ be the intersection point, then 
+        \begin{equation*}
+            h = \alpha (t_1) + p_1 n(t_1) = \alpha (t_2) + p_2 n(t_2),
+        \end{equation*}  
+        where $ p_1, p_2 \in I $ are constants. We shall show that as $ t_1 \to t_2 $, $ p_2 \to 1 / k (t_2) $. The area spanned by $ n(t_1) $ and $ \alpha (t_1) $ is 
+        \begin{equation*}
+            \operatorname{det} (\alpha (t_1), n(t_1)) = \operatorname{det} (\alpha (t_2), n(t_1)) + p_1\operatorname{det} (n (t_2), n(t_1)),
+        \end{equation*}
+        then 
+        \begin{equation*}
+            p_2 = \frac{\operatorname{det}(\alpha (t_1) - \alpha (t_2), \; n(t_1))}{\operatorname{det}(n (t_2) , \; n(t_1)) }. 
+        \end{equation*}
+        Taking the limit $ t_1 \to t_2 $ gives, by L'Hôpital's rule,
+        \begin{equation*}
+            \begin{split}
+                \lim_{t_1 \to t_2} p_2 &= \frac{\operatorname{det}(\alpha^{\prime} (t_2), n(t_2))}{\operatorname{det}(n(t_2), n^{\prime} (t_2))} = \frac{1}{k(t_2)} \\
+                &= \lim_{t_1 \to t_2} \frac{\operatorname{det}(\alpha^{\prime} (t_1), \; n(t_1)) - \operatorname{det} (\alpha (t_1) - \alpha (t_2), \; -k(t_1) \, \alpha^{\prime} (t_1))}{\operatorname{det}(n(t_2), - k(t_1)\, \alpha^{\prime} (t_1))} \\
+                &= \lim_{t_1 \to t_2} \frac{\vert \alpha^{\prime} (t_1) \vert }{k(t_1) \, \vert  \vert } + \lim_{t_1 \to t_2} \frac{\operatorname{det}(k(t_1) \, \alpha^{\prime} (t_1), \; \alpha(t_1) - \alpha (t_2))}{k(t_1) \, \vert \alpha^{\prime} (t_1) \vert } \\
+                &= \frac{1}{k(t_2)}. 
+            \end{split}
+        \end{equation*}
+        Therefore, 
+        \begin{equation*}
+            \lim_{t_1 \to t_2} h = \alpha (t_2) + \frac{1}{k(t_2)} n(t_2) = \beta (t_2), 
+        \end{equation*}
+        which is a point on the evolute of $ \alpha $.
+    \end{enumerate}
+\end{solution}
+
+% 1.5.8
+\begin{exercise}
+    The trace of the parametrized curve (arbitrary parameter)
+    \begin{equation}
+        \alpha(t)=(t,\cosh t),\qquad t\in\mathbb{R},
+    \end{equation}
+    is called the \emph{catenary}.
+    \begin{enumerate}[label=\textbf{\alph*.}]
+    \item Show that the signed curvature (cf.\ Remark~1) of the catenary is
+    \begin{equation}
+        k(t) = \frac{1}{\cosh^2 t}.
+    \end{equation}
+    \item Show that the evolute (cf.\ Exercise~7) of the catenary is
+    \begin{equation}
+        \beta(t)=\bigl(t-\sinh t\,\cosh t,\; 2\cosh t\bigr).
+    \end{equation}
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    To keep the notation unambiguous, we will denote the (unit) tangent vector by $T$. Recall that $ n(t) = T^{\prime} (t) / \vert T^{\prime} (t) \vert $, by remark 1, the signed curvature is given by
+    \begin{equation}
+        k(t) \, n(t) = \frac{dT}{ds} = \frac{dT/dt}{ds/dt} = \frac{T'(t)}{|\alpha'(t)|}.
+    \end{equation}
+    Plugging in the expression for $ n(t) $ simplifies it to 
+    \begin{equation}
+        \label{equ:curvature}
+        k(t) = \frac{|T'(t)|}{|\alpha'(t)|}.
+    \end{equation}
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item We have $ \alpha^{\prime} (t) = (1, \sinh t) $, $ |\alpha^{\prime} (t)| = \sqrt{1+\sinh^2 t} = \cosh t $. Then $ T(t) = \alpha^{\prime} (t) / \vert \alpha^{\prime} (t) \vert = \operatorname{sech} t (1, \sinh t) $ and 
+        \begin{equation*}
+            T^{\prime} (t) = \operatorname{sech}^{2} t \left(- \sinh t, 1\right), 
+        \end{equation*}
+        \begin{equation*}
+            \vert T^{\prime} (t) \vert = \operatorname{sech}^{2} t \sqrt{\sinh^2 t + 1} = \operatorname{sech} t,
+        \end{equation*}
+        By equation \eqref{equ:curvature}, we have
+        \begin{equation}
+            k(t) = \frac{\operatorname{sech} t}{\cosh t} = \operatorname{sech}^2 t = \frac{1}{\cosh^2 t}.
+        \end{equation}
+        \item By definition in Exercise 7, the evolute is given by
+        \begin{equation}
+            \begin{split}
+                \beta(t) &= \alpha(t) + \frac{1}{k(t)} n(t) \\
+                &= (t, \cosh t) + \cosh^2 t \, \operatorname{sech} t (-\sinh t, 1) \\
+                &= (t - \sinh t \cosh t, 2 \cosh t).
+            \end{split}
+        \end{equation}
+    \end{enumerate}
+\end{solution}
+
+% 1.5.9
+\begin{exercise}
+    Given a differentiable function $k(s)$, $s\in I$, show that the parametrized plane curve having $k(s)=k$ as curvature is given by
+    \begin{equation}
+        \alpha(s)=\left(\int \mathrm{d}s \, \cos\theta(s)+a,\;\int \mathrm{d}s \,\sin\theta(s)+b\right),
+    \end{equation}
+    where
+    \begin{equation}
+        \theta(s)=\int \mathrm{d}s \, k(s) +\varphi,
+    \end{equation}
+    and that the curve is determined up to a translation of the vector $(a,b)$ and a rotation of the angle $\varphi$.
+\end{exercise}
+
+\begin{solution}
+    Let $ \alpha (s) $ be as given, we have 
+    \begin{equation}
+        \alpha'(s) = \left( \cos \theta(s), \sin \theta(s) \right) = \left( \cos \left( \int k(s)\,ds+\varphi \right), \sin \left( \int k(s)\,ds+\varphi \right) \right), 
+    \end{equation}
+    and
+    \begin{equation}
+        \alpha^{\prime \prime} (s) = k(s) \left( -\sin \theta(s), \cos \theta(s) \right),
+    \end{equation}
+    hence $ \vert \alpha^{\prime \prime} (s) \vert = k(s) $. By the definition of translation, the curve is determined up to a translation of the vector $ (a,b) $, so suppose $ a = b = 0 $. Now suppose we rotate the curve by an angle $ \varphi $ counterclockwise, then the new curve $ \tilde{\alpha} (s) $ is given by
+    \begin{equation*}
+        \begin{split}
+            \tilde{\alpha} (s) &= \begin{pmatrix}
+            \cos \varphi & -\sin \varphi \\
+            \sin \varphi & \cos \varphi
+            \end{pmatrix} \alpha (s) \\
+            &= \begin{pmatrix}
+                \cos \varphi \int \mathrm{d}s\, \cos \theta (s) -\sin \varphi \int \mathrm{d}s\, \sin \theta (s) \\
+                \sin \varphi \int \mathrm{d}s\, \cos \theta (s) + \cos \varphi \int \mathrm{d}s\, \sin \theta (s)
+            \end{pmatrix} \\ 
+            &= \begin{pmatrix}
+                \int \mathrm{d}s\, \cos (\theta (s) + \varphi) \\
+                \int \mathrm{d}s\, \sin (\theta (s) + \varphi)
+            \end{pmatrix}.
+        \end{split}
+    \end{equation*}
+    Thus, the curve is determined up to an arbitrary rotation of the angle $ \varphi $.
+
+    \begin{remark}
+        This exercises shows how to construct a curve with any given curvature functions $ k(s) $, up to a translation and rotation. This is a special case of the \textbf{Fundamental Theorem of the Local Theory of Curves}.
+    \end{remark}
+\end{solution}
+
+% 1.5.10
+\begin{exercise}
+    Consider the map
+    \begin{equation}
+        \alpha(t) = 
+        \begin{cases} 
+            (t, 0, e^{-1/t^{2}}), & t > 0 \\
+            (t, e^{-1/t^{2}}, 0), & t < 0 \\
+            (0, 0, 0), & t = 0
+        \end{cases}
+    \end{equation}
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Prove that $\alpha$ is a differentiable curve.
+        \item Prove that $\alpha$ is regular for all $t$ and that the curvature $k(t) \neq 0$, for $t \neq 0$, $t \neq \pm\sqrt{2/3}$, and $k(0) = 0$.
+        \item Show that the limit of the osculating planes as $t \to 0, t > 0$, is the plane $y = 0$ but that the limit of the osculating planes as $t \to 0, t < 0$, is the plane $z = 0$ (this implies that the normal vector is discontinuous at $t = 0$ and shows why we excluded points where $k = 0$).
+        \item Show that $\tau$ can be defined so that $\tau \equiv 0$, even though $\alpha$ is not a plane curve.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[(a)]
+        \item The curve $ \alpha $ is differentiable if $ \alpha^{\prime} $ exists everywhere. For $ t>0 $ and $ t<0 $ it is made of elementary functions, so it is differentiable. At $ t=0 $, the x coordinate is differentiable, so consider the z coordinateo only. 
+        \begin{lemma}
+            \label{lem:differentiable}
+            The map
+            \begin{equation}
+                f(x) = \begin{dcases}
+                    e^{-1/x^{2}}, & x > 0;\\
+                    0, & x \leq 0.
+                \end{dcases}
+            \end{equation} 
+            is differentiable at $ x = 0 $ and $ f^{(n)}(0) = 0 $.
+        \end{lemma}
+        \begin{proof}
+            Let $ f(x) = e^{-1/x^{2}} $, notice that 
+            \begin{equation}
+                f(x) \leq n! x^{2n} \quad \text{for all } n.
+            \end{equation}
+            Thus, for $ n=1 $ we have $ f^{\prime} (0) = \lim_{x \to 0} f(x)/x = 0 $ by the squeeze theorem. Assume that $ f^{(k)}(0) = 0 $ for all $ k < n $. By induction we know that $ f^{(k)} $ is of the form $ f^{(m)} (x) = f(x) \sum_{r=1}^{N}a_{r} x^{-r} $ for $ x>0 $, so choosing some $ n $ large enough such that 
+            \begin{equation*}
+                f^{(k+1)}(x) \leq n! x^{2n} \sum_{r=1}^{N}a_{r} x^{-r} \leq Cx^m
+            \end{equation*} 
+            for some constant $ C $, we have $ f $ is $ (k+1) $ times differentiable and $ f^{(k+1)}(0) = 0 $. By induction we are done. 
+        \end{proof}
+        By Lemma (\ref{lem:differentiable}), $ \alpha $ is differentiable. 
+        \item The curve has derivative 
+        \begin{equation*}
+            \alpha^{\prime} = 
+            \begin{dcases}
+                \left(1, 0, \frac{2}{t^{3}} e^{-1/t^{2}}\right), & t > 0,\\
+                \left(1, \frac{2}{t^{3}} e^{-1/t^{2}}, 0\right), & t < 0,\\
+                (1, 0, 0), & t = 0.
+            \end{dcases}
+        \end{equation*}
+        Since $ e^{-1/t^{2}} $ is always positive, $ \alpha^{\prime}(t) \neq 0 $ for all $ t $, so $ \alpha $ is regular. Next, we compute the curvature $ k(t) $. 
+        \begin{lemma}
+            \label{lem:curvature}
+            For a regular curve $ \alpha(t) $, the curvature is given by
+            \begin{equation}
+                \label{eq:Tprime}
+                k(t) = \frac{|\alpha^{\prime}(t) \wedge \alpha^{\prime\prime}(t)|}{|\alpha^{\prime}(t)|^3}.
+            \end{equation}
+        \end{lemma}
+        \begin{proof}
+            Let $ \alpha \colon I \to \mathbb{R}^3 $ be a regular curve. Then, we have $ T^{\prime} (t(s)) = k(t(s)) N(t(s)) $, where $ t(s) $ is the reparametrization by arc length. Then $ \lvert T^{\prime} (t(s)) \rvert = k(t(s)) \lvert N(t(s)) \rvert = k(t(s)) $. The left hand side is $ \mathrm{d}T / \mathrm{d}s = \left( \mathrm{d}T/\mathrm{d}t \right)\left(\mathrm{d}t / \mathrm{d}s\right) = \left( \mathrm{d}T/\mathrm{d}t \right) / \lvert \alpha^{\prime} (t) \rvert $. Moreover, 
+            \begin{equation}
+                \frac{\mathrm{d}T}{\mathrm{d}t} = \frac{\lvert \alpha^{\prime} \rvert^{2} \alpha^{\prime\prime} - \left(\alpha^{\prime} \cdot \alpha^{\prime\prime} \right)\alpha^{\prime} }{\lvert \alpha^{\prime} \rvert^{3} } = \frac{\alpha^{\prime} \wedge (\alpha^{\prime\prime} \wedge \alpha^{\prime} )}{\lvert \alpha^{\prime} \rvert^{3}}.  
+            \end{equation} 
+            Since $ \alpha^{\prime} \perp \alpha^{\prime\prime} \wedge \alpha^{\prime} $, 
+            \[
+                k(t(s)) = \lvert T^{\prime}(t(s)) \rvert = \frac{|\alpha^{\prime}(t) \wedge \alpha^{\prime\prime}(t)|}{|\alpha^{\prime}(t)|^3}.
+            \]
+        \end{proof}
+        We have $ \alpha^{\prime} (t) $ given above, and 
+        \begin{equation*}
+            \begin{split}
+                \alpha^{\prime\prime} &= 
+                \begin{dcases}
+                    \left(0, 0, \left(\frac{4}{t^{6}} - \frac{6}{t^{4}}\right) e^{-1/t^{2}}\right), & t > 0,\\
+                    \left(0, \left(\frac{4}{t^{6}} - \frac{6}{t^{4}}\right) e^{-1/t^{2}}, 0\right), & t < 0,\\
+                    (0, 0, 0), & t = 0.
+                \end{dcases} \\
+                \alpha^{\prime} \wedge \alpha^{\prime\prime} &= 
+                \begin{dcases}
+                    \left(0, - \left(\frac{4}{t^{6}} - \frac{6}{t^{4}}\right) e^{-1/t^{2}}, 0\right), & t > 0,\\
+                    \left(0, 0, \left(\frac{4}{t^{6}} - \frac{6}{t^{4}}\right) e^{-1/t^{2}}\right), & t < 0,\\
+                    (0, 0, 0), & t = 0.
+                \end{dcases}
+            \end{split}
+        \end{equation*}
+        Using Lemma \ref{lem:curvature}, we have
+        \begin{equation}
+            k(t) = 
+            \begin{dcases}
+                \left| \left(\frac{4}{t^{6}} - \frac{6}{t^{4}}\right) e^{-1/t^{2}} \right| \left.\middle/\right. \left(1 + \frac{4}{t^{6}} e^{-2/t^{2}}\right)^{3/2}, & t \neq 0,\\
+                0, & t = 0.
+            \end{dcases}
+        \end{equation}
+        From above we know $ k(t) = 0$ when and only when  $ t = 0 $ and $ t = \pm \sqrt{2/3} $.
+        \item The osculating plane is determined by the normal vector $ N(t) $ and the tangent vector $ T(t) $. By equation (\ref{eq:Tprime}) and the definition $ \mathrm{d}T(t(s)) / \mathrm{d}s = k(t(s)) N(t(s))$, the normal vector is
+        \begin{equation}
+            \begin{split}
+                N(t) &= \frac{1}{k(t)} \frac{\mathrm{d}T(t(s))}{\mathrm{d}s} \\
+                &= \frac{\alpha^{\prime}(t) \wedge (\alpha^{\prime\prime} (t) \wedge \alpha^{\prime}(t) )}{\lvert \alpha^{\prime} (t) \rvert^{4}} \cdot \frac{|\alpha^{\prime}(t)|^3}{|\alpha^{\prime}(t) \wedge \alpha^{\prime\prime}(t)|} \\
+                &= \frac{\alpha^{\prime}(t) \wedge (\alpha^{\prime\prime} (t) \wedge \alpha^{\prime}(t) )}{\lvert \alpha^{\prime}(t) \rvert |\alpha^{\prime}(t) \wedge \alpha^{\prime\prime}(t)|}.
+            \end{split}
+        \end{equation}
+        For $ t > 0 $, we have
+        \begin{equation*}
+            N(t) = \left(1 + \frac{4}{t^6}e^{-1/t^{2}}\right)^{-1/2} \left(-\frac{2}{t^3}e^{-1/t^{2}}, 0, 1\right)
+        \end{equation*}
+        and
+        \begin{equation*}
+            T(t) = \left(1 + \frac{4}{t^6}e^{-1/t^{2}}\right)^{-1/2} \left(1, 0, \frac{2}{t^3}e^{-1/t^{2}}\right),
+        \end{equation*} 
+        hence $ N_P = \lim_{t \to 0^+} T(t)\wedge N(t) = (0, 0, 1) \wedge (1, 0, 0) = (0,1,0) $. Furthermore, $ \lim_{t \to 0^+} \alpha (t) = (0,0,0)$, so the osculating plane is $ y=0 $. 
+
+        On the other hand, for $ t<0 $, we have 
+        \begin{equation*}
+            N(t) = \left(1 + \frac{4}{t^6}e^{-1/t^{2}}\right)^{-1/2} \left(-\frac{2}{t^3}e^{-1/t^{2}}, 1, 0\right)
+        \end{equation*}
+        and
+        \begin{equation*}
+            T(t) = \left(1 + \frac{4}{t^6}e^{-1/t^{2}}\right)^{-1/2} \left(1, \frac{2}{t^3}e^{-1/t^{2}}, 0\right),
+        \end{equation*}
+        hence $ N_P = \lim_{t \to 0^-} T(t) \wedge N(t) = (0, 1, 0) \wedge (1, 0, 0) = (0,0,-1) $. Furthermore, $ \lim_{t \to 0^-} \alpha (t) = (0,0,0)$, so the osculating plane is $ z=0 $. Notice that $ N(t) $ is discontinuous at $ t=0 $, thus undefined there. 
+        \item Since $ k(0) = k(\pm \sqrt{2/3} ) = 0 $, $ N(0) $ and $ N(\pm\sqrt{2/3} ) $ are not well-defined. Therefore, we can define $ \tau $ to be zero at these points. For $ t \neq 0, \pm \sqrt{2/3}$, we have 
+        \begin{equation*}
+            B(t) = T(t) \wedge N(t) = 
+            \begin{dcases}
+                -(0,1,0), & t>0, \\
+                (0,0,1), & t<0. \\
+            \end{dcases}
+        \end{equation*} 
+        The binormal vector $ B(t) $ is constant on $ I \backslash \{0\} $, so $ B^{\prime} (s) = B^{\prime} (t) \cdot \vert \alpha^{\prime} (t) \vert^{-1} = 0 = \tau (t(s)) N(t(s)) $. Hence we can choose $ \tau (t) \equiv 0 $ for $ t \in I \backslash \{0, \pm \sqrt{2/3} \} $. This is an example of \textbf{a curve with identically zero torsion that is not a plane curve}.  
+    \end{enumerate}
+\end{solution}
+
+% 1.5.11
+\begin{exercise}
+    One often gives a plane curve in polar coordinates by $\rho=\rho(\theta)$, $a\leq \theta \leq b$.
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Show that the arc length is
+        \begin{equation}
+            \int_a^b \mathrm{d}\theta \, \sqrt{\rho^2+(\rho')^2},
+        \end{equation}
+        where the prime denotes the derivative relative to $\theta$.
+        \item Show that the curvature is
+        \begin{equation}
+            k(\theta)=\frac{2(\rho')^2-\rho\rho''+\rho^2}{\bigl((\rho')^2+\rho^2\bigr)^{3/2}}.
+        \end{equation}
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~ 
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Calculate the curve vector in Cartesian coordinates:
+        \begin{equation*}
+            \alpha(\theta) = (\rho(\theta) \cos \theta, \; \rho(\theta) \sin \theta),
+        \end{equation*}
+        Then 
+        \begin{equation*}
+            \alpha'(\theta) = (\rho'(\theta) \cos \theta - \rho(\theta) \sin \theta, \; \rho'(\theta) \sin \theta + \rho(\theta) \cos \theta),
+        \end{equation*}
+        and computing the norm gives
+        \begin{equation*}
+            \vert \alpha^{\prime} (\theta) \vert = \sqrt{(\rho'(\theta))^2 + \rho^2(\theta)}. 
+        \end{equation*}
+        The arclength is defined to be  
+        \begin{equation}
+            s(a,b) = \int_a^b \mathrm{d}\theta \, |\alpha'(\theta)| = \int_a^b \mathrm{d}\theta \, \sqrt{\rho^2 + (\rho')^2} .
+        \end{equation}
+        \item The unit tangent is 
+        \begin{equation*}
+            T(\theta) = \frac{\alpha'(\theta)}{|\alpha'(\theta)|} = \frac{1}{\sqrt{(\rho')^2 + \rho^2}} (\rho'(\theta) \cos \theta - \rho(\theta) \sin \theta, \; \rho'(\theta) \sin \theta + \rho(\theta) \cos \theta).
+        \end{equation*}
+        Then we calculate $ T'(\theta) $ and its magnitude, where prime denotes derivative with respect to $ \theta $. After some cumbersome algebra, we get 
+        \begin{equation*}
+            T'(\theta) = \frac{1}{((\rho')^2 + \rho^2)^{3/2}} \left( (2(\rho')^2 - \rho \rho'' + \rho^2) (-\sin \theta, \; \cos \theta) \right),
+        \end{equation*}
+        By equation \eqref{equ:curvature}, we have
+        \begin{equation}
+            k(\theta) = \frac{|T'(\theta)|}{|\alpha'(\theta)|} = \frac{2(\rho')^2 - \rho \rho'' + \rho^2}{((\rho')^2 + \rho^2)^{3/2}}.
+        \end{equation}
+    \end{enumerate}
+\end{solution}
+
+% 1.5.12
+\begin{exercise}
+    Let \(\alpha: I \to \mathbb{R}^3\) be a regular parametrized curve (not necessarily by arc length) and let \(\beta: J \to \mathbb{R}^3\) be a reparametrization of \(\alpha(I)\) by the arc length \(s = s(t)\), measured from \(t_0 \in I\) (see Remark~2).  
+    Let \(t = t(s)\) be the inverse function of \(s\) and set \(d\alpha/dt = \alpha'\), \(d^2\alpha/dt^2 = \alpha''\), etc.  
+    Prove that
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item \(\displaystyle \frac{dt}{ds} = \frac{1}{|\alpha'|}, \quad \frac{d^2t}{ds^2} = -\frac{\alpha' \cdot \alpha''}{|\alpha'|^4}.\)
+        \item The curvature of \(\alpha\) at \(t \in I\) is  
+        \[
+        k(t) = \frac{|\alpha' \wedge \alpha''|}{|\alpha'|^3}.
+        \]
+        \item The torsion of \(\alpha\) at \(t \in I\) is  
+        \[
+        \tau(t) = -\frac{(\alpha' \wedge \alpha'') \cdot \alpha'''}{|\alpha' \wedge \alpha''|^2}.
+        \]
+        \item If \(\alpha: I \to \mathbb{R}^2\) is a plane curve \(\alpha(t) = (x(t), y(t))\), the signed curvature (see Remark~1) of \(\alpha\) at \(t\) is  
+        \[
+        k(t) = \frac{x'y'' - x''y'}{\left((x')^2 + (y')^2\right)^{3/2}}.
+        \]
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item By the definition of arc length, we have
+        \[
+            s(t) = \int _{t_0}^t \mathrm{d}u \, |\alpha'(u)| \;\Longrightarrow\; \frac{ds}{dt} = |\alpha'(t)| \;\Longrightarrow\; \frac{dt}{ds} = \frac{1}{|\alpha'|}.
+        \]
+        Differentiating again gives
+        \[
+            \frac{\mathrm{d}^2 t}{\mathrm{d}s^2} = \frac{1}{|\alpha^{\prime} |} \frac{\mathrm{d}}{\mathrm{d}t} \left( \frac{1}{|\alpha^{\prime}|} \right) = - \frac{\alpha^{\prime} \cdot \alpha^{\prime\prime}}{|\alpha^{\prime}|^4}.
+        \]
+        \item For a space curve, we have $ k(s) = \vert \alpha^{\prime\prime} (s) \vert $ in the arc length parametrization. By the chain rule, so $ k(s(t)) = \vert \alpha^{\prime\prime} (s(t)) \vert $. By the chain rule, we have
+        \[
+            \alpha^{\prime} = \frac{\mathrm{d}}{\mathrm{d}t}\alpha (s(t))
+        \]
+        \item *
+    \end{enumerate}
+\end{solution}
+
+% 1.5.13
+\begin{exercise}[\textbf{*}]
+    Assume that \(\tau(s) \neq 0\) and \(k'(s) \neq 0\) for all \(s \in I\).  
+    Show that a necessary and sufficient condition for \(\alpha(I)\) to lie on a sphere is that
+    \[
+    R^2 + (R')^2 T^2 = \text{const.},
+    \]
+    where \(R = 1/k\), \(T = 1/\tau\), and \(R'\) is the derivative of \(R\) with respect to \(s\).
+\end{exercise}
+
+\begin{solution}
+    Suppose $ \alpha $ lies on a sphere of radius $ r $ centered at $ 0 $, then $ \vert \alpha \vert = R $. Differentiating three times gives the following equations
+    \[
+        \alpha \cdot \alpha^{\prime} = 0,
+    \]
+    \[
+        \alpha^{\prime} \cdot \alpha^{\prime} + \alpha \cdot \alpha^{\prime\prime} = 0 \;\Longrightarrow\; \alpha \cdot \alpha^{\prime\prime} = -1 \quad \quad (*),
+    \]  
+    \[
+      \alpha^{\prime} \cdot \alpha^{\prime\prime} + \alpha \cdot \alpha^{\prime\prime\prime} = 0 \;\Longrightarrow\; \alpha \cdot \alpha^{\prime\prime\prime} = 0  \quad \quad (^{\ast} ),
+    \]
+    where we suppressed $ s $ and used $ \alpha^{\prime} \cdot \alpha^{\prime\prime} = 0 $. Let's write down the Frenet equations: 
+    \begin{equation}
+        \label{eq:frenet}
+        t^{\prime} = k n, \quad n^{\prime} = - k t - \tau b, \quad b^{\prime} = \tau n.
+    \end{equation}
+    By $ (*) $, we have $ k \alpha \cdot n = -1 $, so $ \alpha \cdot n = - 1 / k $.
+    By $ (**) $ and $ \alpha^{\prime\prime\prime} = k^{\prime} n + k n^{\prime} $, we have the relation $ k^{\prime} \alpha \cdot n + k \alpha \cdot n^{\prime} = 0 $. Substitute the Frenet equations \eqref{eq:frenet} into it gives 
+    \[
+        k^{\prime} \left(-\frac{1}{k}\right) + k \alpha \cdot (-k t + \tau b) = - \frac{k^{\prime}}{k} + k \tau \alpha \cdot b = 0.  
+    \]  
+    Now we have $ \alpha \cdot n = - 1 / k $, $ \alpha \cdot t = 0 $, and $ \alpha \cdot b = \frac{k^{\prime}}{\tau k^2} $, so we can write $ \alpha $ in the Frenet frame $ \{t, n, b\} $ as 
+    \[
+        \alpha = - \frac{1}{k} n + \frac{k^{\prime}}{\tau k^2} b,
+    \]
+    hence 
+    \[
+        \vert \alpha \vert^2 = \frac{1}{k^2} + \frac{(k^{\prime})^2}{\tau^2 k^4} = R^2 + (R^{\prime})^2 T^2, \quad k = \frac{1}{R}, \; \tau = \frac{1}{T}. 
+    \]
+    Conversely, suppose $ R^2 + (R^{\prime})^2 T^2 = \text{const} $, where $ R = 1 / k $ and $ T = 1 / \tau $. Motivated by the Frenet frame formula for $ \alpha $, consider the quantity 
+    \[
+        \beta = \alpha + \frac{1}{k} n - \frac{k^{\prime}}{\tau k^2} b,
+    \]  
+    then 
+    \begin{equation*}
+        \begin{split}
+            \frac{\mathrm{d}\beta}{\mathrm{d}s} &= t + \frac{(-k t - \tau b) k - n k^{\prime}}{k^2} - \frac{\mathrm{d}}{\mathrm{d}s} \left(\frac{k^{\prime}}{\tau k^2}\right) b - \frac{k^{\prime}}{\tau k^2} \tau n \\
+            &= \frac{\tau b}{k} - \frac{\mathrm{d}}{\mathrm{d}s} \left(\frac{k^{\prime}}{\tau k^2}\right) b \\
+            &= \frac{k^2 \tau b}{k^{\prime}} \left[ \frac{k^{\prime}}{k^3} - \frac{k^{\prime}}{\tau k^2} \frac{\mathrm{d}}{\mathrm{d}s} \left(\frac{k^{\prime}}{\tau k^2}\right) \right] \\
+            &= \frac{k^2 \tau b}{2 k^{\prime}} \frac{\mathrm{d}}{\mathrm{d}s}\left[\frac{1}{k^2} + \left(\frac{k^{\prime}}{\tau k^2}\right)^2 \right] = 0.
+        \end{split}
+    \end{equation*}
+    Therefore, $ \beta (s) = \beta (0) $ is a constant vector, and we have 
+    \[
+        \vert \alpha - \beta (0) \vert = \sqrt{\frac{1}{k^2} + \frac{(k^{\prime})^2}{\tau^2 k^4}} = \sqrt{R^2 + (R^{\prime})^2 T^2} = \text{const},
+    \]
+    and hence $ \alpha $ lies on a sphere centered about $ \beta (0) $.
+\end{solution}
+
+% 1.5.14
+\begin{exercise}[\textbf{*}]
+    Let $\alpha:(a,b)\to\mathbb{R}^2$ be a regular parametrized plane curve. Assume that there exists $t_0$, $a<t_0<b$, such that the distance $\lvert \alpha(t)\rvert$ from the origin to the trace of $\alpha$ will be a maximum at $t_0$. Prove that the curvature $k$ of $\alpha$ at $t_0$ satisfies
+    \begin{equation*}
+        \lvert k(t_0)\rvert \geq \frac{1}{\lvert \alpha(t_0)\rvert}.
+    \end{equation*}
+\end{exercise}
+
+\begin{solution}
+    Notice that $ f(t) = \vert \alpha (t) \vert $ is nonnegative, so $ f^{2}(t) = \alpha (t) \cdot \alpha (t) $ also attains a maximum at $ t_0 $. Then
+    \begin{equation*}
+        \frac{d}{dt} f^{2} (t) \Big|_{t=t_0} = 2 \alpha(t_0) \cdot \alpha^{\prime} (t_0) = 0,
+    \end{equation*}
+    differentiating again gives
+    \begin{equation*}
+        \frac{d^2}{dt^2} f^{2} (t) \Big|_{t=t_0} =  \alpha^{\prime} (t_0) \cdot \alpha^{\prime} (t_0) + \alpha(t_0) \cdot \alpha^{\prime\prime} (t_0) \leq 0,
+    \end{equation*}
+    since $ f(t) $ attains a maximum at $ t_0 $. We also have $ \alpha^{\prime} (t_0) \cdot \alpha^{\prime} (t_0) = 1 $ since it is a parametrization by arclength, and $ \alpha^{\prime\prime} (t_0) = k(t_0) n(t_0) $. Then let $ \theta $ be the angle between $ \alpha(t_0) $ and $ \alpha^{\prime\prime} $, we have
+    \begin{equation*}
+        k(t_0) n(t_0) \alpha(t_0) = \vert k(t_0) \vert \vert n(t_0) \vert \vert \alpha(t_0) \vert \cos \theta \leq -1.
+    \end{equation*}
+    Notice that $ \vert n(t_0) \vert = 1 $ and $ \cos \theta < 0 $, we have
+    \begin{equation*}
+        k(t_0) \geq \frac{1}{\vert \alpha(t_0) \cos \theta \vert} \geq \frac{1}{\vert \alpha (t_0) \vert }.
+    \end{equation*} 
+\end{solution}
+
+% 1.5.15
+\begin{exercise}[\textbf{*}]
+    Show that the knowledge of the vector function \( b = b(s) \) (binormal vector) of a curve \(\alpha\), with nonzero torsion everywhere, determines the curvature \(k(s)\) and the absolute value of the torsion \(\tau(s)\) of \(\alpha\).
+\end{exercise}
+
+\begin{solution}
+    By the Frenet equations, we have $ b^{\prime} = \tau n $, so for an arc length parametrized curve, $ \vert b^{\prime} \vert = \vert \tau \vert $. Next, differentiate to get 
+    \[
+        b^{\prime\prime} = \tau^{\prime} n + \tau n^{\prime} = \tau^{\prime} n - \tau k t - \tau^2 b \;\Longrightarrow\; \tau b^{\prime\prime} = \tau \tau^{\prime} n - \tau^2 k t - \tau^3 b .
+    \]
+    From $ b^{\prime} = \tau n $, we have $ b^{\prime} \tau^{\prime} = \tau \tau^{\prime} n $, so 
+    \[
+        \tau b^{\prime\prime} = b^{\prime} \tau^{\prime} - \tau^2 k t - \tau^3 b \;\Longrightarrow\; t = \frac{b^{\prime} \tau^{\prime} - \tau^3 b - \tau b^{\prime\prime}}{\tau^2 k}. 
+    \]
+    Take the norm on both sides yields 
+    \[
+        k = \frac{\vert \tau^3 b - \tau^{\prime} b^{\prime} + \tau b^{\prime\prime} \vert}{\tau^2} = \frac{\left\vert \vert b^{\prime} \vert^4 - (b^{\prime} \cdot b^{\prime\prime}) b^{\prime} + \vert b^{\prime} \vert^2 b^{\prime\prime} \right\vert}{\vert b^{\prime} \vert^3},
+    \]
+    where we assumed $ \tau = \vert b^{\prime} \vert $ without loss of generality as the formula is invariant under $ \tau \to - \tau $, and hence $ \tau^{\prime} = (b^{\prime} \cdot b^{\prime\prime}) / \vert b^{\prime} \vert $. Therefore, 
+    \begin{equation}
+        \vert \tau \vert = \vert b^{\prime} \vert, \quad k = \frac{\left\vert \vert b^{\prime} \vert^4 - (b^{\prime} \cdot b^{\prime\prime}) b^{\prime} + \vert b^{\prime} \vert^2 b^{\prime\prime} \right\vert}{\vert b^{\prime} \vert^3}. 
+    \end{equation}
+\end{solution}
+
+% 1.5.16
+\begin{exercise}[\textbf{*}]
+    Show that the knowledge of the vector function \( n = n(s) \) (normal vector) of a curve \(\alpha\), with nonzero torsion everywhere, determines the curvature \(k(s)\) and the torsion \(\tau(s)\) of \(\alpha\).
+\end{exercise}
+
+\begin{solution}
+    The normal $ n $ is determined by $ \alpha^{\prime\prime} = k n $, and $ n^{\prime} = -k t - \tau b $ by the second Frenet equation. Following the hint, we shall show that
+    \begin{equation}
+        \label{eq:curvature_torsion_ n}
+        \frac{(n \wedge n^{\prime}) \cdot n^{\prime\prime}}{\vert n^{\prime} \vert^2} = \dfrac{\dfrac{\mathrm{d}}{\mathrm{d}s} \left(\dfrac{k}{\tau}\right)}{\left(\dfrac{k}{\tau}\right)^2 + 1}.
+    \end{equation}
+    Let $ t = \alpha^{\prime} $, $ b = t \wedge n = \alpha^{\prime} \wedge n $ in the Frenet equation, then 
+    \[
+        n^{\prime} = -k \alpha^{\prime} - \tau b \;\Longrightarrow\; \vert n^{\prime} \vert^2 = k^2 + \tau^2, 
+    \]
+    \[
+        n \wedge n^{\prime} = n \wedge (-k \alpha^{\prime} - \tau b) = - \tau t + k b,
+    \] 
+    since $ n \wedge b = \alpha^{\prime} = t $. Next, differentiate $ n^{\prime} $ to get
+    \[
+        n^{\prime\prime} = - \left[k^{\prime} t + (k^2 + \tau ^2)n + \tau ^{\prime} b\right]
+    \]
+    and
+    \[
+        (n\wedge n^{\prime}) \cdot n^{\prime\prime} = (- \tau t + k b) \cdot \left[- k^{\prime} t - (k^2 + \tau^2) n - \tau^{\prime} b \right] = \tau k^{\prime} - k \tau^{\prime} = \tau^2 \left(\frac{k}{\tau}\right)^{\prime}. 
+    \]
+    Therefore, we have
+    \[
+        \frac{(n \wedge n^{\prime}) \cdot n^{\prime\prime}}{\vert n^{\prime} \vert^2} = \dfrac{\dfrac{\mathrm{d}}{\mathrm{d}s} \left(\dfrac{k}{\tau}\right)}{\left(\dfrac{k}{\tau}\right)^2 + 1} \equiv a(s) \;\Longrightarrow\; \tan^{-1} \left(\frac{k}{\tau}\right) = \int \mathrm{d}s\, a(s). 
+    \]
+    Hence, we have, up to a constant $ C $ that can only be determined by initial conditions,
+    \[
+        \frac{k}{\tau} = \tan \left[ \int \mathrm{d}s\, \frac{(n (s) \wedge n^{\prime} (s)) \cdot n^{\prime\prime} (s)}{\vert n^{\prime} (s) \vert^2} + C \right], \quad \tau^2 + k^2 = \vert n^{\prime} (s) \vert^2.
+    \]
+    \begin{remark}
+        The problem is ill-posed. Consider the counterexample: let
+        \[
+            \beta (t) = \left(a \cos s, a \sin s, bs \right), \quad s \in \mathbb{R}
+        \]
+        with $ a^2 + b^2 = 1 $, $ a, b > 0 $ be a helix. For all values of $ a, b $, we have 
+        \[
+            \beta^{\prime\prime} (s) = -a (\cos s, \sin s, 0) \;\Longrightarrow\; n(s) = - (\cos s, \sin s, 0),
+        \]
+        and in general we have $ k = a $ and $ \tau = -b $ through direct calculation. Taking $ (a,b) = (1 / \sqrt{2}, 1 / \sqrt{2}) $ and $ (a,b) = (1/2, \sqrt{3} / 2 ) $ gives two different curves with the same normal vector function $ n(s) $, non-vanishing torsion, and different curvature and torsion.
+    \end{remark}
+\end{solution}
+
+% 1.5.17
+\begin{exercise}
+     In general, a curve $\alpha$ is called a \emph{helix} if the tangent lines of $\alpha$ make a constant angle with a fixed direction. Assume that $\tau(s) \neq 0$, $s \in I$, and prove that:
+    \begin{enumerate}
+        \item[*\textbf{a.}] $\alpha$ is a helix if and only if $\frac{k}{\tau} = \text{const}$.
+        \item[*\textbf{b.}] $\alpha$ is a helix if and only if the lines containing $n(s)$ and passing through $\alpha(s)$ are parallel to a fixed plane.
+        \item[*\textbf{c.}] $\alpha$ is a helix if and only if the lines containing $b(s)$ and passing through $\alpha(s)$ make a constant angle with a fixed direction.
+        \item[\textbf{d.}] The curve
+        \begin{equation}
+            \alpha(s) = \left( \frac{a}{c} \int \sin \theta(s) \, ds, \frac{a}{c} \int \cos \theta(s) \, ds \right)
+        \end{equation}
+        where $c^2 = a^2 + b^2$, is a helix, and that $\frac{k}{\tau} = \frac{a}{b}$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[(a)]
+        \item Suppose there exists a vector $ v \in \mathbb{R}^3 $ such that $ v \cdot t(s) = C $ for some constant $ C $. Then 
+        \begin{equation*}
+            \frac{\mathrm{d}t}{\mathrm{d}s} \cdot v = k(s) n(s) \cdot v = 0,
+        \end{equation*}
+        so $ n(s) \cdot v = 0 $. Differentiating again gives 
+        \begin{equation*}
+            \frac{\mathrm{d}n}{\mathrm{d}s} \cdot v = -k(s) t(s) \cdot v + \tau (s) b(s) \cdot v = -k(s) C + \tau (s) b(s) \cdot v = 0.
+        \end{equation*}
+        Since $ \tau (s) \neq 0 $, we have  
+        \[ 
+            C k(s) / \tau (s) = \left( b(s) \cdot v \right) = \left(t(s) \wedge n(s)\right) \cdot v = \left(v \wedge t(s)\right) \cdot n(s) .
+        \]
+        Since $ t(s), v \perp n(s) $, the triple product is equal to $ \vert n(s) \vert \vert t(s) \vert \vert v \vert \sin (C) = \vert v \vert \sin C$. Therefore, $ k(s) / \tau (s) $ is a constant. Conversely, if $ k(s) / \tau (s) = C^{\prime} $ for some constant $ C^{\prime} $, then we can take $ v = t(s) + C^{\prime} b(s) $, which is a constant vector since
+        \begin{equation*}
+            \frac{\mathrm{d}v}{\mathrm{d}s} = k(s) n(s) + C^{\prime} \left( -\tau (s) n(s) \right) = 0.
+        \end{equation*} 
+        Then
+        \begin{equation*}
+            \frac{\mathrm{d}t}{\mathrm{d}s}\cdot v = 0.
+        \end{equation*} 
+        \item Suppose $ \alpha (s) $ is a helix, then there exists a vector $ v \in \mathbb{R}^3 $ such that $ v \cdot t(s) = C $ for some constant $ C $. Let $ L $ be a line containing $ n(s) $ and passing through $ \alpha(s) $. Then $ n(s) \cdot v = 0 $ by result in part (a), so $ L \perp v $, hence parallel to the plane with normal vector $ v $. Conversely, for any point $ s\in I $, suppose the line $ L $ containing $ n(s) $ and passing $ \alpha (s) $ is parallel to the plane $ P $ with normal vector $ v \in \mathbb{R}^{3} $. Then $ n(s) \cdot v = 0 $, and 
+        \begin{equation*}
+            \frac{\mathrm{d}T}{\mathrm{d}s} \cdot v = k(s) n(s) \cdot v = 0.
+        \end{equation*}
+        Hence $ \mathrm{d}T / \mathrm{d}s = \mathrm{d} (T\cdot v) / \mathrm{d}s = 0 $, and $ T(s) \cdot v = C^{\prime} $ for some constant $ C^{\prime} $, and $ \alpha (s) $ is a helix.
+        \item By definition of helix, there exists a vector $ v \in \mathbb{R}^3 $ such that $ v \cdot t(s) = C $ for some constant $ C $. By (b), all the lines containing $ n(s) $ and passing through $ \alpha (s) $ are parallel to the plane with some fixed normal vector $ u \in \mathbb{R}^{3} $, so $ n(s) \cdot u = 0 $. Consider $ b \cdot (u \wedge v) = (t(s) \wedge n(s)) \cdot (u \wedge v) = (t(s) \cdot u)(n(s) \cdot v) - (t(s) \cdot v)(n(s) \cdot u) = 0 $, since $ n(s) \cdot v = 0 $ from (a). Conversely, suppose there exists a vector $ v \in \mathbb{R}^3 $ such that $ b(s) \cdot v = C $ for some constant $ C $. Then $ \left(t(s) \wedge n(s)\right) \cdot v = C $,
+        \begin{equation*}
+            \frac{\mathrm{d}b}{\mathrm{d}s} \cdot v = -\tau (s) n(s) \cdot v = 0,
+        \end{equation*} 
+        and by $ \tau (s) \neq 0 $ we have $ n(s) \cdot v = 0 $. Finally, 
+        \begin{equation*}
+            \frac{\mathrm{d}}{\mathrm{d}s}\left(t(s) \cdot v\right) = k(s) n(s) \cdot v = 0,
+        \end{equation*}
+        therefore, $ \alpha (s) $ is a helix. 
+        \item With $ s $ suppressed in the expressions, derivatives of $ \alpha $ are 
+        \begin{equation*}
+            \begin{split}
+                \alpha^{\prime} &= \left( \frac{a}{c} \sin \theta(s), \frac{a}{c} \cos \theta(s), \frac{b}{c} \right),\\
+                \alpha^{\prime\prime} &= \left( \frac{a}{c} \theta^{\prime}(s) \cos \theta(s), -\frac{a}{c} \theta^{\prime}(s) \sin \theta(s), 0 \right),\\
+                \alpha^{\prime\prime\prime} &= \left( \frac{a}{c} \left( \theta^{\prime\prime}(s) \cos \theta(s) - (\theta^{\prime}(s))^2 \sin \theta(s) \right), -\frac{a}{c} \left( \theta^{\prime\prime}(s) \sin \theta(s) + (\theta^{\prime}(s))^2 \cos \theta(s) \right), 0 \right).
+            \end{split}
+        \end{equation*}
+        The curvature is $ k(s) = \vert \alpha^{\prime} (s) \vert = \frac{a}{c} \theta^{\prime} $. The torsion is given by the formula 
+        \begin{equation*}
+            \tau (s) = - \frac{(\alpha^{\prime}(s) \wedge \alpha^{\prime\prime}(s)) \cdot \alpha^{\prime\prime\prime}(s)}{k(s)^2}
+        \end{equation*}  
+        by [Do Carmo] Exercise 1.5.2. Direct calculation gives 
+        \begin{equation*}
+            (\alpha^{\prime} \wedge \alpha^{\prime\prime}) \cdot \alpha^{\prime\prime\prime} = \left( \frac{ab}{c^2} \theta^{\prime}(s) \sin \theta(s), -\frac{ab}{c^2} \theta^{\prime}(s) \cos \theta(s), -\frac{a^2}{c^2} (\theta^{\prime}(s))^2 \right) = \frac{a^{2} b}{c^{3}}(\theta^{\prime})^{3} ,
+        \end{equation*}
+        so 
+        \begin{equation*}
+            \tau (s) = \frac{b}{c} \theta^{\prime}(s) = \frac{b}{a} k(s).
+        \end{equation*}
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\subsection{Chapter 1.6}
+% 1.6.1
+\begin{exercise}[\textbf{*}]
+    Let $\alpha: I \to \mathbb{R}^3$ be a curve parametrized by arc length with curvature $k(s) \neq 0$, $s \in I$. Let $P$ be a plane satisfying both of the following conditions:
+
+    \begin{enumerate}
+        \item $P$ contains the tangent line at $s$.
+        \item Given any neighborhood $J \subset I$ of $s$, there exist points of $\alpha(J)$ in both sides of $P$.
+    \end{enumerate}
+
+    Prove that $P$ is the osculating plane of $\alpha$ at $s$.
+\end{exercise}
+
+\begin{solution}
+    Let $ n $ be the normal vector of plane $ P $, then condition 1 implies that $ n_P \perp t(s) $, as $ t(s) \in P $. To show the desired result, we will show that $ n(s) \perp n_P $. Consider $ f(s) = t(s) \cdot n_P = 0 $, differentiating both sides gives $ f^{\prime}(s) = t(s) \cdot n_P^{\prime} = k(s) n(s) \cdot n_P = 0 $, so $ n(s) \perp n_P $. Thus, the binormal vector $ b(s) \parallel n_P$. Furthermore, by condition 2 we can take some interval $ J = \left(s-\frac{1}{m}, s+\frac{1}{m}\right) \subseteq I $, then there exists $ s_1^{(m)} \in \left(s-\frac{1}{m}, s\right) $ and $ s_2^{(m)} \in \left(s, s+\frac{1}{m}\right) $ such that $ \alpha(s_1^{(m)}) $ and $ \alpha(s_2^{(m)}) $ are in different sides of plane $ P $. This holds for all $ m \in \mathbb{N} $, so as $ m \to \infty $, $ p \equiv \alpha (s) = \lim_{m \to \infty} \alpha (s_1^{(m)}) $ lies on the left side of $ P $, and $ p \equiv \alpha (s) = \lim_{m \to \infty} \alpha (s_2^{(m)}) $ lies on the right side of $ P $, hence $ p = \alpha (s) \in P $. Since $ P $ contains $ \alpha (s) $ and has $ b(s) $ as a normal vector, $ P $ is the osculating plane of $ \alpha $ at $ s $. 
+\end{solution}
+
+% 1.6.2
+\begin{exercise}
+    Let $\alpha: I \to \mathbb{R}^3$ be a curve parametrized by arc length, with curvature $k(s) \neq 0$, $s \in I$. Show that
+
+    \begin{enumerate}
+        \item[*\textbf{a.}] The osculating plane at $s$ is the limit position of the plane passing through $\alpha(s)$, $\alpha(s + h_1)$, $\alpha(s + h_2)$ when $h_1, h_2 \to 0$.
+        \item[\textbf{b.}] The limit position of the circle passing through $\alpha(s)$, $\alpha(s + h_1)$, $\alpha(s + h_2)$ when $h_1, h_2 \to 0$ is a circle in the osculating plane at $s$, the center of which is on the line that contains $n(s)$ and the radius of which is the radius of curvature $1/k(s)$; this circle is called the \emph{osculating circle} at $s$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[(a)]
+        \item Since the plane, which we will call $ P $, by construction passes through $ \alpha (s) $, we are left to show that the normal vector $ n_P $ of $ P $ converges to $ b(s) $ in the limit $ h_1, h_2 \to 0 $. We have 
+        \begin{equation*}
+            \begin{split}
+                n_P &= \frac{\left(\alpha (s + h_1) - \alpha (s) \right) \wedge \left(\alpha (s + h_2) - \alpha (s)\right)}{\left\vert \left(\alpha (s + h_1) - \alpha (s) \right) \wedge \left(\alpha (s + h_2) - \alpha (s)\right) \right\vert } \\
+                &= \frac{\left( h_1 \alpha^{\prime} (s) + O(h_1^2) \right) \wedge \left( h_2 \alpha^{\prime} (s) + O(h_2^2) \right)}{\left\vert \left( h_1 \alpha^{\prime} (s) + O(h_1^2) \right) \wedge \left( h_2 \alpha^{\prime} (s) + O(h_2^2) \right) \right\vert } \\
+                &= \left(\frac{ \alpha^{\prime} (s) \wedge \alpha^{\prime\prime} (s)}{\left\vert \alpha^{\prime} (s) \wedge \alpha^{\prime\prime} (s) \right\vert } + O(h_1) + O(h_2) \right),
+            \end{split}
+        \end{equation*}
+        hence 
+        \begin{equation*}
+            \lim_{h_1, h_2 \to 0} n_P = \frac{ \alpha^{\prime} (s) \wedge \alpha^{\prime\prime} (s)}{\left\vert \alpha^{\prime} (s) \wedge \alpha^{\prime\prime} (s) \right\vert } .
+        \end{equation*}
+        Then the binormal vector is parallel to $ N_P $ since  
+        \begin{equation*}
+            b(s) = t(s) \wedge n(s) = \alpha^{\prime} (s) \wedge \alpha^{\prime\prime} (s) / \vert \alpha^{\prime\prime} (s) \vert \parallel n_P.
+        \end{equation*}
+        \item Without loss of generality, shift the origin to $ s $ so that $ \alpha (s), \alpha (s+h_1), \alpha (s+h_2) $ become $ \alpha (0), \alpha (h_1), \alpha (h_2) $, respectively. Let $ (x_0,y_0,z_0) $ be the center of the circle passing through $ \alpha (0) $, $ \alpha (h_1) $, and $ \alpha (h_2) $, then the equation of the circle can be written as $ F(s) = (x(s) - x_0)^{2} + (y(s)-y_0)^{2} + (z(s)-z_0)^{2} - r^{2} $. Calculate the derivatives to be 
+        \begin{equation*}
+            F^{\prime} (s) = 2(x(s)-x_0)x^{\prime}(s) + 2(y(s)-y_0)y^{\prime}(s) + 2(z(s)-z_0)z^{\prime}(s)
+        \end{equation*} 
+        and 
+        \begin{equation*}
+            \begin{split}
+                F^{\prime\prime} (s) &= 2(x^{\prime}(s))^{2} + 2(y^{\prime}(s))^{2} + 2(z^{\prime}(s))^{2} \\
+                &+ 2(x(s)-x_0)x^{\prime\prime}(s) + 2(y(s)-y_0)y^{\prime\prime}(s) + 2(z(s)-z_0)z^{\prime\prime}(s).
+            \end{split}
+        \end{equation*}
+        Taking the limit as $ s \to 0 $ gives $ F^{\prime} (0) = -2 x_0 $ and $ F^{\prime\prime} (0) = 2-2k(0) y_0 $. Since the plane passes through $ \alpha (0), \alpha (h_1), \alpha (h_2) $, we have $ F(0) = F(h_1) = F(h_2) = 0 $. By the Mean Value Theorem, there exists some $ s_1 \in (0, h_1) $ such that $ F^{\prime} (s_1) = 0 $. As $ h_1 \to 0 $, we have $ s_1 \to 0 $, by continuity of $ F $ we have $ F^{\prime} (s_1) \to 0 $ as $ s_1 \to 0 $ as $ h_1, h_2 \to 0 $. Similarly, suppose $ h_1 < h_2 $, there exists some $ s_2 \in (h_1, h_2) $ such that $ F^{\prime} (s_2) = 0 $. By the Mean Value Theorem, there exists some $ s_3 \in (s_1, s_2) $ such that $ F^{\prime\prime} (s_3) = 0 $. As $ h_1, h_2 \to 0 $, we have $ s_1, s_2 \to 0 $, so by continuity of $ F^{\prime\prime} $, $ F^{\prime\prime} (s_3) \to 0 $ as $ s_3 \to 0 $. Therefore,
+        \begin{equation*}
+            \lim_{h_1, h_2 \to 0} F^{\prime} (s_1) = F^{\prime} (0) = -2 x_0 = 0 \implies x_0 = 0,  
+        \end{equation*}
+        and
+        \begin{equation*}
+            \lim_{h_1, h_2 \to 0} F^{\prime\prime} (s_2) = F^{\prime\prime} (0) = 2-2k(0)y_0 = 0 \implies y_0 = \frac{1}{k(0)}.
+        \end{equation*}
+        By $ (a) $ we know the circle lies on the osculating plane at $ \alpha (0) $ as $ h_1, h_2 \to 0 $, so $ c \to 0 $. Hence the center of the circle converges to $ (0, 1/k(0), 0) $, which lies on the line containing $ n(0) $, and the radius converges to $ 1/k(0) $.
+    \end{enumerate}
+\end{solution}
+
+\end{CJK}
+\end{document}

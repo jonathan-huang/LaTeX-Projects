@@ -1,0 +1,281 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem*{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+  \textbf{2025 Fall Introduction to Geometry} \\
+  \vspace{0.5cm}
+  \large 
+  Homework 1 (Due Sep 12, 2025)\\
+}
+\author{物理/數學三 黃紹凱 B12202004}
+\date{\today}
+
+\maketitle
+
+% Problem 1
+\begin{problem}{1.2.5}
+    Let $\alpha \colon I \to \mathbb{R}^3$ be a parametrized curve, with $\alpha'(t) \neq 0$ for all $t \in I$. Show that $|\alpha(t)|$ is a nonzero constant if and only if $\alpha(t)$ is orthogonal to $\alpha'(t)$ for all $t \in I$.
+\end{problem}
+
+\begin{solution} 
+    Suppose $|\alpha(t)| = c \neq 0$ for all $t \in I$. Then,
+    \[
+        \frac{\mathrm{d}}{\mathrm{d}t}\vert \alpha(t) \vert^{2} = 2 \alpha (t) \cdot \alpha^{\prime} (t) = \frac{\mathrm{d}}{\mathrm{d}t} c^{2} = 0. 
+    \]
+    Thus $ \alpha (t) \cdot \alpha^{\prime} (t) = 0 $, and $ \alpha (t) $ and $ \alpha^{\prime} (t) $ are orthogonal. Conversely, suppose $ \alpha (t) $ and $ \alpha^{\prime} (t) $ are orthogonal for all $ t \in I $, so $ \alpha (t) \cdot \alpha^{\prime} (t) = 0 $. Then, we have
+    \[
+        \frac{\mathrm{d}}{\mathrm{d}t}\vert \alpha(t) \vert^{2} = 2 \alpha (t) \cdot \alpha^{\prime} (t) = 0.
+    \]
+    Thus $ \vert \alpha (t) \vert $ is a constant.
+\end{solution}
+
+\medskip
+
+% Problem 2
+\begin{problem}{1.3.2}
+    A circular disk of radius 1 in the plane $xy$ rolls without slipping along the $x$-axis. The figure described by a point on the circumference of the disk is called a \textbf{cycloid} (Figure 1-7).
+
+\begin{enumerate}[a.]
+    \item Obtain a parametrized curve $\alpha \colon \mathbb{R} \to \mathbb{R}^2$ the trace of which is the cycloid, and determine its singular points.
+    \item Compute the arc length of the cycloid corresponding to a complete rotation of the disk.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[a.]
+        \item Let \( \alpha(t) = (x(t), y(t)) \) be the parametrized curve of the cycloid. As the disk rolls without slipping and the radius of the disk is 1, the distance traveled along the $ x $-axis is $ t $ and the $ y $-coordinate is given by the height of the point on the circumference. Therefore, we have:
+        \begin{equation}
+            \begin{split}
+                x(t) &= t - \sin(t), \\
+                y(t) &= 1 - \cos(t).
+            \end{split}
+        \end{equation}
+        The singular points occur when $ \alpha ^{\prime} (t) = 0 $. This is equivalent to 
+        \begin{equation}
+            \begin{split}
+                x^{\prime} (t) &= 1 - \cos(t) = 0, \\
+                y^{\prime} (t) &= \sin(t) = 0.
+            \end{split}
+        \end{equation} 
+        Hence the singular points are at $ t = 2n \pi $ for all $ n \in \mathbb{Z} $.  
+        \item The arc length of the cycloid for a complete rotation is given by integrating over $ [0, 2\pi ] $. 
+        \begin{equation}
+            \begin{split}
+                L &= \int_0^{2\pi} \mathrm{d} t\, |\alpha'(t)| = \int_0^{2\pi} \mathrm{d} t\, \sqrt{(1 - \cos(t))^2 + (\sin(t))^2} \\
+                &= \int_0^{2\pi} \mathrm{d} t\, \sqrt{2 - 2\cos(t)} = 8.
+            \end{split}
+        \end{equation}
+    \end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 3
+\begin{problem}{1.3.4}
+ Let \( \alpha: (0, \pi) \to \mathbb{R}^2 \) be given by
+\[
+\alpha(t) = \left( \sin t, \, \cos t + \log \tan \frac{t}{2} \right),
+\]
+where \( t \) is the angle that the \( y \)-axis makes with the vector \( \alpha(t) \). The trace of \( \alpha \) is called the \textit{tractrix} (see Fig. 1-9). Show that:
+
+\begin{enumerate}[a.]
+    \item \( \alpha \) is a differentiable parametrized curve, regular except at \( t = \pi/2 \).
+    
+    \item The length of the segment of the tangent of the tractrix between the point of tangency and the \( y \)-axis is constantly equal to \( 1 \).
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    Recall that a \textbf{regular}  curve is a smooth, parametrized curve with a non-vanishing derivative.
+    \begin{enumerate}[a.]
+        \item First we shall compute the derivative of $ \alpha (t) $ as 
+        \begin{equation}
+            \begin{split}
+                \alpha^{\prime} (t) &= \left( \cos t, \, -\sin t + \frac{1}{\sin t} \right) \\
+                &= \left(\cos t, \cot t \cos t\right)
+            \end{split}
+        \end{equation}
+        Since $ \alpha^{\prime} (t) $ is continuous on \( (0, \pi) \) and \( \alpha^{\prime} (t) \neq 0 \) for all \( t \in (0, \pi) \setminus \{ \pi/2 \} \), \( \alpha(t) \) is a differentiable parametrized curve, regular except at \( t = \pi/2 \).
+        \item The equation of the tangent line at \( \alpha(t) \) is given by
+        \begin{equation}
+            y - y_{0} (t) = \cot t \left( x - x_{0} (t) \right),
+        \end{equation}
+        where $ y_{0} = \cos t + \log \tan \frac{t}{2}$ and $ x_{0} = \sin t $. Setting \( x = 0 \) to find the intersection with the \( y \)-axis, we have
+        \begin{equation}    
+            \begin{split}
+                \Delta y &\equiv y - y_{0} (t) = -\cot t \sin t = - \cos t, \\
+                \Delta x &\equiv x - x_{0} (t) = -\sin t.
+            \end{split}
+        \end{equation}
+        Then the distance is $ \sqrt{(\Delta y)^{2} + (\Delta x)^{2} } = 1 $.
+    \end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 4
+\begin{problem}{1.3.8}
+    Let $\alpha:I\rightarrow\mathbb{R}^3$ be a differentiable curve and let $[a, b]\subseteq I$ be a closed interval. For every partition
+    \[
+        a=t_0<t_1<\cdots <t_n =b
+    \]
+    of $[a, b]$, consider the sum $\sum_{i=1}^n |\alpha(t_i)-\alpha(t_{i-1})|=l(\alpha, P)$, where $P$ stands for the given partition. The norm $|P|$ of a partition $P$ is define as 
+    $$
+        |P|=\max (t_{i}-t_{i-1}), \, i=1,\dots, n
+    $$
+    Geometrically, $l(\alpha, P)$ is the length of the polygon inscribed in $\alpha([a, b])$ with the vertices in $\alpha(t_i)$. The point of the exercise is to show that the arc length of $\alpha([a, b])$ is, in some sense, a limit of the length of the inscribed polygons. 
+    Prove that given $\epsilon>0$ there exists $\delta>0$ such that if $|P|<\delta$ then 
+    \[
+        \left|\int_a^b |\alpha'(t)| \mathrm{d} t - l(\alpha, P)\right|<\epsilon
+    \]
+\end{problem}
+
+\begin{solution}
+    Since $ \alpha (t) $ is differentiable on the closed interval $ [a, b] $, $ \alpha^{\prime} (t) $ is continuous. Thus, for any $ \epsilon^{\prime} > 0 $ there exists $ \delta^{\prime} > 0 $ such that $ \alpha^{\prime} (t_2) - \alpha^{\prime} (t_1) < \epsilon $ whenever $ \vert t_2 - t_1 \vert < \delta^{\prime} $.
+    For a partition $ P $, let $ \epsilon^{\prime} > 0 $. The integral can be bounded as:
+    \begin{equation}
+        \begin{split}
+            \left| \int_a^b \mathrm{d} t \, |\alpha'(t)| - l(\alpha, P) \right| &= \left| \int_a^b \mathrm{d} t\, |\alpha'(t)| - \sum_{i=1}^n |\alpha(t_i) - \alpha(t_{i-1})| \right| \\
+            &\leq \sum_{i=1}^n \left| \int_{t_{i-1}}^{t_i}\mathrm{d} t |\alpha'(t)| - |\alpha(t_i) - \alpha(t_{i-1})| \right| \\
+            &\leq \sum_{i=1}^n \int_{t_{i-1}}^{t_i} \mathrm{d} t\, \left| |\alpha'(t)| - \frac{|\alpha(t_i) - \alpha(t_{i-1})|}{t_i - t_{i-1}} \right| \\
+            &\leq \sum_{i=1}^{n} \int^{t_i}_{t_{i-1}} \mathrm{d}t\, \left\vert \alpha^{\prime} (t) - \alpha^{\prime} (\xi) \right\vert \\
+            &< n (b-a) \epsilon^{\prime} . 
+        \end{split}
+    \end{equation}
+    whenever $ t - \xi < \vert P \vert < \operatorname{min}_{i \in \{1, \dots, n\}} \left(\delta^{\prime}_{i}\right) $. We have used the Mean Value Theorem to obtain $ \xi $. Now, let $ \epsilon^{\prime} = \epsilon / n(b-a) $, $ \delta = \delta^{\prime} $, then for any partition $ P $ with $ |P| < \delta $, we have
+    \begin{equation}
+        \left| \int_a^b \mathrm{d} t \, |\alpha'(t)| - l(\alpha, P) \right| < \epsilon.
+    \end{equation}
+\end{solution}
+
+\medskip
+
+% Problem 5
+\begin{problem}[Exercise 1.4.11]
+    \begin{enumerate}[a.]
+        \item Show that the volume $V$ of a parallelepiped generated by three linearly independent vectors $u, v, w\in \mathbb{R}^3$ is given by $V=|(u\land v)\cdot w|$, and introduce an oriented volume in $\mathbb{R}^3$.
+        \item Prove that 
+        \[
+            V^2=\begin{vmatrix}
+                u \cdot u & u \cdot v & u \cdot w\\
+                v \cdot u &v \cdot v& v \cdot w\\
+                w \cdot u & w \cdot v& w \cdot w
+            \end{vmatrix} \tag{1}
+        \]
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[a.]
+        \item By definition, the volume of the parallelepiped is given by the area of the base times the height. The area of the base formed by $ u $ and $ v $ is given by $ |u \land v| $, and the height is given by the projection of $ w $ onto the normal vector of the base, which is $ \frac{(u \land v)}{|u \land v|} $. Therefore, the volume $ V $ is given by
+        \begin{equation}
+            V = |u \land v| \cdot \left| w \cdot \frac{(u \land v)}{|u \land v|} \right| = |(u \land v) \cdot w|.
+        \end{equation}
+        The oriented volume can be introduced as $ V = (u \land v) \cdot w $. If the vectors $ u, v, w $ (in order) form a right-handed system, the oriented volume is positive; otherwise, it is negative.
+        \item Recall that the vector product $ u \land v \in \mathbb{R}$ is the unique vector where $ (u \land v) \cdot w = \operatorname{det} (u, v, w)$. By (a), the volume of the parallelepiped is given by
+        \begin{equation}
+            V = |(u \land v) \cdot w|.
+        \end{equation} 
+        Then,
+        \begin{equation}
+            \begin{split}
+                V^2 &= ((u \land v) \cdot w) ((u \land v) \cdot w) \\
+                &= \operatorname{det} (u, v, w)^{2} \\
+                &= \begin{vmatrix}
+                    u_1 & u_2 & u_3 \\
+                    v_1 & v_2 & v_3 \\
+                    w_1 & w_2 & w_3
+                \end{vmatrix}
+                \begin{vmatrix}
+                    u_1 & u_2 & u_3 \\
+                    v_1 & v_2 & v_3 \\
+                    w_1 & w_2 & w_3
+                \end{vmatrix} \\
+                &= \left\vert
+                \begin{pmatrix}
+                    u_1 & u_2 & u_3 \\
+                    v_1 & v_2 & v_3 \\
+                    w_1 & w_2 & w_3
+                \end{pmatrix}
+                \begin{pmatrix}
+                    u_1 & v_1 & w_1 \\
+                    u_2 & v_2 & w_2 \\
+                    u_3 & v_3 & w_3
+                \end{pmatrix}
+                \right\vert \\
+                &= \begin{vmatrix}
+                    u \cdot u & u \cdot v & u \cdot w\\
+                    v \cdot u &v \cdot v& v \cdot w\\
+                    w \cdot u & w \cdot v& w \cdot w
+                \end{vmatrix}.
+            \end{split}
+        \end{equation}
+    \end{enumerate}
+\end{solution}
+
+\end{CJK}
+\end{document}

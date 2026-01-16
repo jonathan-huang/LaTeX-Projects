@@ -1,0 +1,297 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+  \textbf{2025 Fall Introduction to Geometry} \\
+  \vspace{0.5cm}
+  \large 
+  Homework 9 (Due Nov 21, 2025)\\
+}
+\author{物理三 黃紹凱 B12202004}
+
+\maketitle
+
+% Exercise 1
+\begin{exercise}[Do Carmo 3.4.2]
+    Prove that the vector field obtained on the torus by parametrizing all its meridians by arc length and taking their tangent vectors (Example 1) is differentiable.
+\end{exercise}
+
+\begin{solution}
+    From Do Carmo 3.4 Definition 1, a vector field $ w $ is \emph{differentiable} if, for some parametrization $ \bvec{x}: U \to \mathbb{R}^3 $, the functions $ a(u,v) $ and $ b(u,v) $ given by $ w = a(u,v) \bvec{x}_u + b(u,v) \bvec{x}_v $ are differentiable on $ U $. Parametrize the torus by
+    \[
+        \bvec{x}(u,v) = \left( (R + r \cos v) \cos u, (R + r \cos v) \sin u, r \sin v \right),
+    \]
+    where $ R $ is the distance from the center of the tube to the center of the torus, and $ r $ is the radius of the tube. Fix $ \theta = \theta_0 $ and vary $ \phi = \frac{s}{r} $, we have  
+    \[
+        \alpha_{\theta_0} (s) = \bvec{x}(\theta_0, s/r) = \left( (R + r \cos s/r) \cos \theta_0, (R + r \cos s/r) \sin \theta_0, r \sin s/r \right).
+    \]
+    Then the vector field obtained by parametrizing the meridians by arc length is given by
+    \[
+        w(\bvec{x}(\theta_0, s/r)) = \alpha_{\theta_0}'(s) = \left( -\sin s/r \cos \theta_0, -\sin s/r \sin \theta_0, \cos s/r \right).
+    \]
+    Let $ w(\bvec{x}(\theta, \phi)) = a(\theta, \phi) \bvec{x}_\theta + b(\theta, \phi) \bvec{x}_\phi $, we have 
+    \[
+        \bvec{x}_\theta = \left( -(R + r \cos \phi) \sin \theta, (R + r \cos \phi) \cos \theta, 0 \right),
+    \]
+    \[
+        \bvec{x}_\phi = \left( -r \sin \phi \cos \theta, -r \sin \phi \sin \theta, r \cos \phi \right).
+    \]
+    Comparing the coefficients, we get $ a(\theta, \phi) = 0 $, $ b(\theta, \phi) = \frac{1}{r} $. Since they are both differentiable, $ w $ is differentiable.  
+\end{solution}
+
+% Exercise 2
+\begin{exercise}[Do Carmo 3.4.3]
+    Prove that a vector field $w$ defined on a regular surface $S \subset \mathbb{R}^3$ is differentiable if and only if it is differentiable as a map $w : S \to \mathbb{R}^3$.
+\end{exercise}
+
+\begin{solution}
+    Suppose $ w $ is differentiable as a vector field. Then, there exist a parametrization $ \bvec{x}: U \to S $ such that $ w = a(u,v) \bvec{x}_u + b(u,v) \bvec{x}_v $ for differentiable functions $ a(u,v) $ and $ b(u,v) $. Since $ \bvec{x}_u $ and $ \bvec{x}_v $ are differentiable, $ w \circ \bvec{x} = a(u,v) \bvec{x}_u + b(u,v) \bvec{x}_v $ is differentiable. Thus, $ w $ is differentiable as a map. Conversely, suppose $ w $ is differentiable as a map $ w: S \to \mathbb{R}^3 $. Then, for any parametrization $ \bvec{x}: U \to S $ and each $ (u,v) \in U $, since $ \{\bvec{x}_u, \bvec{x}_v\} $  forms a basis for $ T_p(S) $, there exist scalars $ a(u,v) $ and $ b(u,v) $ such that $ \left(w \circ \bvec{x}\right) (u,v) = a(u,v)\bvec{x}_u + b(u,v)\bvec{x}_v $. Then, we have 
+    \[
+        \langle w, \bvec{x}_u \rangle = a \langle \bvec{x}_u, \bvec{x}_u \rangle + b \langle \bvec{x}_v, \bvec{x}_u \rangle, \quad \langle w, \bvec{x}_v \rangle = a \langle \bvec{x}_u, \bvec{x}_v \rangle + b \langle \bvec{x}_v, \bvec{x}_v \rangle.
+    \]
+    Let $ \alpha = \langle w, \bvec{x}_u \rangle $, $ \beta = \langle w, \bvec{x}_v \rangle $, then 
+    \[
+        \begin{pmatrix}
+            \alpha \\ \beta
+        \end{pmatrix} = 
+        \begin{pmatrix}
+            E & F \\ F & G
+        \end{pmatrix}
+        \begin{pmatrix}
+            a \\ b
+        \end{pmatrix}
+    \]
+    Since $ \{\bvec{x}_u, \bvec{x}_v\} $ are linearly independent, $ \det \left(\operatorname{I}\right) = EG - F^2 \neq 0 $, and we have
+    \[
+        a = \frac{G \alpha - F \beta}{EG - F^2}, \quad b = \frac{-F \alpha + E \beta}{EG - F^2}.
+    \]
+    Since $ w $, $ \bvec{x}_u $ and $ \bvec{x}_v $ are differentiable, $ \alpha $ and $ \beta $ are differentiable. Also, since $ E $, $ F $ and $ G $ are differentiable, $ a(u,v) $ and $ b(u,v) $ are differentiable. Therefore, $ w $ is differentiable as a vector field.
+\end{solution}
+
+% Exercise 3
+\begin{exercise}[Do Carmo 3.4.6]
+    A straight line $r$ meets the $z$ axis and moves in such a way that it makes a constant angle $\alpha \neq 0$ with the $z$ axis and each of its points describes a helix of pitch $c \neq 0$ about the $z$ axis.  
+    The figure described by $r$ is the trace of the parametrized surface (see Fig.\ 3--32)
+    \[
+    x(u,v) = (v \sin\alpha \cos u,\; v \sin\alpha \sin u,\; v \cos\alpha + cu).
+    \]
+    The map $x$ is easily seen to be a regular parametrized surface.  
+    Restrict the parameters $(u,v)$ to an open set $U$ so that $x(U)=S$ is a regular surface.
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Find the orthogonal family (cf.\ Example 3) to the family of coordinate curves $u=\text{const}$.
+        \item Use the curves $u=\text{const}$ and their orthogonal family to obtain an orthogonal parametrization for $S$.  
+        Show that in the new parameters $(\tilde{u},\tilde{v})$ the coefficients of the first fundamental form are
+        \[
+        \tilde{G} = 1, \qquad \tilde{F}=0, \qquad 
+        \tilde{E} = \{c^{2} + (\tilde{v} - c\tilde{u}\cos\alpha)^{2}\}\sin^{2}\alpha.
+        \]
+    \end{enumerate}
+\end{exercise}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{3.32.png}
+\end{figure}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item The coordinate curves $ u = \text{const} $ have tangent vectors $ \bvec{x}_v $. Let the curve be given by $ v = v(t) $, $ u = u_0 $. Then, its tangent vector is $ \bvec{x}_u u^{\prime} (t) + \bvec{x}_v v^{\prime} (t) $. Orthogonaity gives $ \langle \bvec{x}_u u^{\prime} + \bvec{x}_v v^{\prime} , \bvec{x}_v \rangle = 0 $, and hence $ F u^{\prime} + G v^{\prime} = 0 $. Let's calculate the coefficients of the first fundamental form:
+        \[
+            \bvec{x}_u = \left( -v \sin \alpha \sin u, v \sin \alpha \cos u, c \right), \quad \bvec{x}_v = \left( \sin \alpha \cos u, \sin \alpha \sin u, \cos \alpha \right).
+        \]
+        Thus, we have
+        \[
+            E = \langle \bvec{x}_u, \bvec{x}_u \rangle = v^2 \sin^2 \alpha + c^2, \quad F = \langle \bvec{x}_u, \bvec{x}_v \rangle = c \cos \alpha, \quad G = \langle \bvec{x}_v, \bvec{x}_v \rangle = 1.
+        \]
+        Treating $ v(t) $ as a function of $ u $, i.e. $ v(t) = v(t(u)) $, we have
+        \[
+            \frac{\mathrm{d}v}{\mathrm{d}u} = - \frac{F}{G} = -c \cos \alpha \implies v(u) = -c u \cos \alpha + k. 
+        \]
+        Thus, the orthogonal family to the curves $ u = \text{const} $ is given by $ c u \cos \alpha + v = k $ in the $ (u,v) $-plane.
+        \item We have two transverse families of curves in the $ (u,v) $-plane, given by $ u = \text{const.} $ and $ c u \cos \alpha + v = \text{const.} $. Let's define new parameters $ (\tilde{u}, \tilde{v}) $ by
+        \[
+            \tilde{u} = u, \quad \tilde{v} = c u \cos \alpha + v.
+        \]
+        The parametrization in the new parameters is given by $ \tilde{\bvec{x}}(\tilde{u}, \tilde{v}) = \bvec{x}(u,v) = \bvec{x}(\tilde{u}, \tilde{v} - c \tilde{u} \cos \alpha) $. Let's calculate the coefficients of the first fundamental form $ \tilde{E} $, $ \tilde{F} $, $ \tilde{G} $ in the new parameters:
+        \[
+            \tilde{\bvec{x}}_{\tilde{u}} = \bvec{x}_u u_{\tilde{u}} + \bvec{x}_v v_{\tilde{u}} = \bvec{x}_u - c \cos \alpha \bvec{x}_v,
+        \]
+        \[
+            \tilde{\bvec{x}}_{\tilde{v}} = \bvec{x}_u u_{\tilde{v}} + \bvec{x}_v v_{\tilde{v}} = \bvec{x}_v.
+        \]
+        Substituting in the values of $ E $, $ F $, and $ G $ calculated in part \textbf{a.}, we have  
+        \begin{equation*}
+            \begin{split}
+                \tilde{E} &= \langle \tilde{\bvec{x}}_{\tilde{u}}, \tilde{\bvec{x}}_{\tilde{u}} \rangle = \langle \bvec{x}_u - c \cos \alpha \bvec{x}_v, \bvec{x}_u - c \cos \alpha \bvec{x}_v \rangle \\
+                &= E - 2 c \cos \alpha F + c^2 \cos^2 \alpha G, \\
+                &= (v^2 \sin^2 \alpha + c^2) - 2 c^2 \cos^2 \alpha + c^2 \cos^2 \alpha = (v^2 + c^2 \sin^2 \alpha) \sin^2 \alpha \\
+                &= \{ c^2 + (\tilde{v} - c \tilde{u} \cos \alpha)^2 \} \sin^2 \alpha. \\
+                \tilde{F} &= \langle \tilde{\bvec{x}}_{\tilde{u}}, \tilde{\bvec{x}}_{\tilde{v}} \rangle = \langle \bvec{x}_u - c \cos \alpha \bvec{x}_v, \bvec{x}_v \rangle = F - c \cos \alpha G = 0, \\
+                \tilde{G} &= \langle \tilde{\bvec{x}}_{\tilde{v}}, \tilde{\bvec{x}}_{\tilde{v}} \rangle = \langle \bvec{x}_v, \bvec{x}_v \rangle = G = 1.
+            \end{split}
+        \end{equation*}
+    \end{enumerate}
+\end{solution}
+
+% Exercise 4
+\begin{exercise}[Do Carmo 3.4.7]
+    Define the derivative $w(f)$ of a differentiable function $f : U \subset S \to \mathbb{R}$ relative to a vector field $w$ in $U$ by
+    \[
+    w(f)(q) = \left.\frac{d}{dt}(f \circ \alpha)\right|_{t=0}, \qquad q \in U,
+    \]
+    where $\alpha : I \to S$ is a curve such that $\alpha(0)=q$ and $\alpha'(0)=w(q)$.
+
+    Prove that:
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item $w$ is differentiable in $U$ if and only if $w(f)$ is differentiable for all differentiable $f$ in $U$.
+        \item Let $\lambda,\mu$ be real numbers and $g : U \subset S \to \mathbb{R}$ be a differentiable function on $U$; then
+        \[
+        w(\lambda f + \mu f') = \lambda w(f) + \mu w(f'), \qquad
+        w(fg) = w(f)g + f w(g).
+        \]
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Suppose $ w $ is differentiable in $ U $, then it is differentiable as a map $ w: U \to \mathbb{R}^3 $ by Exercise 3.4.3. For any differentiable function $ f: U \to \mathbb{R} $, let $ \bvec{x}: V \to U $ be a local parametrization of $ U $, and $ (u,v) $ a local coordinate. Then, we have
+        \[
+            (w \circ \bvec{x})(u,v) = a(u,v) \bvec{x}_u + b(u,v) \bvec{x}_v, 
+        \]
+    where $ a $, $ b $ are differentiable functions. Fix $ q = \bvec{x}(u,v) \in U $ and a curve $ \alpha = \bvec{x}(u(t),v(t))$ such that $ \alpha(0) = q $, $ \alpha^{\prime}(0) = w(q) $. Let $ \phi (u,v) = (f \circ \bvec{x})(u,v) $, then, we have 
+        \[
+            w(f)(q) = \frac{\mathrm{d}}{\mathrm{d}t} (f \circ \alpha)(0) = \frac{\mathrm{d}}{\mathrm{d}t} \phi (u(t), v(t)) \bigg|_{t=0} = \phi_u u^{\prime}(0) + \phi_v v^{\prime}(0),
+        \] 
+        and notice that in the basis $ \{\bvec{x}_u, \bvec{x}_v\} $, $ (u^{\prime} (t), v^{\prime} (t)) = (a(u,v), b(u,v)) $, so 
+        \[
+            w(f)(q) = \phi_u u^{\prime}(0) + \phi_v v^{\prime}(0) = \phi_u a(u,v) + \phi_v b(u,v) 
+        \] 
+        is differentiable as a function of $ (u,v) $. Since $ \bvec{x} $ is a local parametrization, $ w(f) $ is differentiable in $ U $. Conversely, let $ \pi_i $ be the standard projection, we have $ f_i = \left. \pi_i \right|_U : U \to \mathbb{R} $. By hypothesis, each $ w(f_i) $ is differentiable. Fix $ q \in U $ and a curve $ \alpha $ such that $ \alpha (0) = q $, $ \alpha^{\prime} (0) = w(q) $. Then 
+        \[
+            w(f_i)(q) = \frac{\mathrm{d}}{\mathrm{d}t} (f_i \circ \alpha)(0) = \frac{\mathrm{d}}{\mathrm{d}t} (\pi_i \circ \alpha)(0) = \left(w(q)\right)_i, 
+        \]
+        and 
+        \[
+            w(q) = \left(w(f_1)(q), w(f_2)(q), w(f_3)(q)\right). 
+        \]
+        Since each component is differentiable, $ w $ is differentiable as a map $ w: U \to \mathbb{R}^3 $, and hence differentiable as a vector field in $ U $ by Exercise 3.4.3.
+
+        \item Let $ q \in U $, $ \alpha : I \to S $ be a curve such that $ \alpha(0) = q $ and $ \alpha'(0) = w(q) $. Then, we have 
+        \begin{equation*}
+            \begin{split}
+                w(\lambda f + \mu f^{\prime} ) &= \frac{\mathrm{d}}{\mathrm{d}t} \left. \left((\lambda f + \mu f^{\prime} ) \circ \alpha \right) \right|_{t=0} \\
+                &= \lambda \frac{\mathrm{d}}{\mathrm{d}t} \left. (f \circ \alpha) \right|_{t=0} + \mu \frac{\mathrm{d}}{\mathrm{d}t} \left. (f^{\prime} \circ \alpha) \right|_{t=0} \\
+                &= \lambda w(f) + \mu w(f^{\prime}), 
+            \end{split}
+        \end{equation*}
+        and 
+        \begin{equation*}
+            \begin{split}
+                w (fg) &= \frac{\mathrm{d}}{\mathrm{d}t} \left. \left( (fg) \circ \alpha \right) \right|_{t=0} \\
+                &= \frac{\mathrm{d}}{\mathrm{d}t} \left. \left( (f \circ \alpha)(g \circ \alpha) \right) \right|_{t=0} \\
+                &= \left. \frac{\mathrm{d}}{\mathrm{d}t} (f \circ \alpha) \right|_{t=0} (g \circ \alpha)(0) + (f \circ \alpha)(0) \left. \frac{\mathrm{d}}{\mathrm{d}t} (g \circ \alpha) \right|_{t=0} \\
+                &= w(f) g(q) + f(q) w(g).
+            \end{split}
+        \end{equation*}
+    \end{enumerate}
+\end{solution}
+
+% Exercise 5
+\begin{exercise}[Do Carmo 3.4.8]
+    Show that if $w$ is a differentiable vector field on a surface $S$ and $w(p) \neq 0$ for some $p \in S$, then it is possible to parametrize a neighborhood of $p$ by $x(u,v)$ in such a way that $x_{u} = w$.
+\end{exercise}
+
+\begin{solution}
+    Let's express $ w $ in a local parametrization $ \bvec{x}: U \to S $ in a neighborhood of $ p = \bvec{x}(0,0) $. Let $ (u,v) $ be a local coordinate, then, by a slight abuse of notation,
+    \[
+        w(u,v) \equiv (w \circ \bvec{x}) (u,v) = a(u,v) \bvec{x}_u + b(u,v) \bvec{x}_v,
+    \]
+    where $ a(u,v) $, $ b(u,v) $ are differentiable functions.
+    \begin{claim}
+        Let $ \bvec{a} (u,v) = \left(a(u,v), b(u,v)\right) $. Suppose $ \mathrm{d}\bvec{a} \neq 0 $, then there exists a neighborhood $ V $ of $ p $ and coordinates $ (\tilde{u}, \tilde{v}) $ such that $ \bvec{a} = a(\tilde{u}, \tilde{v}) $. I.e. $ w = (1,0) $ in the basis $ \{\tilde{\bvec{x}}_u, \tilde{\bvec{x}}_v\} = \{\bvec{x}_{\tilde{u}}, \bvec{x}_{\tilde{v}}\} $.
+    \end{claim}
+    \begin{proof}
+        Let $ (u, v) $ be a local coordinate in a neighborhood of $ p $. Since $ \mathrm{d}\bvec{a} = \bvec{a}_u \mathrm{d}u + \bvec{a}_v \mathrm{d}v $ and $ \mathrm{d}\bvec{a}_p \neq 0 $, at least one of $ \bvec{a}_u (p) $ and $ \bvec{a}_v (p) $ is non-zero. Without loss of generality, suppose $ \bvec{a}_u (p) \neq 0 $. Then, by the Inverse Function Theorem, there exists a neighborhood $ V $ of $ p $ such that the map $ \psi: V \to \mathbb{R}^2 $ defined by $ \psi (u,v) = (a(u,v), v) $ is a diffeomorphism onto its image. Let $ (\tilde{u}, \tilde{v}) = \psi (u,v) $, then we have $ \bvec{a} = a(\tilde{u}, \tilde{v}) $, as desired.
+    \end{proof}
+    \noindent Let $ \Phi (t, \bvec{x}(0,0)) $ be the solution to the differential equation 
+    \[
+        \frac{\mathrm{d}y}{\mathrm{d}t} = \bvec{a}(y), \quad y(0) = \bvec{x}(0,0),
+    \]
+    and let $ \phi (u, v) = \Phi (u, (0,v)) $. By the smooth dependence of solution of an ODE on initial conditions, $ \Phi $, and hence $ \phi $, is differentiable. Then, we have 
+    \[
+        \frac{\partial}{\partial u} \phi (u,v) = \bvec{a}(\phi (u,v)) = w(\phi (u,v)).
+    \]
+    Furthermore, since $ \phi (0,v) = \Phi (0, (0, v)) = (0, v) $, we have $ \mathrm{d}\phi_p = 1 $, and hence $ \phi $ is a local parametrization around $ p $. Let $ \tilde{\bvec{x}} (u,v) = \phi (u,v) $, then we have $ \tilde{\bvec{x}}_u = w(\tilde{\bvec{x}}(u,v)) $.
+\end{solution}
+
+\end{CJK}
+\end{document}

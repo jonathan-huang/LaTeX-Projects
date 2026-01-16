@@ -1,0 +1,316 @@
+\chapter{Normal Forms}
+% \lecture{4}{6 Jan. 08:00}{Fourth Lecture}
+
+\section*{Introduction}
+\begin{note}
+    ~
+
+    \begin{enumerate}[(i)]
+        \item An important problem is now to know how to bring a fast-slow system into a \textbf{normal form}. 
+
+        \item There is no complete general theory for what a “normal form” for a fast-slow system should be. 
+        
+        \item Some transformations can be used for specific classes of systems to bring them into fast-slow form.
+    \end{enumerate}
+\end{note}
+
+\section{The Normally Hyperbolic Case}
+
+\section{Fold Points}
+Having demonstrated how to bring a normally hyperbolic system into fast-slow form, we now ask whether  there are “normal forms” for singularities of the critical manifold. Here, we consider the case when the critical manifold contains a \textbf{fold point}, i.e., a point where normal hyperbolicity is lost.
+
+\section{Fold Curves}
+Next, we ask whether our previous normal form approach can be extended to folds in systems with more than one slow variable, that is, \textbf{fold curves}.  
+
+\section{Systems of First Approximation}
+\begin{remark}
+    The next results truly separate the theory of \emph{fast-slow systems} from \emph{classical bifurcation theory}.
+\end{remark}
+
+
+\section{A Note On Linear Systems}
+
+We have applied various techniques to simplify fast-slow systems given in the \textbf{standard form}
+\begin{equation}
+    \begin{split}
+        \varepsilon \frac{\mathrm{d}x}{\mathrm{d}\tau} &= \dot{x} = f(x,y,\varepsilon),\\
+        \frac{\mathrm{d}y}{\mathrm{d}\tau} &= \dot{y} = g(x,y,\varepsilon),
+    \end{split}
+\end{equation}
+where $ x\in\mathbb{R}^m $, $ y\in\mathbb{R}^n $, and $ 0 < \varepsilon \ll 1 $. However, not all fast-slow systems can be transformed into this useful form, so we must consider techniques to analyze more general systems. To begin, consider a more general system of the form
+\begin{equation}
+    \varepsilon \frac{\mathrm{d}z}{\mathrm{d}\tau} = \varepsilon \dot{z} = F(z,\varepsilon), \quad z\in\mathbb{R}^{N}, \quad F(\varepsilon) \in M_{N \times N} (\mathbb{R}).
+\end{equation}
+
+We can make the decomposition $ F(z) = F_0 + \varepsilon F_1 (\varepsilon) $, where $ F_0 = F(0) $. Our goal is to find a suitable transformation that brings this system into fast-slow form, conveniently written as 
+\begin{equation}
+    \begin{split}
+        \varepsilon \dot{x} &= A_{11} x + \varepsilon A_{12} y, \\
+        \dot{y} &= A_{21} x + A_{22} y,
+    \end{split}
+\end{equation} 
+where the matrix $ A $ given by 
+\begin{equation}
+    A = \begin{pmatrix}
+        A_{11} (\varepsilon) & A_{12} (\varepsilon) \\
+        A_{21} (\varepsilon) & A_{22} (\varepsilon)
+    \end{pmatrix}
+    \in \text{GL} (N; \mathbb{R}).  
+\end{equation}
+
+\begin{eg}[Calculation of normal form]
+    A concrete $2\times 2$ example is given by
+    \begin{equation}
+        \frac{dz}{dt} = \underbrace{\begin{pmatrix}-1.2 & 1.6\\ 0.6 & -0.8\end{pmatrix}}_{=:F_0}z + \varepsilon\underbrace{\begin{pmatrix}0.2 & -0.6\\ 0.4 & -1.2\end{pmatrix}}_{=:F_1}z,
+    \end{equation}
+    (with $t=\tau/\varepsilon$). Although \eqref{4.42} is not in standard form,
+    its phase portrait and time series show a clear fast transient followed by slow evolution.
+\end{eg}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/4.4.png}
+    \caption{Phase portrait and time series for}
+    \label{fig:4-4}
+\end{figure}
+
+
+\begin{note}[Splitting assumption]
+    Let $\dim\!\bigl(\operatorname{ker} (F_0)\bigr)=n$ and set $N=m+n$.
+    Assume that there exists the direct-sum decomposition
+    \begin{equation}
+        \operatorname{im} (F_0)\oplus\operatorname{ker} (F_0)=\mathbb R^{m+n}.
+    \end{equation}
+    This is the linear analogue of the Fenichel-type splitting for normally hyperbolic fast-slow systems: every vector $ z \in \mathbb{R}^{m+n} $ can be uniquely decomposed as 
+    \[
+        z = z_{\text{fast}} + z_{\text{slow}}, \quad z_{\text{fast}} \in \ker (F_0), \quad z_{\text{slow}} \in \operatorname{im} (F_0).
+    \]
+    it separates the \emph{fast directions} coming from $\operatorname{im} (F_0)$ from the \emph{slow directions} coming from $\operatorname{ker} (F_0)$.
+\end{note}
+
+How can we construct fast and slow coordinates?  
+\begin{itemize}
+    \item Choose $m$ linearly independent row vectors orthogonal to $\operatorname{ker} (F_0)$ and use
+    them as rows of a matrix $Q\in\mathbb R^{m\times (m+n)}$. Then $ \ker (F_0) = \ker (Q) $, and thus  
+    \[
+        \nu\in\operatorname{ker} (F_0)\iff F_0\nu=0 \iff Q\nu=0,
+    \]
+    so $x:=Qz$ is a natural candidate for the fast variable(s). If $ z $ lies purely in the slow directions, then $ x = Qz = 0 $. For this, see the following example.
+
+    \item Choose $P\in\mathbb R^{n\times (m+n)}$ from the \emph{left nullspace} of $F_0$ so that
+    \[
+        PF_0=0.
+    \]
+    Then $y:=Pz$ is the natural candidate for the slow variable(s). This is because if the linear fast dynamics is $ \dot{x} = F_0 z $, then 
+    \[
+        \dot{y} = \frac{\mathrm{d}}{\mathrm{d}t}(Pz) = P \dot{z} = P F_0 z = 0.
+    \] 
+    Therefore, $ y $ is constant under the fast flow, and thus it is a slow variable.
+
+    \item Stack the two maps into an invertible matrix (since the rows of $ Q $ and $ P $ span $ \mathbb{R}^{m+n} $):
+    \[
+        T:=\begin{pmatrix}Q\\ P\end{pmatrix}\in\mathbb R^{(m+n)\times (m+n)}, \qquad \binom{x}{y}=Tz.
+    \]
+    $ T $ is the linear analogue of \emph{Fenichel coordinates}.
+\end{itemize}
+
+\begin{eg}
+    For the same $F_0$, one computes
+    \[
+    \operatorname{ker} (F_0)=\mathrm{span}\!\left(\begin{pmatrix}-0.8\\-0.6\end{pmatrix}\right).
+    \]
+    A vector orthogonal to this nullspace is $\,(0.6,-0.8)^\top$, hence one can take
+    \[
+    Q=(0.6,\,-0.8)\,:\,\mathbb R^2\to\mathbb R,
+    \qquad x:=Qz,
+    \]
+    so that $x=0$ on the line corresponding to the critical manifold candidate.
+\end{eg}
+
+\begin{theorem}[Kuehn 4.5.3 normal form for linear systems]
+
+    Suppose $F(0)=F_0$ satisfies the decomposition
+    \[
+        \operatorname{im} (F_0) \oplus \operatorname{ker} (F_0) = \mathbb{R}^{m+n} = \mathbb{R}^N.
+    \]  
+    as mentioned above. Then the coordinate change
+    \[
+        x = Qv, \quad y = Pv, \quad T := \begin{pmatrix} Q \\ P \end{pmatrix} \in \mathbb{R}^{(m+n)\times(m+n)}
+    \]
+    transforms the system \eqref{4.40} into the normal form
+    \begin{equation}
+        \begin{aligned}
+            \varepsilon \dot{x} &= A_{11}(\varepsilon)x + \varepsilon A_{12}(\varepsilon)y,\\
+            \dot{y} &= A_{21}(\varepsilon)x + A_{22}(\varepsilon)y,
+        \end{aligned}
+    \end{equation}
+    where $A_{11}(0)\in\mathbb{R}^{m\times m}$ is nonsingular, $A_{12}(\varepsilon)\in\mathbb{R}^{m\times n}$, $A_{21}(\varepsilon)\in\mathbb{R}^{n\times m}$, and $A_{22}(\varepsilon)\in\mathbb{R}^{n\times n}$.
+\end{theorem}
+\begin{proof}
+    One convenient way to express the blocks is as follows: let the columns of $V$ and $W$ be bases of $\operatorname{im} (F_0)$ and $\operatorname{ker} (F_0)$, respectively, so that $T^{-1}=(V\;W)$. Then the blocks can be chosen as
+    \begin{align*}
+    A_{11}(\varepsilon) &:= QF_0V + \varepsilon\,QF_1(\varepsilon)V,\\
+    A_{12}(\varepsilon) &:= QF_1(\varepsilon)W,\\
+    A_{21}(\varepsilon) &:= PF_1(\varepsilon)V,\\
+    A_{22}(\varepsilon) &:= PF_1(\varepsilon)W.
+    \end{align*}
+    By construction $A_{11}(0)=QF_0V$ is invertible, and it is the only nonzero block of $TF_0T^{-1}$.
+
+    \medskip
+
+    \noindent \textbf{Explanation:} 
+    
+    \begin{enumerate}[(1)]
+        \item Assume the splitting $ \im(F_0)\oplus \ker(F_0)=\mathbb{R}^{m+n} $, or equivalently, $ \im(F_0)\cap\ker(F_0)=\{0\} $. Notice that the restriction $F_0|_{\im(F_0)}:\im(F_0)\to \im(F_0)$ is injective, for if $w\in\im(F_0)$ and $F_0w=0$, then $w\in\im(F_0)\cap\ker(F_0)=\{0\}$, hence $w=0$. Since $\dim(\im(F_0))=m$ is finite, $ F_0|_{\im(F_0)} $ is a bijection, and hence an isomorphism.
+
+        Next, choose $Q\in\mathbb{R}^{m\times(m+n)}$ such that $\ker(Q)=\ker(F_0)$. Then the restriction $Q|_{\im(F_0)}:\im(F_0)\to \mathbb{R}^m$ is also injective. Hence, $Q|_{\im(F_0)}$ is an isomorphism onto $\mathbb{R}^m$. Consequently,
+        \[
+        \im(F_0)\xrightarrow{\ F_0\ }\im(F_0)\xrightarrow{\ Q\ }\mathbb{R}^m
+        \]
+        is an isomorphism. Writing this map in the basis $V$ of $\im(F_0)$ yields the matrix
+        \[
+        A_{11}(0)=QF_0V\in\mathbb{R}^{m\times m},
+        \]
+        which must therefore be invertible.
+
+        \item Let
+        \[
+        T:=\begin{pmatrix}Q\\ P\end{pmatrix}\in\mathbb{R}^{(m+n)\times(m+n)}, 
+        \qquad 
+        T^{-1}=\bigl(V\ \ W\bigr),
+        \]
+        where the columns of $V$ form a basis of $\im(F_0)$ and the columns of $W$ form a basis of $\ker(F_0)$. Then
+        \begin{align}
+        TF_0T^{-1}
+        &=
+        \begin{pmatrix}Q\\ P\end{pmatrix}
+        F_0 \bigl(V\ \ W\bigr) =
+        \begin{pmatrix}
+            QF_0V & QF_0W\\[2pt]
+            PF_0V & PF_0W
+        \end{pmatrix}.
+        \end{align}
+        Since $W\subset \ker(F_0)$, we have $F_0W=0$, hence $QF_0W=0$. Moreover, by construction $P$ lies in the left nullspace of $F_0$, so $PF_0=0$, which implies $PF_0V=PF_0W=0$. Therefore,
+        \begin{equation}
+            TF_0T^{-1} = \begin{pmatrix}
+                QF_0V & 0\\
+                0 & 0
+            \end{pmatrix}.
+        \end{equation}
+    \end{enumerate}
+\end{proof}
+
+\begin{note}[summary]
+    How do we know whether a (possibly nonlinear) system has a multiple time scale structure? Theorem 4.5.3 provides a partial answer for linear systems of the form \eqref{4.40}. We should: 
+    \begin{enumerate}[(i)]
+        \item Consider a linearized system. 
+        \item Identify a small parameter. 
+        \item Consider the eigenvalue structure of the singular limit system.
+    \end{enumerate}
+    It often helps to identify the fast and slow variables and rewrite the system in fast-slow normal form.
+\end{note}
+
+
+\begin{exercise}[4.5.4]
+    We start from Example 4.5.1:
+    \begin{equation}
+        \frac{dz}{dt} = F_0 z + \varepsilon F_1 z,\qquad
+        F_0=\begin{pmatrix}-1.2&1.6\\0.6&-0.8\end{pmatrix},\quad
+        F_1=\begin{pmatrix}0.2&-0.6\\0.4&-1.2\end{pmatrix},
+    \end{equation}
+    with $t=\tau/\varepsilon$. Hence
+    \begin{equation}
+        \dot z=\frac{dz}{d\tau} = \frac{1}{\varepsilon}F_0 z + F_1 z,=\left(\frac{1}{\varepsilon}F_0+F_1\right)z.
+    \end{equation}
+
+    Then, we bring this system into fast-slow form by following the steps in the proof of Theorem 4.5.3:
+
+    \begin{enumerate}[(1)]
+        \item Compute $\operatorname{ker} (F_0)$ and pick $Q$: A direct computation (Example 4.5.2) gives 
+        \begin{equation}
+            \operatorname{ker} (F_0)=\mathrm{span}\!\left(\begin{pmatrix}-0.8\\-0.6\end{pmatrix}\right).
+        \end{equation}
+        A vector orthogonal to $(-0.8,-0.6)^\top$ is $(0.6,-0.8)^\top$, so we take
+        \begin{equation}
+        Q=\begin{pmatrix}0.6&-0.8\end{pmatrix},\qquad x:=Qz.
+        \tag{E4}\label{eq:E4}
+        \end{equation}
+
+        \item Pick $P$ from the left nullspace and define $y$: Choose $P$ so that $PF_0=0$ (a basis for the left nullspace of $F_0$).
+        Let $P=(a\ \ b)$. Then
+        \[
+            (a\ \ b)\begin{pmatrix}-1.2&1.6\\0.6&-0.8\end{pmatrix}=(0\ \ 0)
+            \quad\Longrightarrow\quad -1.2a+0.6b=0 \Longrightarrow b=2a.
+        \]
+        We may take $a=1$, hence
+        \begin{equation}
+            P=\begin{pmatrix}1&2\end{pmatrix},\qquad y:=Pz.
+        \end{equation}
+
+        \item Form $T$ and its inverse: Define
+        \begin{equation}
+            T:=\begin{pmatrix}Q\\ P\end{pmatrix}
+            =\begin{pmatrix}0.6&-0.8\\ 1&2\end{pmatrix},
+            \qquad \binom{x}{y}=Tz.
+        \end{equation}
+        One checks $\det(T)=2\neq 0$, so $T$ is invertible and
+        \begin{equation}
+            T^{-1}
+            =\begin{pmatrix}1&0.4\\ -0.5&0.3\end{pmatrix}
+            =\bigl(V\ \ W\bigr),
+            \qquad
+            V=\begin{pmatrix}1\\-0.5\end{pmatrix},\quad
+            W=\begin{pmatrix}0.4\\0.3\end{pmatrix}.
+        \end{equation}
+        (Indeed, $V$ spans $\operatorname{im} (F_0)$ and $W$ spans $\operatorname{ker} (F_0)$.)
+
+        \item Compute the normal-form blocks: From the proof of Theorem 4.5.3, in $(x,y)$-coordinates
+        \begin{equation}
+            \binom{\dot x}{\dot y} = T\left(\frac{1}{\varepsilon}F_0+F_1\right)T^{-1}\binom{x}{y} = 
+            \begin{pmatrix}
+                \frac{1}{\varepsilon}QF_0V+QF_1V & QF_1W\\[2mm]
+                PF_1V & PF_1W
+            \end{pmatrix}
+            \binom{x}{y}.
+        \end{equation}
+        Therefore the standard fast-slow form
+        \begin{equation}
+            \varepsilon \dot x=A_{11}(\varepsilon)x+\varepsilon A_{12}(\varepsilon)y, \qquad
+            \dot y=A_{21}(\varepsilon)x+A_{22}(\varepsilon)y
+        \end{equation}
+        is obtained with
+        \begin{equation}
+            A_{11}(\varepsilon)=QF_0V+\varepsilon QF_1V,\quad
+            A_{12}(\varepsilon)=QF_1W,\quad
+            A_{21}(\varepsilon)=PF_1V,\quad
+            A_{22}(\varepsilon)=PF_1W.
+        \end{equation}
+
+        Now compute each term (here $F_1(\varepsilon)=F_1$ is constant):
+        \begin{align}
+            QF_0V&=-2,
+            &
+            QF_1V&=-\frac12,
+            &
+            QF_1W&=\frac{1}{10},\\
+            PF_1V&=\frac{5}{2},
+            &
+            PF_1W&=-\frac12.
+        \end{align}
+        Hence
+        \begin{equation}
+            A_{11}(\varepsilon)=-2-\frac{\varepsilon}{2},\qquad
+            A_{12}(\varepsilon)=\frac{1}{10},\qquad
+            A_{21}(\varepsilon)=\frac{5}{2},\qquad
+            A_{22}(\varepsilon)=-\frac{1}{2}.
+        \end{equation}
+    \end{enumerate}
+    
+    The final answer is given as: 
+    \begin{equation}
+        \boxed{
+        \varepsilon \dot x=\left(-2-\frac{\varepsilon}{2}\right)x+\varepsilon\left(\frac{1}{10}\right)y,
+        \qquad
+        \dot y=\left(\frac{5}{2}\right)x-\left(\frac{1}{2}\right)y.}
+    \end{equation}
+\end{exercise}

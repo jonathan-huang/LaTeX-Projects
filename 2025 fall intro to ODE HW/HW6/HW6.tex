@@ -1,0 +1,186 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math commands %%
+\DeclareMathOperator{\tr}{tr}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem*{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+% code environment
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+    language=MATLAB,
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green},
+    stringstyle=\color{cyan},
+    showstringspaces=false
+}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+  \textbf{2025 Fall Introduction to ODE} \\
+  \vspace{0.5cm}
+  \large 
+  Homework 6 (Due Oct 27 12:00, 2025)\\
+}
+\author{物理/數學三 黃紹凱 B12202004}
+\date{\today}
+
+\maketitle
+
+% Problem 1
+\begin{problem}
+    Let \(A=(a_{ij}) \in \mathbb{R}^{n \times n}\) satisfy \(a_{ij}=\frac{i}{j}\) for \(i,j=1, \cdots, n\).
+Calculate \(e^{At}\) for \(t>0\).\\
+\end{problem}
+
+\begin{solution}
+    ~
+
+    \underline{Steps:}
+    \begin{enumerate}
+        \item Find formula for $ A^n $ using induction.
+        \item Use the Taylor series to find \(e^{At}\).
+    \end{enumerate}
+    
+    \underline{Method:}
+
+    Notice that
+    \begin{equation*}
+        \begin{split}
+          A^2 &= \left(a^2_{ij} \right) = \sum_{k=1}^n a_{ik} a_{kj} = \sum_{k=1}^n \frac{i}{k} \cdot \frac{k}{j} = \sum_{k=1}^n \frac{i}{j} = n \cdot \frac{i}{j} = nA, \\
+          A^3 &= A^2 \cdot A = nA \cdot A = n^2 A, \\
+          &\vdots \\
+          A^k &= n^{k-1} A.
+        \end{split}
+    \end{equation*} 
+    By induction, suppose \(A^k = n^{k-1} A\) holds for some \(k \geq 1\). Then
+    \begin{equation*}
+        A^{k+1} = A^k \cdot A = n^{k-1} A \cdot A = n^{k-1} \cdot n A = n^k A.
+    \end{equation*}
+    Thus, by induction, we have \(A^k = n^{k-1} A\) for all \(k \geq 1\).
+
+    Let's compute the matrix exponential \(e^{At}\) using its Taylor series expansion:
+    \begin{equation*}
+        e^{At} = I + At + \frac{(At)^2}{2!} + \frac{(At)^3}{3!} + \cdots = I + \sum_{k=1}^{\infty} \frac{(At)^k}{k!}.
+    \end{equation*}
+    Substituting \(A^k = n^{k-1} A\) into the equation, we have 
+    \begin{equation*}
+      e^{At} = I + \sum_{k=1}^{\infty} \frac{(n^{k-1} A t^k)}{k!} = I + \frac{A}{n} \sum_{k=1}^{\infty} \frac{(nt)^k}{k!} = I + \frac{A}{n} \left(e^{nt} - 1\right).
+    \end{equation*}
+\end{solution}
+
+% Problem 2
+\begin{problem}
+    Suppose there is a constant \(K\) such that a fundamental matrix solution \(X\) of the real system \(\dot x=A(t)x\) satisfies \(|X(t)| \leq
+    K\), \(t \geq \beta\) and
+    \begin{align*}
+        \liminf_{t \to \infty}{\int_{\beta}^{t}}\tr{A(s)}ds>-\infty.
+    \end{align*}
+    Prove that \(X^{-1}\) is bounded on \([\beta,\infty)\) and no
+    nontrivial solution of \(\dot x=A(t)x\) approaches zero as \(t \to \
+    infty\).
+\end{problem}
+
+\begin{solution}
+    ~
+
+    \underline{Steps:}
+    \begin{enumerate}
+        \item Show that $ \det X $ is bounded from below.
+        \item Show that \(X^{-1}\) is bounded on \([\beta,\infty)\).
+        \item Show that no nontrivial solution approaches zero as \(t \to \infty\).
+    \end{enumerate}
+    
+    \underline{Method:}
+    
+    By lemma 1.5 (Liouville's formula) of Hale's Ordinary Differential Equations, we have
+    \begin{equation*}
+      \det X(t) = \det X(\beta) \exp\left( \int_{\beta}^{t} \tr(A(s)) ds \right), \quad t \geq \beta.
+    \end{equation*}
+    Let $ I(t) \equiv \liminf_{t \to \infty} \int_{\beta}^{t} \tr(A(s)) ds $. Since \(I(t) > -\infty\), there exists some constant $ m>0 $ and $ T \geq t $ such that
+    \begin{equation*}
+      I(t) \geq -m, \quad t \geq T.
+    \end{equation*}
+    Let $ m_0 = \min \left\{ \inf_{\beta \leq t \leq T} I(t), m, \right\} $, then Liouville's formula gives 
+    \begin{equation*}
+      \vert X(t) \vert = \vert X(\beta) \vert e^{I(t)} \geq \vert X(\beta) \vert e^{-m_0} \equiv A, \quad t \geq \beta. 
+    \end{equation*} 
+    In finite dimensional vector spaces, all vector norms are equivalent. Treat $ X(t) $ as an element of the vector space $ M_n (\mathbb{R}) $, the boundedness property $ \vert X(t) \vert \leq K $ for $ t \geq \beta $ implies that there exists some constant $ B_K > 0 $ such that
+    \begin{equation*}
+      \max \vert x_{ij} (t) \vert \leq B_K , \quad t \geq \beta,
+    \end{equation*}
+    where the left hand side is the max norm. Hence $ \vert x_{ij} (t) \vert $ is bounded for all \(i,j=1, \cdots, n\) and \(t \geq \beta\), and every minor of $ X(t) $ is bounded uniformly for \(t \geq \beta\). We have $ \vert \operatorname{adj} X(t)\vert \leq C $ for $ t\geq \beta $, and 
+    \begin{equation*}
+      \vert X^{-1}(t) \vert = \frac{\vert \operatorname{adj} X(t) \vert}{\vert X(t) \vert} \leq \frac{C}{A}, \quad t \geq \beta,
+    \end{equation*}
+    so $ X^{-1} $ is bounded on $ [\beta, \infty) $. Since every nontrivial solution of \( \dot x = A(t) x \) can be expressed as \( x(t) = X(t) c \) for some nonzero constant vector \( c \), suppose there exists a nontrivial solution $ x(t) $ such that $ \lim_{t \to \infty} x(t) = 0 $. Then
+    \begin{equation*}
+      \vert c \vert = \vert X^{-1}(t) x(t) \vert \leq \vert X^{-1}(t) \vert \cdot \vert x(t) \vert \to 0, \quad t \to \infty,
+    \end{equation*}
+    which is a contradiction. Therefore, no nontrivial solution of \( \dot x = A(t) x \) approaches zero as \( t \to \infty \).
+\end{solution}
+
+\end{CJK}
+\end{document}

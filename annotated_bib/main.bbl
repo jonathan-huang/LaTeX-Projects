@@ -1,0 +1,114 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{#1}
+\csname url@rmstyle\endcsname
+\providecommand{\newblock}{\relax}
+\providecommand{\bibinfo}[2]{#2}
+\providecommand\BIBentrySTDinterwordspacing{\spaceskip=0pt\relax}
+\providecommand\BIBentryALTinterwordstretchfactor{4}
+\providecommand\BIBentryALTinterwordspacing{\spaceskip=\fontdimen2\font plus
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus \fontdimen4\font\relax}
+\providecommand\BIBforeignlanguage[2]{{%
+\expandafter\ifx\csname l@#1\endcsname\relax
+\typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
+\typeout{** loaded for the language `#1'. Using the pattern for}%
+\typeout{** the default language instead.}%
+\else
+\language=\csname l@#1\endcsname
+\fi
+#2}}
+
+\bibitem{Basan2015Overflow}
+M.~Basan, S.~Hui, H.~Okano, Z.~Zhang, Y.~Shen, J.~R. Williamson, and T.~Hwa, ``Overflow metabolism in escherichia coli results from efficient proteome allocation,'' \emph{Nature}, vol. 528, no. 7580, pp. 99--104, 2015.
+ \begin{quotation}\noindent Basan et al. show that E. coli’s aerobic acetate “overflow” is not wasteful mishandling of carbon but a global strategy driven by proteome allocation. The work reframes overflow metabolism as an optimal allocation outcome under proteome constraints rather than a regulatory failure. \end{quotation}
+
+\bibitem{Erickson2017}
+D.~W. Erickson, S.~J. Schink, V.~Patsalo, J.~R. Williamson, U.~Gerland, and T.~Hwa, ``A global resource allocation strategy governs growth transition kinetics of {\textit{escherichia coli}},'' \emph{Nature}, vol. 551, no. 7678, pp. 119--123, 2017.
+ \begin{quotation}\noindent Erickson et al. develop a top-down, parameter-free kinetic model that extends coarse-grained proteome allocation theory from steady state to transients and shows that a single flux-controlled resource-allocation strategy can predict how E. coli reprograms gene expression and biomass accumulation during nutrient upshifts and downshifts (including diauxic shifts). Using only qualitative regulatory knowledge plus a flux-balance constraint, the model quantitatively captures the time courses of ribosomal and catabolic sectors without adjustable kinetic parameters and explains why cells often recover suboptimally after shifts: protein-synthesis resources are reallocated according to a rigid global rule rather than to relieve specific bottlenecks. Quantitative proteomics validates the predicted trajectories, pointing to a general framework for describing growth-transition kinetics without detailed biochemical rate constants. \end{quotation}
+
+\bibitem{Feinberg2019CRNT}
+M.~Feinberg, \emph{Foundations of Chemical Reaction Network Theory}, ser. Applied Mathematical Sciences.\hskip 1em plus 0.5em minus 0.4em\relax Cham: Springer, 2019, vol. 202.
+ \begin{quotation}\noindent The definitive introduction to chemical reaction network theory (CRNT), developing rigorous links between a network’s graphical/algebraic structure and qualitative properties of the nonlinear ODEs it induces. \end{quotation}
+
+\bibitem{Goyal2025SubPlankton}
+A.~Goyal and G.~Chure, ``Paradox of the sub-plankton: Plausible mechanisms and open problems underlying strain-level diversity in microbial communities,'' \emph{Environmental Microbiology}, vol.~27, no.~4, p. e70094, 2025.
+ \begin{quotation}\noindent The authors synthesize candidate mechanisms for maintaining “microdiversity,” covering niche-based processes (e.g., resource partitioning and cross-feeding), neutral processes (e.g., migration and drift), and evolutionary processes (e.g., horizontal gene transfer). \end{quotation}
+
+\bibitem{Hui2015ResourceAllocation}
+S.~Hui, J.~M. Silverman, S.~S. Chen, D.~W. Erickson, M.~Basan, J.~Wang, T.~Hwa, and J.~R. Williamson, ``Quantitative proteomic analysis reveals a simple strategy of global resource allocation in bacteria,'' \emph{Molecular Systems Biology}, vol.~11, no.~1, p. 784, 2015.
+ \begin{quotation}\noindent Hui et al. use quantitative mass-spectrometry across controlled carbon, anabolic, and ribosomal limitations in E. coli to show that the proteome partitions into coarse-grained sectors whose mass fractions vary linearly with growth rate. Roughly half of the proteome follows these growth-rate–dependent trends, which are captured by a minimal flux model with only two effective parameters, linking proteome partitioning tightly to metabolic throughput. The results reveal a simple, global resource-allocation strategy underpinning complex gene-expression responses and provide a phenomenological framework for predicting cellular physiology without detailed molecular regulation, with implications for systems biology and synthetic circuit design. \end{quotation}
+
+\bibitem{Jahn2018CyanobacteriaProteomeConstraints}
+M.~Jahn, V.~Vialas, J.~Karlsen, G.~Maddalo, F.~Edfors, B.~Forsstr{\"o}m, M.~Uhl{\'e}n, L.~K{\"a}ll, and E.~P. Hudson, ``Growth of cyanobacteria is constrained by the abundance of light and carbon assimilation proteins,'' \emph{Cell Reports}, vol.~25, no.~2, pp. 478--486.e8, 2018.
+ \begin{quotation}\noindent Using shotgun proteomics in Synechocystis PCC 6803 across light- and inorganic-carbon–limited regimes, Jahn et al. partition the proteome into functional sectors and show several sector sizes vary roughly linearly with growth rate. Compared with E. coli, the ribosomal sector is smaller, consistent with a lower maximal growth rate in cyanobacteria. Light limitation reshapes multiple sectors strongly, whereas Ci limitation has a weaker impact; notably, carbon-assimilation proteins track light more than external Ci. \end{quotation}
+
+\bibitem{Kleijn2023_CGRAM}
+\BIBentryALTinterwordspacing
+I.~T. Kleijn, S.~Marguerat, and V.~Shahrezaei, ``A coarse-grained resource allocation model of carbon and nitrogen metabolism in unicellular microbes,'' \emph{Journal of the Royal Society Interface}, vol.~20, no. 206, p. 20230206, 2023. [Online]. Available: \url{https://doi.org/10.1098/rsif.2023.0206}
+\BIBentrySTDinterwordspacing
+ \begin{quotation}\noindent They formulate a coarse-grained resource allocation model with nitrogen and carbon pathways, describing the effects of the uptake of sugars, and amino acids on the resource allocation towards proteome sectors that maximize the growth rate. It recovers cellular growth laws including the Monod law and the ribosomal growth law. They also find linear correlation between ribosome fraction and the abundance of amino acid equivalents, supporting the view that regulation of translational gene expression can enable cells to achieve an approximately optimal growth state. \end{quotation}
+
+\bibitem{doi:10.1073/pnas.1310377110}
+\BIBentryALTinterwordspacing
+S.~Klumpp, M.~Scott, S.~Pedersen, and T.~Hwa, ``Molecular crowding limits translation and cell growth,'' \emph{Proceedings of the National Academy of Sciences}, vol. 110, no.~42, pp. 16\,754--16\,759, 2013. [Online]. Available: \url{https://www.pnas.org/doi/abs/10.1073/pnas.1310377110}
+\BIBentrySTDinterwordspacing
+
+
+\bibitem{KoremKohanim2018BacterialGrowthLaw}
+Y.~Korem~Kohanim, D.~Levi, G.~Jona, B.~D. Towbin, A.~Bren, and U.~Alon, ``A bacterial growth law out of steady state,'' \emph{Cell Reports}, vol.~23, no.~10, pp. 2891--2900, 2018.
+ \begin{quotation}\noindent Kohanim et al. extend bacterial “growth laws” to dynamically changing environments by deriving and testing a law for nutritional upshifts: immediately after an upshift, the growth rate equals the geometric mean of the pre-shift growth rate and the growth rate on saturating carbon. Using chemostat and batch experiments, they show that this relation holds robustly. \end{quotation}
+
+\bibitem{Lin2020OriginExponentialGrowth}
+W.-H. Lin, E.~Kussell, L.-S. Young, and C.~Jacobs-Wagner, ``Origin of exponential growth in nonlinear reaction networks,'' \emph{Proceedings of the National Academy of Sciences of the United States of America}, vol. 117, no.~45, pp. 27\,795--27\,804, 2020.
+ \begin{quotation}\noindent Proposes a general theoretical framework that explains how exponential growth emerges in complex nonlinear reaction networks by combining two central principles: scalability of flux functions and ergodicity of the rescaled system dynamics. Although many biological networks are highly nonlinear, under these conditions they will exhibit either a well-defined exponential growth rate, or periodic, quasi-periodic, or chaotic growth. \end{quotation}
+
+\bibitem{Lourenco2011ShortLongTermRegulation}
+A.~Louren{\c c}o, S.~Carneiro, J.~P. Pinto, M.~Rocha, E.~C. Ferreira, and I.~Rocha, ``A study of the short and long-term regulation of \textit{E.\ coli} metabolic pathways,'' \emph{Journal of Integrative Bioinformatics}, vol.~8, no.~3, p. 183, 2011.
+ \begin{quotation}\noindent This paper surveys how E. coli metabolism is controlled across two timescales: “long-term” transcriptional regulation that adjusts enzyme levels via transcription factors, and “short-term” enzymatic (allosteric/metabolic) regulation that can override expression programs. The review offers a global view of the regulatory network and highlights implications for modeling and control of bacterial metabolism. \end{quotation}
+
+\bibitem{Mairet2021OptimalProteomeTemperature}
+F.~Mairet, J.-L. Gouz{\'e}, and H.~de~Jong, ``Optimal proteome allocation and the temperature dependence of microbial growth laws,'' \emph{npj Systems Biology and Applications}, vol.~7, p.~14, 2021.
+ \begin{quotation}\noindent A coarse-grained resource-allocation model that explicitly accounts for temperature-dependent protein unfolding and chaperone-assisted refolding, alongside metabolic and ribosomal sectors, and then determine the proteome split that maximizes balanced growth across nutrients and temperatures. \end{quotation}
+
+\bibitem{MetzlRaz2017Principles}
+E.~Metzl-Raz, M.~Kafri, G.~Yaakov, I.~Soifer, Y.~Gurvich, and N.~Barkai, ``Principles of cellular resource allocation revealed by condition-dependent proteome profiling,'' \emph{eLife}, vol.~6, p. e28034, 2017.
+ \begin{quotation}\noindent Cells maintain a substantial pool of excess ribosomal proteins (about 8\% of the proteome), implying that about 25\% of ribosomes in fast growth are idle and that this reserve increases as growth slows. This “spare ribosome” strategy trades off steady-state efficiency for rapid responsiveness. \end{quotation}
+
+\bibitem{Mori2021AbsoluteEcoliProteome}
+M.~Mori, Z.~Zhang, A.~Banaei~Esfahani, J.~Lalanne, H.~Okano, B.~C. Collins, A.~Schmidt, O.~T. Schubert, D.~Lee, G.~Li, R.~Aebersold, T.~Hwa, and C.~Ludwig, ``From coarse to fine: the absolute \textit{Escherichia coli} proteome under diverse growth conditions,'' \emph{Molecular Systems Biology}, vol.~17, no.~5, p. e9536, 2021.
+ \begin{quotation}\noindent The study develops a DIA/SWATH mass-spectrometry workflow and a new protein-inference algorithm (xTop) to quantify absolute abundances for over 2,000 E. coli proteins across over 60 conditions. The resource offers high-quality mass-fraction measurements for systems biology and multi-omics modeling of bacterial physiology. \end{quotation}
+
+\bibitem{PaccianiMori2021ConstrainedProteomeCoexistence}
+L.~Pacciani-Mori, S.~Suweis, A.~Maritan, and A.~Giometto, ``Constrained proteome allocation affects coexistence in models of competitive microbial communities,'' \emph{The ISME Journal}, vol.~15, no.~5, pp. 1458--1477, 2021.
+ \begin{quotation}\noindent extend MacArthur’s consumer–resource framework by embedding proteome-allocation constraints, creating a “consumer-proteome-resource” model in which species must divide limited protein-synthesis capacity between nutrient uptake and growth. Analytically and numerically, they derive coexistence conditions for many species and resources, showing how time-varying, resource-specific proteome budgeting shapes dynamics. The work links intracellular resource allocation to community-level outcomes and offers tractable criteria to predict when competitors can stably coexist. \end{quotation}
+
+\bibitem{Russo2025SoftModes}
+C.~J. Russo, K.~Husain, and A.~Murugan, ``Soft modes as a predictive framework for low-dimensional biological systems across scales,'' \emph{Annual Review of Biophysics}, vol.~54, no.~1, pp. 401--426, 2025.
+ \begin{quotation}\noindent Low-dimensional responses observed in many biological systems can be understood through a unifying “soft modes” dynamical-systems framework. These soft-mode structure can organize data analysis and guide experiments across scales. \end{quotation}
+
+\bibitem{Schmidt2016QuantitativeEcoliProteome}
+A.~Schmidt, K.~Kochanowski, S.~Vedelaar, E.~Ahrn{\'e}, B.~Volkmer, L.~Callipo, K.~Knoops, M.~Bauer, R.~Aebersold, and M.~Heinemann, ``The quantitative and condition-dependent \textit{Escherichia coli} proteome,'' \emph{Nature Biotechnology}, vol.~34, no.~1, pp. 104--110, 2016.
+ \begin{quotation}\noindent The study quantified absolute abundances for about 2,300 E. coli proteins (about 55\% of genes) across 22 growth conditions using streamlined fractionation and high-resolution mass spectrometry. The dataset reveals how protein mass redistributes among cellular functions with growth rate and environment, uncovers widespread post-translational modifications, and highlights system-wide allocation. \end{quotation}
+
+\bibitem{Scott2010Interdependence}
+M.~Scott, C.~W. Gunderson, E.~M. Mateescu, Z.~Zhang, and T.~Hwa, ``Interdependence of cell growth and gene expression: origins and consequences,'' \emph{Science}, vol. 330, no. 6007, pp. 1099--1102, 2010.
+ \begin{quotation}\noindent First modern formulation of the three-sector proteome partiton model. A phenomenological framework showing that bacterial growth rate and gene expression are tightly coupled by global resource-allocation constraints, especially the share of the proteome devoted to ribosomes. By perturbing E. coli with translation-inhibiting antibiotics and by forcing gratuitous protein expression, they derive and validate simple “growth laws” that quantitatively predict how changes in one dimension (e.g., burdening expression) feed back on the other (cell proliferation) and vice versa. \end{quotation}
+
+\bibitem{Scott2011BacterialGrowthLaws}
+M.~Scott and T.~Hwa, ``Bacterial growth laws and their applications,'' \emph{Current Opinion in Biotechnology}, vol.~22, no.~4, pp. 559--565, 2011.
+ \begin{quotation}\noindent The study outlines twin linear laws observed when growth is limited by nutrients versus translation capacity. It proposes emerging “bacterial growth laws” and shows how these phenomenological constraints can explain diverse physiological behaviors without detailed regulatory models. \end{quotation}
+
+\bibitem{https://doi.org/10.15252/msb.20145379}
+\BIBentryALTinterwordspacing
+M.~Scott, S.~Klumpp, E.~M. Mateescu, and T.~Hwa, ``Emergence of robust growth laws from optimal regulation of ribosome synthesis,'' \emph{Molecular Systems Biology}, vol.~10, no.~8, p. 747, 2014. [Online]. Available: \url{https://www.embopress.org/doi/abs/10.15252/msb.20145379}
+\BIBentrySTDinterwordspacing
+ \begin{quotation}\noindent The study highlights the interplay between phenomenological modeling and molecular mechanisms in uncovering fundamental operating constraints, with implications for endogenous and synthetic design of microorganisms. \end{quotation}
+
+\bibitem{Tang2021FindingLiebig}
+J.~Tang and W.~J. Riley, ``Finding liebig's law of the minimum,'' \emph{Ecological Applications}, vol.~31, no.~8, p. e02458, 2021.
+ \begin{quotation}\noindent Liebig’s law of the minimum (LLM) and show it is a coarse approximation of the law of mass action for growth limited by two essential resources. They argue that ecosystem and biogeochemical models should prefer mechanistically grounded formulations. \end{quotation}
+
+\bibitem{Vazquez2025GeometricallyBalanced}
+A.~Vazquez and T.~Gedeon, ``Geometrically balanced model of cell growth,'' \emph{Journal of Theoretical Biology}, vol. 604, p. 112085, 2025.
+ \begin{quotation}\noindent The study argues that growth is limited not only by protein-synthesis capacity but also by surface-area and membrane-lipid demands. Using a reduced metabolic model, they show how this additional constraint reshapes optimal allocation and growth predictions, showing interactions between metabolism and molecular crowding. \end{quotation}
+
+\end{thebibliography}

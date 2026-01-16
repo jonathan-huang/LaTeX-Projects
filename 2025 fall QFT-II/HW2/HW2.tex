@@ -1,0 +1,861 @@
+\documentclass[11pt]{article}
+
+\usepackage[height=9.6in,width=6.45in]{geometry}
+%\usepackage{showkeys}
+\renewcommand{\baselinestretch}{1.08}
+
+\usepackage{xspace}
+
+\newcommand{\Poincare}{Poincar\'e\xspace}
+
+\usepackage{amssymb}
+%\usepackage{hyperref}
+\usepackage{physics}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{srcltx}
+\usepackage{mathrsfs}
+\usepackage{lipsum}% Just for this example
+\usepackage{slashed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[makeroom]{cancel}
+
+\newcommand{\doublerule}[1][.4pt]{%
+  \noindent
+  \makebox[0pt][l]{\rule[.7ex]{\linewidth}{#1}}%
+  \rule[.3ex]{\linewidth}{#1}}
+
+%% My add-ons %%
+%% Formatting %%
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage{booktabs}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+\usetikzlibrary{arrows.meta, decorations.pathmorphing}
+\usepackage{tikz-feynman}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{problem}{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem*{recall}{Recall}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\lstdefinestyle{matlab}{
+  language=Matlab,
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  frame=single,
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=2,
+  keywordstyle=\color{blue},
+  commentstyle=\color{teal!60!black}\itshape,
+  stringstyle=\color{purple!70!black},
+  backgroundcolor=\color{white}
+}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\centerline {\Large \bf Phys8018 QFT~(II) -- Fall 2025} 
+\vspace{0.1cm}
+\centerline {\large \bf Instructors: Chia-Hsien Shen $\&$ Chang-Tse Hsieh}
+\vspace{0.2cm}
+\centerline {\large \textbf{Student:} 物理三 黃紹凱 B12202004}
+\doublerule\\
+{\large \bf Problem Set \#2 [\textcolor{red}{110 pts}] \qquad Due \textcolor{red}{December 8, 2025}}
+\\ \\
+1.~\textbf{One-loop structure of QED} [\textcolor{red}{20 pts}]
+
+In \textcolor{ForestGreen}{[Note-20251014\&21]} we argued that any photon-photon scattering amplitude from the diagram in Fig.\ 2(a) is finite, due to Lorentz covariance and Ward identity. Let's confirm this argument with explicit loop calculations. Consider the 1-loop photon four-point amplitude, which is a sum of six diagrams like Fig.\ 1(b). For each diagram, there is a logarithmically divergent part. Show that such divergence will be cancelled when summing over the six diagrams.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{fig1.png}
+    \caption{Photon four-point amplitudes in QED.}
+\end{figure}
+
+A useful (recursive) formula for the trace of any even number of $\gamma$ 
+matrices for this calculation:
+\begin{equation}
+    \operatorname{tr}(\gamma^{\mu_1}\gamma^{\mu_2}\cdots\gamma^{\mu_n})
+    = \sum_{k=2}^{n} (-1)^k\, g^{\mu_1 \mu_k}\;
+    \operatorname{tr}\!\left(
+    \gamma^{\mu_2}\cdots \cancel{\gamma^{\mu_k}}\cdots \gamma^{\mu_n}
+    \right). \tag{1}
+\end{equation}
+
+For example, for $n=6$,
+\begin{align}
+    \operatorname{tr}(\gamma^{\mu_1}\gamma^{\mu_2}\cdots\gamma^{\mu_6})
+    ={} &\;
+    g^{\mu_1\mu_2}\, \operatorname{tr}(\gamma^{\mu_3}\gamma^{\mu_4}\gamma^{\mu_5}\gamma^{\mu_6})
+    - g^{\mu_1\mu_3}\, \operatorname{tr}(\gamma^{\mu_2}\gamma^{\mu_4}\gamma^{\mu_5}\gamma^{\mu_6}) \notag \\
+    &+ g^{\mu_1\mu_4}\,\operatorname{tr}(\gamma^{\mu_2}\gamma^{\mu_3}\gamma^{\mu_5}\gamma^{\mu_6})
+    - g^{\mu_1\mu_5}\,\operatorname{tr}(\gamma^{\mu_2}\gamma^{\mu_3}\gamma^{\mu_4}\gamma^{\mu_6}) \notag \\
+    &+ g^{\mu_1\mu_6}\,\operatorname{tr}(\gamma^{\mu_2}\gamma^{\mu_3}\gamma^{\mu_4}\gamma^{\mu_5}).
+    \tag{2}
+\end{align}
+
+\begin{solution}
+We need to show that the logarithmically divergent part of the one-loop photon-photon scattering amplitude vanishes. In momentum space with loop momentum $ p $, the amplitude for the permutation $ \mu , \nu , \rho , \sigma $ is 
+\[
+    \mathcal{M} = -e^4 \int \mathrm{d}^4 p\, \frac{\operatorname{tr} \left[ \gamma^{\mu} (\slashed{p} + m) \gamma^{\nu} (\slashed{p} + \slashed{k}_{\nu} + m) \gamma^{\rho} (\slashed{p} + \slashed{k}_{\nu} + \slashed{k}_{\rho} + m) \gamma^{\sigma} (\slashed{p} - \slashed{k}_{\mu} + m) \right]}{((p^{2} + k_1)^2 - m^2)((p+k_2)^2 - m^2)((p+k_3)^2 - m^2)((p+k_4)^2 - m^2)}.
+\]
+The denominator scales as $ p^8 $, the measure is $ \mathrm{d}^4 p \sim \mathrm{d}p\, p^3 $, so we require the numerator of the logarithmically divergent part scale as $ p^4 $. Isolate the leading term, asymptotically it is 
+\[
+    I \sim -e^4 \int \frac{\mathrm{d}^4 p}{p^8}\, \operatorname{tr} \left[ \gamma^{\mu} \slashed{p} \gamma^{\nu} \slashed{p} \gamma^{\rho} \slashed{p} \gamma^{\sigma} \slashed{p} \right].
+\]
+Notice that since $ \{\gamma^{\mu}, \gamma^{\nu}\} = 2 g^{\mu \nu} $, we have an identity for sandwiched gamma matrices:
+\[
+    \slashed{p} \gamma^{\mu} \slashed{p} = p_{\alpha} \gamma^{\alpha} \gamma^{\mu} \slashed{p} = p_{\alpha} (2 g^{\mu \alpha} - \gamma^{\mu} \gamma^{\alpha}) \slashed{p} = 2 p^{\mu} \slashed{p} - \gamma^{\mu} p_{\alpha} \gamma^{\alpha} \slashed{p} = 2 p^{\mu} \slashed{p} - p^2 \gamma^{\mu}, 
+\] 
+where 
+\[
+    \slashed{p} \slashed{p} = p_\mu p_\nu \gamma^\mu \gamma^\nu = p_\mu p_\nu \left( \frac{\{\gamma^\mu, \gamma^\nu\}}{2} + \frac{[\gamma^\mu, \gamma^\nu]}{2} \right) = p_\mu p_\nu frac{\{\gamma^\mu, \gamma^\nu\}}{2} = p^2.
+\]
+The trace is then decomposed into two parts \textbf{1.} and \textbf{2.}:
+\[
+    \operatorname{tr} \left[ \gamma^{\mu} \slashed{p} \gamma^{\nu} \slashed{p} \gamma^{\rho} \slashed{p} \gamma^{\sigma} \slashed{p} \right] = \operatorname{tr} \left[ \gamma^{\mu} \slashed{p} \gamma^{\nu} \left(2p^{\rho} \slashed{p} - p^2 \gamma^{\rho} \right) \gamma^{\sigma} \slashed{p} \right] = 2 p^{\rho} \operatorname{tr} \left[ \gamma^{\mu} \slashed{p} \gamma^{\nu} \slashed{p} \gamma^{\sigma} \slashed{p} \right] - p^2 \operatorname{tr} \left[ \gamma^{\mu} \slashed{p} \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma} \slashed{p} \right] . 
+\]
+\textbf{1.} The trace in the first term is  
+\[
+    \operatorname{tr} \left[ \gamma^{\mu} \slashed{p} \gamma^{\nu} \slashed{p} \gamma^{\sigma} \slashed{p} \right] = \operatorname{tr} \left[ \gamma^{\mu} \left( 2 p^{\nu} \slashed{p} - p^2 \gamma^{\nu} \right) \gamma^{\sigma} \slashed{p} \right] = 2 p^{\nu} \operatorname{tr} \left[ \gamma^{\mu} \slashed{p} \gamma^{\sigma} \slashed{p} \right] - p^2 \operatorname{tr} \left[ \gamma^{\mu} \gamma^{\nu} \gamma^{\sigma} \slashed{p} \right].
+\]
+The traces with four matrices can be evaluated using (1): 
+\begin{align*}
+    \operatorname{tr} \left[ \gamma^{\mu} \slashed{p} \gamma^{\sigma} \slashed{p} \right] &= p_{\alpha} p_{\beta} \operatorname{tr} \left[ \gamma^{\mu} \gamma^{\alpha} \gamma^{\sigma} \gamma^{\beta} \right] \\
+    &= p_{\alpha} p_{\beta} \left( g^{\mu \alpha} \operatorname{tr} \left[ \gamma^{\sigma} \gamma^{\beta} \right] - g^{\mu \sigma} \operatorname{tr} \left[ \gamma^{\alpha} \gamma^{\beta} \right] + g^{\mu \beta} \operatorname{tr} \left[ \gamma^{\alpha} \gamma^{\sigma} \right] \right) \\
+    &= p_{\alpha} p_{\beta} \left( 4 g^{\mu \alpha} g^{\sigma \beta} - 4 g^{\mu \sigma} g^{\alpha \beta} + 4 g^{\mu \beta} g^{\alpha \sigma} \right) \\
+    &= 8 p^{\mu} p^{\sigma} - 4 g^{\mu \sigma} p^2.
+\end{align*}
+Similarly, $ \operatorname{tr} \left[ \gamma^{\mu} \gamma^{\nu} \gamma^{\sigma} \slashed{p} \right] = p_{\alpha} \operatorname{tr} \left[ \gamma^{\mu} \gamma^{\nu} \gamma^{\sigma} \gamma^{\alpha} \right] $, and 
+\[
+     p_{\alpha} \operatorname{tr} \left[ \gamma^{\mu} \gamma^{\nu} \gamma^{\sigma} \gamma^{\alpha} \right]= p_{\alpha} \left( g^{\mu \nu} \operatorname{tr} \left[ \gamma^{\sigma} \gamma^{\alpha} \right] - g^{\mu \sigma} \operatorname{tr} \left[ \gamma^{\nu} \gamma^{\alpha} \right] + g^{\mu \alpha} \operatorname{tr} \left[ \gamma^{\nu} \gamma^{\sigma} \right] \right) = 4 (g^{\mu \nu} p^{\sigma} - g^{\mu \sigma} p^{\nu} + g^{\nu \sigma} p^{\mu}) .
+\]
+Combining them gives 
+\[
+    \mathbf{1.} = 16 p^{\mu} p^{\nu} p^{\sigma} - 4 p^2 (g^{\mu \nu} p^{\sigma} + g^{\mu \sigma} p^{\nu} + g^{\nu \sigma} p^{\mu}).
+\]
+
+\textbf{2.} Using the cyclic property $ \operatorname{tr} \left[ \gamma^{\mu} \slashed{p} \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma} \slashed{p} \right] = \operatorname{tr} \left[ \slashed{p} \gamma^{\mu} \slashed{p} \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma} \right] $, the trace in the second term is 
+\[
+     \operatorname{tr} \left[ \slashed{p} \gamma^{\mu} \slashed{p} \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma} \right] = \operatorname{tr} \left[ \left(2 p^{\mu} \slashed{p} - p^2 \gamma^{\mu} \right) \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma} \right] = 2 p^{\mu} \operatorname{tr} \left[ \slashed{p} \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma} \right] - p^2 \operatorname{tr} \left[ \gamma^{\mu} \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma} \right] . 
+\]
+We have 
+\begin{align*}
+    \operatorname{tr} \left[ \slashed{p} \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma} \right] &= p_{\alpha} \operatorname{tr} \left[ \gamma^{\alpha} \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma} \right] \\
+    &= p_{\alpha} \left( g^{\alpha \nu} \operatorname{tr} \left[ \gamma^{\rho} \gamma^{\sigma} \right] - g^{\alpha \rho} \operatorname{tr} \left[ \gamma^{\nu} \gamma^{\sigma} \right] + g^{\alpha \sigma} \operatorname{tr} \left[ \gamma^{\nu} \gamma^{\rho} \right] \right) \\
+    &= 4 (p^{\nu} g^{\rho \sigma} - p^{\rho} g^{\nu \sigma} + p^{\sigma} g^{\nu \rho}), \\
+    \operatorname{tr} \left[ \gamma^{\mu} \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma} \right] &= g^{\mu \nu} \operatorname{tr} \left[ \gamma^{\rho} \gamma^{\sigma} \right] - g^{\mu \rho} \operatorname{tr} \left[ \gamma^{\nu} \gamma^{\sigma} \right] + g^{\mu \sigma} \operatorname{tr} \left[ \gamma^{\nu} \gamma^{\rho} \right] \\
+    &= 4 (g^{\mu \nu} g^{\rho \sigma} - g^{\mu \rho} g^{\nu \sigma} + g^{\mu \sigma} g^{\nu \rho}).
+\end{align*}
+Combining them gives 
+\[
+    \mathbf{2.} = 8 p^{\mu} (p^{\nu} g^{\rho \sigma} - p^{\rho} g^{\nu \sigma} + p^{\sigma} g^{\nu \rho}) - 4 p^2 (g^{\mu \nu} g^{\rho \sigma} - g^{\mu \rho} g^{\nu \sigma} + g^{\mu \sigma} g^{\nu \rho}). 
+\]
+By the result of \textbf{1.} and \textbf{2.}, the trace is given by 
+\begin{align*}
+    \operatorname{tr} \left[ \gamma^{\mu} \slashed{p} \gamma^{\nu} \slashed{p} \gamma^{\rho} \slashed{p} \gamma^{\sigma} \slashed{p} \right] &= 2 p^{\rho} (\mathbf{1.}) - p^2 (\mathbf{2.}) \\
+    &= 32 p^{\mu} p^{\nu} p^{\rho} p^{\sigma} - 8 p^2 (g^{\mu \nu} p^{\rho} p^{\sigma} + g^{\mu \sigma} p^{\rho} p^{\nu} + g^{\nu \sigma} p^{\rho} p^{\mu}) \\
+    &\quad - 8 p^2 p^{\mu} (p^{\nu} g^{\rho \sigma} - p^{\rho} g^{\nu \sigma} + p^{\sigma} g^{\nu \rho}) + 4 p^4 (g^{\mu \nu} g^{\rho \sigma} - g^{\mu \rho} g^{\nu \sigma} + g^{\mu \sigma} g^{\nu \rho}) \\
+    &= 32 p^{\mu} p^{\nu} p^{\rho} p^{\sigma} - 8 p^2 (g^{\mu \nu} p^{\rho} p^{\sigma} + g^{\mu \sigma} p^{\rho} p^{\nu} + g^{\rho \sigma} p^{\mu} p^{\nu} + g^{\nu \rho} p^{\mu} p^{\sigma}) \\
+    &\quad + 4 p^4 (g^{\mu \nu} g^{\rho \sigma} - g^{\mu \rho} g^{\nu \sigma} + g^{\mu \sigma} g^{\nu \rho})
+\end{align*}
+
+To carry out integration, there are two rules we need to use: 
+\begin{enumerate}
+    \item Since the average of $ p^{\mu} p^{\nu} \propto g^{\mu \nu} $, contractiing both sides with $ g_{\mu \nu} $ gives
+    \[
+        \int \mathrm{d}^4 p\, p^{\mu} p^{\nu} f(p^2) = \frac{g^{\mu \nu}}{4} \int \mathrm{d}^4 p\, p^2 f(p^2),
+    \]
+
+    \item The tensor $ p^{\mu} p^{\nu} p^{\rho} p^{\sigma} $ is totally symmetric in all indices, so its average must be a sum of products of metric tensors that is also totally symmetric. The only such combination is $ (g^{\mu \nu} g^{\rho \sigma} + g^{\mu \rho} g^{\nu \sigma} + g^{\mu \sigma} g^{\nu \rho}) $. Contracting both sides gives 
+    \[
+        \int \mathrm{d}^4 p\, p^{\mu} p^{\nu} p^{\rho} p^{\sigma} f(p^2) = \frac{1}{24} (g^{\mu \nu} g^{\rho \sigma} + g^{\mu \rho} g^{\nu \sigma} + g^{\mu \sigma} g^{\nu \rho}) \int \mathrm{d}^4 p\, p^4 f(p^2), 
+    \]
+    where $ f $ is some function.
+\end{enumerate}
+
+Writing the divergent part as $ K $, the first term in $ \operatorname{tr} \left[ \gamma^{\mu} \slashed{p} \gamma^{\nu} \slashed{p} \gamma^{\rho} \slashed{p} \gamma^{\sigma} \slashed{p} \right] $ is 
+\[
+    32 \int \mathrm{d}^4 p\, \frac{p^{\mu} p^{\nu} p^{\rho} p^{\sigma}}{p^8} = \frac{32}{24} (g^{\mu \nu} g^{\rho \sigma} + g^{\mu \rho} g^{\nu \sigma} + g^{\mu \sigma} g^{\nu \rho}) K, 
+\]
+the second term is
+\[
+    -8 \int \mathrm{d}^4 p\, \frac{p^2 (g^{\mu \nu} p^{\rho} p^{\sigma} + g^{\mu \sigma} p^{\rho} p^{\nu} + g^{\rho \sigma} p^{\mu} p^{\nu} + g^{\nu \rho} p^{\mu} p^{\sigma})}{p^8} = -\frac{8 \cdot 2}{4} (g^{\mu \nu} g^{\rho \sigma} + g^{\mu \sigma} g^{\nu \rho}) K,
+\]
+and the third term is
+\[
+    4 \int \mathrm{d}^4 p\, \frac{p^4 (g^{\mu \nu} g^{\rho \sigma} - g^{\mu \rho} g^{\nu \sigma} + g^{\mu \sigma} g^{\nu \rho})}{p^8} = 4 (g^{\mu \nu} g^{\rho \sigma} - g^{\mu \rho} g^{\nu \sigma} + g^{\mu \sigma} g^{\nu \rho}) K.
+\]
+Together, the contributions to each tensor structure are: $ \frac{4}{3} - 4 + 4 = \frac{4}{3} $ for $ g^{\mu \nu} g^{\rho \sigma} $, $ \frac{4}{3} + 0 - 4 = -\frac{8}{3} $ for $ g^{\mu \rho} g^{\nu \sigma} $, and $ \frac{4}{3} - 4 + 4 = \frac{4}{3} $ for $ g^{\mu \sigma} g^{\nu \rho} $. In total, for the permutation $ (\mu , \nu , \rho , \sigma) $ the divergent part of $ \mathcal{M} $ is  
+\[
+    \propto \frac{4}{3} \left(g^{\mu \nu} g^{\rho \sigma} - 2 g^{\mu \rho} g^{\nu \sigma} + g^{\mu \sigma} g^{\nu \rho}\right) K.
+\]
+The vertex $ \rho $ opposite to $ \mu $ gets a factor of $ -2 $, while neighboring vertices $ \nu $ and $ \sigma $ get a factor of $ 1 $. Summing over all six permutations, each vertex will be opposite to $ \mu $ twice and neighbor to $ \mu $ four times, so the total coefficient is zero, agreeing with the Ward identity.
+\end{solution}
+
+\newpage
+
+2.~\textbf{Field-strength renormalization in $\varphi^4$ theory} [\textcolor{red}{25 pts}]
+
+In \textcolor{ForestGreen}{[Note-20251007]} we learned how to fix the counterterm coefficients $\delta_Z$, $\delta_m$, and $\delta_\lambda$ for the $\lambda \varphi^4$ theory from the renormalization conditions and loop diagrams. The 1-loop calculations already give some nontrivial results for the mass and coupling counterterms $\delta_m$ and $\delta_\lambda$, while the field strength counterterm $\delta_Z$ is still trivial (zero) at this level. In this problem, we will identify the first nonzero contributions to $\delta_Z$ from 2-loop calculations. We thus look at all 2-loop 1PI (one-particle irreducible) diagrams for the self-energy $M_{\text{2-loop}}^2(p^2)$, as shown in Fig.\ 2. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{fig2.png}
+    \caption{2-loop 1PI diagrams for $ M_{2-\text{loop}}^2 (p^2) $.}
+\end{figure}
+
+(a) Argue why \emph{only} the first diagram, the “sunset diagram”, contributes to $\delta_Z$.
+
+(b) As we are going to determine $\delta_Z$, we will compute $\mathrm{d}M_{\text{sun}}^2/\mathrm{d}p^2$, where $M_{\text{sun}}^2(p^2)$ is the self-energy associated with the sunset diagram. Here are the steps:
+
+(b-i) Write the amplitude $-iM^2_{\text{sun}}(p^2)$ from the sunset 
+diagram. Express the momentum integral using Feynman parametrization, as
+\begin{equation}
+    -i M^2_{\text{sun}}(p^2)
+    = (\text{number}) \times \lambda^2
+    \int_0^1 \! dx\, dy\, dz\; \delta(x+y+z-1)
+    \int \frac{d^4 q}{(2\pi)^4} \frac{d^4 k}{(2\pi)^4}\;
+    \frac{1}{L^3}, \tag{3}
+\end{equation}
+where $L$ depends on loop momenta $q$ and $k$ and Feynman parameters $x,y,z$.
+
+(b-ii) Shift $q$ and $k$ to some $\ell_1$ and $\ell_2$ so that $L$ 
+takes a sum-of-squares form, yielding
+\begin{equation}
+    -iM^2_{\text{sun}}(p^2)
+    = (\text{number}) \times \lambda^2
+    \int_0^1 dx\, dy\, dz\; \delta(x+y+z-1)
+    \int \frac{d^4 \ell_1}{(2\pi)^4}\, \frac{d^4 \ell_2}{(2\pi)^4}\;
+    \frac{1}{(\alpha \ell_1^2 + \beta \ell_2^2 + \gamma p^2 - m^2 + i\epsilon)^3}. \tag{4}
+\end{equation}
+
+(b-iii) Take $i(d/dp^2)$ of both sides of (4). Wick-rotate the 
+integral regarding $dM_{\text{sun}}^2/dp^2$ to Euclidean space, with 
+$\ell^0_{E,i} = - i \ell^0_i$, $i=1,2$, and then use dimensional 
+regularization to perform the momentum integral. Assemble your results as
+\begin{equation}
+    \frac{d M^2_{\text{sun}}(p^2)}{dp^2}
+    = (\text{number}) \times \lambda^2
+    \int_0^1 dx\, dy\, dz\; \delta(x+y+z-1)\, F(x,y,z)
+    \left[
+    \frac{1}{\epsilon} + (\text{finite terms})
+    \right], \tag{5}
+\end{equation}
+where $F(x,y,z)$ is some function depending only on Feynman parameters.
+
+(c) Requiring the renormalization condition
+\[
+\left.\frac{dM^2_{\text{ren}}(p^2)}{dp^2}\right|_{p^2=m^2}
+= \left.\frac{dM^2_{\text{sun}}(p^2)}{dp^2}\right|_{p^2=m^2}
+- \delta_Z = 0,
+\]
+we then have
+\begin{equation}
+\delta_Z = \left.\frac{dM^2_{\text{sun}}(p^2)}{dp^2}\right|_{p^2=m^2}
+= (\text{number})\cdot \lambda^2 \left[ \frac{1}{\epsilon} + (\text{finite terms}) \right]. \tag{6}
+\end{equation}
+Find the exact values of the "number" and the "finite terms" in (6).
+
+\begin{solution}
+    ~
+
+    (a) Since $ \delta_Z $ is fixed by the $ p^2 $-dependence of self-energy, only the sunset diagram contributes to $ \delta_Z $. The other diagram is independent of external momentum $ p $, so they do not contribute to $ \delta_Z $.
+
+    (b-i) The amplitude from the sunset diagram is
+    \[
+        -i M^2_{\text{sun}}(p^2)
+        = (-i \lambda)^2 \frac{1}{6}
+        \int \frac{d^4 q}{(2\pi)^4} \frac{d^4 k}{(2\pi)^4}\;
+        \frac{i}{q^2 - m^2 + i\epsilon}
+        \frac{i}{k^2 - m^2 + i\epsilon}
+        \frac{i}{(p - q - k)^2 - m^2 + i\epsilon}.
+    \]
+    Using Feynman parametrization as given in the , we have
+    \[
+        \begin{split}
+            -i M^2_{\text{sun}}(p^2) &= -i (-i \lambda)^2 \frac{1}{6} (2!)  \int_0^1 \mathrm{d}x\, \mathrm{d}y\, \mathrm{d}z\; \delta(x+y+z-1) \int \frac{d^4 q}{(2\pi)^4} \frac{d^4 k}{(2\pi)^4}\; \frac{1}{L^3} \\
+            &= \frac{i \lambda^2}{3} \int_0^1 \mathrm{d}x\, \mathrm{d}y \, \mathrm{d}z \, \delta(x+y+z-1) \int \frac{d^4 q}{(2\pi)^4} \frac{d^4 k}{(2\pi)^4}\; \frac{1}{L^3},
+        \end{split}
+    \]
+    where
+    \[
+        L = x(q^2 - m^2 + i\epsilon) + y(k^2 - m^2 + i\epsilon) + z((p - q - k)^2 - m^2 + i\epsilon).
+    \]
+    
+    (b-ii) Shifting $ q $ and $ k $ to $ \ell_1 = q - \frac{z}{x+z} p $ and $ \ell_2 = k - \frac{z}{y+z} p $, we have 
+    \[
+        L = (x+z) \ell_1^2 + (y+z) \ell_2^2 + \left( \frac{xyz}{(x+z)(y+z)} p^2 - m^2 + i\epsilon \right).
+    \]
+    Comparing with (5), we identify $ \alpha = x+z $, $ \beta = y+z $, and $ \gamma = \frac{xyz}{(x+z)(y+z)} $, and the number in the front of the integral is $ \frac{1}{3} $. Therefore, we have 
+    \[
+        -i M_{\text{sum}}^2 (p^2) = \frac{i \lambda^2}{3} \int_0^1 \! \mathrm{d}x\, \mathrm{d}y\, \mathrm{d}z\; \delta(x+y+z-1) \int \frac{\mathrm{d}^4 \ell_1}{(2\pi)^4}\, \frac{\mathrm{d}^4 \ell_2}{(2\pi)^4}\; \frac{1}{(\alpha \ell_1^2 + \beta \ell_2^2 + \gamma p^2 - m^2 + i\epsilon)^3}.  
+    \]
+
+    (b-iii) Taking $ i(d/dp^2) $ of both sides of (4) and applying Leibniz' rule of differentiating, we get 
+    \[
+        \begin{split}
+            \frac{\mathrm{d}M_{\text{sum}}^2 (p^2)}{\mathrm{d}p^2} &= -\frac{\lambda^2}{3} \int_0^1 \! \mathrm{d}x\, \mathrm{d}y\, \mathrm{d}z\; \delta(x+y+z-1) \int \frac{\mathrm{d}^4 \ell_1}{(2\pi)^4}\, \frac{\mathrm{d}^4 \ell_2}{(2\pi)^4}\; \frac{\partial}{\partial p^2} \left[\frac{1}{(\alpha \ell_1^2 + \beta \ell_2^2 + \gamma p^2 - m^2 + i\epsilon)^3}\right] \\
+            &= \gamma \lambda^2 \int_0^1 \! \mathrm{d}x\, \mathrm{d}y\, \mathrm{d}z\; \delta(x+y+z-1)\, \int \frac{\mathrm{d}^4 \ell_1}{(2\pi)^4}\, \frac{\mathrm{d}^4 \ell_2}{(2\pi)^4}\; \frac{1}{(\alpha \ell_1^2 + \beta \ell_2^2 + \gamma p^2 - m^2 + i\epsilon)^4}.
+        \end{split}
+    \]
+    Wick-rotate by setting $ \ell^0_{E,i} = - i \ell^0_i $, $ i=1,2 $, we have $ L = \alpha \ell_1^2 + \beta \ell_2^2 + \gamma p^2 - m^2 \to - \alpha (\ell_{E,1})^2 - \beta (\ell_{E,2})^2 + \gamma p^2 - m^2 $, and hence  
+    \[
+        \frac{\mathrm{d}M_{\text{sun}}^2 (p^2)}{\mathrm{d}p^2} = -\gamma \lambda^2 \int_0^1 \! \mathrm{d}x\, \mathrm{d}y\, \mathrm{d}z\, \delta(x+y+z-1)\, \int \frac{\mathrm{d}^4 \ell_{E,1}}{(2\pi)^4}\, \frac{\mathrm{d}^4 \ell_{E,2}}{(2\pi)^4}\; \frac{1}{(\alpha (\ell_{E,1})^2 + \beta (\ell_{E,2})^2 - \gamma p^2 + m^2)^4}.
+    \]
+    Using dimensional regularization, introduce the parameter $ \mu $ such that 
+    \[
+      \int \frac{\mathrm{d}^4 \ell_1}{(2 \pi)^4} \to \mu^{4-d} \int \frac{\mathrm{d}^d \ell_1}{(2\pi)^d}, \quad \int \frac{\mathrm{d}^4 \ell_2}{(2 \pi)^4} \to \mu^{4-d} \int \frac{\mathrm{d}^d \ell_2}{(2\pi)^d}.
+    \]
+    Then, retaining the Euclidean signature in our integral, we have 
+    \[
+        \frac{\mathrm{d}M_{\text{sum}}^2 (p^2)}{\mathrm{d}p^2} = -\gamma \lambda^2 \mu^{8-2d} \int_0^1 \! \mathrm{d}x\, \mathrm{d}y\, \mathrm{d}z\, \delta(x+y+z-1) \int \frac{\mathrm{d}^d \ell_{E,1}}{(2\pi)^d}\, \frac{\mathrm{d}^d \ell_{E,2}}{(2\pi)^d}\; \frac{1}{(\alpha (\ell_{E,1})^2 + \beta (\ell_{E,2})^2 - \gamma p^2 + m^2)^4}
+    \]
+    where 
+    \[
+        \begin{split}
+            &\int \frac{\mathrm{d}^d \ell_{E,1}}{(2\pi)^d}\, \frac{\mathrm{d}^d \ell_{E,2}}{(2\pi)^d}\; \frac{1}{(\alpha (\ell_{E,1})^2 + \beta (\ell_{E,2})^2 - \gamma p^2 + m^2)^4} \\
+            &= \frac{1}{6} \int \frac{\mathrm{d}^d \ell_{E,1}}{(2\pi)^d}\, \frac{\mathrm{d}^d \ell_{E,2}}{(2\pi)^d}\; \int_0^{\infty} \mathrm{d}t\, t^3 \exp \left\{ -t \left[\alpha (\ell_{E,1})^2 + \beta (\ell_{E,2})^2 - \gamma p^2 + m^2 \right] \right\} \\
+            &= \frac{1}{6} \int_0^{\infty} \mathrm{d}t\, t^3 e^{t(\gamma p^2 - m^2)} \left( \int \frac{\mathrm{d}^d \ell_{E,1}}{(2\pi)^d}\; e^{-t \alpha (\ell_{E,1})^2} \right) \left( \int \frac{\mathrm{d}^d \ell_{E,2}}{(2\pi)^d}\; e^{-t \beta (\ell_{E,2})^2} \right) \\
+            &= \frac{1}{6} (4 \pi \alpha t)^{-d/2} (4 \pi \beta t)^{-d/2} \, \int_0^{\infty} \mathrm{d}t\, t^3 e^{-t (- \gamma p^2 + m^2)} = \frac{1}{6 (4 \pi )^{d} (\alpha \beta)^{d/2}} \Gamma (4-d) (m^2 - \gamma p^2)^{d-4}.
+        \end{split}
+    \]
+    Here we used $ 6/A^4 = \int_0^{\infty} \mathrm{d}t\, t^3 e^{-At} $. Note that $ \Gamma (4-d) $ has a pole at $ d=4 $, but no poles for $ d<4 $. Let $ d = 4 - 2 \varepsilon $ for some small $ \varepsilon > 0 $, we have
+    \[
+        \Gamma  (2 \varepsilon) x^{\varepsilon} \sim \frac{1}{2 \varepsilon} - \gamma_E + \frac{1}{2} \log x + O(\varepsilon),
+    \]
+    where $ \gamma_E $ is the Euler-Mascheroni constant. Therefore, 
+    \[
+        \begin{split}
+            &\frac{1}{(4 \pi )^{d} (\alpha \beta)^{d/2}} \Gamma (4-d) (m^2 - \gamma p^2)^{d-4} = \frac{1}{(4 \pi)^4 (\alpha \beta)^2} \Gamma (2 \varepsilon) \left(\frac{4 \pi \mu^2 \sqrt{\alpha \beta}}{m^2 - \gamma p^2}\right)^{2 \varepsilon} \\
+            &\quad \sim \frac{1}{(4 \pi)^4 (\alpha \beta)^2} \left[ \frac{1}{2 \varepsilon} + \log \left( \frac{4 \pi \mu^2 \sqrt{\alpha \beta}}{m^2 - \gamma p^2} \right) - \gamma_E \right] \\
+            &\quad = \frac{1}{12 (4 \pi)^4 (\alpha \beta)^2} \left[ \frac{1}{\epsilon} + 2 \log \frac{\mu^2}{m^2} + 2 \log (4 \pi) - 2 \gamma_E + \log \left(\frac{\alpha \beta}{(1 - (p^2 / m^2)\gamma )^2}\right) \right]. 
+        \end{split}
+    \]
+    Plugging into the integral gives 
+    \[
+        \begin{split}
+            \frac{\mathrm{d}M_{\text{sun}}^2 (p^2)}{\mathrm{d}p^2} &= - \frac{\lambda^2}{12 (4 \pi)^4} \frac{\gamma}{(\alpha \beta)^2} \int_0^1 \mathrm{d}x\, \mathrm{d}y\, \mathrm{d}z\, \delta (x+y+z-1) \frac{xyz}{(xy + xz + yz)^3} \\
+            &\quad \times \left\{ \frac{1}{\varepsilon} + 2 \log \frac{\mu^2}{m^2} + 2 \log (4 \pi) - 2 \gamma_E + \log \left(\frac{\alpha \beta}{(1 - (p^2 / m^2)\gamma )^2}\right)  \right\}
+        \end{split}
+    \]
+
+    (c) Set $ p^2 = m^2 $ in the above integral and plug in $ \alpha (x,y,z) $, $ \beta (x,y,z) $, $ \gamma (x,y,z) $, we have 
+    \[
+        \begin{split}
+            \frac{\mathrm{d}M_{\text{sun}}^2 (p^2)}{\mathrm{d}p^2} &= - \frac{\lambda^2}{12 (4 \pi)^4} \frac{\gamma}{(\alpha \beta)^2} \int_0^1 \mathrm{d}x\, \mathrm{d}y\, \mathrm{d}z\, \delta (x+y+z-1) \frac{xyz}{(xy + xz + yz)^3} \\
+            &\quad \times \left\{ \frac{1}{\varepsilon} + 2 \log \frac{\mu^2}{m^2} + 2 \log (4 \pi) - 2 \gamma_E + \log \left(\frac{\alpha \beta}{(1 - (p^2 / m^2)\gamma )^2}\right) \log \frac{(xy + yz + zx)^3}{(xy + yz + zx - xyz)^2} \right\}
+        \end{split}
+    \]
+    The integrals are computed to be 
+    \[
+        \int_0^1 \mathrm{d}x\, \mathrm{d}y\, \mathrm{d}z\, \delta (x+y+z-1) \frac{xyz}{(xy + yz + zx)^3} = \frac{1}{2}, 
+    \]
+    \[
+        \int_0^1 \mathrm{d}x\, \mathrm{d}y\, \mathrm{d}z\, \delta (x+y+z-1) \frac{xyz}{(xy + yz + zx)^3} \log \frac{(xy + yz + zx)^3}{(xy + yz + zx - xyz)^2} = - \frac{3}{4}.
+    \]
+    Finally, we have 
+    \[
+        \begin{split}
+            \delta_Z &= - \frac{\lambda^2}{6144 \pi^4} \left\{ \frac{1}{\epsilon} + 2 \log \frac{\mu^2}{m^2} + 2 \log (4 \pi) - 2 \gamma_E - \frac{3}{2} \right\}.
+        \end{split}
+    \]
+\end{solution}
+
+\newpage 
+3.~\textbf{RG functions in $\varphi^4$ theory} [\textcolor{red}{20 pts}]
+
+The Lagrangian of $\varphi^4$ theory in terms of renormalized field and 
+parameters is
+\begin{equation}
+\mathcal{L}
+= \frac{1}{2} Z_\varphi (\partial \varphi_r)^2
+- \frac{m^2}{2} Z_m Z_\varphi \varphi_r^2
+- \mu^\epsilon \frac{\lambda}{4!} Z_\lambda Z_\varphi^2 \varphi_r^4,
+\qquad \epsilon = 4 - d,
+\tag{7}
+\end{equation}
+from which we can define the renormalization group (RG) functions:
+\begin{equation}
+\gamma(\lambda) \equiv \frac{1}{2} \mu \frac{1}{Z_\varphi}\frac{d Z_\varphi}{d\mu},
+\qquad
+\gamma_m(\lambda) \equiv \frac{\mu}{m^2}\frac{d m^2}{d\mu},
+\qquad
+\beta(\lambda) \equiv \mu \frac{d\lambda}{d\mu}.
+\tag{8}
+\end{equation}
+
+(a) The renormalizability of $\varphi^4$ theory ensures the finiteness of these RG functions, basically determined from the renormalization constants 
+$Z_\varphi$, $Z_m$, and $Z_\lambda$ (which are actually functions of $\lambda$ and $\epsilon$). Specifically, let’s write the renormalization constants in $1/\epsilon$ expansions,
+\begin{equation}
+Z_\varphi(\lambda,\epsilon)
+= 1 + \sum_{n=1}^\infty Z_{\varphi,n}(\lambda)\, \frac{1}{\epsilon^n},
+\qquad
+Z_m(\lambda,\epsilon)
+= 1 + \sum_{n=1}^\infty Z_{m,n}(\lambda)\, \frac{1}{\epsilon^n},
+\qquad
+Z_\lambda(\lambda,\epsilon)
+= 1 + \sum_{n=1}^\infty Z_{\lambda,n}(\lambda)\, \frac{1}{\epsilon^n}.
+\tag{9}
+\end{equation}
+
+Find explicit expressions for $\beta(\lambda)$, $\gamma_m(\lambda)$, and $\gamma(\lambda)$ in terms of $\epsilon$ and the expansion coefficients $Z_{\varphi,n}(\lambda)$, $Z_{m,n}(\lambda)$, and $Z_{\lambda,n}(\lambda)$ (as well as their derivatives with respect to $\lambda$). Accordingly, there exist an (infinite) set of relations among the expansion coefficients; 
+find them as well.
+
+(b) The renormalization constants up to two loops are
+\begin{align*}
+Z_\varphi &= 1 + \frac{1}{\epsilon} (\text{number}) \cdot \lambda^2, \\
+Z_m &= 1 + \frac{1}{\epsilon}
+\left[
+  \frac{\lambda}{(4\pi)^2}
+  - \frac{5\lambda^2}{2 \cdot (4\pi)^4}
+\right]
++ \frac{1}{\epsilon^2}\frac{\lambda^2}{2 \cdot (4\pi)^4}, \\
+Z_\lambda &= 1 + \frac{1}{\epsilon}
+\left[
+  \frac{3\lambda}{(4\pi)^2}
+  - \frac{17\lambda^2}{6 \cdot (4\pi)^4}
+\right]
++ \frac{1}{\epsilon^2}\frac{9\lambda^2}{(4\pi)^4}.
+\tag{10}
+\end{align*}
+
+Here the "number" in $Z_\varphi$ is the one you computed in Problem 2(c) ($Z_\varphi = 1 + \delta Z$). Find $\beta(\lambda)$, $\gamma_m(\lambda)$, and $\gamma(\lambda)$ with these $Z$’s using the result from part (a). What is the location of the Wilson–Fisher fixed point up to this order? Is the critical exponent $\nu = 1/(2 - \gamma_m)$ at $\epsilon = 1$ closer to the real value $\nu \sim 0.63$ than the one-loop result $\nu = 0.5$?
+
+\begin{solution}
+~ 
+
+(a) From the given Lagrangian, the bare parameters are related to the renormalized ones by $ \phi_0 = \sqrt{Z_{\phi}} \phi $, $ m_0^2 = Z_m m^2 $, and $ \lambda_0 = Z_{\lambda} (\lambda, \epsilon) \mu^{\epsilon} \lambda $. Since $ Z_{\lambda}(\lambda , \epsilon ) $ depends on $ \mu $ only through $ \lambda $, we have
+\[
+    \mu \frac{\mathrm{d}}{\mathrm{d}\mu} = \mu \frac{\partial}{\partial \mu} + \beta(\lambda) \frac{\partial}{\partial \lambda} = \beta(\lambda) \frac{\partial}{\partial \lambda}.
+\]
+\begin{enumerate}
+    \item From $ \lambda_0 = \mu^{\epsilon} \lambda Z_{\lambda} $, we have 
+    \[
+        0 = \mu \frac{\mathrm{d} \lambda_0}{\mathrm{d} \mu} = \epsilon \mu^{\epsilon} \lambda Z_{\lambda} + \mu^{\epsilon} \beta(\lambda) Z_{\lambda} + \mu^{\epsilon} \lambda \beta(\lambda) \frac{\partial Z_{\lambda}}{\partial \lambda},
+    \]
+    hence 
+    \[
+        0 = \epsilon \lambda + \beta(\lambda) + \beta(\lambda) \lambda \frac{1}{Z_{\lambda}} \frac{\partial Z_{\lambda}}{\partial \lambda} \implies \beta (\lambda) \left(1 + \lambda \frac{\partial \ln Z_{\lambda}}{\partial \lambda}\right) = - \epsilon \lambda.
+    \]
+    Plug in $ Z_{\lambda} = 1 + \frac{Z_{\lambda , 1}}{\epsilon} + \cdots $ to get 
+    \[
+        \frac{\partial \ln Z_{\lambda}}{\partial \lambda} \frac{\partial}{\partial \lambda} \left(\frac{Z_{\lambda , 1}}{\epsilon} + \cdots \right) = \frac{1}{\epsilon} \frac{\partial Z_{\lambda , 1}}{\partial \lambda} + \cdots. 
+    \]
+    Since $ \beta (\lambda) $ is finite as $ \epsilon \to 0 $, we write $ \beta (\lambda) = - \epsilon \lambda + \beta ^{(0)} (\lambda) $. Substitue back to get 
+    \[
+        \left(- \epsilon \lambda + \beta^{(0)} (\lambda)\right) \left(1 + \frac{\lambda}{\epsilon} \frac{\mathrm{d} Z_{\lambda, 1}}{\mathrm{d} \lambda}\right) = - \epsilon \lambda \implies \beta^{(0)} (\lambda) = \lambda^2 \frac{\mathrm{d} Z_{\lambda , 1}}{\mathrm{d} \lambda}, 
+    \]
+    since the $ \epsilon $ terms cancel out. Therefore, we have
+    \[
+        \boxed{\beta (\lambda) = - \epsilon \lambda + \lambda^2 \frac{\mathrm{d} Z_{\lambda , 1}}{\mathrm{d} \lambda}, \quad \frac{\mathrm{d} \beta}{\mathrm{d}\lambda} = - \epsilon + \frac{\mathrm{d}}{\mathrm{d}\lambda} \left(\lambda^2 \frac{\mathrm{d} Z_{\lambda , 1}}{\mathrm{d} \lambda} \right).}
+    \]
+
+    \item From $ \gamma (\lambda) = \frac{1}{2} \mu \frac{\mathrm{d} \ln Z_{\phi}}{\mathrm{d} \mu} = \frac{1}{2} \beta({\lambda}) \frac{\partial \ln Z_{\phi}}{\partial \lambda} $. Plug in $ \beta (\lambda) $ from before and $ Z_{\phi} = \frac{1}{\epsilon} \frac{\mathrm{d} Z_{\phi, 1}}{\mathrm{d} \lambda} + \cdots $ to get 
+    \[
+        \gamma (\lambda) = \frac{1}{2} \left(- \epsilon \lambda + \lambda^2 \frac{\mathrm{d} Z_{\lambda , 1}}{\mathrm{d} \lambda}\right) \left(\frac{1}{\epsilon} \frac{\mathrm{d} Z_{\phi , 1}}{\mathrm{d} \lambda} + \cdots \right).
+    \]
+    The constant term as $ \epsilon \to 0 $ then gives 
+    \[
+        \boxed{\gamma (\lambda) = - \frac{1}{2} \lambda \frac{\mathrm{d} Z_{\phi , 1}}{\mathrm{d} \lambda}, \quad \frac{\mathrm{d} \gamma}{\mathrm{d} \lambda} = - \frac{1}{2} \frac{\mathrm{d}}{\mathrm{d} \lambda} \left( \lambda \frac{\mathrm{d} Z_{\phi , 1}}{\mathrm{d} \lambda} \right).}
+    \]
+
+    \item From $ m_0^2 = Z_m m^2 $, we have
+    \[
+        0 = \mu \frac{\mathrm{d} m_0^2}{\mathrm{d} \mu} = \mu \frac{\mathrm{d} Z_m}{\mathrm{d} \mu} m^2 + Z_m \mu \frac{\mathrm{d} m^2}{\mathrm{d} \mu} = \beta (\lambda) \frac{\partial Z_m}{\partial \lambda} m^2 + Z_m m^2 \gamma_m (\lambda).
+    \]
+    Hence, we have
+    \[
+        \gamma_m (\lambda) = - \frac{\beta (\lambda)}{Z_m} \frac{\partial Z_m}{\partial \lambda} = - \beta (\lambda) \frac{\partial \ln Z_m}{\partial \lambda}, 
+    \]
+    and plugging in $ \beta (\lambda) $ and $ Z_m = 1 + \frac{Z_{m,1}}{\epsilon} + \cdots $, we get
+    \[
+        \gamma_m (\lambda) = - \left(- \epsilon \lambda + \lambda^2 \frac{\mathrm{d} Z_{\lambda , 1}}{\mathrm{d} \lambda}\right) \left(\frac{1}{\epsilon} \frac{\mathrm{d}Z_{m,1}}{\mathrm{d} \lambda} + \cdots \right).
+    \]
+    The constant term as $ \epsilon \to 0 $ gives
+    \[
+        \boxed{\gamma _m (\lambda) = \lambda \frac{\mathrm{d}Z_{m,1}}{\mathrm{d} \lambda}, \quad \frac{\mathrm{d} \gamma_m}{\mathrm{d} \lambda} = \frac{\mathrm{d}}{\mathrm{d} \lambda} \left( \lambda \frac{\mathrm{d} Z_{m,1}}{\mathrm{d} \lambda} \right).}
+    \]
+\end{enumerate}
+Since the RG functions are finite as $ \epsilon \to 0 $, the coefficients of $ 1/\epsilon^n $ for $ n \geq 1 $ must vanish in the above expressions. Define $ G_{i} (\lambda , \epsilon) = \ln Z_{i} (\lambda , \epsilon) $, where $ i $ may stand for $ \phi , m , \lambda $, and the coefficients are 
+\[
+    G_{i} (\lambda , \epsilon ) = \sum_{n=1}^{\infty} G_{i,n} (\lambda) \frac{1}{\epsilon^n}.
+\] 
+From previous calculation, all the RG functions can be written as
+\[
+    \left(\beta (\lambda) \frac{\partial}{\partial \lambda} + C \right) \ln Z_i = \left( \beta (\lambda) \frac{\partial}{\partial \lambda} + C \right) G_i < \infty, 
+\]
+where $ C = \epsilon $ or $ 0 $. Requiring the coefficients of $ 1/\epsilon^n $ for $ n \geq 1 $ to vanish, we have the relations
+\[
+    \boxed{ \frac{\mathrm{d} G_{i, n+1}}{\mathrm{d}\lambda} = \lambda \frac{\mathrm{d} Z_{\lambda , 1}}{\mathrm{d} \lambda} \frac{\mathrm{d} G_{i, n}}{\mathrm{d} \lambda} \implies \frac{\mathrm{d}Z_{i, n+1}}{\mathrm{d} \lambda} = \lambda \frac{\mathrm{d} Z_{\lambda, 1}}{\mathrm{d} \lambda} \frac{\mathrm{d}Z_{i, n}}{\mathrm{d} \lambda} + Z_{i,n}(\lambda) \frac{\mathrm{d} Z_{i,1}}{\mathrm{d} \lambda}.}
+\] 
+
+(b) From Problem 2, the second-order diagram contributes to $ Z_{\phi} $ as
+\[
+    Z_{\phi} = 1 - \frac{1}{\epsilon} \frac{\lambda^2}{12 (4\pi)^4}= 1 + (\text{number}) \frac{\lambda^2}{\epsilon}. 
+\]
+From (a), calculate
+\[
+    \frac{\mathrm{d} Z_{\lambda , 1}}{\mathrm{d} \lambda} = \frac{\mathrm{d}}{\mathrm{d} \lambda} \left[ \frac{3 \lambda}{(4\pi)^2} - \frac{17 \lambda^2}{6 (4\pi)^4} \right] = \frac{3}{(4\pi)^2} - \frac{17 \lambda}{3 (4\pi)^4},
+\] 
+\[
+    \implies \beta (\lambda) = - \epsilon \lambda + \lambda^2 \left[ \frac{3}{(4\pi)^2} - \frac{17 \lambda}{3 (4\pi)^4} \right] = - \epsilon \lambda + \frac{3 \lambda^2}{(4\pi)^2} - \frac{17 \lambda^3}{3 (4\pi)^4}.
+\]
+Next, for $ \gamma_m (\lambda) $:  
+\[
+    \frac{\mathrm{d} Z_{m, 1}}{\mathrm{d}\lambda} = \frac{\mathrm{d}}{\mathrm{d} \lambda} \left[ \frac{\lambda}{(4\pi)^2} - \frac{5 \lambda^2}{2 (4\pi)^4} \right] = \frac{1}{(4\pi)^2} - \frac{5 \lambda}{(4\pi)^4},
+\]
+\[
+    \implies \gamma_m (\lambda) = \lambda \left[ \frac{1}{(4\pi)^2} - \frac{5 \lambda}{(4\pi)^4} \right] = \frac{\lambda}{(4\pi)^2} - \frac{5 \lambda^2}{(4\pi)^4}.
+\]
+Finally, for $ \gamma (\lambda) $:
+\[
+    \frac{\mathrm{d} Z_{\phi , 1}}{\mathrm{d} \lambda} = \frac{\mathrm{d}}{\mathrm{d} \lambda} \left( - \frac{\lambda^2}{12 (4\pi)^4} \right) = - \frac{\lambda}{6 (4\pi)^4},
+\]
+\[
+    \implies \gamma (\lambda) = - \frac{1}{2} \lambda \left( - \frac{\lambda}{6 (4\pi)^4} \right) = \frac{\lambda^2}{12 (4\pi)^4}.
+\]
+The Wilson-Fisher fixed point is located at $ \beta (\lambda^{*}) = 0 $, i.e. 
+\[
+    - \epsilon \lambda^{*} + \frac{3 (\lambda^{*})^2}{(4\pi)^2} - \frac{17 (\lambda^{*})^3}{3 (4\pi)^4} = 0 \implies - \epsilon + 3 u_{*} - \frac{17 u_{*}^2}{3} = 0, 
+\]
+where $ u_{*} = \frac{\lambda^{*}}{(4\pi)^2} $. Solving perturbatively in $ \epsilon $, let $ u_{*} = u_{\ast} ^{(1)} \epsilon + u_{*} ^{(2)} \epsilon^2 + \cdots $, we have 
+\[
+    u_{*} \approx \frac{\epsilon}{3} + \frac{17}{81} \epsilon^2 \implies \boxed{\lambda^{*} \approx \frac{(4\pi)^2}{3} \epsilon + \frac{17 (4\pi)^2}{81} \epsilon^2.} 
+\] 
+The critical exponent $ \nu = \frac{1}{2 - \gamma_m (\lambda^{*})} $. Plug in $ \lambda^{*} $ to get
+\[
+    \gamma_m (\lambda^{*}) = \frac{\lambda^{*}}{(4\pi)^2} - \frac{5 (\lambda^{*})^2}{(4\pi)^4} = u_{*} - 5 u_{*}^2 \approx \frac{\epsilon}{3} + \frac{17}{81} \epsilon^2 - 5 \left( \frac{\epsilon^2}{9} \right) = \frac{\epsilon}{3} - \frac{28}{81} \epsilon^2.
+\]
+Therefore, we have, at $ \epsilon = 1 $,  
+\[
+    \nu = \frac{1}{2 - \gamma_m (\lambda^{*})} \approx \left. \frac{1}{2 - \frac{\epsilon}{3} + \frac{28}{81} \epsilon^2} \right|_{\epsilon = 1} = \frac{1}{2 - \frac{1}{3} + \frac{28}{81}} \approx 0.497
+\]
+Therefore, the two-loop result is slightly worse than the one-loop result $ \nu = 0.5 $ when compared to the real value $ \nu \sim 0.63 $.
+\end{solution}
+
+
+\newpage
+
+4.~\textbf{Real-space RG} [\textcolor{red}{25 pts}]
+
+In \textcolor{ForestGreen}{[Note-20251104]} we demonstrated the real-space renormalization group (RG) calculation by considering the classical Ising models. Here, we consider a generalized version of the Ising model on a one-dimensional spatial lattice, with the energy of spins:
+\begin{equation}
+E[\sigma,\tau]
+= - J_2 \sum_j (\sigma_j \sigma_{j+1} + \tau_j \tau_{j+1})
+  - J_4 \sum_j \sigma_j \sigma_{j+1} \tau_j \tau_{j+1}.
+\tag{11}
+\end{equation}
+
+In this model, there are two spin degrees of freedom, $\sigma$ and $\tau$, each taking values $\pm 1$. $J_2 > 0$ and $J_4 > 0$ are coupling constants for two-spin and four-spin interactions, respectively. The partition function of the system is
+\begin{equation}
+\mathcal{Z}
+= \sum_{\{\sigma,\tau\}} e^{-E[\sigma,\tau]/T}
+= \sum_{\{\sigma,\tau\}} e^{-S[\sigma,\tau]},
+\tag{12}
+\end{equation}
+where the action $S[\sigma,\tau]$ has the same form as $E[\sigma,\tau]$ except that the couplings in $S[\sigma,\tau]$ are
+\[
+K_2 := J_2/T, \qquad K_4 := J_4/T.
+\]
+
+(a) Derive an exact RG transformation for the couplings $K_2$ and $K_4$.  
+This can be done in the following steps:
+
+\begin{itemize}
+\item[(a-i)] Integrate out the degrees of freedom $\sigma_{2j+1}$ and $\tau_{2j+1}$ on the odd sites.
+
+\item[(a-ii)] Rescale the system by defining
+\[
+\sigma'_j := \sigma_{2j}, \qquad \tau'_j := \tau_{2j}.
+\]
+
+\item[(a-iii)] Obtain the effective action of the new spin variables
+$\sigma'_j$ and $\tau'_j$ with the coarse-grained couplings $K_2'$ and $K_4'$.
+
+\item[(a-iv)] The relations between $\{K_2',K_4'\}$ and $\{K_2,K_4\}$ give the RG transformation and thus the beta functions.
+\end{itemize}
+
+\textbf{Identify all the fixed points associated with this RG
+transformation. Draw the RG flows explicitly in the $K_2$–$K_4$ plane and
+discuss the stability of each fixed point. Use the flows to derive the phase
+diagram for this model, and briefly explain the physical meaning of each
+phase (better in terms of the spin order parameters).}
+
+\bigskip
+
+(b) Extend the discussions in part (a) (\textbf{statements in bold}) to the
+same model on a two-dimensional square lattice:
+\begin{equation}
+E[\sigma,\tau]
+= - J_2 \sum_{\langle r,r'\rangle} (\sigma_r \sigma_{r'} + \tau_r \tau_{r'})
+  - J_4 \sum_{\langle r,r'\rangle} \sigma_r \sigma_{r'} \tau_r \tau_{r'}.
+\tag{13}
+\end{equation}
+
+Here, the sites are labeled by two-component lattice vectors $r$, and
+$\langle r,r' \rangle$ denotes nearest-neighboring sites. In the 2d case, you may apply an approximation method, such as the \emph{Migdal–Kadanoff
+approximation} (bond-moving procedure), to derive an RG transformation for
+$K_2$ and $K_4$, similar to the derivation for the 2d Ising model in
+\textcolor{ForestGreen}{[Note-20251104]}.
+
+\begin{solution}
+(a-i) Consider a block of three sites $ (2j, 2j+1, 2j+2) $, where we write the boundary spins as $ \sigma_L, \tau_L $ for $ 2j $ and $ \sigma_R, \tau_R $ for $ 2j+2 $. The contribution to the partition function from this block is
+\[
+    \overline{Z} = \sum_{\sigma , \tau = \pm 1} \exp \left\{ K_2 \sigma \left( \sigma_L + \sigma_R \right) + K_2 \tau \left(\tau_L + \tau_R\right) + K_4 \sigma \tau \left( \sigma_L \tau_L + \sigma_R \tau_R \right) \right\}.
+\]
+By symmetry considerations, there are only three cases for the boundary spins corresponding to distinct $ \overline{Z} $ values. 
+\begin{enumerate}
+    \item $ \sigma_L \sigma_R = \tau_L \tau_R = 1 $: $ Z_1 = e^{4 K_2 + 2 K_4} + e^{-2 K_4} + e^{-2 K_4} + e^{-4 K_2 + 2K_2} = 2 e^{2 K_4} \cosh (4 K_2) + 2 e^{-2 K_4} $.  
+    \item $ \sigma_L \sigma_R \neq \tau_L \tau_R $, $ \sigma_L \sigma_R \tau_L \tau_R = -1 $: $ Z_2 = 2 \left(e^{2 K_2} + e^{-2 K_2}\right) = 4 \cosh (2 K_2) $. 
+    \item $ \sigma_L \sigma_R = \tau_L \tau_R = -1 $: $ Z_3 = e^{2 K_4} + e^{-2 K_4} + e^{-2 K_4} + e^{2 K_4} = 4 \cosh (2 K_4) $.
+\end{enumerate}
+
+(a-ii) Define a coarse-grained system with spins $ \sigma'_j = \sigma_{2j} $, $ \tau'_j = \tau_{2j} $. 
+
+(a-iii) Let $ \exp \left(-S_{\text{eff}}^{\prime}\right) = \exp \left[K_0^{\prime} + K_2^{\prime}  \left(\sigma_L \sigma_R + \tau_L \tau_R \right) + K_4^{\prime} \sigma_L \sigma_R \tau_L \tau_R \right] $ be the renormalized action, where apart from the renormalized $ K_2^{\prime} $, $ K_4^{\prime} $, we have also added a constant term $ K_0^{\prime} $. 
+
+(a-iv) We will map the configurations to the new couplings as discussed in (a-i): 
+\[
+    \exp \left(-S_{\text{eff}}^{\prime}\right) = 
+    \begin{cases}
+        e^{K_0^{\prime} + 2 K_2^{\prime} + K_4^{\prime}} = Z_1, &\quad \sigma_L \sigma_R = \tau_L \tau_R = 1,\\
+        e^{K_0^{\prime} - K_4^{\prime}} = Z_2, &\quad  \sigma_L \sigma_R \neq \tau_L \tau_R, \;\; \sigma_L \sigma_R \tau_L \tau_R = -1 \\
+        e^{K_0^{\prime} - 2 K_2^{\prime} + K_4^{\prime}} = Z_3, &\quad \sigma_L \sigma_R = \tau_L \tau_R = -1.
+    \end{cases}
+\]
+Solving these equations, we have
+\[
+    K_0^{\prime} = \frac{1}{4} \ln \left( Z_1 Z_2^2 Z_3 \right), \quad K_2^{\prime} = \frac{1}{4} \ln \left( \frac{Z_1}{Z_3} \right), \quad K_4^{\prime} = \frac{1}{4} \ln \left( \frac{Z_1 Z_3}{Z_2^2} \right).
+\]
+Plugging in $ Z_i $, we have the exact RG transformation
+\[
+    K_2^{\prime} = \frac{1}{4} \ln \left( \frac{e^{2 K_4} \cosh (4 K_2) + e^{-2 K_4}}{2 \cosh (2 K_4)} \right), \quad K_4^{\prime} = \frac{1}{4} \ln \left( \frac{\left( e^{2 K_4} \cosh (4 K_2) + e^{-2 K_4} \right) \cosh (2 K_4)}{2 \cosh^2 (2 K_2)} \right).
+\]
+The fixed points are given by solving $ K_2^{\prime} = K_2 $, $ K_4^{\prime} = K_4 $. There are two trivial fixed points and no non-trivial fixed points:
+\begin{enumerate}
+    \item $ (K_2 , K_4) = (0,0) $: Here $ Z_1 = Z_2 = Z_3 = 4 $, so $ K_2^{\prime} = K_4^{\prime} = 0 $. Stable fixed point. 
+    \item $ (K_2 , K_4) = (\infty , \infty) $: Unstable fixed point.
+\end{enumerate}
+
+The beta functions are 
+\[
+    \beta_2 = \frac{K_2^{\prime} - K_2}{\ln 2} = \frac{1}{4 \ln 2} \ln \left( \frac{e^{2 K_4} \cosh (4 K_2) + e^{-2 K_4}}{2 \cosh (2 K_4)} \right) - \frac{K_2}{\ln 2},
+\]
+\[
+    \beta_4 = \frac{K_4^{\prime} - K_4}{\ln 2} = \frac{1}{4 \ln 2} \ln \left( \frac{\left( e^{2 K_4} \cosh (4 K_2) + e^{-2 K_4} \right) \cosh (2 K_4)}{2 \cosh^2 (2 K_2)} \right) - \frac{K_4}{\ln 2}.
+\]
+
+The RG flows and nullclines of the beta functions are plotted in the $ K_2 $-$ K_4 $ plane in Figure~\ref{fig:1D}. For initial $ K_2, K_4 > 0 $, we have $ K_2^{\prime} < K_2 $ and $ K_4^{\prime} < K_4 $, and hence $ (0,0) $ is stable while $ (\infty , \infty) $ is unstable. The phase diagram consists of a single \emph{disordered paramagnetic phase}, and no finite-temperature phase transition occurs.
+\\ \\
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{1D.png}
+    \caption{RG flows and nullclines for beta functions $ \beta_2 $ and $ \beta_4 $ in the $ K_2 $-$ K_4 $ plane (1D model).}
+    \label{fig:1D}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{2D.png}
+    \caption{RG flows and nullclines for beta functions $ \beta_2 $ and $ \beta_4 $ in the $ K_2 $-$ K_4 $ plane (2D model).}
+    \label{fig:2D}
+\end{figure}
+
+(b) The 2D case is not exactly solvable, and in this case we can apply the Migdal-Kadanoff approximation by replacing $ K $ with $ 2K $ in the 1D model, following \textcolor{ForestGreen}{[Note-20251104]}. Therefore, the RG transformation becomes
+\[
+    K_2^{\prime} = \frac{1}{4} \ln \left( \frac{e^{4 K_4} \cosh (8 K_2) + e^{-4 K_4}}{2 \cosh (4 K_4)} \right), \quad K_4^{\prime} = \frac{1}{4} \ln \left( \frac{\left( e^{4 K_4} \cosh (8 K_2) + e^{-4 K_4} \right) \cosh (4 K_4)}{2 \cosh^2 (4 K_2)} \right).
+\]
+We still have the trivial fixed points $ (K_2, K_4) = (0,0) $ and $ (\infty , \infty) $. However, there are now a non-trivial fixed points. 
+\begin{itemize}
+    \item Trivial fixed points: $ (0,0) $ is a paramagnetic sink, $ (\infty, \infty) $ is a ferromagnetic sink.
+    \item Ising critical points: Let $ K_4 = 0 $, the system decouples into two Ising models. We have 
+    \[
+        K_2^{\prime} = \frac{1}{4} \ln \frac{1}{2} \left(\cosh (8 K_2) + 1\right) = \frac{1}{4} \ln \left(\cosh^2 (4 K_2 )\right) = \frac{1}{2} \ln \cosh (4 K_2). 
+    \]  
+    Then $ K_2^* = \frac{1}{2} \ln \cosh (4 K_2^*) $, and WolframAlpha returns $ K_2^* \approx 0.305 $. Setting $ K_2 = 0 $ returns a symmetric solution, so the fixed points are $ (0, K_c) \approx (0, 0.305) $ and $ (0, K_c) \approx (0, 0.305) $.
+    \item Potts-like critical point: Let $ K_2 = K_4 = K_d $, we have $ K_2^{\prime} = K_4^{\prime} $. Solving for 
+    \[
+        K_d^{\prime} = \frac{1}{4} \ln \left( \frac{e^{4 K_d} \cosh (8 K_d) + e^{-4 K_d}}{2 \cosh (4 K_d)} \right) = K_d,
+    \]
+    WolframAlpha returns $ K_d \approx 0.189 $. So the fixed point is $ (K_d, K_d) \approx (0.189, 0.189) $. 
+\end{itemize}
+
+The beta functions are 
+\[
+    \beta_2 = \frac{K_2^{\prime} - K_2}{\ln 2} = \frac{1}{4 \ln 2} \ln \left( \frac{e^{4 K_4} \cosh (8 K_2) + e^{-4 K_4}}{2 \cosh (4 K_4)} \right) - \frac{K_2}{\ln 2},
+\]
+\[
+    \beta_4 = \frac{K_4^{\prime} - K_4}{\ln 2} = \frac{1}{4 \ln 2} \ln \left( \frac{\left( e^{4 K_4} \cosh (8 K_2) + e^{-4 K_4} \right) \cosh (4 K_4)}{2 \cosh^2 (4 K_2)} \right) - \frac{K_4}{\ln 2}.
+\]
+The RG flows and nullclines of the beta functions are plotted in the $ K_2 $-$ K_4 $ plane in Figure~\ref{fig:2D}. The phase diagram for $ K_2, K_4 > 0 $ consists of three phases separated by critical lines that meet at the Potts-like critical point $ (K_d, K_d) $, as shown in Figure~\ref{fig:PhaseDiagram}.
+
+\textbf{Phase diagram analysis} :
+\begin{itemize}
+    \item \textit{Paramagnetic phase (I)}: This is a disordered phase (thermal disorder), and all points flow into $(0,0)$. 
+    \item \textit{Baxter phase (II)}: Strong $ K_2 $, and all points flow towards $(0, \infty) $.
+    \item \textit{Ferromagnetic phase (III)}: Strong $ K_4 $ corresponds to an Ising-like phase, and all points flow towards $(\infty, 0) $.
+\end{itemize}
+
+\textbf{Spin-order parameter:}
+\begin{enumerate}
+    \item \textit{Ferromagnetic phase} ($K_2 > K_c, K_2 > K_4$): two coupled Ising models $\Rightarrow \langle \sigma \rangle \neq 0$ and $\langle \tau \rangle \neq 0$.
+    \item \textit{Baxter phase} ($K_4 > K_c, K_4 > K_2$): minimize energy by fixing $\sigma\tau \Rightarrow \langle \sigma \rangle = 0$ and $\langle \tau \rangle = 0$ but $\langle \sigma\tau \rangle \neq 0$.
+    \item \textit{Antiferromagnetic phase} ($ K_2, K_4 < 0 $): For $ K_2 < 0 $, the points flow into $(-\infty, 0) $, corresponding to the N\'{e}el phase. For $ K_4 < 0 $, the points flow into $(0, -\infty) $, and $ \sigma \tau $ alternates between sites. 
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{phase_2D.png}
+    \caption{Phase diagram for the 2D model in the $ K_2 $-$ K_4 $ plane. The relevant regions I, II, III correspond to the paramagnetic, Baxter, and ferromagnetic phases, respectively, as discussed above.}
+    \label{fig:PhaseDiagram}
+\end{figure}
+
+\end{solution}
+
+\newpage
+
+5.~\textbf{Scalar QCD} [\textcolor{red}{20 pts}]
+
+For a complex scalar $\phi_I$ in a complex representation of a non-Abelian
+gauge group, we define the covariant derivative as
+\begin{equation}
+    (D_\mu \phi)_I = \partial_\mu \phi_I - ig A_\mu^a (T^a)_I^{\phantom{I} J} \phi_J,
+\tag{14}
+\end{equation}
+where $I, J$ are the group indices. We use the upper and lower convention for
+complex representation introduced in the class.
+
+(a) Use the fact that $\phi^{\dagger I}$ lives in the conjugate representation, construct a “minimally-coupled” Lagrangian of $\phi$ that is renormalizable, invariant under the gauge group, and only contains quadratic terms in the scalar field.
+
+(b) The relevant Feynman vertices of the action are $iV(\phi_J, \phi^{\dagger I}, A_\mu^a)$ and $iV(\phi_J, \phi^{\dagger I}, A_\mu^a, A_\nu^b)$. Derive the Feynman rules for both of them.
+
+(c) Calculate the on-shell amplitude $A(\phi_J, \phi^{\dagger I}, A_\mu^a)$. Express your result in terms of the momenta $p_i{}_\mu$ and polarization of the gauge boson, $\varepsilon_\mu$.
+
+(d) Verify that the amplitude $A(\phi_J, \phi^{\dagger I}, A^a)$ satisfies the Ward identity, i.e.\ the longitudinal mode of the gauge field decouples.
+
+The Ward identity of three-particle amplitude is simply to see.
+If you have time, try to calculate the four-particle amplitude
+$A(\phi_J, \phi^{\dagger I}, A_\mu^a, A_\nu^b)$ and verify the Ward identity.
+
+\begin{solution}
+~ 
+
+(a) The conjugate field $ \phi^{\dagger I} $ lives in the conjugate representation, so it has covariant derivative
+\[
+    (D_\mu \phi)^{\dagger I} = \partial_\mu \phi^{\dagger I} + ig A_\mu^a \phi^{\dagger J} (T^a)_J^{\phantom{J}I}.
+\]
+The minimally-coupled, renormalizable Lagrangian that is invariant under the gauge group and only contains quadratic terms in $ \phi $ is
+\[
+    \mathcal{L} = (D_\mu \phi)^{\dagger I} (D^\mu \phi)_I - m^2 \phi^{\dagger I} \phi_I.
+\]
+
+(b) Expand the covariant derivatives, we have
+\[
+    \begin{split}
+        \mathcal{L} &= \partial_\mu \phi^{\dagger I} \partial^\mu \phi_I + ig A_\mu^a \phi^{\dagger I} (T^a)_I^{\phantom{I}J} \partial^\mu \phi_J - ig A_\mu^a \partial^\mu \phi^{\dagger I} (T^a)_I^{\phantom{I}J} \phi_J \\
+        &\quad + g^2 A_\mu^a A^{b \mu} \phi^{\dagger K} (T^a)_K^{\phantom{K}I} (T^b)_I^{\phantom{I}J} \phi_J - m^2 \phi^{\dagger I} \phi_I.
+    \end{split}
+\]
+Identify the cubic and quartic interaction terms as
+\[
+    \mathcal{L}^{(3)} = ig A_\mu^a \phi^{\dagger I} (T^a)_I^{\phantom{I}J} \partial^\mu \phi_J - ig A_\mu^a \partial^\mu \phi^{\dagger I} (T^a)_I^{\phantom{I}J} \phi_J,
+\]
+and
+\[
+    \mathcal{L}^{(4)} = g^2 A_\mu^a A^{b \mu} \phi^{\dagger K} (T^a)_K^{\phantom{K}I} (T^b)_I^{\phantom{I}J} \phi_J.
+\]
+For the cubic vertex $ i V(\phi_J, \phi^{\dagger I}, A_\mu^a) $, suppose $ \phi_J $ carries momentum $ p $ and $ \phi^{\dagger I} $ carries momentum $ p^{\prime} $. The derivative $ \partial_\mu $ acting on incoming $ \phi_J $ gives a factor of $ -i p_\mu $, while $ \partial_\mu $ acting on $ \phi^{I \dagger} $ gives a factor of $ i p^{\prime}_\mu $. The Feynman rule for this vertex is read from $ \mathcal{L}^{(3)} $ as 
+\[
+    i V(\phi_J, \phi^{\dagger I}, A_\mu^a) = i \cdot ig \cdot (T^a)_J^{\phantom{J}I} ( - ip -  ip^{\prime})_\mu = i g (T^a)_J^{\phantom{J}I} (p + p^{\prime})_\mu.
+\]
+Similarly, for the quartic vertex $ i V(\phi_J, \phi^{\dagger I}, A_\mu^a, A_\nu^b) $, notice that the two gluon are identical, so we sum over the permutations. The Feynman rule for this vertex is read from $ \mathcal{L}^{(4)} $ as
+\[
+    i V_{\mu \nu } (\phi_J, \phi^{\dagger I}, A_\mu^a, A_\nu^b) = ig^2 \{ T^a, T^b \}_J^{\phantom{J}I} g_{\mu \nu }, 
+\]
+where $ \{ T^a, \, T^b \}_J^{\phantom{J}I} = (T^a)_J^{\phantom{J}K} (T^b)_K^{\phantom{K}I} + (T^b)_J^{\phantom{J}K} (T^a)_K^{\phantom{K}I} $ is the anticommutator.
+\begin{remark}
+    In the special case of an abelian theory, take $ T^a \to Q $, and we recover $ i V_{\mu \nu } = 2ig^2 Q^2 g_{\mu \nu } $. 
+\end{remark}
+
+(c) Consider the amplitude with all vertices $ \phi_J (p_1) $, $ \phi^{\dagger I} (p_2) $, and $ A_\mu^a (p_3, \varepsilon_\mu) $ outgoing, where $ \varepsilon_\mu $ is the polarization vector of the gauge boson. Momemtum conservation gives $ p_1 + p_2 + p_3 = 0 $, while on-shell condition gives $ p_1^2 = p_2^2 = m^2 $, $ p_3^2 = 0 $. The tree-level diagram is a cubic vertex, so the vertex rule in (b) gives 
+\[
+    \begin{split}
+        A(\phi_J, \phi^{\dagger I}, A_\mu^a) &= \varepsilon^\mu \cdot i V(\phi_J, \phi^{\dagger I}, A_\mu^a) = ig (T^a)_J^{\phantom{J}I} (p_1 - p_2)_\mu \varepsilon^\mu (p_3). 
+    \end{split}
+\]
+
+(d) To check the Ward identity, take a longitudinal polarization $ \varepsilon_\mu (p_3) = p_{3 \mu } $. Then, we have
+\[
+    \begin{split}
+        A(\phi_J, \phi^{\dagger I}, A^a) &= ig (T^a)_J^{\phantom{J}I} (p_1 - p_2)_\mu \, p_3^\mu = ig (T^a)_J^{\phantom{J}I} (p_1 - p_2) \cdot (- p_1 - p_2) \\
+        &= - ig (T^a)_J^{\phantom{J}I} (p_1^2 - p_2^2) \propto (m^2 - m^2) = 0,
+    \end{split}
+\]
+where we used $ p_1 \cdot p_2 = p_2 \cdot p_1 $ and the on-shell condition. Hence, we verify the Ward identity:
+\[
+    A \left. (\phi_J, \phi^{\dagger I}, A^a) \right|_{\varepsilon_\mu = p_{3 \mu}} = 0
+\]
+
+\end{solution}
+
+\end{CJK}
+\end{document}

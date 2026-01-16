@@ -1,0 +1,500 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem*{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\newcommand\bvec[1]{\mathbf{#1}}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+  \textbf{2025 Fall Nonlinear Optics} \\
+  \vspace{0.5cm}
+  \large 
+  Graduate Institute of Photonics and Optoelectronics, \\
+  National Taiwan University\\
+  Homework \#1 (Due Sep 18, 2025)\\
+}
+\author{物理、數學三 黃紹凱 B12202004}
+\date{\today}
+
+\maketitle
+
+% Problem 1
+\begin{problem}
+    Consider a two-dimensional system with square symmetry ($ D_4 $ symmetry). There is a set of $ 8 $ symmetry transformations. 
+    \begin{center}
+    \begin{tabular}{cl}
+        $E$ & identity \\
+        $R^{+}$ & rotation by $\pi /2$ \\
+        $R^{-}$ & rotation by $-\pi /2$ \\
+        $R$ & rotation by $\pi$ \\
+        $M_x$ & mirror symmetry about the $x$ axis \\
+        $M_y$ & mirror symmetry about the $y$ axis \\
+        $D_1$ & mirror symmetry about diagonal $D_1$ ($ y=x $ ) \\
+        $D_2$ & mirror symmetry about diagonal $D_2$ ($ y=-x $ )\\
+    \end{tabular}
+    \end{center}
+
+    The product of any two symmetyr transformaations $ T_2 T_1 $ may be defined as the transformation which results from performing $ T_1 $ followed by $ T_2 $. For example, $ M_x R^+ = D_2 $. 
+    \begin{enumerate}[(a)]
+        \item Construct the multiplication table for the symmetry operations. 
+        \item Now consider the permittivity tensor $ \mathcal{\epsilon} $. For a general system in two dimensions with no symmetry, $ \mathcal{\epsilon} $ is of the form: 
+        \begin{equation}
+            \mathcal{\epsilon} = \begin{pmatrix}
+                \epsilon_{xx} & \epsilon_{xy} \\
+                \epsilon_{yx} & \epsilon_{yy}
+            \end{pmatrix}.
+        \end{equation}
+        Show that for a system with square symmetry ($D_4$ symmetry), $ \mathcal{\epsilon} $ must be \textbf{isotropic} : 
+        \begin{equation}
+            \mathcal{\epsilon} = \begin{pmatrix}
+                \epsilon & 0 \\
+                0 & \epsilon
+            \end{pmatrix}.
+        \end{equation}
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[(a)]
+        \item The multiplication table is given as follows:
+        \begin{center}
+        \begin{tabular}{c|cccccccc}
+                & $E$ & $R_{+}$ & $R_{-}$ & $R$ & $M_x$ & $M_y$ & $D_1$ & $D_2$ \\  % Row 1
+        \hline
+        $E$     & $E$ & $R_{+}$ & $R_{-}$ & $R$ & $M_x$ & $M_y$ & $D_1$ & $D_2$ \\  % Row 2
+        $R_{+}$ & $R_{+}$ & $R$ & $E$ & $R_{-}$ & $D_2$ & $D_1$ & $M_y$ & $M_x$ \\  % Row 3
+        $R_{-}$ & $R_{-}$ & $E$ & $R$ & $R_{+}$ & $D_2$ & $D_1$ & $M_x$ & $M_y$ \\  % Row 4
+        $R$     & $R$ & $R_{-}$ & $R_{+}$ & $E$ & $M_y$ & $M_x$ & $D_2$ & $D_1$ \\  % Row 5
+        $M_x$   & $M_x$ & $D_2$ & $D_1$ & $M_y$ & $E$ & $R$ & $R_{-}$ & $R_{+}$ \\  % Row 6
+        $M_y$   & $M_y$ & $D_1$ & $D_2$ & $M_x$ & $R$ & $E$ & $R_{+}$ & $R_{-}$ \\  % Row 7
+        $D_1$   & $D_1$ & $M_y$ & $M_x$ & $D_2$ & $R_{-}$ & $R_{+}$ & $E$ & $R$ \\  % Row 8
+        $D_2$   & $D_2$ & $M_x$ & $M_y$ & $D_1$ & $R_{+}$ & $R_{-}$ & $R$ & $E$ \\  % Row 9
+        \end{tabular}
+        \end{center}
+        \item The elements of the $ D_4 $ symmetry group have a group representation in $ \mathcal{M}_{2 \times 2}(\mathbb{R}) $, which will aid the calculation of symmetry transformations on the permittivity tensor. The representation is listed below:
+        \begin{center}
+        \begin{tabular}{clc}
+            $E$ & identity & $ \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix} $ \\
+            $R_{+}$ & rotation by $\pi /2$ & $ \begin{pmatrix}
+                0 & -1 \\
+                1 & 0
+            \end{pmatrix} $ \\
+            $R_{-}$ & rotation by $-\pi /2$ & $ \begin{pmatrix}
+                0 & 1 \\
+                -1 & 0
+            \end{pmatrix} $ \\
+            $R$ & rotation by $\pi$ & $ \begin{pmatrix}
+                -1 & 0 \\
+                0 & -1
+            \end{pmatrix} $ \\
+            $M_x$ & mirror symmetry about the $x$ axis & $ \begin{pmatrix}
+                1 & 0 \\
+                0 & -1
+            \end{pmatrix} $ \\
+            $M_y$ & mirror symmetry about the $y$ axis & $ \begin{pmatrix}
+                -1 & 0 \\
+                0 & 1
+            \end{pmatrix} $ \\
+            $D_1$ & mirror symmetry about diagonal $D_1$ ($ y=x $ ) & $ \begin{pmatrix}
+                0 & 1 \\
+                1 & 0
+            \end{pmatrix} $ \\
+            $D_2$ & mirror symmetry about diagonal $D_2$ ($ y=-x $ )& $ \begin{pmatrix}
+                0 & -1 \\
+                -1 & 0
+            \end{pmatrix} $ \\
+        \end{tabular}
+        \end{center}
+        The permittivity tensor $ \mathcal{\epsilon} $ must be invariant under all symmetry transformations in the $ D_4 $ group. Therefore 
+        \begin{equation}
+            A \epsilon A^{-1} = A \epsilon A^{\intercal} = \mathcal{\epsilon}, \quad \forall A \in D_4,
+        \end{equation}
+        as elements of $ D_4 \subseteq O(2) $ are orthogonal.
+        \begin{equation}
+            R_{+} \epsilon R_{+}^{\intercal} = \begin{pmatrix}
+                0 & -1 \\
+                1 & 0
+            \end{pmatrix} \begin{pmatrix}
+                \epsilon_{xx} & \epsilon_{xy} \\
+                \epsilon_{yx} & \epsilon_{yy}
+            \end{pmatrix} \begin{pmatrix}
+                0 & 1 \\
+                -1 & 0
+            \end{pmatrix} = \begin{pmatrix}
+                \epsilon_{yy} & -\epsilon_{yx} \\
+                -\epsilon_{xy} & \epsilon_{xx}
+        \end{pmatrix}
+    \end{equation}
+    Then 
+    \begin{equation}
+        \begin{pmatrix}
+            \epsilon_{yy} & -\epsilon_{yx} \\
+            -\epsilon_{xy} & \epsilon_{xx}
+        \end{pmatrix}
+        = \begin{pmatrix}
+            \epsilon_{xx} & \epsilon_{xy} \\
+            \epsilon_{yx} & \epsilon_{yy}
+        \end{pmatrix},
+    \end{equation}
+    and thus $ \epsilon_{xx} = \epsilon_{yy} \equiv \epsilon $ and $ \epsilon_{xy} = -\epsilon_{yx} $. Furthermore, 
+    \begin{equation}
+        M_x \epsilon M_x^{\intercal} = \begin{pmatrix}
+            1 & 0 \\
+            0 & -1
+        \end{pmatrix} \begin{pmatrix}
+            \epsilon & \epsilon_{xy} \\
+            -\epsilon_{xy} & \epsilon
+        \end{pmatrix} \begin{pmatrix}
+            1 & 0 \\
+            0 & -1
+        \end{pmatrix} = \begin{pmatrix}
+            \epsilon & -\epsilon_{xy} \\
+            \epsilon_{xy} & \epsilon
+        \end{pmatrix},
+    \end{equation}
+    therefore $ \epsilon_{xy} = -\epsilon_{xy} = 0 $, and 
+    \begin{equation}
+        \epsilon = \begin{pmatrix}
+            \epsilon & 0 \\
+            0 & \epsilon
+        \end{pmatrix}.
+    \end{equation}
+\end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 2
+\begin{problem}
+    By using Maxwell's equation (assuming no loss and $ J=0 $) and the Lorentz reciprocity theorem, derive the following equation:
+    \begin{equation}
+        \epsilon \cdot \bvec{E}^{(a)} \bvec{E}^{(b)} = \epsilon \cdot \bvec{E}^{(b)} \bvec{E}^{(a)}.
+    \end{equation}
+\end{problem}
+\begin{solution}
+    For two solutions at $ p \in \{a, b\} $ at some frequency $ \omega $, the sourceless Maxwell equations give 
+    \begin{equation}
+        \begin{split}
+            \nabla \times \bvec{E}^{(p)} &= - i \omega \mu_0 \bvec{H}^{(p)}, \\
+            \nabla \times \bvec{H}^{(p)} &= i \omega \epsilon \cdot \bvec{E}^{(p)}.
+        \end{split}
+    \end{equation}
+    Consider the following divergence:  
+    \begin{equation}
+        \begin{split}
+            \nabla \cdot \left(\bvec{E}^{(a)} \times \bvec{H}^{(b)} - \bvec{H}^{(a)} \times \bvec{E}^{(b)} \right) &= \bvec{H}^{(b)} \cdot (\nabla \times \bvec{E}^{(a)}) - \bvec{E}^{(a)} \cdot (\nabla \times \bvec{H}^{(b)}) \\
+            &\quad - \bvec{H}^{(a)} \cdot (\nabla \times \bvec{E}^{(b)}) + \bvec{E}^{(b)} \cdot (\nabla \times \bvec{H}^{(a)}).
+        \end{split}
+    \end{equation}
+    Substitute the Maxwell equations to get 
+    \begin{equation}
+        \begin{split}
+            \nabla \cdot \left(\bvec{E}^{(a)} \times \bvec{H}^{(b)} - \bvec{H}^{(a)} \times \bvec{E}^{(b)} \right) &= -i \omega \mu_0 \bvec{H}^{(b)} \cdot \bvec{H}^{(a)} - i \omega \bvec{E}^{(a)} \cdot (\epsilon \cdot \bvec{E}^{(b)}) \\
+            &\quad + i \omega \mu_0 \bvec{H}^{(a)} \cdot \bvec{H}^{(b)} + i \omega \bvec{E}^{(b)} \cdot (\epsilon \cdot \bvec{E}^{(a)}) \\
+            &= i \omega \left[ \bvec{E}^{(b)} \cdot (\epsilon \cdot \bvec{E}^{(a)}) - \bvec{E}^{(a)} \cdot (\epsilon \cdot \bvec{E}^{(b)}) \right].
+        \end{split}
+    \end{equation}
+    Integrate over a volume $ \Omega $ with differentiable boundary $ \partial \Omega \in C^1 $, then apply the divergence theorem in three dimensions to get
+    \begin{equation}
+        \begin{split}
+            \int_{\Omega} \mathrm{d}V \, \nabla \cdot \left(\bvec{E}^{(a)} \times \bvec{H}^{(b)} - \bvec{H}^{(a)} \times \bvec{E}^{(b)} \right) &= \oint_{\partial \Omega} \mathrm{d}\bvec{S} \cdot \left(\bvec{E}^{(a)} \times \bvec{H}^{(b)} - \bvec{H}^{(a)} \times \bvec{E}^{(b)} \right) \\
+            &= i \omega \int_{\Omega} \mathrm{d}V \, \left[ \bvec{E}^{(b)} \cdot (\epsilon \cdot \bvec{E}^{(a)}) - \bvec{E}^{(a)} \cdot (\epsilon \cdot \bvec{E}^{(b)}) \right]. \\
+        \end{split}
+    \end{equation}
+    The fields will vanish at infinity, since $ \mathrm{d}\bvec{S} $ grows as $ r^2 $ while the fields decay as $ 1/r^2 $. Therefore, the surface integral evaluates to zero. Then we have 
+    \begin{equation}
+        \bvec{E}^{(a)} \cdot (\epsilon \cdot \bvec{E}^{(b)}) = \bvec{E}^{(b)} \cdot (\epsilon \cdot \bvec{E}^{(a)}),
+    \end{equation}
+    or, equivalently, 
+    \begin{equation}
+        \epsilon \cdot \bvec{E}^{(a)} \bvec{E}^{(b)} = \epsilon \cdot \bvec{E}^{(b)} \bvec{E}^{(a)}.
+    \end{equation}
+\end{solution}
+
+\medskip
+
+\begin{problem}
+    Determine the characteristic waves (eigenvectors) and their phase velocities (eigenvalues) for wave propagation in a biaxial crystal. Please describe the direction of $ D $ and $ E $ fields, and the eigenmode refractive indices as a function of $ \theta $ and $ \phi $. Describe your solution in the \textbf{simplest} form. You might want to assume $ B $ and $ H $ are in the same direction.  
+\end{problem}
+\begin{solution}
+    We can choose a representation of the permittivity tensor for a biaxial crystal as a $ 3 \times 3 $ diagonal matrix by the discussion in lecture notes. Suppose the principal axes of the crystal are aligned with the $ x $, $ y $, and $ z $ axes, then
+    \begin{equation}
+        \epsilon = \begin{pmatrix}
+            \epsilon_x & 0 & 0 \\
+            0 & \epsilon_y & 0 \\
+            0 & 0 & \epsilon_z
+        \end{pmatrix},
+    \end{equation}
+    for $ \epsilon_{x}, \epsilon_{y}, \epsilon_{z} \in \mathbb{R}_{>0} $. It has the inverse $ \kappa \equiv \epsilon^{-1} $,
+    \begin{equation}
+        \kappa = \begin{pmatrix}
+            \kappa_{x} & 0 & 0 \\
+            0 & \kappa_{y} & 0 \\
+            0 & 0 & \kappa_{z}
+        \end{pmatrix}
+        = \begin{pmatrix}
+            1/\epsilon_x & 0 & 0 \\
+            0 & 1/\epsilon_y & 0 \\
+            0 & 0 & 1/\epsilon_z
+        \end{pmatrix}.
+    \end{equation}
+    By a transformation, we can switch to the $ (k, D, B) $ space, where $ D = \epsilon \cdot E $ and $ B = \mu_0 H $. The transformed tensor is
+    \begin{equation}  
+        T = T_{e_1}(-\theta)\,T_{x_3}(\phi) = \begin{pmatrix}
+            \cos\phi & \sin\phi & 0 \\
+            -\cos\theta \sin\phi & \cos\theta \cos\phi & -\sin\theta \\
+            -\sin\theta \sin\phi & \sin\theta \cos\phi & \cos\theta
+        \end{pmatrix},
+    \end{equation}
+    \begin{equation}
+        T^{-1} = T^{\intercal} = \begin{pmatrix}
+            \cos\phi & -\cos\theta \sin\phi & -\sin\theta \sin\phi \\
+            \sin\phi & \cos\theta \cos\phi & \sin\theta \cos\phi \\
+            0 & -\sin\theta & \cos\theta
+        \end{pmatrix}
+    \end{equation}
+    Then 
+    \begin{equation}
+        \tilde{\kappa} = T \kappa T^{-1} = \begin{pmatrix}
+            \kappa_{11} & \kappa_{12} & \kappa_{13} \\
+            \kappa_{21} & \kappa_{22} & \kappa_{23} \\
+            \kappa_{31} & \kappa_{32} & \kappa_{33} 
+        \end{pmatrix}
+    \end{equation}
+    where 
+    \begin{equation}
+        \begin{split}
+            \kappa_{11} &= \kappa_{x} \sin^{2} \phi + \kappa_{y} \cos^{2} \phi, \\
+            \kappa_{22} &= \cos^{2}\theta (\kappa_{x} \cos^{2}\phi + \kappa_{y} \sin^{2}\phi) + \kappa_{z} \sin^{2}\theta, \\
+            \kappa_{33} &= \sin^{2}\theta (\kappa_{x} \cos^{2}\phi + \kappa_{y} \sin^{2}\phi ) + \kappa_{z} \cos^{2}\theta , \\
+            \kappa_{12} &= \kappa_{21} = (\kappa_{x} - \kappa_{y}) \sin\phi \cos\phi \cos\theta, \\
+            \kappa_{13} &= \kappa_{31} = (\kappa_{x} - \kappa_{y}) \sin\phi \cos\phi \sin\theta, \\
+            \kappa_{23} &= \kappa_{32} = \sin\theta \cos\theta ((\kappa_{x} - \kappa_{y}) \sin\phi \cos\phi - \kappa_{z}) .
+        \end{split}
+    \end{equation}
+    We will use the following equations, assuming that $ B $ and $ H $ are in the same direction, and further noticing that only the transverse direction matters:
+    \begin{equation}
+        \begin{split}
+            \begin{pmatrix} \kappa_{11} & \kappa_{12} \\ \kappa_{21} & \kappa_{22} \end{pmatrix}
+            \begin{pmatrix} D_{1} \\ D_{2} \end{pmatrix}
+            &=
+            \begin{pmatrix} 0 & \omega/k \\ -\omega/k & 0 \end{pmatrix}
+            \begin{pmatrix} B_{1} \\ B_{2} \end{pmatrix}, \\
+            \gamma \begin{pmatrix} B_{1} \\ B_{2} \end{pmatrix}
+            &=
+            \begin{pmatrix} 0 & -\omega/k \\ \omega/k & 0 \end{pmatrix}
+            \begin{pmatrix} D_{1} \\ D_{2} \end{pmatrix},
+        \end{split}        
+    \end{equation}
+    where $ \gamma = 1/\mu_0 $. Substitute the second equation into the first to get
+    \begin{equation}
+        \begin{pmatrix} \kappa_{11} & \kappa_{12} \\ \kappa_{21} & \kappa_{22} \end{pmatrix}
+        \begin{pmatrix} D_{1} \\ D_{2} \end{pmatrix}
+        =
+        \frac{(\omega/k)^2}{\gamma}
+        \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}
+        \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}
+        \begin{pmatrix} D_{1} \\ D_{2} \end{pmatrix}
+        =
+        \frac{(\omega/k)^2}{\gamma}
+        \begin{pmatrix} D_{1} \\ D_{2} \end{pmatrix}.
+    \end{equation}
+    Therefore, the eigenvalue equation is given by
+    \begin{equation}
+        \begin{pmatrix} \kappa_{11} - (\omega^{2}/\gamma k^{2}) & \kappa_{12} \\ \kappa_{21} & \kappa_{22} - (\omega^{2}/\gamma k^{2}) \end{pmatrix}
+        \begin{pmatrix}
+            D_{1} \\
+            D_{2}
+        \end{pmatrix} = 0.
+    \end{equation}
+
+    If $ D_{1} $, $ D_{2} $ are both zero, then the equation is trivially true. If not, then the determinant of the matrix must be zero, i.e. we have a \textbf{dispersion relation}:
+    \begin{equation}
+        \operatorname{det} \begin{pmatrix} \kappa_{11} - (\omega^{2}/\gamma k^{2}) & \kappa_{12} \\ \kappa_{21} & \kappa_{22} - (\omega^{2}/\gamma k^{2}) \end{pmatrix}
+         = 0.
+    \end{equation}
+
+    The allowed propagation wavevectors are identified by solving for $ k $ to obtain the phase velocity eigenvalues and their characteristic wave modes.
+    \begin{equation}
+        \begin{split}
+            k_{1}^{\pm} &= \pm \sqrt{\frac{2}{\gamma}} \omega \left\{ \left(\kappa_{11} + \kappa_{22}\right) + \sqrt{ \bigl(\kappa_{22} + \kappa_{11} \bigr)^2  + 4 (\kappa_{12}\kappa_{21} - \kappa_{11}\kappa_{22})} \; \right\}^{-1/2}, \\
+            k_{2}^{\pm} &= \pm \sqrt{\frac{2}{\gamma}} \omega \left\{ \left(\kappa_{11} + \kappa_{22}\right) - \sqrt{ \bigl(\kappa_{22} + \kappa_{11} \bigr)^2  + 4 (\kappa_{12}\kappa_{21} - \kappa_{11}\kappa_{22})} \; \right\}^{-1/2}.
+        \end{split}
+    \end{equation}
+
+    There are two modes of propagation, corresponding to the two positive roots $ k_{1} $ and $ k_{2} $. The solutions are discussed below.
+
+    \begin{enumerate}[(1)]
+        \item For the first mode $ k = k_{1} $, the refractive index is given by
+        \begin{equation}
+            n_{1}(\theta, \phi) \equiv \frac{\omega}{k_{1}} = \sqrt{\frac{\gamma}{2}} \sqrt{\left(\kappa_{11} + \kappa_{22}\right) + \sqrt{ \bigl(\kappa_{22} + \kappa_{11} \bigr)^2  + 4 (\kappa_{12}\kappa_{21} - \kappa_{11}\kappa_{22})} } \; ,
+        \end{equation} 
+        where 
+        \begin{equation}
+            \begin{split}
+                \kappa_{11} &= \kappa_{x} \sin^{2} \phi + \kappa_{y} \cos^{2} \phi, \\
+                \kappa_{22} &= \cos^{2}\theta (\kappa_{x} \cos^{2}\phi + \kappa_{y} \sin^{2}\phi) + \kappa_{z} \sin^{2}\theta, \\
+                \kappa_{12} &= \kappa_{21} = (\kappa_{x} - \kappa_{y}) \sin\phi \cos\phi \cos\theta, \\
+            \end{split}
+        \end{equation}
+
+        The electric displacement eigenvector is given by
+        \begin{equation}
+            \begin{pmatrix}
+                D^{(1)}_{1} \\
+                D^{(1)}_{2}
+            \end{pmatrix}
+            =
+            \left[ \kappa_{12}^{2} + \left(k_{1} - \kappa_{11} + (\omega^{2}/\gamma k_{1}^{2})\right)^{2} \right]^{-1/2}
+            \begin{pmatrix}
+                \kappa_{12} \\
+                k_{1} - \kappa_{11} + (\omega^{2}/\gamma k_{1}^{2})
+            \end{pmatrix}
+            e^{i (\omega t - k_{1} z )}.
+        \end{equation}
+        The electric field for this mode is given by
+        \begin{equation}
+            \begin{pmatrix}
+                E^{(1)}_{1} \\
+                E^{(1)}_{2} \\
+                E^{(1)}_{3}
+            \end{pmatrix}
+            =
+            \kappa \cdot
+            \begin{pmatrix}
+                D^{(1)}_{1} \\
+                D^{(1)}_{2} \\
+                0
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                D^{(1)}_{1}/\epsilon_x \\
+                D^{(1)}_{2}/\epsilon_y \\
+                0
+            \end{pmatrix}
+            e^{i (\omega t - k_{1} z )}.
+        \end{equation}
+        Notice that $ \bvec{D}^{(1)} $ and $ \bvec{E}^{(1)} $ are not parallel. 
+
+        \item For the second mode, the refractive index is given by
+        \begin{equation}
+            n_{2}(\theta, \phi) \equiv \frac{\omega}{k_{2}} = \sqrt{\frac{\gamma}{2}} \sqrt{\left(\kappa_{11} + \kappa_{22}\right) - \sqrt{ \bigl(\kappa_{22} + \kappa_{11} \bigr)^2  + 4 (\kappa_{12}\kappa_{21} - \kappa_{11}\kappa_{22})} } \; ,
+        \end{equation}
+        where 
+        \begin{equation}
+            \begin{split}
+                \kappa_{11} &= \kappa_{x} \sin^{2} \phi + \kappa_{y} \cos^{2} \phi, \\
+                \kappa_{22} &= \cos^{2}\theta (\kappa_{x} \cos^{2}\phi + \kappa_{y} \sin^{2}\phi) + \kappa_{z} \sin^{2}\theta, \\
+                \kappa_{12} &= \kappa_{21} = (\kappa_{x} - \kappa_{y}) \sin\phi \cos\phi \cos\theta, \\
+            \end{split}
+        \end{equation}
+        The electric displacement eigenvector is given by
+        \begin{equation}
+            \begin{pmatrix}
+                D^{(2)}_{1} \\
+                D^{(2)}_{2}
+            \end{pmatrix}
+            =
+            \left[ \kappa_{12}^{2} + \left(k_{2} - \kappa_{11} + (\omega^{2}/\gamma k_{2}^{2})\right)^{2} \right]^{-1/2}
+            \begin{pmatrix}
+                \kappa_{12} \\
+                k_{2} - \kappa_{11} + (\omega^{2}/\gamma k_{2}^{2})
+            \end{pmatrix}
+            e^{i (\omega t - k_{2} z )}.
+        \end{equation}
+
+        The electric field for this mode is given by
+        \begin{equation}
+            \begin{pmatrix}
+                E^{(2)}_{1} \\
+                E^{(2)}_{2} \\
+                E^{(2)}_{3}
+            \end{pmatrix}
+            =
+            \kappa \cdot
+            \begin{pmatrix}
+                D^{(2)}_{1} \\
+                D^{(2)}_{2} \\
+                0
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                D^{(2)}_{1}/\epsilon_x \\
+                D^{(2)}_{2}/\epsilon_y \\
+                0
+            \end{pmatrix}
+            e^{i (\omega t - k_{2} z )}.
+        \end{equation}
+        Notice that $ \bvec{D}^{(2)} $ and $ \bvec{E}^{(2)} $ are not parallel.
+    \end{enumerate}
+
+    Refer to the following paper for a more general discussion: J. Massman and M. Havrilla, "Analysis of General Plane Wave Propagation in Biaxial Media Using the kDB System," 2022. doi: \url{10.1109/Metamaterials54993.2022.9920911}.
+
+\end{solution}
+
+\end{CJK}
+\end{document}

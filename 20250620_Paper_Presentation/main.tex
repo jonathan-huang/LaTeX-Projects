@@ -1,0 +1,518 @@
+\documentclass[aspectratio=169]{beamer} % changes aspect ratio to 16:9
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+%% These are my own configurations
+\newcommand{\mycomment}[1]{} % block comments
+
+\usepackage{scrextend}
+\usepackage[version=4,arrows=pgf-filled, textfontname=sffamily, mathfontname=mathsf]{mhchem} % chemistry
+% \usepackage[shortlabels]{enumitem} enumitem interferes with the bullet points in beamer
+
+\usepackage{graphicx}
+
+% Caption size
+\setbeamerfont{caption}{size=\scriptsize} % use \setbeamerfont{caption}{series=\normalfont,size=\fontsize{20}{24}} for nonstandard font size
+
+\usepackage{mdframed}
+\usepackage{amsmath,amsthm,amsxtra} 
+\usepackage{mathtools}
+\usepackage{bbold} % blackboard bold font
+
+% unicode interferes with the serif font for maths
+%\usepackage{unicode-math} % i.e. \not\in
+% \usepackage[mathrm=sym]{unicode-math}
+\setmathfont{Fira Math}
+\newcommand{\bvec}[1]{\mathbf{#1}} % bold vector
+
+%------------------------------------------------------------
+% beamer theme setup: fg = foreground, bg = background
+\usepackage[dvipsnames]{xcolor} % extra color names
+\definecolor{palespring}{RGB}{100, 180, 120}
+\definecolor{winterlandscape}{RGB}{70, 116, 93} 
+\definecolor{linkcolor}{RGB}{70, 70, 200} 
+% set colours
+\setbeamercolor{alerted text}{fg=palespring}
+\setbeamercolor{frametitle}{bg=winterlandscape}
+\setbeamercolor{background canvas}{bg=white}
+
+\setbeamertemplate{itemize items}[circle]
+%%
+
+\begin{document}
+%------------------------------------------------------------
+\title[]{Constraints on Metabolic Network Analysis in Bacterial Physiology}
+\subtitle{}
+\author{Jonathan (Shao-Kai) Huang}
+\institute
+{
+    Department of Physics, National Taiwan University / \\
+    Institute of Molecular Biology, Academia Sinica
+}
+\date{\today}
+%---------------------------------------------------------
+\frame{\titlepage}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame}{Table of contents}
+    \setbeamertemplate{section in toc}[sections numbered]
+    \tableofcontents%[hideallsubsections]
+\end{frame}
+%---------------------------------------------------------
+
+\section{Introduction}
+
+%---------------------------------------------------------
+\begin{frame} % 1
+    \frametitle{Overview}
+
+    PRX Life PRX Life 3, 022001 Published 1 April 2025 \cite{PRXLife.3.022001}. \pause
+    
+    Main ideas of this paper are:
+    \begin{itemize}
+        \item Characterize \alert{\textbf{emergent properties}} of biological interactions in bacterial cells. \pause
+        \item These constraints are equivalent to \alert{\textbf{Kirchhoff's laws}} and \alert{\textbf{Ohm's law}}. \pause
+        \item Bacterial growth physiology can be analyzed quantitatively as \alert{\textbf{electrical circuits}} $\Rightarrow$ \textbf{coarse-graining}. \footnote{This is an approximation.}
+    \end{itemize}
+
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 2
+    \frametitle{Laws of Bacterial Physiology}
+    Author(s):
+    \begin{center}
+        "\textit{Life is required to make more life.}" 
+    \end{center}
+    \pause
+
+    \begin{exampleblock}{Growth Laws}
+        Many emergent behaviors can be described by simple phenomenological laws: \pause
+        \begin{enumerate}[(i)]
+            \item Rate at which environmental materials are assimilated is balanced according to composition \pause
+            \item Rates are constrained by the autocatalytic nature of life 
+        \end{enumerate}
+    \end{exampleblock}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 3
+    \frametitle{Exponential Growth}
+    \begin{itemize}
+        \item When environmental nutrient is unlimited, population increases like 
+        \begin{equation}
+            \frac{\mathrm{d}N}{\mathrm{d}t} \sim N(t) \;\Rightarrow\; N(t) = N_0 e^{\lambda t}.
+        \end{equation}
+        \pause
+        \item \alert{\textbf{Balanced growth}} characterizes exponential phase: In order for cells to accumulate exponentially, generating processes must happen at balanced rates.
+    \end{itemize}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 4
+    \frametitle{Metabolic Networks Are Complicated}
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.7\linewidth]{Images/balanced.png}
+            \caption{Comparison of equilibrium, steady state, and balanced growth \cite{Lin2020}.}
+            \label{fig:balanced}
+        \end{figure}
+    \end{column}
+    \pause
+    \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.9\linewidth]{Images/Ecoli_network.png}
+            \caption{Core metabolic network of E. coli \cite{Orth2010}.}
+            \label{fig:Ecoli_network}
+        \end{figure}
+    \end{column}
+    \end{columns}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 5
+    \frametitle{Flux Balance Analysis}     
+    \begin{itemize}
+        \item Stoichiometric matrix $S \in M_{m\times n}(R)$, biomass vector $X \in \mathbb{R}^n $:
+        \begin{equation}
+            \frac{\mathrm{d} X}{\mathrm{d} t} \equiv J = SX 
+        \end{equation}
+        $S$ is \textit{underspecified} (metabolism is an open system) and \textit{sparse}. \pause
+        \item Evolution selects cells that grow fast: $Z \propto \lambda$ \pause 
+        \item Metabolic reaction rates must be \alert{\textbf{balanced}} during steady-state \footnote{suboptimal growth environment is fine} growth: $J = 0$.
+    \end{itemize}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 6
+    \frametitle{Flux Balance is a Linear Programming Problem}
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        \begin{alertblock}{Constrained Optimization}
+            \vspace{0.5em}
+            Maximize the objective function  $Z = c \cdot x$ subject to 
+            \begin{equation}
+                J = S x = 0 \quad \text{(balanced growth)},
+            \end{equation}
+            and 
+            \begin{equation}
+                \text{lb}_i \le x_i \le \text{ub}_i \quad \text{(bounded rates)}.
+            \end{equation}
+        \end{alertblock}
+    \end{column}
+    \pause
+    \begin{column}{0.5\textwidth}
+        \begin{exampleblock}{Proteome Partition of E. coli}
+            \begin{figure}
+                \centering
+                \includegraphics[width=0.6\linewidth]{Images/proteom_partition_example.png}
+                \caption{Three-sector proteome partition model (Lin, Wei-Hsiang, 2025) \cite{PRXLife.3.022001, lin2025biomasstransferautocatalyticreaction}}
+                \label{fig:Lin2025}
+            \end{figure}
+        \end{exampleblock}
+    \end{column}
+    \end{columns}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 7
+    \frametitle{Ribosomes Catalyze Protein Synthesis}
+    \begin{itemize}
+        \item Ribosomes are optimized for \alert{\textbf{autocatalytic production}} \pause
+        \item Michaelis-Menten kinetics \pause
+    \end{itemize}
+    
+    \begin{columns}
+    \begin{column}{0.6\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=1\linewidth]{Images/ribosomes.png}
+            \caption{Ribosomes follow similar kinetics to those of enzymes: they turn charged tRNA into uncharged tRNA.}
+            \label{fig:RNA}
+        \end{figure}
+    \end{column}%
+    \pause
+    \begin{column}{0.4\textwidth}
+        (Haldane) Abundance of the substrate far exceeds the abundance of the enzyme.
+        \begin{equation}
+            \text{rate} \propto [\text{Rb}] \times \frac{[\text{tRNA}]}{K_\text{M} + [\text{tRNA}]}.
+        \end{equation}
+    \end{column}
+    \end{columns}
+        
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 8
+    \frametitle{Global Constraints}  
+    \begin{itemize}
+        \pause
+        \item Maaloe et al. \cite{cooper1991bacterial}: Per-cell quantity of RNA, DNA, and protein increase exponentially with $\lambda$ 
+        
+        $\Longrightarrow$ Protein concentration is \alert{\textbf{nearly constant}}. \pause
+        \item Total protein constraint: $\sum_i \phi_i = 1$. \pause
+    \end{itemize}
+
+    Protein mass fraction is a \alert{\textbf{linear}} function of growth rate:
+    \begin{equation}
+        \phi_i = \phi^0_i + \frac{\lambda}{\kappa_i}.
+    \end{equation}
+    \pause
+    Ohm's law: $\Delta V = I / G$.
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 9
+    \frametitle{Global Constraints}
+    \begin{columns}
+    \pause
+    \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.8\linewidth]{Images/Scott2010_1.png}
+            \caption{Growth rate is modulated by quality of nutrient \cite{Scott2010}.}
+            \label{fig:Scott2010_1}
+        \end{figure}
+    \end{column}%
+    \pause
+    \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.8\linewidth]{Images/Scott2010_2.png}
+            \caption{Growth rate is modulated by translational inhibition \cite{Scott2010}.}
+            \label{fig:Scott2010_2}
+        \end{figure}
+    \end{column}
+    \end{columns}
+\end{frame}
+%---------------------------------------------------------
+
+\section{Proteomic Coarse-Graining and Electric Circuit}
+
+%---------------------------------------------------------
+\begin{frame} % 10
+    \frametitle{Bow-Tie Topology}
+    \pause
+    Conserved large-scale topological features among micro-organisms:
+    \pause
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.85\linewidth]{Images/bowties.png}
+            \caption{Common module for bacterial metabolism: diversity of inputs and outputs, processed with few intermediate common currencies \cite{CSETE2004446}.}
+            \label{fig:bowties}
+        \end{figure}
+    \end{column}
+    \pause
+    \begin{column}{0.5\textwidth}
+        \begin{itemize}
+            \item Bacterial metabolism and transcriptional machinery exhibits \alert{\textbf{bow tie architecture}} \pause
+            \item Proteins can be partitioned into only few classes
+        \end{itemize}
+    \end{column}
+    \end{columns}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 11
+    \frametitle{Equivalent Circuits and Kirchhoff's Laws}
+    \begin{columns}
+    \pause
+    \begin{column}{0.5\textwidth}
+        \begin{alertblock}{Kirchhoff's Laws}
+        Governing laws for DC circuits
+            \begin{equation}
+                \sum_{\text{node } m} j_n = 0 \; \text{(current law)},
+            \end{equation}
+            \begin{equation}
+                \sum_{i} \phi_{i} = 0 \; \text{(voltage law)}.
+            \end{equation}
+            $j_n$ is proportional to $\lambda$.
+        \end{alertblock}
+    \end{column}%
+    \pause
+    \begin{column}{0.5\textwidth}
+        \begin{alertblock}{Thevenin's Law}
+            A network of voltage sources and resistors can be replaced by an equivalent circuit with one voltage source and one resistor.
+        \end{alertblock}
+    \end{column}
+    \end{columns}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 12
+    \frametitle{Anti-Correlation Among Proteome Sectors}
+    \begin{itemize}
+        \item \alert{\textbf{Proteome partition}}: coarse-graining proteins into sectors that behave similarly under specific probes, e.g. functionality \pause
+        \item Two sectors: $\phi^0_\text{M} + \phi^0_\text{R} = 1$ \pause
+        \item Antibiotic decreases $\lambda$ without affecting $\phi^0_\text{M}$: modulates $\kappa_\text{R}$ alone.
+        \item Nutrient quality modulates $\kappa_\text{M}$.
+    \end{itemize}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 13
+    \frametitle{Ohmics}
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        \small
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.9\linewidth]{Images/six_sector.png}
+            \caption{Six-sectors: ribosomes (R), carbon uptake (C), a.a. biosynthesis (A), carbon uptake $+$ a.a. biosynthesis (S), $\lambda$-dependent but not inhibited (U), not $\lambda$-dependent \cite{Hui}.}
+            \label{fig:six_sector}
+        \end{figure}
+    \end{column}%
+    \begin{column}{0.5\textwidth}
+        \pause
+        Coarse-grain according to proteins' response to probes.
+        \begin{equation}
+            \lambda = \frac{1 - \phi^0_\text{C} - \phi^0_\text{A} - \phi^0_\text{R} - \phi^0_\text{U} - \phi^0_\text{S} - \phi^0_\text{O}}{1/\kappa_\text{C} + 1/\kappa_\text{A} + 1/\kappa_\text{R} + 1/\kappa_\text{U} + 1/\kappa_\text{S}}
+        \end{equation}
+        \pause
+        Growth on $N$ carbon sources:
+        \begin{equation}
+            \frac{1}{\kappa_\text{C}} \longrightarrow \frac{1}{\kappa_{\text{C}_1} + \kappa_{\text{C}_2} + \cdots + \kappa_{\text{C}_N}}
+        \end{equation}
+    \end{column}
+    \end{columns}
+\end{frame}
+%---------------------------------------------------------
+
+\section{Applications}
+%---------------------------------------------------------
+\begin{frame} % 14
+    \frametitle{Antibiotic Transport and Binding}
+    \begin{itemize}
+        \pause
+        \item Ribosome-targeting antibiotics can modulate conductance $\kappa_\text{R}$. \pause
+        \item "Ohmics" assumption for antibiotics-growth rate relationship:
+        \begin{equation}
+            \begin{cases}
+                \frac{\mathrm{d}a}{\mathrm{d}t} &= -\lambda a - k_\text{on} a r_\text{u} + k_\text{off} r_\text{b} + P_\text{in} a_\text{ex} - P_\text{out} a, \\
+                \frac{\mathrm{d}r_u}{\mathrm{d}t} &= -\lambda r_\text{u} - k_\text{on} a r_\text{u} + k_\text{off} r_\text{b} + s(\lambda), \\
+                \frac{\mathrm{d}r_b}{\mathrm{d}t} &= - \lambda r_\text{b} + k_\text{on} a r_\text{u} - k_\text{off} r_\text{b}. \\
+            \end{cases}
+        \end{equation}
+
+        $a_\text{ex}, k_\text{on}, k_\text{off}, P_\text{in}, P_\text{out} \in \mathbb{R}_{\ge 0}$. $s(\lambda)$ is undetermined!
+        \pause
+        \item Qualitatively different behavior based on binding affinity.
+    \end{itemize}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 15
+    \frametitle{Antibiotic Transport and Binding}
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=1\linewidth]{Images/low-affinity.png}
+            \caption{Low-affinity antibiotics \cite{PRXLife.3.022001}.}
+            \label{fig:low-aff}
+        \end{figure}
+    \end{column}%
+    \pause
+    \begin{column}{0.5\textwidth}
+        \begin{itemize}
+            \item Langmuir-like inhibition curves. \pause
+            \item Half-inhibition conc. anti-correlated with growth rate:
+            \[\lambda_0 = \lambda \left( 1 + \frac{a_\text{ex}}{\text{IC}_{50}}\right). \] \pause
+            \item Effective against \alert{\textbf{fast-growing}} bacteria. 
+        \end{itemize}
+    \end{column}%
+    \end{columns}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 16
+    \frametitle{Antibiotic Transport and Binding}
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=1\linewidth]{Images/high-affinity.png}
+            \caption{High-affinity antibiotics \cite{PRXLife.3.022001}.}
+            \label{fig:high-aff}
+        \end{figure}
+    \end{column}%
+    \pause
+    \begin{column}{0.5\textwidth}
+        \begin{itemize}
+            \item Sigmoidal inhibition curves. \pause
+            \item Half-inhibition conc. correlated with growth rate:
+            \[\lambda_0 = \lambda \left[ \frac{1}{2}\left(1 + \sqrt{1-\frac{a_\text{ex}}{\text{IC}_{50}}} \right)\right]^{-1}. \]
+            \item Abrupt drop of $\lambda$ at $\text{IC}_{50}$ analogous to an undervoltage lockout (UVLO)
+            \pause
+            \item Effective against \alert{\textbf{slow-growing}} bacteria. 
+        \end{itemize}
+    \end{column}
+    \end{columns}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 17
+    \frametitle{Evolutionary Adaptation Studies}
+    \pause
+    Ohmic constraints help direct evolutionary adaptation trajectories by projecting genetic changes to a small set of circuit parameters, e.g. six-sector partition. \pause
+    
+    \begin{exampleblock}{Adapting \textit{E. coli} to growth in glucose and citrate \cite{Barrick2009}}   
+    \begin{itemize}
+        \item Parameters unchanged except for decrease in $\phi^0_{\text{O}}, \phi^0_{\text{A}}, \phi^0_{\text{S}}$. \pause
+        \item Mechanistic explanation: 
+        \begin{itemize}
+            \item $\phi^0_\text{O}$:decrease in porin \textit{OmpF}
+            \item $\phi^0_\text{A}, \phi^0_\text{S}$: enzymes associates with pyruvate kinase \textit{PykF}.
+        \end{itemize}
+    \end{itemize}
+    \end{exampleblock}
+\end{frame}
+%---------------------------------------------------------
+
+\section{Concluding Remarks}
+%---------------------------------------------------------
+\begin{frame} % 18
+    \frametitle{Additional Thoughts}
+    \pause
+    \begin{itemize}
+        \item The Ohmics model is phenomenological. \pause
+        \item Fow nutrient quality, we can recover linearity directly from the ODE \pause
+    \end{itemize}
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.8\linewidth]{Images/example n=3.png}
+            \caption{Three-sector partition (low nutrient).}
+            \label{fig:three_sector}
+        \end{figure}
+    \end{column}%
+    \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.8\linewidth]{Images/example n=6.png}
+            \caption{Six-sector partition (low nutrient).}
+            \label{fig:six_sector}
+        \end{figure}
+    \end{column}
+    \end{columns}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+\begin{frame} % 19
+    \frametitle{Conclusion}
+    \begin{itemize}
+        \item \alert{\textbf{(Near)-invariant protein concentration} $+$ \textbf{enzyme kinetics}} provides linkage between protein fraction and growth rate. \pause
+        \item Mechanistic justification for coarse-graining complex biochemical networks with circuits. \pause
+        \item Wealth of large-Ohmics data $\longrightarrow$ opportunity for \alert{\textbf{synthetic biology}}. 
+    \end{itemize}
+\end{frame}
+%---------------------------------------------------------
+
+%---------------------------------------------------------
+{\setbeamercolor{palette primary}{fg=white, bg=winterlandscape}
+\begin{frame}[standout]
+  Thank You \\
+  Q \& A
+\end{frame}
+}
+%---------------------------------------------------------
+
+\section{References}
+%---------------------------------------------------------
+\begin{frame}[allowframebreaks]{References}
+    \typeout{} 
+    \bibliography{references}
+    \bibliographystyle{abbrv}
+\end{frame}
+%---------------------------------------------------------
+
+\end{document}

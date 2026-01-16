@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {1}數學基礎}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}向量的介紹}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}方陣對角化}{2}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}為什麼對角化有用？}{3}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}可對角化的核心判準（觀念版）}{3}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}實作流程}{3}{subsubsection.1.2.3}%
+\contentsline {section}{\numberline {2}基礎力學的介紹}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}牛頓力學}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}因次分析}{5}{subsection.2.2}%
+\contentsline {section}{\numberline {3}靜力學}{7}{section.3}%
+\contentsline {section}{\numberline {4}動力學}{8}{section.4}%
+\contentsline {subsection}{\numberline {4.1}斜拋運動}{8}{subsection.4.1}%
