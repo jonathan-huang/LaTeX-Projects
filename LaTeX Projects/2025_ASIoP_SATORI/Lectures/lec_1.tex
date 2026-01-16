@@ -1,0 +1,163 @@
+\chapter{Introduction to Machine Learning}
+% \lecture{3}{10 Sep. 08:00}{Third Lecture}
+
+
+\textbf{Machine Learning (ML)} is a study subfield of \textbf{Artificial Intelligence (AI)} focusing on the development and research of statistical algorithms that can learn data, with the ultimate goal of performing certain tasks without explicitly programmed instructions. Statistics and mathematical optimization comprise the foundations of machine learning. The term machine learning was termed by AI and computer gaming pioneer, Arthur Samuel in 1959. In the 1950s, Samuel made a computer checker program that calculated the winning chance of both sides, the first ML algorithm to appear.
+
+\begin{note}[Machine Learning in the Eye of a Mathematician]
+    Tom M. Mitchell provided a more formal definition of ML algorithms: \textit{"A computer program is said to learn from experience $ E $ with respect to some class of tasks $ T $ and performance measure $ P $ if its performance at tasks in $ T $, as measured by $ P $, improves with experience $ E $."} This is in agreement with Alan Turing's paper "\textit{Computing Machinery and Intelligence}", where the question \textit{"Can machines think?"} is replaced with the question \textit{"Can machines do what we (as thinking entities) can do?"}
+\end{note}
+
+The computational analysis of machine learning algorithms and their performance is known as computational learning theory via the \textbf{probably approximately correct learning model}.
+
+\section{Models of Machine Learning}
+A \textbf{machine learning model} is a type of mathematical model that can be used to make predictions or classifications on new data once trained on a given training dataset. There are many types of ML models, which we will list below.
+
+\subsection{Support-Vector Machines}
+\textbf{Support-vector machines (SVMs)} are a set of supervised learning algorithms used for classification and regression. An SVM algorithm is a non-probabilistic, binary, linear classifier, though nonlinear classification can be performed with the \textbf{kernel trick}. Given a training dataset with two classification labels, a SVM algorithm builds a model predicting whcih category a new example falls into.
+
+\subsection{Regression Analysis}
+
+\subsection{Decision Trees}
+\textbf{Decision tree learning} uses a decision tree as a predictive model to go from observations about an item (represented in the branches) to conclusions about the item's target value (represented in the leaves). When decision trees admit discrete or continuous values for target values, they are called \textbf{classification trees} or \textbf{regression trees}, respectively. A learning model based on decision trees is random forest regression (RFR), which builds multiple (independent) decision trees and takes the average of their predictions, thus improving accuracy.
+
+\subsection{Genetic Algorithms}
+A \textbf{genetic algorithm (GA)} is a search algorithm that mimics the process of natural selection, using methods such as mutation and crossover to generate new genotypes. The goal of GAs is to find good solutions to a given problem, and they have been used in the field of ML since the 1980s.
+
+\subsection{\label{ssec:NN}Neural Networks}
+Advances in the field of deep learning, a subfield of machine learning based on neural networks, has allowed these neural networks to surpass many machine learning approaches. Next we talk more about neural networks and their working principle.
+
+"In machine learning, a \textit{neural network} (also \textit{artificial neural network}) is a computational model inspired by the structure and functions of biological neural networks." (Wikipedia - Neural network (machnie learning)) These networks are typically trained through empirical risk minimization, and are the basic model for machine learning.
+
+An easy question when one hears about the breath-taking architecture of neural networks is: why neural networks? Well, the study of artificial neural networks began as an attempt to adopt the complex structures of the human brain to perform tasks that conventional algorithms had trouble with. Since the \textit{neurons} are connected in diverse ways, NNs have the remarkable ability to \textbf{learn} and model \textit{non-linearities} in complex systems.
+
+A NN consists of \textit{simulated neurons}, which admits a value in the interval $[0,1]$. Each neuron is connected to other nodes via edges, just like the structure of a biological \textbf{axon-synapse-dendrite} connection, forming a directed, weighted graph.
+
+\subsection{Perceptron and Multi-Layer Perceptron}
+
+The main reference for this section is the well-written online book \url{http://neuralnetworksanddeeplearning.com/chap1.html}. In much modern works, the neuron used is a \textit{sigmoid neuron}. However, we shall begin with one of the earliest model of an artificial neuron, the \textit{perceptron}, as an introduction. The perceptron was developed in the 1950s by Frank Rosenblatt; a perceptron takes several binary inputs, $x_1, x_2, \dots$, and produces a single binary output. He introduced weights, $w_1, w_2, \dots$, real numbers expressing the importance of the respective inputs to the output. The perceptron's output was restricted to 0 or 1 only, and is determined by whether the weighted sum $\sum_j w_j x_j$ is less than or greater than some threshold value.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Figures/mlp.png}
+    \caption{Enter Caption}
+    \label{fig:mlp}
+\end{figure}
+This is more similar to the \textbf{all-or-none principle} in physiology. It should seem plausible that a complex network of perceptrons could make quite subtle decisions:
+
+We can introduce this with an example inspired by 3B1B's online lecture on deep learning. 
+
+Since it is cumbersome to write 
+\begin{equation}
+    a^{(1)}_0 = \sigma \left( w^{(0)}_{0,0}a^{(0)}_0 + w^{(0)}_{0,1}a^{(0)}_1 + \cdots + w^{(0)}_{0, n}a^{(0)}_{n} + b^{(0)}_0 \right),
+\end{equation}
+for every neuron, we can collect the neuron values into a vector, and organize the weights correspondingly into a matrix (second-rank tensor). Then the right hand side becomes
+\begin{equation}
+    \begin{pmatrix}
+        w^{(0)}_{0,0} & w^{(0)}_{0,1} & \cdots & w^{(0)}_{0,n} \\
+        w^{(0)}_{1,0} & w^{(0)}_{1,1} & \cdots & w^{(0)}_{1,n} \\
+        \vdots & \ddots & \vdots & \vdots \\
+        w^{(0)}_{k,0} & w^{(0)}_{k,1} & \cdots & w^{(0)}_{k,n} \\
+    \end{pmatrix}
+    \begin{pmatrix}
+        a^{(0)}_{0} \\ a^{(0)}_1 \\ \vdots \\ a^{(0)}_{n}
+    \end{pmatrix}. 
+\end{equation}
+More compactly, let
+\begin{equation}
+    \mathbf{a}^{(0)} = 
+    \begin{pmatrix}
+        a^{(0)}_0 \\ a^{(0)}_{1} \\ \vdots \\ a^{(0)}_{n}
+    \end{pmatrix}, \;
+    \mathbf{a}^{(1)} = 
+    \begin{pmatrix}
+        a^{(1)}_0 \\ a^{(1)}_{1} \\ \vdots \\ a^{(1)}_{k}
+    \end{pmatrix}, \;
+    \mathbf{W} = 
+    \begin{pmatrix}
+        w^{(0)}_{0,0} & w^{(0)}_{0,1} & \cdots & w^{(0)}_{0,n} \\
+        w^{(0)}_{1,0} & w^{(0)}_{1,1} & \cdots & w^{(0)}_{1,n} \\
+        \vdots & \ddots & \vdots & \vdots \\
+        w^{(0)}_{k,0} & w^{(0)}_{k,1} & \cdots & w^{(0)}_{k,n} \\
+    \end{pmatrix},
+\end{equation}
+so 
+\begin{equation}
+    \mathbf{a}^{(1)} = \sigma\left( \mathbf{W}\mathbf{a}^{(0)} + \mathbf{b}^{(0)}\right).
+\end{equation}
+
+Therefore, instead of thinking about neuron as objects that hold a number, we should see them as a function of the outputs of the previous layer which outputs another value between 0 and 1.
+
+\subsection{Activation Functions}
+Activation functions introduce nonlinearities into the theory, which is vital for learning to take place. Famous activation functions include ReLu and the sigmoid function. As mentioned above, we want a function that "emphasizes" the values of neurons near the features we are interested in. 
+
+For example, to recognize shape in the top-right corner, we may assign large weights to neurons there, negative weights along its border, and near-zero weights everywhere else. To enlarge this effect, we put the resulting vector $\mathbf{a}^{(0)}$ along with some bias vector $\mathbf{b}$ into a specially designed function, called an \textbf{activation function}. The \textbf{sigmoid} or \textbf{logistic} function, first introduced by Hinton et al. (2012) for speech recognition, tends to 0 when input is negative, tends to 1 when input is positive, and increases steadily near zero input value; the \textbf{ReLU} function, first introduced in 2012 in the AlexNet computer vision model, is zero whenever the input is negative, and increase linearly for positive input.
+
+Looking at the dates above, we see that the study of neural networks is a new and growing field! Other than the ones mentioned above, other activation functions include \textbf{GELU} (2018), \textbf{SiLU}, \textbf{ELU}, \textbf{LeakyReLU}, \textbf{Softplus}, and \textbf{tanh}. These activation function have explicit derivative forms.
+
+Finally, \textbf{Softmax} is an activation function that takes input from more thah one preceeding layers. It is often used as the last activation function of a neural network to normalize the output of a network to a probability distribution over predicted output classes.
+
+\subsection{Backpropagation}
+These include stochastic gradient descent (SDG), Adam, etc,
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Figures/neuron.png}
+    \caption{Diagram of a typical neuron in biology.}
+    \label{fig:neuron}
+\end{figure}
+
+\section{What is Learning?}
+Learning is the adaptation of the network to better handle a task by considering sample observations. In the context of neural networks, learning involves adjusting the weights (and optional thresholds) of the network to improve the accuracy of the result. This is done by minimizing the observed errors, or, the loss function (see previous subsection \ref{ssec:loss}).
+
+\subsection{Learning Paradigms}
+As discussed above, a neural network has a large number of parameters, including weights and biases, that have to be tweaked in order to make the best prediction. \textbf{Learning} is \textit{the process of finding the right weights and biases}. There are three main paradigms of learning: \textbf{supervised learning}, \textbf{unsupervised learning}, and \textbf{reinforcement learning}.
+
+\subsubsection{Supervised Learning}
+
+
+\subsubsection{Unsupervised Learning}
+Tasks that fall within the paradigm of unsupervised learning are in general \textit{estimation problems}. Applications include clustering, the estimation of statistical distributions, compression, and filtering.
+
+\subsubsection{Reinforcement Learning}
+
+
+\subsection{Training and Cross-Validation}
+Train/test split. We simulate a collection of data, and split it into a training set and a test set. Usually, the test set is smaller, but they are both uniformly distributed.
+
+\subsection{Overfitting and Underfitting}
+Overfitting means that the model is memorizing the training data rather than learning generalizable patterns. This means that the model has learned the training data \textit{too well}, effectively memorizing the training data set, and thus struggles to \textbf{generalize}.
+
+\section{Loss}
+In machine learning, \textbf{training loss} and \textbf{validation loss} are two critical metrics used to evaluate a model's performance during the training process. In the project, various training and validation loss trends are plotted using \verb|tensorboard|.
+\begin{itemize}
+    \item Training loss: Training loss measures the error of the model on the training data. It indicates how well the model is fitting the data it has seen, and its decrease generally suggests effective learning of patterns within the training set. During training, the goal is to minimize this loss, however, a very low training loss can indicate overfitting.
+    \item Validation loss: Validation loss measures the error of the model on the validation data, which is a separate dataset that the model has not seen during training. If the training loss continues to decrease but the validation loss starts to increase, it is a strong indicator of overfitting.
+\end{itemize}
+
+There are a few commonly used loss functions, which we will discuss in detail below.
+
+\subsection{Mean Square Error}
+
+\subsection{Cross Entropy Loss}
+Cross-entropy loss is a commonly used loss function in classification problems, especially in logistic regression and neural networks. It measures the difference between the true probability distribution and the distribution predicted by the model, quantifying how well the output matches the true labels.
+
+The cross entropy loss is non-negative, and has high sensitivity to confidence, i.e. it penalizes confident but incorrect predictions more heavily than unconfident ones.
+
+\subsection{Gaussian Loss}
+
+\subsection{Heteroscedastic Gaussian Loss}
+Heteroscedastic Gaussian Process Regression is an algorithm to estimate
+simultaneously both mean and variance of a non parametric regression problem. Unlike standard \textit{Gaussian Process regression} or \textit{SVMs}, it is able to estimate variance locally. \cite{HGloss}
+
+This is the loss function currently used in the DNN training process for \verb|energy| and \verb|xmax|. 
+
+\section{Latency}
+
+\section{Bias-Variance Tradeoff}
+\subsection{James-Stein Estimator}
+A famous demonstration of the bias-variance tradeoff is the \textbf{James-Stein Estimator}.
+
+The idea of shrinkage is known as \textbf{regularization} in the context of machine learning. As the number of parameter grows, adding a shrinkage factor can sometimes reduce the mean square error of our estimation. Shrinking different parameters separately can also give us an idea of which parameters are important. 
+
+\section{State of the Art of Machine Learning}
+After the success of \textbf{AxiNet}, the focus of machine learning research shifted towards deep learning, which will be discussed in detail in the next section.

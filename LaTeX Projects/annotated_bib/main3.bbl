@@ -1,0 +1,42 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{#1}
+\csname url@rmstyle\endcsname
+\providecommand{\newblock}{\relax}
+\providecommand{\bibinfo}[2]{#2}
+\providecommand\BIBentrySTDinterwordspacing{\spaceskip=0pt\relax}
+\providecommand\BIBentryALTinterwordstretchfactor{4}
+\providecommand\BIBentryALTinterwordspacing{\spaceskip=\fontdimen2\font plus
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus \fontdimen4\font\relax}
+\providecommand\BIBforeignlanguage[2]{{%
+\expandafter\ifx\csname l@#1\endcsname\relax
+\typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
+\typeout{** loaded for the language `#1'. Using the pattern for}%
+\typeout{** the default language instead.}%
+\else
+\language=\csname l@#1\endcsname
+\fi
+#2}}
+
+\bibitem{Feinberg2019CRNT}
+M.~Feinberg, \emph{Foundations of Chemical Reaction Network Theory}, ser. Applied Mathematical Sciences.\hskip 1em plus 0.5em minus 0.4em\relax Cham: Springer, 2019, vol. 202.
+ \begin{quotation}\noindent The definitive introduction to chemical reaction network theory (CRNT), developing rigorous links between a network's graphical/algebraic structure and qualitative properties of the nonlinear ODEs it induces. \end{quotation}
+
+\bibitem{Gunawardena2003CRNTinsilico}
+\BIBentryALTinterwordspacing
+J.~Gunawardena, ``Chemical reaction network theory for \textit{in-silico} biologists,'' Bauer Center for Genomics Research, Harvard University, 7 Divinity Avenue, Cambridge, MA 02138, USA, Lecture notes, June 2003. [Online]. Available: \url{https://www.few.vu.nl/~rplanque/resources/PapersForProject/gunawardena_2003.pdf}
+\BIBentrySTDinterwordspacing
+ \begin{quotation}\noindent This lecture note is a self-contained introduction to Chemical Reaction Network Theory for readers in systems biology. Gunawardena formalizes reaction networks, and, using linear-algebraic tools and Perron-Frobenius theory, he develops the pathway to the deficiency-zero theorem, thus establishing conditions for existence, uniqueness, and local asymptotic stability of equilibria. Weak reversibility, terminal strong linkage classes, and examples illustrating when deficiency one admits multistationarity are also discussed. The notes emphasize how much of the nonlinear mass-action dynamics is constrained by hidden linear structure, making CRNT a powerful qualitative tool even without precise kinetic parameters. \end{quotation}
+
+\bibitem{Lin2020OriginExponentialGrowth}
+W.-H. Lin, E.~Kussell, L.-S. Young, and C.~Jacobs-Wagner, ``Origin of exponential growth in nonlinear reaction networks,'' \emph{Proceedings of the National Academy of Sciences of the United States of America}, vol. 117, no.~45, pp. 27\,795--27\,804, 2020.
+ \begin{quotation}\noindent Lin et al. proposes a general theoretical framework that explains how exponential growth emerges in complex nonlinear reaction networks by combining two central principles: scalability of flux functions and ergodicity of the rescaled system dynamics. Although many biological networks are highly nonlinear, under the condition of scalability and ergodicity, they will exhibit either a well-defined exponential growth rate or periodic, quasi-periodic, or chaotic growth. \end{quotation}
+
+\bibitem{Siegel2000GlobalStabilityComplexBalanced}
+D.~Siegel and D.~MacLean, ``Global stability of complex balanced mechanisms,'' \emph{Journal of Mathematical Chemistry}, vol.~27, no.~1, pp. 89--110, 2000.
+ \begin{quotation}\noindent This paper proves global convergence results for mass-action systems that are complex balanced: for any stoichiometric compatibility class, the omega-limit set of a trajectory consists either of a unique positive complex-balanced equilibrium or of boundary complex-balanced equilibria. The theorem is applied to several enzymatic mechanisms, establishing global asymptotic stability of their interior equilibria. The work extends classical detailed-balance results to the broader complex-balanced class, giving powerful structural criteria for global dynamics without parameter tuning. \end{quotation}
+
+\bibitem{Sontag2007Monotone}
+E.~D. Sontag, ``Monotone and near-monotone biochemical networks,'' \emph{Systems and Synthetic Biology}, vol.~1, no.~2, pp. 59--87, 2007.
+ \begin{quotation}\noindent Sontag surveys how monotone systems theory can be used to infer qualitative dynamics of biochemical networks directly from signed interaction graphs, without detailed parameters. In monotone networks, trajectories are order-preserving, ruling out stable oscillations and chaos and enabling powerful decomposition results for large systems. The paper also show how small violations of monotonicity can still yield tractable behaviors, including multistability via positive feedback and robust adaptation motifs. The review synthesizes graph-theoretic criteria and examples from gene regulation to provide a practical toolkit for reasoning about stability and bistability in complex biochemical networks. \end{quotation}
+
+\end{thebibliography}

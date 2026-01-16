@@ -1,0 +1,457 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\newenvironment{exerciseManual}[1]{%
+  \renewcommand{\theexercise}{#1}%
+  \begin{exercise}%
+  \addtocounter{exercise}{-1}%
+}{%
+  \end{exercise}%
+}
+
+\newenvironment{solutionManual}[1]{%
+  \renewcommand{\thesolution}{#1}%
+  \begin{solution}%
+  \addtocounter{solution}{-1}%
+}{%
+  \end{solution}%
+}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+  \textbf{2025 Fall Introduction to Geometry} \\
+  \vspace{0.5cm}
+  \large 
+  Homework 11 (Due Dec 5, 2025)\\
+}
+\author{物理三 黃紹凱 B12202004}
+
+\maketitle
+
+\begin{theorem}[Theorema Egregium]
+    The Gaussian curvature $ K $ of a surface is invariant under local isometries. Explicitly, for a parametrization $ \bvec{x}(u,v) $, we have 
+    \[
+        -EK = \left(\Gamma_{12}^2\right)_u - \left(\Gamma_{11}^2\right)_v + \Gamma_{12}^1 \Gamma_{11}^2 + \Gamma_{12}^2 \Gamma_{12}^2 - \Gamma_{11}^2 \Gamma_{22}^2 - \Gamma_{11}^1 \Gamma_{12}^2.
+    \]
+\end{theorem}
+
+\begin{lemma}[Gaussian curvature]
+    The Gaussian curvature $ K $ of a regular surface is given by
+    \[
+        K = \frac{eg - f^2}{EG - F^2}.
+    \]
+\end{lemma}
+\begin{proof}
+    Let $ \mathbf{x} : U \subset \mathbb{R}^2 \to S \subset \mathbb{R}^3 $ be a parametrization of a regular surface $ S $. Then, we have
+    \begin{align*}
+        E &= \langle \mathbf{x}_u, \mathbf{x}_u \rangle, \quad F = \langle \mathbf{x}_u, \mathbf{x}_v \rangle, \quad G = \langle \mathbf{x}_v, \mathbf{x}_v \rangle, \\
+        e &= \langle \mathbf{x}_{uu}, N \rangle, \quad f = \langle \mathbf{x}_{uv}, N \rangle, \quad g = \langle \mathbf{x}_{vv}, N \rangle,
+    \end{align*}
+    where $ N $ is the unit normal. In the basis $ \{\bvec{x}_u, \, \bvec{x}_v \} $, the first and second fundamental forms are 
+    \[
+        g = \begin{pmatrix}
+            E & F \\
+            F & G
+        \end{pmatrix}, \quad 
+        A = \begin{pmatrix}
+            e & f \\
+            f & g
+        \end{pmatrix}.
+    \]
+    The shape operator $ S : T_p S \to T_p S $ is defined by $ S(v) = - \mathrm{d} N_v $, with the principal curvatures $ k_1 $, $ k_2 $ being its eigenvalues. It has been shown that $ S = g^{-1} A $, so
+    \[
+        K = \det S = \det \left( g^{-1} A \right) = \frac{\det A}{\det g} = \frac{eg - f^2}{EG - F^2}.
+    \] 
+\end{proof}
+
+\newpage
+
+% Exercise 4.3.1
+\begin{exerciseManual}{4.3.1}
+Show that if $\mathbf{x}$ is an orthogonal parametrization, that is, $F=0$, then
+\[
+K = -\frac{1}{2\sqrt{EG}}
+\left\{
+\left( \frac{E_v}{\sqrt{EG}} \right)_v
++
+\left( \frac{G_u}{\sqrt{EG}} \right)_u
+\right\}.
+\]
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.1}
+    From the definition of the Christoffel symbols, we have 
+    \begin{align*}
+        \bvec{x}_{uu} &= \Gamma_{11}^1 \bvec{x}_u + \Gamma_{11}^2 \bvec{x}_v + L_1 N, \\
+        \bvec{x}_{uv} &= \Gamma_{12}^1 \bvec{x}_u + \Gamma_{12}^2 \bvec{x}_v + L_2 N, \\
+        \bvec{x}_{vv} &= \Gamma_{22}^1 \bvec{x}_u + \Gamma_{22}^2 \bvec{x}_v + L_3 N, 
+    \end{align*}
+    we can compute the relations satisfied by the Christoffel symbols by taking inner product with $ \bvec{x}_u $ and $ \bvec{x}_v $ for each of the three equations above. Then, we get 
+    \begin{align*}
+        \Gamma_{11}^1 E + \Gamma_{11}^2 F &= \frac{E_u}{2}, \quad \Gamma_{11}^1 F + \Gamma_{11}^2 G = F_u - \frac{E_v}{2}, \\
+        \Gamma_{12}^1 E + \Gamma_{12}^2 F &= \frac{E_v}{2}, \quad \Gamma_{12}^1 F + \Gamma_{12}^2 G = \frac{G_u}{2}, \\
+        \Gamma_{22}^1 E + \Gamma_{22}^2 F &= F_v - \frac{G_u}{2}, \quad \Gamma_{22}^1 F + \Gamma_{22}^2 G = \frac{G_v}{2}.
+    \end{align*}
+    Since $ F = 0 $ and $ \Gamma_{jk}^i = \Gamma_{kj}^i $, we have
+    \begin{align*}
+        \Gamma_{11}^1 &= \frac{E_u}{2E}, \quad \Gamma_{11}^2 = -\frac{E_v}{2G}, \quad \Gamma_{12}^1 = \Gamma_{21}^1 = \frac{E_v}{2E} , \\
+        \Gamma_{12}^2 &= \Gamma_{21}^2 = \frac{G_u}{2G}, \quad \Gamma_{22}^1 = -\frac{G_u}{2E}, \quad \Gamma_{22}^2 = \frac{G_v}{2G}.
+    \end{align*}
+    and taking inner product with $ N $ gives $ L_1 = e $, $ L_2 = f $, $ L_3 = g $. Thus, we have 
+    \begin{align*}
+        \bvec{x}_{uu} &= \frac{E_u}{2E} \bvec{x}_u - \frac{E_v}{2G} \bvec{x}_v + e N, \\
+        \bvec{x}_{uv} &= \frac{E_v}{2E} \bvec{x}_u + \frac{G_u}{2G} \bvec{x}_v + f N, \\
+        \bvec{x}_{vv} &= -\frac{G_u}{2E} \bvec{x}_u + \frac{G_v}{2G} \bvec{x}_v + g N.
+    \end{align*}
+
+    Next, use equation (1) in Section 4.3 to get  
+    \[
+        N_u = \frac{fF - eG}{EG - F^2} \bvec{x}_u + \frac{eF - fE}{EG - F^2} \bvec{x}_v = -\frac{e}{E} \bvec{x}_u - \frac{f}{G} \bvec{x}_v,
+    \]
+    \[
+        N_v = \frac{gF - fG}{EG - F^2} \bvec{x}_u + \frac{fF - gE}{EG - F^2} \bvec{x}_v = -\frac{f}{E} \bvec{x}_u - \frac{g}{G} \bvec{x}_v.
+    \]
+    Since the parametrization is continuously differentiable, the partial derivatives commute, and we have $ \bvec{x}_{uuv} - \bvec{x}_{uvu} = 0 $. First, let's compute the following partial derivatives:
+    \[
+        \left(\frac{E_v}{2G}\right)_v = \frac{E_{vv}}{2G} - \frac{E_v G_v}{2G^2}, \quad \left(\frac{G_u}{2G}\right)_u = \frac{G_{uu}}{2G} - \frac{(G_u)^2}{2G^2}.
+    \]
+    Next, we will compute $ \bvec{x}_{uuv} $: 
+    \begin{align*}
+        \bvec{x}_{uuv} &= (x_{uu})_v = \left( \frac{E_u}{2E} \bvec{x}_u - \frac{E_v}{2G} \bvec{x}_v + e N \right)_v \\
+        &= \left( \frac{E_u}{2E} \right)_v \bvec{x}_u + \frac{E_u}{2E} \bvec{x}_{uv} - \left( \frac{E_v}{2G} \right)_v \bvec{x}_v - \frac{E_v}{2G} \bvec{x}_{vv} + e_v N + e N_v \\
+        &= \left( \frac{E_u}{2E} \right)_v \bvec{x}_u + \frac{E_u}{2E} \left[\frac{E_v}{2E} \bvec{x}_u + \frac{G_u}{2G} \bvec{x}_v + f N\right] - \left( \frac{E_v}{2G} \right)_v \bvec{x}_v \\
+        &\quad - \frac{E_v}{2G} \left[-\frac{G_u}{2E} \bvec{x}_u + \frac{G_v}{2G} \bvec{x}_v + g N\right] + e_v N + e \left(-\frac{f}{E} \bvec{x}_u - \frac{g}{E} \bvec{x}_v \right) \\
+        &= \left[ \left( \frac{E_u}{2E} \right)_v + \frac{E_u E_v}{4E^2} + \frac{E_v G_u}{4EG} - \frac{ef}{E} \right] \bvec{x}_u + \left[ -\left( \frac{E_v}{2G} \right)_v + \frac{E_u G_u}{4EG} - \frac{E_v G_v}{4G^2} - \frac{eg}{G} \right] \bvec{x}_v \\
+        &\quad + \left[ \frac{E_u f}{2E} - \frac{E_v g}{2G} + e_v \right] N.
+    \end{align*}
+    In a similar manner, we have 
+    \begin{align*}
+        \bvec{x}_{uvu} &= (x_{uv})_u = \left( \frac{E_v}{2E} \bvec{x}_u + \frac{G_u}{2G} \bvec{x}_v + f N \right)_u \\
+        &= \left( \frac{E_v}{2E} \right)_u \bvec{x}_u + \frac{E_v}{2E} \bvec{x}_{uu} + \left( \frac{G_u}{2G} \right)_u \bvec{x}_v + \frac{G_u}{2G} \bvec{x}_{uv} + f_u N + f N_u \\
+        &= \left( \frac{E_v}{2E} \right)_u \bvec{x}_u + \frac{E_v}{2E} \left[\frac{E_u}{2E} \bvec{x}_u - \frac{E_v}{2G} \bvec{x}_v + e N\right] \\
+        &\quad + \left( \frac{G_u}{2G} \right)_u \bvec{x}_v + \frac{G_u}{2G} \left[\frac{E_v}{2E} \bvec{x}_u + \frac{G_u}{2G} \bvec{x}_v + f N\right] + f_u N + f \left(-\frac{e}{G} \bvec{x}_u - \frac{f}{G} \bvec{x}_v\right) \\
+        &= \left[ \left( \frac{E_v}{2E} \right)_u + \frac{E_u E_v}{4E^2} + \frac{E_v G_u}{4EG} - \frac{ef}{E} \right] \bvec{x}_u + \left[ \left( \frac{G_u}{2G} \right)_u - \frac{(E_v)^2}{4EG} + \frac{(G_u)^2}{4G^2} -\frac{f^2}{G} \right] \bvec{x}_v \\
+        &\quad + \left[ \frac{E_v e}{2E} + \frac{G_u f}{2G} + f_u \right] N. 
+    \end{align*}
+    Combining the two results above, we have
+    \begin{align*}
+        \bvec{x}_{uuv} - \bvec{x}_{uvu} &= \left[ \left(\frac{E_u}{2E}\right)_v - \left(\frac{E_v}{2E}\right)_u \right] \bvec{x}_u + \left[\frac{E_u f - E_v e}{2E} - \frac{E_v g - G_u f}{2G} + e_v - f_u \right] N \\
+        &\quad + \left[ \frac{E_u G_u + (E_v)^2}{4EG} - \frac{E_v G_v + (G_u)^2}{4G^2} - \frac{eg - f^2}{G} - \left(\frac{E_v}{2G}\right)_v - \left(\frac{G_u}{2G}\right)_u \right] \bvec{x}_v = 0 .
+    \end{align*}
+    Since $ \{\bvec{x}_u, \bvec{x}_v, N\} $ is an orthonormal basis, each coefficient is equal to zero. Set the coefficient of $ \bvec{x}_v $ to zero and recall the formula for the Gaussian curvature: 
+    \begin{align*}
+        K &= \frac{eg - f^2}{EG - F^2} = \frac{eg - f^2}{EG} \\
+        &= \frac{E_u G_u + (E_v)^2}{4E^2 G} - \frac{E_v G_v + (G_u)^2}{4 E G^2} - \frac{1}{E} \left(\frac{E_v}{2G}\right)_v - \frac{1}{E} \left(\frac{G_u}{2G}\right)_u \\ 
+        &= \frac{E_u G_u}{4E^2 G} + \frac{(E_v)^2}{4E^2 G} - \frac{E_v G_v}{4 E G^2} - \frac{(G_u)^2}{4 E G^2} - \frac{E_{vv}}{2EG} + \frac{E_v G_v}{2 E G^2} - \frac{G_{uu}}{2EG} + \frac{(G_u)^2}{2EG^2} \\
+        &= -\frac{1}{2\sqrt{EG}} \left[ \frac{G_{uu}}{\sqrt{EG}} - \frac{E_u G_u}{2E \sqrt{EG}} - \frac{(G_u)^2}{2G \sqrt{EG}} + \frac{E_{vv}}{\sqrt{EG}} - \frac{(E_v)^2}{2E \sqrt{EG} } - \frac{E_v G_v}{2 G \sqrt{EG} } \right] \\
+        &= - \frac{1}{2\sqrt{EG}} \left\{ \left( \frac{E_v}{\sqrt{EG}} \right)_v + \left( \frac{G_u}{\sqrt{EG}} \right)_u \right\}.
+    \end{align*}
+
+    \begin{remark}
+        The above formual for the Gaussian curvature of orthogonal parametrizations is known as the \emph{Brioschi formula}.
+    \end{remark}
+\end{solutionManual}
+
+% Exercise 4.3.2
+\begin{exerciseManual}{4.3.2}
+    Show that if $\mathbf{x}$ is an isothermal parametrization, that is, 
+    $E = G = \lambda(u,v)$ and $F=0$, then
+    \[
+        K = -\frac{1}{2\lambda}\,\Delta(\log \lambda),
+    \]
+    where $\Delta \varphi$ denotes the Laplacian $(\partial^2 \varphi/\partial u^2) + (\partial^2 \varphi/\partial v^2)$ of the function $\varphi$. Conclude that when 
+    \[
+        E = G = (u^2 + v^2 + c)^{-2} \quad\text{and}\quad F = 0,
+    \]
+    then $K = \text{const.} = 4c$.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.2}
+    Suppose $ \bvec{x} $ is an isothermal parametrization, that is, $ E = G = \lambda(u,v) $ and $ F = 0 $. Then we have 
+    \begin{align*}
+        E_v &= \lambda_v, \quad G_u = \lambda_u, \\
+        E_{vv} &= \lambda_{vv}, \quad G_{uu} = \lambda_{uu}.
+    \end{align*}
+    From the proof of Exercise 4.3.1, since an isothermal parametrization is orthogonal, we have
+    \begin{align*}
+        K &= -\frac{1}{2\sqrt{EG}} \left[ \frac{G_{uu}}{\sqrt{EG}} - \frac{E_u G_u}{2E \sqrt{EG}} - \frac{(G_u)^2}{2G \sqrt{EG}} + \frac{E_{vv}}{\sqrt{EG}} - \frac{(E_v)^2}{2E \sqrt{EG} } - \frac{E_v G_v}{2 G \sqrt{EG} } \right] \\
+        &= -\frac{1}{2\lambda} \left[ \frac{\lambda_{uu}}{\lambda} - \frac{\lambda_u^2}{2\lambda^2} - \frac{\lambda_u^2}{2\lambda^2} + \frac{\lambda_{vv}}{\lambda} - \frac{\lambda_v^2}{2\lambda^2} - \frac{\lambda_v^2}{2\lambda^2} \right] \\
+        &= -\frac{1}{2\lambda} \left[ \frac{\lambda_{uu} + \lambda_{vv}}{\lambda} - \frac{\lambda_u^2 + \lambda_v^2}{\lambda^2} \right] = -\frac{1}{2\lambda} \Delta(\log \lambda),
+    \end{align*}
+    since
+    \begin{align*}
+        \Delta \left(\log \lambda\right) &= \left(\frac{\partial^2}{\partial u^2} + \frac{\partial^2}{\partial v^2}\right) (\log \lambda)
+        = \frac{\partial}{\partial u} \left( \frac{\lambda_u}{\lambda} \right) + \frac{\partial}{\partial v} \left( \frac{\lambda_v}{\lambda} \right) 
+        = \frac{\lambda_{uu} + \lambda_{vv}}{\lambda} - \frac{\lambda_u^2 + \lambda_v^2}{\lambda^2}.
+    \end{align*}
+
+    Let $ E = G = (u^2 + v^2 + c)^{-2} $ and $ F = 0 $, then we have $ \lambda (u,v) = (u^2 + v^2 + c)^{-2} $. Then, 
+    \begin{align*}
+         \frac{\partial}{\partial u} (\log \lambda) &= -2 \frac{\partial}{\partial u} \log \left(u^2 + v^2 + c\right)
+        = -\frac{4u}{u^2 + v^2 + c}, \\
+        \frac{\partial^2}{\partial u^2}(\log \lambda) &= -4 \frac{\partial}{\partial u} \left( \frac{u}{u^2 + v^2 + c} \right) = -4 \,\frac{(-u^2 + v^2 + c)}{(u^2 + v^2 + c)^2}, \\
+        \frac{\partial}{\partial v} (\log \lambda) &= -2 \frac{\partial}{\partial v} \log \left(u^2 + v^2 + c\right) = -\frac{4v}{u^2 + v^2 + c}, \\
+        \frac{\partial^2}{\partial v^2}(\log \lambda) &= -4 \frac{\partial}{\partial v} \left( \frac{v}{u^2 + v^2 + c} \right) = -4\, \frac{(u^2 - v^2 + c)}{(u^2 + v^2 + c)^2}. 
+    \end{align*}
+    \[
+        \implies K = -\frac{1}{2 \lambda} \Delta (\log \lambda) = -\frac{1}{2} (u^2 + v^2 + c)^2 \left( - \frac{8c}{(u^2 + v^2 + c)^2} \right) = 4c.
+    \]
+    This surface has constant Gaussian curvature $ K = 4c $.
+
+    \begin{remark}
+        For $ c>0 $, this correponds to the stereographic projection of a sphere of radius $ 1/\sqrt{c} $ minus the north pole; for $ c=0 $, this corresponds to the Euclidean plane; and for $ c<0 $, this corresponds to the stereographic projection of a hyperbolic plane. 
+    \end{remark}
+\end{solutionManual}
+
+% Exercise 4.3.3
+\begin{exerciseManual}{4.3.3}
+    Verify that the surfaces
+    \[
+        \mathbf{x}(u,v) = (u\cos v,\; u\sin v,\; \log u), 
+    \quad u>0,
+    \]
+    \[
+        \bar{\mathbf{x}}(u,v) = (u\cos v,\; u\sin v,\; v),
+    \]
+    have equal Gaussian curvature at the points $\mathbf{x}(u,v)$ and $\bar{\mathbf{x}}(u,v)$, but that the mapping $\bar{\mathbf{x}} \circ \mathbf{x}^{-1}$ is not an isometry. This shows that the "converse" of the Gauss theorem is not true.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.3}
+    First, we compute the first fundamental form of $ \bvec{x}(u,v) $ and $ \bar{\bvec{x}}(u,v) $:
+    \begin{align*}
+        \bvec{x}_u &= \left(\cos v, \sin v, \frac{1}{u}\right), \quad \bvec{x}_v = \left(-u \sin v, u \cos v, 0\right), \\
+        E &= \langle \bvec{x}_u, \bvec{x}_u \rangle = \cos^2 v + \sin^2 v + \frac{1}{u^2} = 1 + \frac{1}{u^2}, \\
+        F &= \langle \bvec{x}_u, \bvec{x}_v \rangle = -u \cos v \sin v + u \sin v \cos v + 0 = 0, \\
+        G &= \langle \bvec{x}_v, \bvec{x}_v \rangle = u^2 \sin^2 v + u^2 \cos^2 v + 0 = u^2.
+    \end{align*}
+    Similarly, we have
+    \begin{align*}
+        \overline{\bvec{x}}_u &= (\cos v, \, \sin v, \, 0), \quad \overline{\bvec{x}}_v = (-u \sin v,\, u \cos v,\, 1), \\
+        \overline{E} &= \langle \overline{\bvec{x}}_u, \, \overline{\bvec{x}}_u \rangle = \cos^2 v + \sin^2 v + 0 = 1, \\
+        \overline{F} &= \langle \overline{\bvec{x}}_u, \, \overline{\bvec{x}}_v \rangle = -u \cos v \sin v + u \sin v \cos v + 0 = 0, \\
+        \overline{G} &= \langle \overline{\bvec{x}}_v, \, \overline{\bvec{x}}_v \rangle = u^2 \sin^2 v + u^2 \cos^2 v + 1 = u^2 + 1.
+    \end{align*}
+    Notice that for orthogonal parametrizations, the Gaussian curvature only depends on the following quantities:
+    \[
+        E_v = \overline{E}_v = 0, \quad G_u = \overline{G}_u = 2u, \quad EG = \left(1 + \frac{1}{u^2}\right) u^2 = u^2 + 1 = \overline{E} \,\overline{G}.
+    \]
+    Since $ F = \overline{F} = 0 $, both parametrizations are orthogonal, so by Exercise 4.3.1 the Gaussian curvature at the points $ \bvec{x}(u,v) $ and $ \overline{\bvec{x}}(u,v) $ are equal. Consider the map $ \Phi : S \to \overline{S} $ defined by $ \Phi = \overline{\bvec{x}} \circ \bvec{x}^{-1} $, where $ S $ and $ \overline{S} $ are the images of $ \bvec{x} $ and $ \overline{\bvec{x}} $, respectively. Since $ \Phi $ satisfies $ \Phi (\bvec{x}(u,v)) = \overline{\bvec{x}} (u,v) $, we have 
+    \[
+        \mathrm{d} \Phi_{\bvec{x}(u,v)} (\bvec{x}_u) = \frac{\partial}{\partial u} \overline{\bvec{x}}(u,v) = \overline{\bvec{x}}_u, \quad \mathrm{d} \Phi_{\bvec{x}(u,v)} (\bvec{x}_v) = \frac{\partial}{\partial v} \overline{\bvec{x}}(u,v) = \overline{\bvec{x}}_v.
+    \]
+    Then, we compute the first fundamental form at $ \bvec{x}(u,v) $ under the map $ \Phi $:
+    \[
+        \langle \mathrm{d}\Phi_{\bvec{x}(u,v)} (\bvec{x}_u), \, \mathrm{d}\Phi_{\bvec{x}(u,v)} (\bvec{x}_u) \rangle = \langle \overline{\bvec{x}}_u, \, \overline{\bvec{x}}_u \rangle = \overline{E} = 1 \neq 1 + \frac{1}{u^2} = E = \langle \bvec{x}_u, \, \bvec{x}_u \rangle,
+    \]
+    so $ \Phi $ is not an isometry.
+
+    \begin{remark}
+        Two regular surfaces with identical Gaussian curvature at corresponding points are not necessarily isometric.
+    \end{remark}
+\end{solutionManual}
+
+% Exercise 4.3.8
+\begin{exerciseManual}{4.3.8}
+    Compute the Christoffel symbols for an open set of the plane
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item In Cartesian coordinates.
+        \item In polar coordinates.
+    \end{enumerate}
+    Use the Gauss formula to compute $K$ in both cases.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.8}
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item An open set of the plane can be parametrized in Cartesian coordinates as $ \bvec{x}(u,v) = (u,v,0) $. Then, we have
+        \[
+            E = \langle \bvec{x}_u, \bvec{x}_u \rangle = 1, \quad F = \langle \bvec{x}_u, \bvec{x}_v \rangle = 0, \quad G = \langle \bvec{x}_v, \bvec{x}_v \rangle = 1.
+        \]
+        Since $ F=0 $ and $ E, G \neq 0 $, we have 
+        \begin{align*}
+            \Gamma_{11}^1 &= \frac{E_u}{2E} = 0, \quad \Gamma_{11}^2 = -\frac{E_v}{2G} = 0, \quad \Gamma_{12}^1 = \Gamma_{21}^1 = \frac{E_v}{2E} = 0 , \\
+            \Gamma_{12}^2 &= \Gamma_{21}^2 = \frac{G_u}{2G} = 0, \quad \Gamma_{22}^1 = -\frac{G_u}{2E} = 0, \quad \Gamma_{22}^2 = \frac{G_v}{2G} = 0.
+        \end{align*} 
+        Hence, all Christoffel symbols are zero. Next, compute 
+        \[
+            \bvec{x}_{uu} = \bvec{x}_{uv} = \bvec{x}_{vv} = 0, 
+        \]
+        so with the unit normal $ N = (0,0,1) $, we have  
+        \[
+            e = \langle \bvec{x}_{uu}, N \rangle = 0, \quad f = \langle \bvec{x}_{uv}, N \rangle = 0, \quad g = \langle \bvec{x}_{vv}, N \rangle = 0.
+        \]
+        Therefore, since $ EG - F^2 \neq 0 $, the Gaussian curvature is given by the Gauss formula as
+        \[
+            K = \frac{eg - f^2}{EG - F^2} = 0.
+        \]
+
+        \item An open set of the plane can also be parametrized in polar coordinates, given by the parametrization $ \bvec{x}(u,v) = (u \cos v, u \sin v, 0) $. Then, we have
+        \[
+            E = \langle \bvec{x}_u, \bvec{x}_u \rangle = 1, \quad F = \langle \bvec{x}_u, \bvec{x}_v \rangle = 0, \quad G = \langle \bvec{x}_v, \bvec{x}_v \rangle = u^2.
+        \]
+        Since $ F=0 $, we have the following Christoffel symbols whenever $ u \neq 0 $:  
+        \begin{align*}
+            \Gamma_{11}^1 &= \frac{E_u}{2E} = 0, \quad \Gamma_{11}^2 = -\frac{E_v}{2G} = 0, \quad \Gamma_{12}^1 = \Gamma_{21}^1 = \frac{E_v}{2E} = 0 , \\
+            \Gamma_{12}^2 &= \Gamma_{21}^2 = \frac{G_u}{2G} = \frac{1}{u}, \quad \Gamma_{22}^1 = -\frac{G_u}{2E} = -u, \quad \Gamma_{22}^2 = \frac{G_v}{2G} = 0.
+        \end{align*}
+        Unlike in the Cartesian coordinates, not all Christoffel symbols are zero. Next, compute 
+        \[
+            \bvec{x}_{uu} = (0,0,0), \quad \bvec{x}_{uv} = (-\sin v, \cos v, 0), \quad \bvec{x}_{vv} = (-u \cos v, -u \sin v, 0),
+        \]
+        so with the unit normal $ N = (0,0,1) $, we have
+        \[
+            e = \langle \bvec{x}_{uu}, N \rangle = 0, \quad f = \langle \bvec{x}_{uv}, N \rangle = 0, \quad g = \langle \bvec{x}_{vv}, N \rangle = 0.
+        \]
+        Therefore, since $ EG - F^2 \neq 0 $, the Gaussian curvature is given by the Gauss formula as 
+        \[
+            K = \frac{eg - f^2}{EG - F^2} = 0.
+        \]
+    \end{enumerate}
+\end{solutionManual}
+
+% Exercise 4.3.9
+\begin{exerciseManual}{4.3.9}
+    Justify why the surfaces below are not pairwise locally isometric:
+    \begin{enumerate}[label=\textbf{\alph*.}]
+    \item Sphere.
+    \item Cylinder.
+    \item Saddle $z = x^2 - y^2$.
+    \end{enumerate}
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.9}
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item The sphere has constant positive Gaussian curvature. Let a sphere of radius $ r $ be centered about the origin, and let $ \bvec{x}(\theta, \phi) = (r \sin \theta \cos \phi, r \sin \theta \sin \phi, r \cos \theta) $ be a parametrization of the sphere. Then, 
+        \begin{align*}
+            \bvec{x}_{\theta} &= (r \cos \theta \cos \phi,\, r \cos \theta \sin \phi,\, -r \sin \theta), \\
+            \bvec{x}_{\phi} &= (-r \sin \theta \sin \phi,\, r \sin \theta \cos \phi,\, 0),
+        \end{align*}
+        and we have
+        \[
+            E = r^2, \quad F = 0, \quad G = r^2 \sin^2 \theta.
+        \]
+        We can compute
+        \[
+            E_{\phi} = 0, \quad G_{\theta} = 2 r^2 \sin \theta \cos \theta, \quad EG = r^4 \sin^2 \theta.
+        \]
+        Then, 
+        \[
+            \left(\frac{E_{\phi}}{\sqrt{EG}}\right)_{\phi} = 0, \quad \left(\frac{G_{\theta}}{\sqrt{EG}}\right)_{\theta} = (\cos \theta)_{\theta} = -\sin \theta.
+        \]
+        Since $ F=0 $, the parametrization is orthogonal. By Exercise 4.3.1 we have
+        \[
+            K = - \frac{1}{2 r^2 \sin \theta} (-\sin \theta) = \frac{1}{2 r^2} > 0.
+        \]
+        
+        \item The cylinder has zero Gaussian curvature. Let a cylinder of radius $ r $ be centered about the $ z $-axis, and let $ \bvec{x}(\theta, z) = (r \cos \theta, r \sin \theta, z) $ be a parametrization of the cylinder. Then, 
+        \begin{align*}
+            \bvec{x}_{\theta} &= (-r \sin \theta,\, r \cos \theta,\, 0), \quad \bvec{x}_{z} = (0,\, 0,\, 1),
+        \end{align*}
+        and we have
+        \[
+            E = r^2, \quad F = 0, \quad G = 1.
+        \]
+        We can compute
+        \[
+            E_{z} = 0, \quad G_{\theta} = 0, \quad EG = r^2.
+        \]
+        Then,
+        \[
+            \left(\frac{E_{z}}{\sqrt{EG}}\right)_{z} = 0, \quad \left(\frac{G_{\theta}}{\sqrt{EG}}\right)_{\theta} = 0.
+        \]
+        Since $ F=0 $, the parametrization is orthogonal. By Exercise 4.3.1 we have
+        \[
+            K = - \frac{1}{2 r} (0 + 0) = 0.
+        \]
+
+        \item The saddle has negative Gaussian curvature. Let the saddle be given by the parametrization $ \bvec{x}(u,v) = (u, v, u^2 - v^2) $. Then,
+        \begin{align*}
+            \bvec{x}_{u} &= (1, 0, 2u), \quad \bvec{x}_{v} = (0, 1, -2v), \\
+            \bvec{x}_{uu} &= (0, 0, 2), \quad \bvec{x}_{uv} = (0, 0, 0), \quad \bvec{x}_{vv} = (0, 0, -2),
+        \end{align*}
+        and we have $ E = 1 + 4u^2 $, $ F = -4uv $, and $ G = 1 + 4v^2 $. The normal vector of the surface is given by
+        \[
+            N = \frac{\bvec{x}_u \wedge \bvec{x}_v}{\|\bvec{x}_u \wedge \bvec{x}_v\|} = \frac{(-2u, 2v, 1)}{\sqrt{1 + 4u^2 + 4v^2}}.
+        \]
+        Then, we have
+        \[
+            e = \langle \bvec{x}_{uu}, N \rangle = \frac{2}{\sqrt{1 + 4u^2 + 4v^2}}, \quad f = \langle \bvec{x}_{uv}, N \rangle = 0, \quad g = \langle \bvec{x}_{vv}, N \rangle = \frac{-2}{\sqrt{1 + 4u^2 + 4v^2}}.
+        \]
+        Since $ EG - F^2 = (1+4u^2)(1+4v^2) - 16 u^2 v^2 = 1 + 4u^2 + 4v^2 \neq 0 $, the Gaussian curvature is given by the Gauss formula as
+        \[
+            K = \frac{eg - f^2}{EG - F^2} = \dfrac{\left(\dfrac{2}{\sqrt{1 + 4u^2 + 4v^2}}\right) \left(\dfrac{-2}{\sqrt{1 + 4u^2 + 4v^2}}\right) - 0}{1 + 4u^2 + 4v^2} = \frac{-4}{(1 + 4u^2 + 4v^2)^2} < 0.
+        \] 
+    \end{enumerate}
+    Suppose \textbf{a.} to \textbf{c.} are pairwise locally isometric, then by the \emph{Theorema Egregium} they must have identical Gaussian curvature at corresponding points, a contradiction to our above calculation.
+\end{solutionManual}
+
+\end{CJK}
+\end{document}

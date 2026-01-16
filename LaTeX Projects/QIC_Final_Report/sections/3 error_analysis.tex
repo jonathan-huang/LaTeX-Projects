@@ -1,0 +1,168 @@
+\subsection{Bucket--Brigade QRAM}
+\label{ssec:bbqram}
+
+Let each routing node be a qutrit
+\(\{\ket{0},\ket{1},\ket{\bullet}\}\).
+During one query exactly \(n\) nodes are driven by the address photons.
+Following the approach in Arunachalam \emph{et al.}~\cite{Arunachalam2015}, we assume each active routing node is affected by a local, independent CPTP noise channel, which we approximate as a depolarizing channel for analytical tractability.
+Three logical outcomes may occur:
+
+\begin{enumerate}
+\item \textbf{Right path}.  
+  All \(n\) nodes switch correctly.  
+  Probability
+  \[
+     P_{\mathrm{right}}=(1-p)^{n}.
+  \]
+
+\item \textbf{Wrong path.}  
+  Exactly one active node flips to the wrong
+  branch while the others work.  
+  The bus qubit still reaches a leaf but
+  addresses a wrong memory cell, corrupting the data oracle.
+  To first order in \(p\)
+  \[
+     P_{\mathrm{wrong}}\approx n\,p\,(1-p)^{n-1}\le np .
+  \]
+
+\item \textbf{No path.}  
+  Any combination of two or more failed routers
+  disconnects the tree, leaving the bus qubit in a dangling wave-guide.
+  This event dominates the residual probability:
+  \(P_{\mathrm{nop}}\approx 1-P_{\mathrm{right}}-P_{\mathrm{wrong}}\).
+\end{enumerate}
+
+A single call therefore has fidelity
+\(F=P_{\mathrm{right}}\simeq 1-np\).
+Grover search makes
+\(K=\Theta(2^{n/2})\) calls, so the overall success probability is
+\(F^{K}\simeq\exp(-np\,2^{n/2})\).
+Keeping that constant demands
+\begin{equation}
+   p = \mathcal{O}\!\bigl(2^{-n/2}\bigr).
+   \label{eq:bbBound}
+\end{equation}
+Correlated dephasing or photon-loss leakage changes only the constant
+prefactor~\cite{Robust2024}.  
+Crucially, \eqref{eq:bbBound} shrinks \emph{exponentially} with the
+address size, so bb-QRAM is unlikely to scale beyond \(n\approx10\)
+without full quantum error correction.
+
+
+\subsection{Fan--Out QRAM}
+\label{ssec:fanout}
+
+A fan-out tree entangles the address register with a single bus photon
+that propagates through an \((2^{n}-1)\)-element GHZ state of routers
+\cite{Giovannetti2008}.  
+Modeling every router with an open-system master equation is intractable
+because the Lindblad operators act \emph{non-locally} on the collective
+GHZ mode.
+The accepted workaround is a union-bound argument:
+
+\begin{itemize}
+\item If an independent Pauli error hits \emph{any} router with
+      probability \(p\), coherence between two branches of the bus
+      photon is destroyed.
+\item The probability that \emph{no} router fails is
+      \(P_{\mathrm{right}}=(1-p)^{2^{n}-1}\).
+\end{itemize}
+
+Demanding \(P_{\mathrm{right}}\ge 1-\varepsilon\) yields
+\begin{equation}
+   p \le \frac{\varepsilon}{2^{n}-1}
+       = \mathcal{O}(2^{-n}).
+   \label{eq:fanoutSingle}
+\end{equation}
+Because the failure of \emph{one} router already reveals which-path
+information, \eqref{eq:fanoutSingle} is strictly tighter than the
+bucket-brigade bound~\eqref{eq:bbBound}.
+Inside Grover the requirement tightens to
+\(p=\mathcal{O}(2^{-3n/2})\).
+Hence fan-out QRAM is even more noise-intolerant than bb-QRAM, a
+conclusion echoed by recent architectural surveys
+\cite{Phalak2023,Morales2023}.
+
+
+\subsection{Flip--Flop QRAM}
+\label{ssec:ff}
+
+Flip-flop (FF) QRAM is implemented by a \emph{circuit} that writes
+\(M\) classical \(n\)-bit words into amplitude encoding using
+\(\Theta(M\,2^{n})\) elementary gates
+\cite{Park2019}.
+Park, Petruccione and Rhee assume that after every logical time step
+each qubit is depolarized with probability \(\varepsilon\).  
+Writing one data set therefore succeeds with probability
+\begin{equation}
+   P_{\mathrm{succ}}
+      =(1-\varepsilon)^{D},
+      \quad
+      D=\Theta(M\,n\log n),
+   \label{eq:ffDepth}
+\end{equation}
+where the \(\log n\) term is the T-count overhead of decomposing an
+\(n\)-control rotation.  
+Solving \eqref{eq:ffDepth} for \(\varepsilon\) and expanding gives
+\[
+   \varepsilon
+      = \mathcal{O}\!\bigl(1/(M n\log n)\bigr).
+\]
+Thus FF-QRAM tolerates \emph{inverse-polynomial} gate noise when the
+state is prepared only once.  
+If that same circuit is queried \(K=\Theta(2^{n/2})\) times,
+one multiplies the error budget by \(K\), reproducing an exponential
+constraint akin to \eqref{eq:bbBound}.  
+Because the register width is merely \(n+m+1\) qubits, however, the
+entire FF-QRAM can be encoded in a surface code, making the design far
+more fault-tolerance-friendly than bb- or fan-out QRAM.
+
+
+\subsection{Parameterized-Circuit QRAM (PQC-QRAM)}
+\label{ssec:pqc}
+
+A newer line of work replaces large, deterministic loaders by shallow
+\emph{variational} state-preparation circuits
+\cite{Benedetti2019,Du2022}.  
+Given classical amplitudes \(\mathbf{v}\in\mathbb{R}^{N}\) one optimizes
+a logarithmic-depth unitary
+\(U(\boldsymbol{\theta})\) such that
+\(U(\boldsymbol{\theta})\ket{0}^{\otimes n}\approx\ket{v}\).
+
+\paragraph{Error sources.}
+Two contributions add in series:
+
+\begin{enumerate}
+\item \textbf{Training error}  
+      \(
+  \varepsilon_{\text{train}}
+    = 1 \;-\; \left|\langle v \mid U(\theta)\mid 0^{\otimes n}\rangle\right|^{2}
+\).
+      This is a \emph{classical} approximation error that can be made
+      arbitrarily small given enough optimizer iterations
+      \cite{Du2022}.
+
+\item \textbf{Hardware noise}  
+      Each of the \(D=\Theta(poly(n))\) gates undergoes a Pauli
+      channel with probability \(p_{g}\).
+      The state fidelity becomes
+      \(F\approx (1-p_{g})^{D}\).
+\end{enumerate}
+
+For an algorithm that calls the loader \(K\) times we demand  
+\(F^{K}(1-\varepsilon_{\text{train}})\ge 1-\varepsilon\), giving
+\begin{equation}
+   p_{g}
+     \le \frac{\varepsilon-\varepsilon_{\text{train}}}{K\,D}
+     = \mathcal{O}\!\Bigl(\tfrac{1}{poly(n)}\Bigr),
+   \label{eq:pqcBound}
+\end{equation}
+because both \(K\) and \(D\) are polynomial in \(n\)
+for all known PQC-QRAM proposals.
+Equation~\eqref{eq:pqcBound} is \emph{polynomially} less stringent than
+the exponential bounds for router-based QRAMs, explaining why
+PQC-based loaders are currently regarded as the most NISQ-friendly
+memory interface~\cite{Gilyen2023}.
+They sacrifice the strict \(O(1)\) query depth of true QRAM for
+trainability and noise resilience, a trade-off acceptable in many
+variational or sampling-based workloads.

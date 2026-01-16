@@ -1,0 +1,1594 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\newenvironment{exerciseManual}[1]{%
+  \renewcommand{\theexercise}{#1}%
+  \begin{exercise}%
+  \addtocounter{exercise}{-1}%
+}{%
+  \end{exercise}%
+}
+
+\newenvironment{solutionManual}[1]{%
+  \renewcommand{\thesolution}{#1}%
+  \begin{solution}%
+  \addtocounter{solution}{-1}%
+}{%
+  \end{solution}%
+}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+  \textbf{2025 Fall Introduction to Geometry} \\
+  \vspace{0.5cm}
+  \Large Solutions to Exercises in Do Carmo \\
+}
+\author{黃紹凱 B12202004}
+\date{\today}
+
+\maketitle
+
+\section{Chapter 4.1}
+
+\section{Chapter 4.2}
+
+\begin{definition}[isometry]
+    A diffeomorphism $ \varphi: S \to \overline{S} $ is an \emph{isometry} if for all $ p \in S $ and all pairs $ w_1, w_2 \in T_p (S) $ we have 
+    \[
+        \langle w_1, w_2 \rangle_p = \langle \mathrm{d}\varphi_p (w_1), \mathrm{d}\varphi_p (w_2) \rangle_{\varphi(p)}.
+    \] 
+    The surfaces $ S $ and $ \overline{S} $ are then said to be \emph{isometric}.
+\end{definition}
+\begin{remark}
+    An isometry is a diffeomorphism that preserves the first fundamental form.
+\end{remark}
+
+\begin{proposition}[Do Carmo Proposition 4.2.1]
+    Assume the existence of parametrizations $ \bvec{x}: U \to S $ and $ \overline{\bvec{x}}: U \to \overline{S} $ such that $ E = \overline{E} $, $ F = \overline{F} $, $ G = \overline{G} $ in $ U $. Then $ \overline{\bvec{x}} \circ \bvec{x}^{-1}: \bvec{x}(U) \to \overline{S} $ is a local isometry.
+\end{proposition}
+
+% 4.2.5
+\begin{exerciseManual}{4.2.5}
+    Let $\alpha_1 : I \to \mathbb{R}^3$, $\alpha_2 : I \to \mathbb{R}^3$ be regular parametrized curves, where the parameter is the arc length. Assume that the curvatures $k_1$ of $\alpha_1$ and $k_2$ of $\alpha_2$ satisfy
+    \[
+    k_1(s) = k_2(s) \neq 0, \quad s \in I.
+    \]
+    Let
+    \[
+    \mathbf{x}_1(s,v) = \alpha_1(s) + v \alpha_1'(s), \qquad
+    \mathbf{x}_2(s,v) = \alpha_2(s) + v \alpha_2'(s)
+    \]
+    be their (regular) tangent surfaces (cf.\ Example 5, Sec.\ 2-3) and let $V$ be a neighborhood of $(s_0,v_0)$ such that $\mathbf{x}_1(V) \subset \mathbb{R}^3$, $\mathbf{x}_2(V) \subset \mathbb{R}^3$ are regular surfaces (cf.\ Prop.\ 2, Sec.\ 2-3). Prove that
+    \[
+    \mathbf{x}_1 \circ \mathbf{x}_2^{-1} : \mathbf{x}_2(V) \longrightarrow \mathbf{x}_1(V)
+    \]
+    is an isometry.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.2.5}
+    To show that $ \mathbf{x}_1 \circ \mathbf{x}_2^{-1} $ is an isometry, we need to show that it is a diffeomorphism and preserves the first fundamental form. From Example 2.3.5, the tangent surface of a regular curve $ \alpha $ is a regular surface, since for all $ (t,v) \subseteq U = \{(t,v) \in I \times \mathbb{R} \mid v \neq 0 \} $, we have
+    \[
+        k(s) = \frac{\vert \alpha^{\prime} (s) \wedge \alpha^{\prime\prime} (s) \vert}{\vert \alpha^{\prime}(s) \vert^3} \neq 0 \implies \frac{\partial \bvec{x}}{\partial s} \wedge \frac{\partial \bvec{x}}{\partial v} = v\alpha''(s) \wedge \alpha'(s) \neq 0.
+    \]
+    Thus, both $ \bvec{x}_1 $ and $ \bvec{x}_2 $ are regular parametrizations, and hence homeomorphisms on a small neighborhood $ V \subseteq \mathbb{R}^3 $. Since $ \bvec{x} $ is differentiable and $ \mathrm{d}\bvec{x}_i $ has full rank, $ \bvec{x}_i^{-1} $ is differentiable for $ i=1,2 $ by the Inverse Function Theorem. Therefore, $ \bvec{x}_1 \circ \bvec{x}_2^{-1} $ is a diffeomorphism. In the Frenet frames of $ \alpha_i $, $ i=1,2 $, we have $ \bvec{x}_i (s,v) = \alpha_i (s) + v \alpha^{\prime} (s) $, and  
+    \[
+        \bvec{x}_{i,s} = \alpha^{\prime} (s) + v \alpha^{\prime\prime} (s) = T_i (s) + v k_i (s) N_i (s), \quad \bvec{x}_{i,v} = \alpha^{\prime} (s) = T_i (s). 
+    \] 
+    The first fundamental form coefficients are computed to be 
+    \[
+        E_i = \langle \bvec{x}_{i,s}, \bvec{x}_{i,s} \rangle = 1 + v^2 k_i^2 (s), \quad F_i = \langle \bvec{x}_{i,s}, \bvec{x}_{i,v} \rangle = 1, \quad G_i = \langle \bvec{x}_{i,v}, \bvec{x}_{i,v} \rangle = 1.
+    \]
+    Since $ k_1 (s) = k_2 (s) $ for all $ s \in I $, we have $ E_1 = E_2 $, $ F_1 = F_2 $, $ G_1 = G_2 $. By Proposition 4.2.1, $ \bvec{x}_1 \circ \bvec{x}_2^{-1} $ is a local isometry. Since $ \bvec{x}_1 \circ \bvec{x}_2^{-1} $ is also a diffeomorphism, $ \bvec{x}_1 \circ \bvec{x}_2^{-1} $ is an isometry.
+\end{solutionManual}
+
+% 4.2.6
+\begin{exerciseManual}{4.2.6*}
+Let $\alpha : I \to \mathbb{R}^3$ be a regular parametrized curve with $k(t) \neq 0$, $t \in I$. Let $\mathbf{x}(t,v)$ be its tangent surface. Prove that, for each $(t_0,v_0) \in I \times (\mathbb{R} - \{0\})$, there exists a neighborhood $V$ of $(t_0,v_0)$ such that $\mathbf{x}(V)$ is isometric to an open set of the plane (thus, tangent surfaces are locally isometric to planes).
+\end{exerciseManual}
+
+\begin{solutionManual}{4.2.6}
+    We will construct the desired local isometry. Fir reparametrize by arc length to get $ \alpha (s) $, and define $ \bvec{x} (s,v) = \alpha (s) + v \alpha^{\prime} (s) $. Let $ k(s) $ be the curvature of $ \alpha (s) $. As in a previous exercise, let 
+    \[
+        \theta (s) = \int^s_{s_0} \mathrm{d}u\, k(u), \quad s_0 \in I
+    \]
+    be the angle function, and define a plane curve $ \beta (s) $ by
+    \[
+        \beta (s) = \left( \int^s_{s_0} \mathrm{d}u\, \cos \theta (u), \int^s_{s_0} \mathrm{d}u\, \sin \theta (u), 0 \right), 
+    \]
+    \[
+        \beta^{\prime} (s) = \left( \cos \theta (s), \sin \theta (s), 0 \right) \implies \vert \beta^{\prime} (s) \vert = 1,
+    \]
+    \[
+        \beta^{\prime\prime} (s) = \theta^{\prime} (s) \left(-\sin \theta (s), \cos \theta (s), 0 \right) = k(s) \left( -\sin \theta (s), \cos \theta (s), 0 \right). 
+    \]
+    Then, the curvature of $ \beta (s) $ is exactly $ k(s) $, and hence $ \beta (s) $ is a unit-speed curve with the same curvature as $ \alpha $. Since both $ \beta $ and $ \beta^{\prime} $ lie in the plane $ z=0 $, the image of the tangent surface $ \overline{\bvec{x}} (s,v) = \beta (s) + v \beta^{\prime} (s) $ is an open subset of the $ xy $-plane. For $ \bvec{x} $ and $ \overline{\bvec{x}} $, we have 
+    \[
+        \bvec{x}_s = T(s) + v k(s) N(s), \quad \bvec{x}_v = T(s),
+    \]
+    \[
+        \overline{\bvec{x}}_s = \overline{T}(s) + v k(s) \overline{N}(s), \quad \overline{\bvec{x}}_v = \overline{T}(s),
+    \]
+    where $ T, N, \overline{T}, \overline{N} $ are the tangent vector and normal vector of $ \bvec{x} $ and $ \overline{\bvec{x}} $, respectively. The first fundamental form coefficients of $ \bvec{x} $ and $ \overline{\bvec{x}} $ are, respectively,
+    \[
+        E = 1 + v^2 k^2 (s), \quad F = 1, \quad G = 1,
+    \]
+    \[
+        \overline{E} = 1 + v^2 k^2 (s), \quad \overline{F} = 1, \quad \overline{G} = 1.
+    \]
+    Since the coefficients agree, by Proposition 4.2.1, the map $ \overline{\bvec{x}} \circ \bvec{x}^{-1} $ is a local isometry from $ \bvec{x} (V) $ to an open set of the plane for some neighborhood $ V $ of $ (s_0, v_0) $. Therefore, the tangent surface is locally isometric to an open set of the plane.
+\end{solutionManual}
+
+% 4.2.7
+\begin{exerciseManual}{4.2.7}
+    Let $V$ and $W$ be $n$-dimensional vector spaces with inner products denoted by $\langle \,,\, \rangle$ and let $F : V \to W$ be a linear map. Prove that the following conditions are equivalent:
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item $\langle F(v_1), F(v_2) \rangle = \langle v_1, v_2 \rangle$ for all $v_1, v_2 \in V$.
+        \item $\lvert F(v) \rvert = \lvert v \rvert$ for all $v \in V$.
+        \item If $\{v_1,\dots,v_n\}$ is an orthonormal basis in $V$, then $\{F(v_1),\dots,F(v_n)\}$ is an orthonormal basis in $W$.
+        \item There exists an orthonormal basis $\{v_1,\dots,v_n\}$ in $V$ such that $\{F(v_1),\dots,F(v_n)\}$ is an orthonormal basis in $W$.
+    \end{enumerate}
+    If any of these conditions is satisfied, $F$ is called a \emph{linear isometry} of $V$ into $W$. (When $W = V$, a linear isometry is often called an \emph{orthogonal transformation}.)
+\end{exerciseManual}
+
+\begin{solutionManual}{4.2.7}
+    ~ 
+
+    \begin{itemize}
+        \item \textbf{a.}$ \implies $\textbf{b.} Suppose $ \langle F(v_1), F(v_2) \rangle = \langle v_1, v_2 \rangle $ for all $ v_1, v_2 \in V $. Then for all $ v \in V $,
+        \[
+            \vert v \vert = \sqrt{\langle v,v\rangle} = \sqrt{\langle F(v), F(v) \rangle} = \vert F(v) \vert.
+        \]
+
+        \item \textbf{b.}$ \implies $\textbf{c.} Suppose $ \vert F(v) \vert = \vert v \vert $ for all $ v \in V $. Let $ \{ v_1, \dots, v_n \} $ be an orthonormal basis of $ V $. Then, for all $ i, j = 1, \dots, n $, since the inner product is induced by a norm $ \vert \cdot \vert $, we have
+        \begin{align*}
+            \langle F(v_i), F(v_j) \rangle &= \frac{1}{2} \left( \vert F(v_i) + F(v_j) \vert^2 - \vert F(v_i) \vert^2 - \vert F(v_j) \vert^2 \right) \\
+            &= \frac{1}{2} \left( \vert v_i + v_j \vert^2 - \vert v_i \vert^2 - \vert v_j \vert^2 \right) = \langle v_i, v_j \rangle = \delta_{ij}.
+        \end{align*}
+        Thus, $ \{ F(v_1), \dots, F(v_n) \} $ is an orthonormal set in $ W $. Since $ F $ is linear, $ \{ F(v_1), \dots, F(v_n) \} $ spans $ \operatorname{Im}(F) $. Since $ \dim(\operatorname{Im}(F)) \leq n $, we have $ \dim(\operatorname{Im}(F)) = n $, and hence $ \{ F(v_1), \dots, F(v_n) \} $ is an orthonormal basis of $ W $.
+
+        \item \textbf{c.}$ \implies $\textbf{d.} Since $ V $ is finite-dimensional, just pick any orthonormal basis of $ V $.
+        
+        \item \textbf{d.}$ \implies $\textbf{a.} Suppose there exists an orthonormal basis $ \{ v_1, \dots, v_n \} $ of $ V $ such that $ \{ F(v_1), \dots, F(v_n) \} $ is an orthonormal basis of $ W $. For all $ v_1, v_2 \in V $, we can write 
+        \[
+            v_1 = \sum_{i=1}^n a_i v_i, \quad v_2 = \sum_{j=1}^n b_j v_j,
+        \]
+        where $ a_i, b_j \in \mathbb{R} $. Then,
+        \begin{align*}
+            \langle F(v_1), F(v_2) \rangle &= \left\langle F\left( \sum_{i=1}^n a_i v_i \right), F\left( \sum_{j=1}^n b_j v_j \right) \right\rangle \\
+            &= \left\langle \sum_{i=1}^n a_i F(v_i), \sum_{j=1}^n b_j F(v_j) \right\rangle \\
+            &= \sum_{i=1}^n \sum_{j=1}^n a_i b_j \langle F(v_i), F(v_j) \rangle \\
+            &= \sum_{i=1}^n \sum_{j=1}^n a_i b_j \delta_{ij} = \sum_{i=1}^n a_i b_i = \left\langle \sum_{i=1}^n a_i v_i, \sum_{j=1}^n b_j v_j \right\rangle = \langle v_1, v_2 \rangle.
+        \end{align*}
+    \end{itemize}
+\end{solutionManual}
+
+% 4.2.8
+\begin{exerciseManual}{4.2.8*}
+    Let $G : \mathbb{R}^3 \to \mathbb{R}^3$ be a map such that
+    \[
+    \lvert G(p) - G(q) \rvert = \lvert p - q \rvert \quad \text{for all } p,q \in \mathbb{R}^3
+    \]
+    (that is, $G$ is a distance-preserving map). Prove that there exists $p_0 \in \mathbb{R}^3$ and a linear isometry (cf.\ Exercise 7) $F$ of the vector space $\mathbb{R}^3$ such that
+    \[
+    G(p) = F(p) + p_0 \quad \text{for all } p \in \mathbb{R}^3.
+    \]
+\end{exerciseManual}
+
+\begin{solutionManual}{4.2.8}
+    Let $ p_0 = G(0) $, and let $ F(p) = G(p) - p_0 $. Then, for all $ p, q \in \mathbb{R}^3 $, we have
+    \[
+        \vert F(p) - F(q) \vert = \vert G(p) - G(q) \vert = \vert p - q \vert, \quad F(0) = G(0) - p_0 = 0.
+    \] 
+    Hence $ F $ is a distance-preserving map that fixes the origin. Let $ \{e_1, e_2, e_3\} $ be the standard basis of $ \mathbb{R}^3 $, and $ v_i = F(e_i) $ for $ i=1,2,3 $. Since $ F $ is distance-preserving, we have
+    \[
+        \vert v_i \vert^2 = \vert F(e_i) - F(0) \vert^2 = \vert e_i - 0 \vert^2 = 1, \quad \vert v_i - v_j \vert^2 = \vert F(e_i) - F(e_j) \vert^2 = \vert e_i - e_j \vert^2 = 2,
+    \]
+    squaring both sides gives
+    \[
+        \langle v_i, v_j \rangle = 0 \text{ for } i \neq j \implies \{v_1, v_2, v_3\} \text{ is an orthonormal basis for } \mathbb{R}^3.
+    \]
+    Let $ L: \mathbb{R}^3 \to \mathbb{R}^3 $ be defined by $ L(e_i) = v_i $ for $ i=1,2,3 $. Then $ L $ is linear by construction, and $ L(e_i) = v_i = F(e_i) $, $ i=1,2,3 $. For any $ p \in \mathbb{R}^3 $, since $ L(0) = 0 $, by the distance-preserving property of $ F $, we have $ \vert F(p) \vert = \vert p \vert = \vert L(p) \vert $. Then, for all $ i=1,2,3 $, we have 
+    \[
+        \left\vert F(p) - F(e_i) \right\vert = \left\vert p - e_i \right\vert = \left\vert L(p) - L(e_i) \right\vert.
+    \]
+    Squaring both sides, then using $ \vert F(p) \vert = \vert L(p) \vert $ and $ F(e_i) = L(e_i) $, we have $ \langle F(p) - L(p), F(e_i) \rangle = 0 $. Hence, $ F = L $, and $ F $ is linear. By Exercise 4.3.7, $ F $ is a linear isometry. Therefore, there exists a linear isometry $ F $ such that $ G(p) = F(p) + p_0 $ for all $ p \in \mathbb{R}^3 $.
+\end{solutionManual}
+
+% 4.2.9
+\begin{exerciseManual}{4.2.9}
+    Let $S_1$, $S_2$, and $S_3$ be regular surfaces. Prove that
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item If $\varphi : S_1 \to S_2$ is an isometry, then $\varphi^{-1} : S_2 \to S_1$ is also an isometry.
+        \item If $\varphi : S_1 \to S_2$, $\psi : S_2 \to S_3$ are isometries, then $\psi \circ \varphi : S_1 \to S_3$ is an isometry.
+    \end{enumerate}
+    This implies that the isometries of a regular surface $S$ constitute in a natural way a group, called the \emph{group of isometries} of $S$.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.2.9}
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Since $ \varphi $ is an isometry, for all $ p \in S_1 $ and all pairs $ w_1, w_2 \in T_p (S_1) $ we have 
+        \[
+            \langle w_1, w_2 \rangle_p = \langle \mathrm{d}\varphi_p (w_1), \mathrm{d}\varphi_p (w_2) \rangle_{\varphi(p)}.
+        \] 
+        Let $ q = \varphi(p) \in S_2 $ and $ u_1, u_2 \in T_q (S_2) $. Since $ \varphi $ is a diffeomorphism, $ \mathrm{d}\varphi $ is injective. Since the differential $ \mathrm{d}\varphi $ is a linear transformation between finite-dimensional spaces, it is also surjective. Thus, there exist $ w_1, w_2 \in T_p (S_1) $ such that $ \mathrm{d}\varphi_p (w_i) = u_i $ for $ i = 1, 2 $. Thus, 
+        \[
+            \langle \mathrm{d}\varphi_p^{-1} (u_1), \mathrm{d}\varphi_p^{-1} (u_2) \rangle_{q} = \langle w_1, w_2 \rangle_p = \langle u_1, u_2 \rangle_{\varphi(p)}.
+        \]
+        Therefore, $ \varphi^{-1} $ is an isometry.
+
+        \item Suppose $ \varphi: S_1 \to S_2 $ and $ \psi: S_2 \to S_3 $ are isometries. Since diffeomorphism between regular surfaces is an equivalence relation (by previous exercise), $ \psi \circ \varphi $ is a diffeomorphism. For all $ p \in S_1 $ and all pairs $ w_1, w_2 \in T_p (S_1) $, we have
+        \begin{align*}
+            \langle w_1, w_2 \rangle_p 
+            &= \langle \mathrm{d}\varphi_p (w_1), \mathrm{d}\varphi_p (w_2) \rangle_{\varphi(p)} \\
+            &= \langle \mathrm{d}\psi_{\varphi(p)} (\mathrm{d}\varphi_p (w_1)), \mathrm{d}\psi_{\varphi(p)} (\mathrm{d}\varphi_p (w_2)) \rangle_{\psi(\varphi(p))} \\
+            &= \langle \mathrm{d}(\psi \circ \varphi)_p (w_1), \mathrm{d}(\psi \circ \varphi)_p (w_2) \rangle_{(\psi \circ \varphi)(p)}, 
+        \end{align*}
+        where the chain rule is used in the last equality. Therefore, $ \psi \circ \varphi $ is an isometry.
+    \end{enumerate}
+
+    \begin{remark}
+        Since function composition is associative and the identity map $ \operatorname{id}: S_1 \to S_1 $ is an isometry, by \textbf{a.} and \textbf{b.}, the set of isometries on $S$ forms a group.
+    \end{remark}
+\end{solutionManual}
+
+\newpage
+
+\section{Chapter 4.3}
+
+\begin{theorem}[Theorema Egregium]
+    The Gaussian curvature $ K $ of a regular, orientable, and oriented surface $ S $ is invariant under local isometries. Explicitly, for a parametrization $ \bvec{x}(u,v) $ in the orientation of $ S $, we have 
+    \[
+        -EK = \left(\Gamma_{12}^2\right)_u - \left(\Gamma_{11}^2\right)_v + \Gamma_{12}^1 \Gamma_{11}^2 + \Gamma_{12}^2 \Gamma_{12}^2 - \Gamma_{11}^2 \Gamma_{22}^2 - \Gamma_{11}^1 \Gamma_{12}^2.
+    \]
+\end{theorem}
+
+\begin{proof}
+    This is adapted from Do Carmo Curve and Surfaces. Define the Christoffel symbols of $ S $ in the parametrization $ \bvec{x}(u,v) $ by
+    \[
+        \begin{dcases}
+            &\bvec{x}_{uu} = \Gamma_{11}^1 \bvec{x}_u + \Gamma_{11}^2 \bvec{x}_v + e N, \\
+            &\bvec{x}_{uv} = \Gamma_{12}^1 \bvec{x}_u + \Gamma_{12}^2 \bvec{x}_v + f N, \\
+            &\bvec{x}_{vu} = \Gamma_{21}^1 \bvec{x}_u + \Gamma_{21}^2 \bvec{x}_v + f N, \\
+            &\bvec{x}_{vv} = \Gamma_{22}^1 \bvec{x}_u + \Gamma_{22}^2 \bvec{x}_v + g N, \\
+            &N_u = a_{11} \bvec{x}_u + a_{21} \bvec{x}_v, \\
+            &N_v = a_{12} \bvec{x}_u + a_{22} \bvec{x}_v. 
+        \end{dcases}
+    \]
+    Take inner products with $ \bvec{x}_u $ and $ \bvec{x}_v $, we have 
+    \begin{align*}
+        &\begin{dcases}
+            &\Gamma_{11}^1 E + \Gamma_{11}^2 F = \langle \bvec{x}_{uu}, \, \bvec{x}_u \rangle = \frac{E_u}{2}, \\
+            &\Gamma_{11}^1 F + \Gamma_{11}^2 G = \langle \bvec{x}_{uu}, \, \bvec{x}_v \rangle = F_u - \frac{1}{2} E_v.
+        \end{dcases} \\
+        &\begin{dcases}
+            &\Gamma_{12}^1 E + \Gamma_{12}^2 F = \langle \bvec{x}_{uv}, \bvec{x}_u \rangle = \frac{1}{2} E_v, \\
+            &\Gamma_{12}^1 F + \Gamma_{12}^2 G = \langle \bvec{x}_{uv}, \, \bvec{x}_v \rangle = \frac{1}{2} G_u.
+        \end{dcases} \\
+        &\begin{dcases}
+            &\Gamma_{22}^1 E + \Gamma_{22}^2 F = \langle \bvec{x}_{vv}, \, \bvec{x}_u \rangle = F_v - \frac{1}{2} G_u, \\
+            &\Gamma_{22}^1 F + \Gamma_{22}^2 G = \langle \bvec{x}_{vv}, \, \bvec{x}_v \rangle = \frac{1}{2} G_v.
+        \end{dcases}
+    \end{align*}
+    
+    By smoothness, we have $ \bvec{x}_{uuv} - \bvec{x}_{uvu} = 0 $, so expressing the equation as $ A_1 \bvec{x}_u + B_1 \bvec{x}_v + C_1 N = 0 $ gives $ A_1 = B_1 = C_1 = 0 $.    
+\end{proof}
+
+\begin{corollary}
+    For each pair, the determinant of the coefficient matrix is $ EG - F^2 \neq 0 $, so we can solve for the Christoffel symbols explicitly. 
+    \begin{align*}
+        \Gamma_{11}^1 &= 
+    \end{align*}
+\end{corollary}
+
+\begin{corollary}
+    By Theorema Egregium, the Gaussian curvature $ K $ can be computed entirely in terms of the first fundamental form coefficients $ E, F, G $ and their derivatives. This given explicitly by 
+\end{corollary}
+
+
+\begin{theorem}[Mainardi-Codazzi equations]
+    With the same notation as above, we have 
+    \[
+        e_v - f_u = e \Gamma_{12}^1 + f \left(\Gamma_{12}^2 - \Gamma_{11}^1\right) - g \Gamma_{11}^2, \quad f_v - g_u = e \Gamma_{22}^1 + f \left(\Gamma_{22}^2 - \Gamma_{12}^1\right) - g \Gamma_{12}^2.
+    \]
+\end{theorem}
+
+\begin{remark}
+    The Gauss equation and the Mainardi-Codazzi equations are known as the \emph{compatibility equations} of the theory of surfaces. 
+\end{remark}
+
+\begin{theorem}[Bonnet]
+    Let $ E $, $ F $, $ G $, $ e $, $ f $, $ g $ be differentiable functions defined on an open set $ V \subseteq \mathbb{R}^2 $, with $ E, G > 0 $. Suppose that these functions satisfy the compatibility equations, and $ \det g = EG - F^2 > 0 $. Then, for each point $ p \in V $, there exists a neighborhood $ U \subseteq V $ and a regular diffeomorphism $ \bvec{x} : U \to \mathbb{R}^3 $ such that the coefficients of the first fundamental form of $ \bvec{x} $ are $ E, F, G $, and those of the second fundamental form are $ e, f, g $. Moreover, if $ U $ is connected and $ \overline{\bvec{x}}: U \to \overline{\bvec{x}} (U) $ is another diffeomorphism satisfying the same conditions, then $ \overline{\bvec{x}} = T \circ \rho \circ \bvec{x} $ for some translation $ T $ and rotation $ \rho $. 
+\end{theorem}
+
+\begin{lemma}[Gaussian curvature]
+    The Gaussian curvature $ K $ of a regular surface is given by
+    \[
+        K = \frac{eg - f^2}{EG - F^2}.
+    \]
+\end{lemma}
+\begin{proof}
+    Let $ \mathbf{x} : U \subset \mathbb{R}^2 \to S \subset \mathbb{R}^3 $ be a parametrization of a regular surface $ S $. Then, we have
+    \begin{align*}
+        E &= \langle \mathbf{x}_u, \mathbf{x}_u \rangle, \quad F = \langle \mathbf{x}_u, \mathbf{x}_v \rangle, \quad G = \langle \mathbf{x}_v, \mathbf{x}_v \rangle, \\
+        e &= \langle \mathbf{x}_{uu}, N \rangle, \quad f = \langle \mathbf{x}_{uv}, N \rangle, \quad g = \langle \mathbf{x}_{vv}, N \rangle,
+    \end{align*}
+    where $ N $ is the unit normal. In the basis $ \{\bvec{x}_u, \, \bvec{x}_v \} $, the first and second fundamental forms are 
+    \[
+        g = \begin{pmatrix}
+            E & F \\
+            F & G
+        \end{pmatrix}, \quad 
+        A = \begin{pmatrix}
+            e & f \\
+            f & g
+        \end{pmatrix}.
+    \]
+    The shape operator $ S : T_p S \to T_p S $ is defined by $ S(v) = - \mathrm{d} N_v $, with the principal curvatures $ k_1 $, $ k_2 $ being its eigenvalues. It has been shown that $ S = g^{-1} A $, so
+    \[
+        K = \det S = \det \left( g^{-1} A \right) = \frac{\det A}{\det g} = \frac{eg - f^2}{EG - F^2}.
+    \] 
+\end{proof}
+
+% 4.3.1
+\begin{exerciseManual}{4.3.1}
+Show that if $\mathbf{x}$ is an orthogonal parametrization, that is, $F=0$, then
+\[
+K = -\frac{1}{2\sqrt{EG}}
+\left\{
+\left( \frac{E_v}{\sqrt{EG}} \right)_v
++
+\left( \frac{G_u}{\sqrt{EG}} \right)_u
+\right\}.
+\]
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.1}
+    From the definition of the Christoffel symbols, we have 
+    \begin{align*}
+        \bvec{x}_{uu} &= \Gamma_{11}^1 \bvec{x}_u + \Gamma_{11}^2 \bvec{x}_v + L_1 N, \\
+        \bvec{x}_{uv} &= \Gamma_{12}^1 \bvec{x}_u + \Gamma_{12}^2 \bvec{x}_v + L_2 N, \\
+        \bvec{x}_{vv} &= \Gamma_{22}^1 \bvec{x}_u + \Gamma_{22}^2 \bvec{x}_v + L_3 N, 
+    \end{align*}
+    we can compute the relations satisfied by the Christoffel symbols by taking inner product with $ \bvec{x}_u $ and $ \bvec{x}_v $ for each of the three equations above. Then, we get 
+    \begin{align*}
+        \Gamma_{11}^1 E + \Gamma_{11}^2 F &= \frac{E_u}{2}, \quad \Gamma_{11}^1 F + \Gamma_{11}^2 G = F_u - \frac{E_v}{2}, \\
+        \Gamma_{12}^1 E + \Gamma_{12}^2 F &= \frac{E_v}{2}, \quad \Gamma_{12}^1 F + \Gamma_{12}^2 G = \frac{G_u}{2}, \\
+        \Gamma_{22}^1 E + \Gamma_{22}^2 F &= F_v - \frac{G_u}{2}, \quad \Gamma_{22}^1 F + \Gamma_{22}^2 G = \frac{G_v}{2}.
+    \end{align*}
+    Since $ F = 0 $ and $ \Gamma_{jk}^i = \Gamma_{kj}^i $, we have
+    \begin{align*}
+        \Gamma_{11}^1 &= \frac{E_u}{2E}, \quad \Gamma_{11}^2 = -\frac{E_v}{2G}, \quad \Gamma_{12}^1 = \Gamma_{21}^1 = \frac{E_v}{2E} , \\
+        \Gamma_{12}^2 &= \Gamma_{21}^2 = \frac{G_u}{2G}, \quad \Gamma_{22}^1 = -\frac{G_u}{2E}, \quad \Gamma_{22}^2 = \frac{G_v}{2G}.
+    \end{align*}
+    and taking inner product with $ N $ gives $ L_1 = e $, $ L_2 = f $, $ L_3 = g $. Thus, we have 
+    \begin{align*}
+        \bvec{x}_{uu} &= \frac{E_u}{2E} \bvec{x}_u - \frac{E_v}{2G} \bvec{x}_v + e N, \\
+        \bvec{x}_{uv} &= \frac{E_v}{2E} \bvec{x}_u + \frac{G_u}{2G} \bvec{x}_v + f N, \\
+        \bvec{x}_{vv} &= -\frac{G_u}{2E} \bvec{x}_u + \frac{G_v}{2G} \bvec{x}_v + g N.
+    \end{align*}
+
+    Next, use equation (1) in Section 4.3 to get  
+    \[
+        N_u = \frac{fF - eG}{EG - F^2} \bvec{x}_u + \frac{eF - fE}{EG - F^2} \bvec{x}_v = -\frac{e}{E} \bvec{x}_u - \frac{f}{G} \bvec{x}_v,
+    \]
+    \[
+        N_v = \frac{gF - fG}{EG - F^2} \bvec{x}_u + \frac{fF - gE}{EG - F^2} \bvec{x}_v = -\frac{f}{E} \bvec{x}_u - \frac{g}{G} \bvec{x}_v.
+    \]
+    Since the parametrization is continuously differentiable, the partial derivatives commute, and we have $ \bvec{x}_{uuv} - \bvec{x}_{uvu} = 0 $. First, let's compute the following partial derivatives:
+    \[
+        \left(\frac{E_v}{2G}\right)_v = \frac{E_{vv}}{2G} - \frac{E_v G_v}{2G^2}, \quad \left(\frac{G_u}{2G}\right)_u = \frac{G_{uu}}{2G} - \frac{(G_u)^2}{2G^2}.
+    \]
+    Next, we will compute $ \bvec{x}_{uuv} $: 
+    \begin{align*}
+        \bvec{x}_{uuv} &= (x_{uu})_v = \left( \frac{E_u}{2E} \bvec{x}_u - \frac{E_v}{2G} \bvec{x}_v + e N \right)_v \\
+        &= \left( \frac{E_u}{2E} \right)_v \bvec{x}_u + \frac{E_u}{2E} \bvec{x}_{uv} - \left( \frac{E_v}{2G} \right)_v \bvec{x}_v - \frac{E_v}{2G} \bvec{x}_{vv} + e_v N + e N_v \\
+        &= \left( \frac{E_u}{2E} \right)_v \bvec{x}_u + \frac{E_u}{2E} \left[\frac{E_v}{2E} \bvec{x}_u + \frac{G_u}{2G} \bvec{x}_v + f N\right] - \left( \frac{E_v}{2G} \right)_v \bvec{x}_v \\
+        &\quad - \frac{E_v}{2G} \left[-\frac{G_u}{2E} \bvec{x}_u + \frac{G_v}{2G} \bvec{x}_v + g N\right] + e_v N + e \left(-\frac{f}{E} \bvec{x}_u - \frac{g}{E} \bvec{x}_v \right) \\
+        &= \left[ \left( \frac{E_u}{2E} \right)_v + \frac{E_u E_v}{4E^2} + \frac{E_v G_u}{4EG} - \frac{ef}{E} \right] \bvec{x}_u + \left[ -\left( \frac{E_v}{2G} \right)_v + \frac{E_u G_u}{4EG} - \frac{E_v G_v}{4G^2} - \frac{eg}{G} \right] \bvec{x}_v \\
+        &\quad + \left[ \frac{E_u f}{2E} - \frac{E_v g}{2G} + e_v \right] N.
+    \end{align*}
+    In a similar manner, we have 
+    \begin{align*}
+        \bvec{x}_{uvu} &= (x_{uv})_u = \left( \frac{E_v}{2E} \bvec{x}_u + \frac{G_u}{2G} \bvec{x}_v + f N \right)_u \\
+        &= \left( \frac{E_v}{2E} \right)_u \bvec{x}_u + \frac{E_v}{2E} \bvec{x}_{uu} + \left( \frac{G_u}{2G} \right)_u \bvec{x}_v + \frac{G_u}{2G} \bvec{x}_{uv} + f_u N + f N_u \\
+        &= \left( \frac{E_v}{2E} \right)_u \bvec{x}_u + \frac{E_v}{2E} \left[\frac{E_u}{2E} \bvec{x}_u - \frac{E_v}{2G} \bvec{x}_v + e N\right] \\
+        &\quad + \left( \frac{G_u}{2G} \right)_u \bvec{x}_v + \frac{G_u}{2G} \left[\frac{E_v}{2E} \bvec{x}_u + \frac{G_u}{2G} \bvec{x}_v + f N\right] + f_u N + f \left(-\frac{e}{G} \bvec{x}_u - \frac{f}{G} \bvec{x}_v\right) \\
+        &= \left[ \left( \frac{E_v}{2E} \right)_u + \frac{E_u E_v}{4E^2} + \frac{E_v G_u}{4EG} - \frac{ef}{E} \right] \bvec{x}_u + \left[ \left( \frac{G_u}{2G} \right)_u - \frac{(E_v)^2}{4EG} + \frac{(G_u)^2}{4G^2} -\frac{f^2}{G} \right] \bvec{x}_v \\
+        &\quad + \left[ \frac{E_v e}{2E} + \frac{G_u f}{2G} + f_u \right] N. 
+    \end{align*}
+    Combining the two results above, we have
+    \begin{align*}
+        \bvec{x}_{uuv} - \bvec{x}_{uvu} &= \left[ \left(\frac{E_u}{2E}\right)_v - \left(\frac{E_v}{2E}\right)_u \right] \bvec{x}_u + \left[\frac{E_u f - E_v e}{2E} - \frac{E_v g - G_u f}{2G} + e_v - f_u \right] N \\
+        &\quad + \left[ \frac{E_u G_u + (E_v)^2}{4EG} - \frac{E_v G_v + (G_u)^2}{4G^2} - \frac{eg - f^2}{G} - \left(\frac{E_v}{2G}\right)_v - \left(\frac{G_u}{2G}\right)_u \right] \bvec{x}_v = 0 .
+    \end{align*}
+    Since $ \{\bvec{x}_u, \bvec{x}_v, N\} $ is an orthonormal basis, each coefficient is equal to zero. Set the coefficient of $ \bvec{x}_v $ to zero and recall the formula for the Gaussian curvature: 
+    \begin{align*}
+        K &= \frac{eg - f^2}{EG - F^2} = \frac{eg - f^2}{EG} \\
+        &= \frac{E_u G_u + (E_v)^2}{4E^2 G} - \frac{E_v G_v + (G_u)^2}{4 E G^2} - \frac{1}{E} \left(\frac{E_v}{2G}\right)_v - \frac{1}{E} \left(\frac{G_u}{2G}\right)_u \\ 
+        &= \frac{E_u G_u}{4E^2 G} + \frac{(E_v)^2}{4E^2 G} - \frac{E_v G_v}{4 E G^2} - \frac{(G_u)^2}{4 E G^2} - \frac{E_{vv}}{2EG} + \frac{E_v G_v}{2 E G^2} - \frac{G_{uu}}{2EG} + \frac{(G_u)^2}{2EG^2} \\
+        &= -\frac{1}{2\sqrt{EG}} \left[ \frac{G_{uu}}{\sqrt{EG}} - \frac{E_u G_u}{2E \sqrt{EG}} - \frac{(G_u)^2}{2G \sqrt{EG}} + \frac{E_{vv}}{\sqrt{EG}} - \frac{(E_v)^2}{2E \sqrt{EG} } - \frac{E_v G_v}{2 G \sqrt{EG} } \right] \\
+        &= - \frac{1}{2\sqrt{EG}} \left\{ \left( \frac{E_v}{\sqrt{EG}} \right)_v + \left( \frac{G_u}{\sqrt{EG}} \right)_u \right\}.
+    \end{align*}
+
+    \begin{remark}
+        The above formual for the Gaussian curvature of orthogonal parametrizations is known as the \emph{Brioschi formula}.
+    \end{remark}
+\end{solutionManual}
+
+% Exercise 4.3.2
+\begin{exerciseManual}{4.3.2}
+    Show that if $\mathbf{x}$ is an isothermal parametrization, that is, 
+    $E = G = \lambda(u,v)$ and $F=0$, then
+    \[
+        K = -\frac{1}{2\lambda}\,\Delta(\log \lambda),
+    \]
+    where $\Delta \varphi$ denotes the Laplacian $(\partial^2 \varphi/\partial u^2) + (\partial^2 \varphi/\partial v^2)$ of the function $\varphi$. Conclude that when 
+    \[
+        E = G = (u^2 + v^2 + c)^{-2} \quad\text{and}\quad F = 0,
+    \]
+    then $K = \text{const.} = 4c$.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.2}
+    Suppose $ \bvec{x} $ is an isothermal parametrization, that is, $ E = G = \lambda(u,v) $ and $ F = 0 $. Then we have 
+    \begin{align*}
+        E_v &= \lambda_v, \quad G_u = \lambda_u, \\
+        E_{vv} &= \lambda_{vv}, \quad G_{uu} = \lambda_{uu}.
+    \end{align*}
+    From the proof of Exercise 4.3.1, since an isothermal parametrization is orthogonal, we have
+    \begin{align*}
+        K &= -\frac{1}{2\sqrt{EG}} \left[ \frac{G_{uu}}{\sqrt{EG}} - \frac{E_u G_u}{2E \sqrt{EG}} - \frac{(G_u)^2}{2G \sqrt{EG}} + \frac{E_{vv}}{\sqrt{EG}} - \frac{(E_v)^2}{2E \sqrt{EG} } - \frac{E_v G_v}{2 G \sqrt{EG} } \right] \\
+        &= -\frac{1}{2\lambda} \left[ \frac{\lambda_{uu}}{\lambda} - \frac{\lambda_u^2}{2\lambda^2} - \frac{\lambda_u^2}{2\lambda^2} + \frac{\lambda_{vv}}{\lambda} - \frac{\lambda_v^2}{2\lambda^2} - \frac{\lambda_v^2}{2\lambda^2} \right] \\
+        &= -\frac{1}{2\lambda} \left[ \frac{\lambda_{uu} + \lambda_{vv}}{\lambda} - \frac{\lambda_u^2 + \lambda_v^2}{\lambda^2} \right] = -\frac{1}{2\lambda} \Delta(\log \lambda),
+    \end{align*}
+    since
+    \begin{align*}
+        \Delta \left(\log \lambda\right) &= \left(\frac{\partial^2}{\partial u^2} + \frac{\partial^2}{\partial v^2}\right) (\log \lambda)
+        = \frac{\partial}{\partial u} \left( \frac{\lambda_u}{\lambda} \right) + \frac{\partial}{\partial v} \left( \frac{\lambda_v}{\lambda} \right) 
+        = \frac{\lambda_{uu} + \lambda_{vv}}{\lambda} - \frac{\lambda_u^2 + \lambda_v^2}{\lambda^2}.
+    \end{align*}
+
+    Let $ E = G = (u^2 + v^2 + c)^{-2} $ and $ F = 0 $, then we have $ \lambda (u,v) = (u^2 + v^2 + c)^{-2} $. Then, 
+    \begin{align*}
+         \frac{\partial}{\partial u} (\log \lambda) &= -2 \frac{\partial}{\partial u} \log \left(u^2 + v^2 + c\right)
+        = -\frac{4u}{u^2 + v^2 + c}, \\
+        \frac{\partial^2}{\partial u^2}(\log \lambda) &= -4 \frac{\partial}{\partial u} \left( \frac{u}{u^2 + v^2 + c} \right) = -4 \,\frac{(-u^2 + v^2 + c)}{(u^2 + v^2 + c)^2}, \\
+        \frac{\partial}{\partial v} (\log \lambda) &= -2 \frac{\partial}{\partial v} \log \left(u^2 + v^2 + c\right) = -\frac{4v}{u^2 + v^2 + c}, \\
+        \frac{\partial^2}{\partial v^2}(\log \lambda) &= -4 \frac{\partial}{\partial v} \left( \frac{v}{u^2 + v^2 + c} \right) = -4\, \frac{(u^2 - v^2 + c)}{(u^2 + v^2 + c)^2}. 
+    \end{align*}
+    \[
+        \implies K = -\frac{1}{2 \lambda} \Delta (\log \lambda) = -\frac{1}{2} (u^2 + v^2 + c)^2 \left( - \frac{8c}{(u^2 + v^2 + c)^2} \right) = 4c.
+    \]
+    This surface has constant Gaussian curvature $ K = 4c $.
+
+    \begin{remark}
+        For $ c>0 $, this correponds to the stereographic projection of a sphere of radius $ 1/\sqrt{c} $ minus the north pole; for $ c=0 $, this corresponds to the Euclidean plane; and for $ c<0 $, this corresponds to the stereographic projection of a hyperbolic plane. 
+    \end{remark}
+\end{solutionManual}
+
+% Exercise 4.3.3
+\begin{exerciseManual}{4.3.3}
+    Verify that the surfaces
+    \[
+        \mathbf{x}(u,v) = (u\cos v,\; u\sin v,\; \log u), 
+    \quad u>0,
+    \]
+    \[
+        \bar{\mathbf{x}}(u,v) = (u\cos v,\; u\sin v,\; v),
+    \]
+    have equal Gaussian curvature at the points $\mathbf{x}(u,v)$ and $\bar{\mathbf{x}}(u,v)$, but that the mapping $\bar{\mathbf{x}} \circ \mathbf{x}^{-1}$ is not an isometry. This shows that the "converse" of the Gauss theorem is not true.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.3}
+    First, we compute the first fundamental form of $ \bvec{x}(u,v) $ and $ \bar{\bvec{x}}(u,v) $:
+    \begin{align*}
+        \bvec{x}_u &= \left(\cos v, \sin v, \frac{1}{u}\right), \quad \bvec{x}_v = \left(-u \sin v, u \cos v, 0\right), \\
+        E &= \langle \bvec{x}_u, \bvec{x}_u \rangle = \cos^2 v + \sin^2 v + \frac{1}{u^2} = 1 + \frac{1}{u^2}, \\
+        F &= \langle \bvec{x}_u, \bvec{x}_v \rangle = -u \cos v \sin v + u \sin v \cos v + 0 = 0, \\
+        G &= \langle \bvec{x}_v, \bvec{x}_v \rangle = u^2 \sin^2 v + u^2 \cos^2 v + 0 = u^2.
+    \end{align*}
+    Similarly, we have
+    \begin{align*}
+        \overline{\bvec{x}}_u &= (\cos v, \, \sin v, \, 0), \quad \overline{\bvec{x}}_v = (-u \sin v,\, u \cos v,\, 1), \\
+        \overline{E} &= \langle \overline{\bvec{x}}_u, \, \overline{\bvec{x}}_u \rangle = \cos^2 v + \sin^2 v + 0 = 1, \\
+        \overline{F} &= \langle \overline{\bvec{x}}_u, \, \overline{\bvec{x}}_v \rangle = -u \cos v \sin v + u \sin v \cos v + 0 = 0, \\
+        \overline{G} &= \langle \overline{\bvec{x}}_v, \, \overline{\bvec{x}}_v \rangle = u^2 \sin^2 v + u^2 \cos^2 v + 1 = u^2 + 1.
+    \end{align*}
+    Notice that for orthogonal parametrizations, the Gaussian curvature only depends on the following quantities:
+    \[
+        E_v = \overline{E}_v = 0, \quad G_u = \overline{G}_u = 2u, \quad EG = \left(1 + \frac{1}{u^2}\right) u^2 = u^2 + 1 = \overline{E} \,\overline{G}.
+    \]
+    Since $ F = \overline{F} = 0 $, both parametrizations are orthogonal, so by Exercise 4.3.1 the Gaussian curvature at the points $ \bvec{x}(u,v) $ and $ \overline{\bvec{x}}(u,v) $ are equal. Consider the map $ \Phi : S \to \overline{S} $ defined by $ \Phi = \overline{\bvec{x}} \circ \bvec{x}^{-1} $, where $ S $ and $ \overline{S} $ are the images of $ \bvec{x} $ and $ \overline{\bvec{x}} $, respectively. Since $ \Phi $ satisfies $ \Phi (\bvec{x}(u,v)) = \overline{\bvec{x}} (u,v) $, we have 
+    \[
+        \mathrm{d} \Phi_{\bvec{x}(u,v)} (\bvec{x}_u) = \frac{\partial}{\partial u} \overline{\bvec{x}}(u,v) = \overline{\bvec{x}}_u, \quad \mathrm{d} \Phi_{\bvec{x}(u,v)} (\bvec{x}_v) = \frac{\partial}{\partial v} \overline{\bvec{x}}(u,v) = \overline{\bvec{x}}_v.
+    \]
+    Then, we compute the first fundamental form at $ \bvec{x}(u,v) $ under the map $ \Phi $:
+    \[
+        \langle \mathrm{d}\Phi_{\bvec{x}(u,v)} (\bvec{x}_u), \, \mathrm{d}\Phi_{\bvec{x}(u,v)} (\bvec{x}_u) \rangle = \langle \overline{\bvec{x}}_u, \, \overline{\bvec{x}}_u \rangle = \overline{E} = 1 \neq 1 + \frac{1}{u^2} = E = \langle \bvec{x}_u, \, \bvec{x}_u \rangle,
+    \]
+    so $ \Phi $ is not an isometry.
+
+    \begin{remark}
+        Two regular surfaces with identical Gaussian curvature at corresponding points are not necessarily isometric.
+    \end{remark}
+\end{solutionManual}
+
+% 4.3.4
+\begin{exerciseManual}{4.3.4}
+    Show that no neighborhood of a point in a sphere may be isometrically mapped into a plane.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.4}
+    
+\end{solutionManual}
+
+% 4.3.5
+\begin{exerciseManual}{4.3.5}
+    If the coordinate curves form a Tchebyshef net (cf.\ Exercises 7 and 8, Sec.\ 2--5), then $E = G = 1$ and $F = \cos \theta$. Show that in this case
+    \[
+    K = -\frac{\theta_{uv}}{\sin \theta}.
+    \]
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.5}
+    \begin{remark}
+        In principle, the Gaussian curvature is completely determined by the first fundamental form. However, in practie, it is often difficult to calculate $ K $ directly from $ E, F, G $.
+    \end{remark}
+
+    \noindent \textbf{Method 1:} From Theorema Egregium in Do Carmo Curves and Surfaces, we have 
+    \[
+        K = \frac{1}{E} \left[ - \left(\Gamma_{12}^2\right)_u + \left(\Gamma_{11}^2\right)_v - \Gamma_{12}^1 \Gamma_{11}^2 - \Gamma_{12}^2 \Gamma_{12}^2 + \Gamma_{11}^2 \Gamma_{22}^2 + \Gamma_{11}^1 \Gamma_{12}^2 \right]. 
+    \]
+    In this case, the Christoffel symbols satisfy the following relations: 
+    \begin{align*}
+        \begin{dcases}
+            &\Gamma_{11}^1 E + \Gamma_{11}^2 F = \frac{E_u}{2} = 0, \\
+            &\Gamma_{11}^1 F + \Gamma_{11}^2 G = F_u - \frac{E_v}{2} = -\sin \theta \, \theta_u, \\
+            &\Gamma_{12}^1 E + \Gamma_{12}^2 F = \frac{E_v}{2} = 0, \\
+            &\Gamma_{12}^1 F + \Gamma_{12}^2 G = \frac{G_u}{2} = 0, \\
+            &\Gamma_{22}^1 E + \Gamma_{22}^2 F = F_v - \frac{G_u}{2} = -\sin \theta \, \theta_v, \\
+            &\Gamma_{22}^1 F + \Gamma_{22}^2 G = \frac{G_v}{2} = 0.
+        \end{dcases}
+    \end{align*}
+    Then, since $ |g|^2 = EG - F^2 = \sin^2 \theta $, we have  
+    \begin{align*}
+        &\Gamma_{11}^1 = \frac{1}{|g|^2} F \sin \theta \theta_u = \cot \theta \, \theta_u, \quad \Gamma_{11}^2 = -\frac{1}{|g|^2} E \sin \theta \theta_u = - \csc \theta \, \theta_u, \\
+        &\Gamma_{12}^1 = \Gamma_{12}^2 = \Gamma_{21}^1 = \Gamma_{21}^2 = 0, \\
+        &\Gamma_{22}^1 = - \frac{1}{|g|^2} G \sin \theta \theta_v = - \csc \theta \, \theta_v, \quad \Gamma_{22}^2 = \frac{1}{|g|^2} F \sin \theta \theta_v = \cot \theta \, \theta_v.
+    \end{align*}
+    Next, $ \left(\Gamma_{11}^2\right)_v = \left(- \csc \theta \theta_u\right)_v = \csc \theta \cot \theta \theta_u \theta_v - \csc \theta \theta_{uv} $. By the Theorema Egregium, we have 
+    \[
+        K = \csc \theta \cot \theta \theta_u \theta_v - \csc \theta \theta_{uv} - 0 - 0 + \left(- \csc \theta \theta_u \right) \left( \cot \theta \theta_v \right) + 0 = - \frac{\theta_{uv}}{\sin \theta}.
+    \] 
+
+    \noindent \textbf{Method 2:} From Riemannian geometry, the Theorema Egregium states that 
+    \[
+        R_{1212} = \langle R(\partial_u, \partial_v) \partial_u,  \partial_v \rangle = - \det g \, K. 
+    \] 
+    By antisymmetry of the curvature tensor, we have
+    \[
+        K = - \frac{1}{\det g} R_{1212} = \frac{1}{\det g} R_{1221} = \frac{1}{\det g} \langle R(\partial_u, \partial_v) \partial_v, \partial_u \rangle .
+    \] 
+\end{solutionManual}
+
+% 4.3.6
+\begin{exerciseManual}{4.3.6}
+    Show that there exists no surface $\bvec{x}(u,v)$ such that
+    \[
+    E = G = 1, \quad F = 0
+    \quad \text{and} \quad
+    e = 1, \quad g = -1, \quad f = 0.
+    \]
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.6}
+    Suppose such a surface $ \bvec{x}(u,v) $ exists. Since $ E = G = 1 $ and $ F = 0 $, the parametrization is orthogonal. From Exercise 4.3.1, we have
+    \[
+        K = -\frac{1}{2\sqrt{EG}} \left\{ \left( \frac{E_v}{\sqrt{EG}} \right)_v + \left( \frac{G_u}{\sqrt{EG}} \right)_u \right\} = -\frac{1}{2} (0 + 0) = 0.
+    \]
+    On the other hand, from the Gauss formula, we have
+    \[
+        K = \frac{eg - f^2}{EG - F^2} = \frac{(1)(-1) - 0^2}{(1)(1) - 0^2} = -1,
+    \]
+    a contradiction. 
+\end{solutionManual}
+
+% 4.3.7
+\begin{exerciseManual}{4.3.7}
+    Does there exist a surface $\mathbf{x} = \bvec{x}(u,v)$ with
+    \[
+    E = 1, \quad F = 0, \quad G = \cos^2 u
+    \quad \text{and} \quad
+    e = \cos^2 u, \quad f = 0, \quad g = 1 \, ?
+    \]
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.7}
+    
+\end{solutionManual}
+
+
+% 4.3.8
+\begin{exerciseManual}{4.3.8}
+    Compute the Christoffel symbols for an open set of the plane
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item In Cartesian coordinates.
+        \item In polar coordinates.
+    \end{enumerate}
+    Use the Gauss formula to compute $K$ in both cases.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.8}
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item An open set of the plane can be parametrized in Cartesian coordinates as $ \bvec{x}(u,v) = (u,v,0) $. Then, we have
+        \[
+            E = \langle \bvec{x}_u, \bvec{x}_u \rangle = 1, \quad F = \langle \bvec{x}_u, \bvec{x}_v \rangle = 0, \quad G = \langle \bvec{x}_v, \bvec{x}_v \rangle = 1.
+        \]
+        Since $ F=0 $ and $ E, G \neq 0 $, we have 
+        \begin{align*}
+            \Gamma_{11}^1 &= \frac{E_u}{2E} = 0, \quad \Gamma_{11}^2 = -\frac{E_v}{2G} = 0, \quad \Gamma_{12}^1 = \Gamma_{21}^1 = \frac{E_v}{2E} = 0 , \\
+            \Gamma_{12}^2 &= \Gamma_{21}^2 = \frac{G_u}{2G} = 0, \quad \Gamma_{22}^1 = -\frac{G_u}{2E} = 0, \quad \Gamma_{22}^2 = \frac{G_v}{2G} = 0.
+        \end{align*} 
+        Hence, all Christoffel symbols are zero. Next, compute 
+        \[
+            \bvec{x}_{uu} = \bvec{x}_{uv} = \bvec{x}_{vv} = 0, 
+        \]
+        so with the unit normal $ N = (0,0,1) $, we have  
+        \[
+            e = \langle \bvec{x}_{uu}, N \rangle = 0, \quad f = \langle \bvec{x}_{uv}, N \rangle = 0, \quad g = \langle \bvec{x}_{vv}, N \rangle = 0.
+        \]
+        Therefore, since $ EG - F^2 \neq 0 $, the Gaussian curvature is given by the Gauss formula as
+        \[
+            K = \frac{eg - f^2}{EG - F^2} = 0.
+        \]
+
+        \item An open set of the plane can also be parametrized in polar coordinates, given by the parametrization $ \bvec{x}(u,v) = (u \cos v, u \sin v, 0) $. Then, we have
+        \[
+            E = \langle \bvec{x}_u, \bvec{x}_u \rangle = 1, \quad F = \langle \bvec{x}_u, \bvec{x}_v \rangle = 0, \quad G = \langle \bvec{x}_v, \bvec{x}_v \rangle = u^2.
+        \]
+        Since $ F=0 $, we have the following Christoffel symbols whenever $ u \neq 0 $:  
+        \begin{align*}
+            \Gamma_{11}^1 &= \frac{E_u}{2E} = 0, \quad \Gamma_{11}^2 = -\frac{E_v}{2G} = 0, \quad \Gamma_{12}^1 = \Gamma_{21}^1 = \frac{E_v}{2E} = 0 , \\
+            \Gamma_{12}^2 &= \Gamma_{21}^2 = \frac{G_u}{2G} = \frac{1}{u}, \quad \Gamma_{22}^1 = -\frac{G_u}{2E} = -u, \quad \Gamma_{22}^2 = \frac{G_v}{2G} = 0.
+        \end{align*}
+        Unlike in the Cartesian coordinates, not all Christoffel symbols are zero. Next, compute 
+        \[
+            \bvec{x}_{uu} = (0,0,0), \quad \bvec{x}_{uv} = (-\sin v, \cos v, 0), \quad \bvec{x}_{vv} = (-u \cos v, -u \sin v, 0),
+        \]
+        so with the unit normal $ N = (0,0,1) $, we have
+        \[
+            e = \langle \bvec{x}_{uu}, N \rangle = 0, \quad f = \langle \bvec{x}_{uv}, N \rangle = 0, \quad g = \langle \bvec{x}_{vv}, N \rangle = 0.
+        \]
+        Therefore, since $ EG - F^2 \neq 0 $, the Gaussian curvature is given by the Gauss formula as 
+        \[
+            K = \frac{eg - f^2}{EG - F^2} = 0.
+        \]
+    \end{enumerate}
+\end{solutionManual}
+
+% Exercise 4.3.9
+\begin{exerciseManual}{4.3.9}
+    Justify why the surfaces below are not pairwise locally isometric:
+    \begin{enumerate}[label=\textbf{\alph*.}]
+    \item Sphere.
+    \item Cylinder.
+    \item Saddle $z = x^2 - y^2$.
+    \end{enumerate}
+\end{exerciseManual}
+
+\begin{solutionManual}{4.3.9}
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item The sphere has constant positive Gaussian curvature. Let a sphere of radius $ r $ be centered about the origin, and let $ \bvec{x}(\theta, \phi) = (r \sin \theta \cos \phi, r \sin \theta \sin \phi, r \cos \theta) $ be a parametrization of the sphere. Then, 
+        \begin{align*}
+            \bvec{x}_{\theta} &= (r \cos \theta \cos \phi,\, r \cos \theta \sin \phi,\, -r \sin \theta), \\
+            \bvec{x}_{\phi} &= (-r \sin \theta \sin \phi,\, r \sin \theta \cos \phi,\, 0),
+        \end{align*}
+        and we have
+        \[
+            E = r^2, \quad F = 0, \quad G = r^2 \sin^2 \theta.
+        \]
+        We can compute
+        \[
+            E_{\phi} = 0, \quad G_{\theta} = 2 r^2 \sin \theta \cos \theta, \quad EG = r^4 \sin^2 \theta.
+        \]
+        Then, 
+        \[
+            \left(\frac{E_{\phi}}{\sqrt{EG}}\right)_{\phi} = 0, \quad \left(\frac{G_{\theta}}{\sqrt{EG}}\right)_{\theta} = (\cos \theta)_{\theta} = -\sin \theta.
+        \]
+        Since $ F=0 $, the parametrization is orthogonal. By Exercise 4.3.1 we have
+        \[
+            K = - \frac{1}{2 r^2 \sin \theta} (-\sin \theta) = \frac{1}{2 r^2} > 0.
+        \]
+        
+        \item The cylinder has zero Gaussian curvature. Let a cylinder of radius $ r $ be centered about the $ z $-axis, and let $ \bvec{x}(\theta, z) = (r \cos \theta, r \sin \theta, z) $ be a parametrization of the cylinder. Then, 
+        \begin{align*}
+            \bvec{x}_{\theta} &= (-r \sin \theta,\, r \cos \theta,\, 0), \quad \bvec{x}_{z} = (0,\, 0,\, 1),
+        \end{align*}
+        and we have
+        \[
+            E = r^2, \quad F = 0, \quad G = 1.
+        \]
+        We can compute
+        \[
+            E_{z} = 0, \quad G_{\theta} = 0, \quad EG = r^2.
+        \]
+        Then,
+        \[
+            \left(\frac{E_{z}}{\sqrt{EG}}\right)_{z} = 0, \quad \left(\frac{G_{\theta}}{\sqrt{EG}}\right)_{\theta} = 0.
+        \]
+        Since $ F=0 $, the parametrization is orthogonal. By Exercise 4.3.1 we have
+        \[
+            K = - \frac{1}{2 r} (0 + 0) = 0.
+        \]
+
+        \item The saddle has negative Gaussian curvature. Let the saddle be given by the parametrization $ \bvec{x}(u,v) = (u, v, u^2 - v^2) $. Then,
+        \begin{align*}
+            \bvec{x}_{u} &= (1, 0, 2u), \quad \bvec{x}_{v} = (0, 1, -2v), \\
+            \bvec{x}_{uu} &= (0, 0, 2), \quad \bvec{x}_{uv} = (0, 0, 0), \quad \bvec{x}_{vv} = (0, 0, -2),
+        \end{align*}
+        and we have $ E = 1 + 4u^2 $, $ F = -4uv $, and $ G = 1 + 4v^2 $. The normal vector of the surface is given by
+        \[
+            N = \frac{\bvec{x}_u \wedge \bvec{x}_v}{\|\bvec{x}_u \wedge \bvec{x}_v\|} = \frac{(-2u, 2v, 1)}{\sqrt{1 + 4u^2 + 4v^2}}.
+        \]
+        Then, we have
+        \[
+            e = \langle \bvec{x}_{uu}, N \rangle = \frac{2}{\sqrt{1 + 4u^2 + 4v^2}}, \quad f = \langle \bvec{x}_{uv}, N \rangle = 0, \quad g = \langle \bvec{x}_{vv}, N \rangle = \frac{-2}{\sqrt{1 + 4u^2 + 4v^2}}.
+        \]
+        Since $ EG - F^2 = (1+4u^2)(1+4v^2) - 16 u^2 v^2 = 1 + 4u^2 + 4v^2 \neq 0 $, the Gaussian curvature is given by the Gauss formula as
+        \[
+            K = \frac{eg - f^2}{EG - F^2} = \dfrac{\left(\dfrac{2}{\sqrt{1 + 4u^2 + 4v^2}}\right) \left(\dfrac{-2}{\sqrt{1 + 4u^2 + 4v^2}}\right) - 0}{1 + 4u^2 + 4v^2} = \frac{-4}{(1 + 4u^2 + 4v^2)^2} < 0.
+        \] 
+    \end{enumerate}
+    Suppose \textbf{a.} to \textbf{c.} are pairwise locally isometric, then by the \emph{Theorema Egregium} they must have identical Gaussian curvature at corresponding points, a contradiction to our above calculation.
+\end{solutionManual}
+
+\begin{center}
+    The following are some extra exercises from other sources.
+\end{center}
+
+\begin{theorem}[Levi-Civita connection formula]
+    ~
+
+    Let $ g $ be the metric, or the first fundamental form, on a surface $ S $. The Christoffel symbols associated to $ g $ are given by
+    \[
+        \Gamma_{ij}^k = \frac{1}{2} g^{kl} \left( \partial_i g_{jl} + \partial_j g_{il} - \partial_l g_{ij} \right),
+    \]
+    where $ (g^{ij}) $ is the inverse matrix of $ (g_{ij}) $.
+\end{theorem}
+
+\begin{proof}
+    Let $ \{e_i\} $ be the coordinate basis induced by the parametrization $ \bvec{x}(u^1, \dots , u^n) $. Then,
+    \[
+        \partial_j e_i = \nabla_{e_j} e_i = \sum_{k=1}^n \Gamma_{ij}^k e_k \equiv \Gamma_{ij}^k e_k.
+    \]
+    The metric tensor is $ g_{ij} = \langle e_i, e_j \rangle $, and 
+    \begin{align*}
+        \partial_k g_{ij} &= \partial_k \langle e_i, e_j \rangle = \langle \partial_k e_i, e_j \rangle + \langle e_i, \partial_k e_j \rangle \\
+        &= \langle \Gamma_{ik}^l e_l, e_j \rangle + \langle e_i, \Gamma_{jk}^m e_m \rangle = \Gamma_{ik}^l g_{lj} + \Gamma_{jk}^m g_{im}.
+    \end{align*}
+    By permuting the indices, we also have $ \partial_j g_{ik} = \Gamma_{ij}^l g_{lk} + \Gamma_{kj}^l g_{il} $ and $ \partial_i g_{jk} = \Gamma_{ji}^l g_{lk} + \Gamma_{ki}^l g_{jl} $. 
+    Recall that since $ \bvec{x}_{ij} = \bvec{x}_{ji} $ by smoothness of $ \bvec{x} $, we have $ \partial_i e_j = \partial_j e_i $, and hence $ \Gamma_{ij}^k = \Gamma_{ji}^k $. Therefore, we have
+    \[
+        2 \Gamma_{ij}^l g_{lk} = \partial_j g_{ik} + \partial_i g_{jk} - \partial_k g_{ij}.
+    \]
+    Contract with $ g^{km} $ and use $ g^{km} g_{lk} = \delta_l^m $ to obtain 
+    \[
+        2 \Gamma_{ij}^m = g^{km} \left( \partial_j g_{ik} + \partial_i g_{jk} - \partial_k g_{ij} \right) \implies  \Gamma_{ij}^m = \frac{1}{2} g^{km} \left( \partial_j g_{ik} + \partial_i g_{jk} - \partial_k g_{ij} \right).
+    \]
+\end{proof}
+
+% additional exercise 1
+\begin{exercise}[Christoffel synbols in higher dimensions]
+    Here we calculate the Christoffel symbols for various high-dimenional manifolds.
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Hyper-paraboloid: Let $ (x^1, \dots , x^n ) $ be coordinates in $ \mathbb{R}^n $. Consider the immersion $ \Phi : \mathbb{R}^{n} \to \mathbb{R}^{n+1} $ defined by
+        \[
+            \Phi \left(x^1, \dots , x^{n} \right) = \left( x^1, \dots , x^{n}, \sum_{i=1}^{n} (x^i)^2 \right).
+        \]
+        Its image is the hyper-paraboloid in $ \mathbb{R}^{n+1} $. Compute the Christoffel symbols of the induced metric (from $ \langle \cdot \rangle_{\mathbb{R}^{n+1}} $) on the hyper-paraboloid.
+
+        \item Conformally flat metric in $ \mathbb{R}^n $: Consider the metric $ g $ on $ \mathbb{R}^3 $ defined by $ g_{ij} = e^{2 \phi(x)} \delta_{ij} $. Comput $ \Gamma_{ij}^k $ in terms of $ \phi $. 
+        
+        \item $ n $-sphere: Consider the $ n $-sphere $ S^n \subset \mathbb{R}^{n+1} $ with the parametrization
+        \[
+            \bvec{x} (u^1, \dots , u^n) = \left( \begin{array}{c}
+                \cos u^1 \\
+                \sin u^1 \cos u^2 \\
+                \sin u^1 \sin u^2 \cos u^3 \\
+                \vdots \\
+                \sin u^1 \sin u^2 \cdots \sin u^{n-1} \sin u^n
+            \end{array} \right),
+        \] 
+        where $ u^1 \in [0, \pi] $, $ u^2, \dots , u^{n-1} \in [0, \pi] $, and $ u^n \in [0, 2\pi) $. Compute the Christoffel symbols of the induced metric on $ S^n $. 
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item 
+    \end{enumerate}
+\end{solution}
+
+% additional exercise 2
+\begin{exercise}[computing the Ricci tensor]
+    Let $ f \in C^{\infty} (U) $, $ f>0 $, and $ g_{ij}(x^1, \dots , x^n) = f(x^n) \delta_{ij} $. Then, calculate the Ricci tensor $ R_{ij} $ in terms of $ f $ and its derivatives.  
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\newpage
+
+\section{Chapter 4.4}
+
+\begin{definition}[covariant derivative 協變導數]
+    Let $ w $ be a differentiable vector field restricted to a curve $ \alpha : I \to S $. The vector by the normal projection of $ \mathrm{d}w / \mathrm{d}t $ onto $ T_p (S) $ is called the \emph{covariant derivative} of the vector field $ w $ relative to $ \alpha ^{\prime} (0) $.
+\end{definition}
+
+\begin{definition}[covariant derivative of vector field along a curve]
+    Let $ w $ be a differentiable vector field along a curve $ \alpha : I \to S $. The expression 
+    \begin{equation}
+        \label{eq:cov_derivative}
+        \begin{split}
+            \frac{\mathrm{D} w}{\mathrm{d}t} (t) &= \left( a^{\prime} + \Gamma_{11}^1 a u^{\prime} + \Gamma_{12}^1 a v^{\prime} + \Gamma_{12}^1 b u^{\prime} + \Gamma_{22}^1 b v^{\prime} \right) \bvec{x}_u \\
+            &\quad + \left( b^{\prime} + \Gamma_{11}^2 a u^{\prime} + \Gamma_{12}^2 a v^{\prime} + \Gamma_{12}^2 b u^{\prime} + \Gamma_{22}^2 b v^{\prime} \right) \bvec{x}_v
+        \end{split}
+    \end{equation}
+    is called the \emph{covariant derivative} of the vector field $ w $ along the curve $ \alpha $.
+\end{definition}
+
+\begin{definition}[parallel vector field]
+    A vector field $ w $ along a curve $ \alpha : I \to S $ is said to be \emph{parallel} if $ \mathrm{D} w / \mathrm{d}t = 0 $ for all $ t \in I $.
+\end{definition}
+
+\begin{definition}[parallel transport 平行輸運]
+    Let $ \alpha : I \to S $ be a parametrized curve in $ S $ and let $ w_0 \in T_{\alpha (t_0)} (S) $, $ t_{0} \in I $. Let $ w $ be the (unique) parallel vector field along $ \alpha $ such that $ w(t_0) = w_0 $. The vector $ w(t) \in T_{\alpha (t)} (S) $ is called the \emph{parallel transport} of $ w_0 $ along $ \alpha $ at $ \alpha (t) $. 
+\end{definition}
+
+\begin{definition}[parametrized geodesic 參數測地線]
+    A nonconstant, parametrized curve $ \gamma : I \to S $ is said to be \emph{geodesic} at $ t \in I $ if the field of its tangent vectors $ \gamma^{\prime} (t) $ is parallel along $ \gamma $ at $ t $, i.e.
+    \begin{equation}
+        \label{eq:geodesic}
+        \frac{\mathrm{D} \gamma^{\prime}}{\mathrm{d}t} (t) = 0.
+    \end{equation}
+    We say $ \gamma $ is a \emph{parametrized geodesic} if it is geodesic for all $ t \in I $.
+\end{definition}
+
+\begin{definition}[geodesic 測地線]
+    A regular connected curve $C$ in $S$ is said to be a \emph{geodesic} if, for every $p \in C$, the parametrization $ \alpha (s) $ of a coordinate neighborhood of $p$ by arc length $s$ is a parametrized geodesic. That is, $ \alpha^{\prime} (s) $ is a parallel vector field along $ \alpha (s) $.
+\end{definition}
+
+\begin{definition}
+    Let $ w $ be a differentiable field of unit vectors along a parametrized curve $ \alpha : I \to S $ on an oriented surface $ S $. Since $ w (t) $ is normal to $ \mathrm{d}w(t) / \mathrm{d}t $, we can write 
+    \begin{equation*}
+        \label{eq:algebraic_geodesic}
+        \frac{\mathrm{D} w}{\mathrm{d}t} (t) = \lambda (t) \left( N(t) \wedge w(t) \right), \quad \lambda (t) \equiv \left[ \frac{\mathrm{D} w}{\mathrm{d} t} \right], 
+    \end{equation*} 
+    where $ \left[ \mathrm{D}w / \mathrm{d}t \right] $ is called the \emph{algebraic value of $ \mathrm{D}w / \mathrm{d}t $ at $ t $}. 
+\end{definition}
+
+\begin{definition}[geodesic curvature 測地線曲率]
+    Let $ C \subset S $ be a regular curve on an oriented surface $ S $, and let $ \alpha (s) $ be its parametrization by arc length. The algebraic value of the covariant derivative $ \left[\mathrm{D} \alpha^{\prime} (s) / \mathrm{d}s\right] \equiv k_\text{g} $ of $ \alpha^{\prime} (s) $ at $ p $ is called the \emph{geodesic curvature} of $ C $ at $ p = \alpha (s) $.
+\end{definition}
+
+\begin{remark}
+    Immediately, we have $ k^2 = k_n^2 + k_g^2 $.  
+\end{remark}
+
+\begin{proposition}[algebraic value of covariant derivative]
+    ~
+
+    \noindent Let $ \bvec{x}(u,v) $ be an orthonormal parametrization of a neighborhood of an oriented surface $ S $, and $ w(t) $ be a differentiable field of unit vectors along a curve $ \bvec{x} (u(t), v(t)) $. Then, 
+    \begin{equation}
+        \label{eq:algebraic_value_formula}
+        \left[\frac{\mathrm{D}w}{\mathrm{d}t}\right] = \frac{1}{2 \sqrt{EG}} \left( G_u \frac{\mathrm{d}v}{\mathrm{d}t}  - E_v \frac{\mathrm{d}u}{\mathrm{d}t} \right) + \frac{\mathrm{d}\phi}{\mathrm{d}t}, 
+    \end{equation}
+    where $ \phi (t) = \cos^{-1} \langle \bvec{x}_u / \sqrt{E}, \, w(t) \rangle $ is the angle from $ \bvec{x}_u $ to $ w(t) $ in the given orientation.
+\end{proposition}
+
+\begin{proposition}[Liouville]
+    Let $ \alpha (s) $ be a parametrization by arc length of a neighborhood of $ p $ of a regular oriented curve $ C $ on an oriented surface $ S $. Let $ \bvec{x} $ be an orthonormal parametrization of a neighborhood of $ p $ such that the angle between $ \alpha^{\prime} (s) $ and $ \bvec{x}_u $ is $ \phi (s) $. Then, 
+    \[
+        k_g = \left(k_g\right)_1 \cos \phi + \left(k_g\right)_2 \sin \phi + \frac{\mathrm{d}\phi}{\mathrm{d}s},
+    \]
+    where $ \left(k_g\right)_1 $ and $ \left(k_g\right)_2 $ are the geodesic curvatures of the coordinate curves $ v = \text{const.} $ and $ u = \text{const.} $, respectively.
+\end{proposition}
+
+\begin{theorem}[differential equations of the geodesics]
+    ~
+
+    \noindent Let $ \alpha : I \to S $ be a parametrized curve on a surface $ S $, and let $ \bvec{x}(u,v) $ be a parametrization of $ S $ in a neighborhood of $ \alpha (t_0) $, $ t_0 \in I $. Then, the tangent vector field $ \alpha^{\prime} (t) $, $ t \in J $, is given by $ w(t) = u^{\prime} (t) \bvec{x}_u + v^{\prime} (t) + \bvec{x}_v $. Since $ w $ is parellel along $ \alpha $, the functions $ u(t) $, $ v(t) $ satisfy
+    \[
+        u^{\prime\prime} + \Gamma_{11}^1 (u^{\prime})^2 + 2 \Gamma_{12}^1 u^{\prime} v^{\prime} + \Gamma_{22}^1 (v^{\prime})^2 = 0, \quad v^{\prime\prime} + \Gamma_{11}^2 (u^{\prime})^2 + 2 \Gamma_{12}^2 u^{\prime} v^{\prime} + \Gamma_{22}^2 (v^{\prime})^2 = 0.
+    \]
+\end{theorem}
+
+\begin{center}
+    \textit{Additional definitions for Riemannian geometry.} 
+\end{center}
+
+\begin{definition}[Levi-Civita formula]
+    The Christoffel symbols associated to the first fundamental form are given by
+    \[
+        \Gamma_{ij}^k = \frac{1}{2} g^{kl} \left( \partial_i g_{jl} + \partial_j g_{il} - \partial_l g_{ij} \right),
+    \]
+    where $ (g^{ij}) $ is the inverse matrix of $ (g_{ij}) $.
+\end{definition}
+
+\begin{definition}[connection $ 1 $-form]
+    Given an orthonormal frame $ \{e_1, e_2\} $ on a surface $ S $, the \emph{connection $ 1 $-form} $ \omega $ is defined by 
+    \[
+        \omega (X) = \langle \nabla_X e_1, e_2 \rangle, 
+    \]
+    for any vector field $ X $ on $ S $.
+\end{definition}
+
+\begin{definition}[Levi-Civita connection]
+    The Christoffel symbols defined by the Levi-Civita formula determine a unique connection $ \nabla $ on the tangent bundle of a surface $ S $, called the \emph{Levi-Civita connection}. This is given by the formula 
+    \[
+        \nabla_{e_i} e_j = \Gamma_{ij}^k \left(e_1, \dots , e_n \right) e_k.
+    \]
+\end{definition}
+
+\begin{definition}[Riemannian tensor]
+    Given vector fields $ X, Y, Z $ on $ S $, the Riemmannian curvature tensor $ R $ is defined by
+    \[
+        R(X,Y)Z = \nabla_X \nabla_Y Z - \nabla_Y \nabla_X Z - \nabla_{[X,Y]} Z.
+    \]
+    In coordinates, we have 
+    \[
+        R_{\phantom{l}ijk}^{l} = \langle R(\partial_i, \partial_j) \partial_k, \partial_l \rangle = \partial_i \Gamma_{jk}^l - \partial_j \Gamma_{ik}^l + \Gamma_{jk}^m \Gamma_{im}^l - \Gamma_{ik}^m \Gamma_{jm}^l.
+    \]
+\end{definition}
+
+\begin{definition}[Ricci tensor \& scalar curvature]
+    The \emph{Ricci tensor} $ R_{ij} $ is defined by contracting the Riemannian curvature tensor as 
+    \[
+        R_{ij} = R_{\phantom{k}ikj}^{k}.
+    \]
+    Then, the \emph{scalar curvature} $ R $ is defined as the trace of the Ricci tensor, i.e. $ R = g^{ij} R_{ji} $. 
+\end{definition}
+    
+
+% 4.4.1
+\begin{exerciseManual}{4.4.1}
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Show that if a curve $C \subset S$ is both a line of curvature and a geodesic, then $C$ is a plane curve.
+
+        \item Show that if a (nonrectilinear) geodesic is a plane curve, then it is a line of curvature.
+
+        \item Give an example of a line of curvature which is a plane curve and not a geodesic.
+    \end{enumerate}
+\end{exerciseManual}
+
+\begin{solutionManual}{4.4.1}
+    ~ 
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item By Proposition 3.2.3, the theorem of Olinde Rodrigues states that a regular curve is a line of curvature if and only if the normal vector $ N $ along $ C $ satisfies $ N^{\prime} (t) = \lambda (t) \alpha^{\prime} (t) $ for some function $ \lambda $. Since $ \alpha (t) $ is a geodesic, we have $ \mathrm{D} \alpha^{\prime} / \mathrm{d}t = \mathrm{D} T / \mathrm{d} t = 0 $, and thus $ T^{\prime} (t) = \mu (t) N (t) $ for some differentiable function $ \mu $. Therefore, the binormal vector $ B (t) = T (t) \wedge N (t) $ satisfies
+        \[
+            B^{\prime} (t) = T^{\prime} (t) \wedge N (t) + T (t) \wedge N^{\prime} (t) = \mu (t) N (t) \wedge N (t) + T (t) \wedge \lambda (t) \alpha^{\prime} (t) = 0.
+        \] 
+        Then, $ \frac{\mathrm{d}}{\mathrm{d}t} \langle \alpha (t), B(t) \rangle = \langle T (t), B(t) \rangle + \langle \alpha (t), B^{\prime} (t) \rangle = 0 $, and $ C $ is a plane curve. 
+        
+        \item Suppose $ C $ is a geodesic and a plane curve. Then, the normal vector $ N $ along $ C $ is constant, so $ N^{\prime} (t) = 0 $. Since $ \alpha (t) $ is a geodesic, we have $ \langle N^{\prime} (t), \, \alpha^{\prime} (t) \rangle = 0 $, *
+        
+        \item Let $ C $ be the curve of constant latitude on a sphere $ S $ with latitude $ 0 < \phi < \pi/2 $. Then, $ C $ is a line of curvature since the normal vector along $ C $ is constant. Also, $ C $ is a plane curve since it lies in a plane parallel to the equatorial plane. However, $ C $ is not a geodesic since the geodesics on a sphere are exactly the great circles.
+    \end{enumerate}
+\end{solutionManual}
+
+% 4.4.2
+\begin{exerciseManual}{4.4.2}
+    Prove that a curve $C \subset S$ is both an asymptotic curve and a geodesic if and only if $C$ is a (segment of a) straight line.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.4.2}
+    Suppose $ C $ is both an asymptotic curve and a geodesic, and $ C $ is the trace of the parametrization $ \alpha : I \to \mathbb{R}^3 $. Then $ k_n = k_g = 0 $. Thus, $ k^2 = k_n^2 + k_g^2 = 0 $ implies $ k=0 $, and so $ \alpha^{\prime\prime} = kn = 0 $. Integrating twice, we have $ \alpha (t) = at + b $, a straight line. Conversely, if $ C $ is a straight line, then $ kn = \alpha^{\prime\prime} = 0 $. Taking the norm on both sides shows $ k = 0 $, and hence $ k_g = k_n = 0 $.  
+\end{solutionManual}
+
+% 4.4.3
+\begin{exerciseManual}{4.4.3}
+    Show, without using Prop.~5, that the straight lines are the only geodesics of a plane.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.4.3}
+    For a plane, the unit normal $ N $ is constant, and thus $ \mathrm{d}N = 0 $. Therefore, the second fundamental form $ \operatorname{II} (v, w) = - \langle \mathrm{d}N_p (v),\, w \rangle N = 0 $ for all $ v, w \in T_p (S) $, and $ k_n $ is identically zero. For a geodesic, we have $ k_g = 0 $, so $ k = 0 $, and $ \alpha^{\prime\prime} = 0 $. Integrating twice, we have $ \alpha (t) = at + b $, a straight line. Conversely, a straight line has $ \alpha^{\prime\prime} = 0 $, so $ k = 0 $, and hence $ k_g = 0 $.
+\end{solutionManual}
+
+% 4.4.4
+\begin{exerciseManual}{4.4.4}
+    Let $v$ and $w$ be vector fields along a curve $\alpha : I \to S$. Prove that
+    \[
+        \frac{d}{dt}\langle v(t), w(t)\rangle = \left\langle \frac{Dv}{dt},\, w(t)\right\rangle + \left\langle v(t),\, \frac{Dw}{dt}\right\rangle.
+    \]
+\end{exerciseManual}
+
+\begin{solutionManual}{4.4.4}
+    The covariant derivative is the normal projection of the ordinary derivative onto the tangent space. Thus, we have
+    \[
+        \frac{\mathrm{D} v}{\mathrm{d}t} = \frac{\mathrm{d} v}{\mathrm{d}t} - \left\langle \frac{\mathrm{d} v}{\mathrm{d}t}, N \right\rangle N, \quad 
+        \frac{\mathrm{D} w}{\mathrm{d}t} = \frac{\mathrm{d} w}{\mathrm{d}t} - \left\langle \frac{\mathrm{d} w}{\mathrm{d}t}, N \right\rangle N.  
+    \]
+    \[ 
+        \begin{split}
+            \implies &\left\langle \frac{\mathrm{D}v}{\mathrm{d}t},  w \right\rangle + \left\langle v, \frac{\mathrm{D}w}{\mathrm{d}t} \right\rangle = \left\langle \frac{\mathrm{d}v}{\mathrm{d}t} - \left\langle \frac{\mathrm{d} v}{\mathrm{d}t}, N \right\rangle N, w \right\rangle + \left\langle v, \frac{\mathrm{d}w}{\mathrm{d}t} - \left\langle \frac{\mathrm{d} w}{\mathrm{d}t}, N \right\rangle N \right\rangle \\
+            &= \left\langle \frac{\mathrm{d}w}{\mathrm{d}t}, v \right\rangle + \left\langle \frac{\mathrm{d}v}{\mathrm{d}t}, w \right\rangle - \left\langle \frac{\mathrm{d} v}{\mathrm{d}t}, N \right\rangle \langle N, w \rangle - \left\langle \frac{\mathrm{d} w}{\mathrm{d}t}, N \right\rangle \langle v, N \rangle \\
+            &= \frac{\mathrm{d}}{\mathrm{d}t} \langle v, w \rangle - \frac{\mathrm{d}}{\mathrm{d}t} \langle v, N \rangle \langle N, w \rangle 
+        \end{split}
+    \]
+\end{solutionManual}
+
+% 4.4.5
+\begin{exerciseManual}{4.4.5}
+    Consider the torus of revolution generated by rotating the circle
+    \[
+    (x-a)^2 + z^2 = r^2,\qquad y=0,
+    \]
+    about the $z$ axis ($a > r > 0$). The parallels generated by the points $(a+r,0)$, $(a-r,0)$, $(a,r)$ are called the \emph{maximum parallel}, the \emph{minimum parallel}, and the \emph{upper parallel}, respectively. Check which of these parallels is
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item A geodesic.
+        \item An asymptotic curve.
+        \item A line of curvature.
+    \end{enumerate}
+\end{exerciseManual}
+
+\begin{solutionManual}{4.4.5}
+    Take the standard parametrization of the torus of rotation: 
+    \[
+        \bvec{x} (u,v) = \left( (a + r \cos v) \cos u, \, (a + r \cos v) \sin u, \, r \sin v \right), \quad u, v \in [0, 2\pi).
+    \]
+    Then, we have 
+    \begin{align*}
+        \bvec{x}_u &= \left( -(a + r \cos v) \sin u, \, (a + r \cos v) \cos u, \, 0 \right), \\
+        \bvec{x}_v &= \left( -r \sin v \cos u, \, -r \sin v \sin u, \, r \cos v \right), \\
+        \bvec{x}_{uu} &= \left( -(a + r \cos v) \cos u, \, -(a + r \cos v) \sin u, \, 0 \right), \\
+        \bvec{x}_{uv} &= \left( r \sin v \sin u, \, -r \sin v \cos u, \, 0 \right), \\
+        \bvec{x}_{vv} &= \left( -r \cos v \cos u, \, -r \cos v \sin u, \, -r \sin v \right).
+    \end{align*}
+    The first fundamental form is given by
+    \[
+        E = \langle \bvec{x}_u, \bvec{x}_u \rangle = (a + r \cos v)^2, \quad F = \langle \bvec{x}_u, \bvec{x}_v \rangle = 0, \quad G = \langle \bvec{x}_v, \bvec{x}_v \rangle = r^2, 
+    \]
+    the unit normal is $ N = \left(\cos v \cos u, \, \cos v \sin u, \, \sin v \right) $, and the second fundamental form is given by
+    \[
+        e = \langle N, \bvec{x}_{uu} \rangle = -(a + r \cos v) \cos v, \quad f = \langle N, \bvec{x}_{uv} \rangle = 0, \quad g = \langle N, \bvec{x}_{vv} \rangle = -r.
+    \]
+    Now, we proceed to calculate the geodesic curvature $ k_g $ for each parallel with $ v = \phi_0 $. The maximum, minimum, and upper parallels correspond to $ \phi_0 = 0 $, $ \pi $, and $ \pi/2 $, respectively. The unit tangent along the parallel is $ T = \bvec{x}_u / \sqrt{E} $, and the normal curvature is given by
+    \[
+        k_n = \frac{\operatorname{II} (T,T)}{\operatorname{I} (T)} = \frac{e}{E} = -\frac{(a + r \cos \phi_0) \cos \phi_0}{(a + r \cos \phi_0)^2} = -\frac{\cos \phi_0}{a + r \cos \phi_0}. 
+    \] 
+    We have 
+
+    \[
+        \frac{\mathrm{D}T}{\mathrm{d}s} = \Gamma_{uu}^v (T^u)^2 e_v = \Gamma_{uu}^v \frac{1}{E} \bvec{x}_v = 
+    \]
+\end{solutionManual}
+
+% 4.4.6
+\begin{exerciseManual}{*4.4.6}
+    Compute the geodesic curvature of the upper parallel of the torus of Exercise~5.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.4.6}
+    
+\end{solutionManual}
+
+% 4.4.8
+\begin{exerciseManual}{*4.4.8}
+    Show that if all the geodesics of a connected surface are plane curves, then the surface is contained in a plane or a sphere.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.4.8}
+    Let $ C $ be a geodesic of $ S $, and $ \alpha (t) $ be its parametrization. Since $ C $ is a plane curve, we have $ B^{\prime} = T^{\prime} \wedge N + T \wedge N^{\prime} = 0 $. Since $ C $ is a geodesic, we have $ k_g = 0 $, and thus $ \alpha^{\prime\prime} = T^{\prime} = k_n N $. Hence, $ T \wedge N^{\prime} = 0 $, and so $ N^{\prime} = \lambda T $ for some function $ \lambda $. By Proposition 3.2.3 (Olinde Rodrigues), every point of $ C $ is an umbilical point. By Proposition 4.4.5, for any $ p \in S $ and $ w \in T_p (S) $, there is a unique parametrized geodesic $ \gamma : I \to S $ such that $ \gamma (0) = p $ and $ \gamma^{\prime} (0) = w $, and hence every point of $ S $ is umbilical. Since $ S $ is connected and all its points are umbilical points, by Proposition 3.2.4 (a surface $ S $ is contained in a plane or a sphere if $ S $ is connected and all its points are umbilical points), $ S $ is contained in a plane or a sphere.
+\end{solutionManual}
+
+
+% 4.4.9
+\begin{exerciseManual}{*4.4.9}
+    Consider two meridians of a sphere $C_1$ and $C_2$ which make an angle $\varphi$ at the point $p_1$. Take the parallel transport of the tangent vector $w_0$ of $C_1$, along $C_1$ and $C_2$, from the initial point $p_1$ to the point $p_2$ where the two meridians meet again, obtaining, respectively, $w_1$ and $w_2$. Compute the angle from $w_1$ to $w_2$.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.4.9}
+    Let $ C_1 $ and $ C_2 $ be the two meridians of the sphere intersecting at $ p_1 $ and $ =_2 $, parametrized by $ \alpha_1 $ and $ \alpha_2 $ respectively. Without loss of generality, let $ p_1 = (0, 0, 1) $ and $ p_2 = (0,0,-1) $. Choose coordinates such that
+    \[
+        \alpha_1 (s) = \left(\sin s, \, 0, \,\cos s\right), \quad \alpha_2 (s) = \left(\cos \phi \sin s, \, \sin \phi \sin s, \, \cos s\right),
+    \]
+    for $ 0 \leq s < \pi $. We have $ w_0 = \alpha_1^{\prime} (0) = (1,0,0) $ and the transport along $ C_1 $ is $ w_1 (\pi) = \alpha_1^{\prime} (\pi) = (-1,0,0) $.  
+\end{solutionManual}
+
+% 4.4.10
+\begin{exerciseManual}{*4.4.10}
+    Show that the geodesic curvature of an oriented curve $C \subset S$ at a point $p \in C$ is equal to the curvature of the plane curve obtained by projecting $C$ onto the tangent plane $T_p(S)$ along the normal to the surface at $p$.
+\end{exerciseManual}
+
+% 4.4.12
+\begin{exerciseManual}{*4.4.12}
+    We say that a set of regular curves on a surface $S$ is a \emph{differentiable family of curves} on $S$ if the tangent lines to the curves of the set make up a differentiable field of directions (see Sec.\ 3--4). Assume that a surface $S$ admits two differentiable orthogonal families of geodesics. Prove that the Gaussian curvature of $S$ is zero.
+\end{exerciseManual}
+
+% 4.4.13
+\begin{exerciseManual}{*4.4.13}
+    Let $V$ be a connected neighborhood of a point $p$ of a surface $S$, and assume that the parallel transport between any two points of $V$ does not depend on the curve joining these two points. Prove that the Gaussian curvature of $V$ is zero.
+\end{exerciseManual}
+
+% 4.4.14
+\begin{exerciseManual}{4.4.14}
+    Let $S$ be an oriented regular surface and let $\alpha : I \to S$ be a curve parametrized by arc length. At the point $p = \alpha(s)$ consider the three unit vectors (the Darboux trihedron)
+    \[
+    T(s) = \alpha'(s), \qquad 
+    N(s) = \text{the normal vector to } S \text{ at } p, \qquad 
+    V(s) = N(s) \wedge T(s).
+    \]
+    Show that
+    \begin{align*}
+        \frac{dT}{ds} &= 0 + aV + bN, \\
+        \frac{dV}{ds} &= -aT + 0 + cN, \\
+        \frac{dN}{ds} &= -bT - cV + 0,
+    \end{align*}
+    where $a = a(s)$, $b = b(s)$, $c = c(s)$, $s \in I$. The above formulas are the analogues of Frenet's formulas for the trihedron $T, V, N$. To establish the geometrical meaning of the coefficients, prove that
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item $c = -\langle dN/ds, V \rangle$; conclude from this that $\alpha(I) \subset S$ is a line of curvature if and only if $c \equiv 0$ ($-c$ is called the geodesic torsion of $\alpha$; cf.\ Exercise 19, Sec.\ 3--2).
+        \item $b$ is the normal curvature of $\alpha(I) \subset S$ at $p$.
+        \item $a$ is the geodesic curvature of $\alpha(I) \subset S$ at $p$.
+    \end{enumerate}
+\end{exerciseManual}
+
+\begin{solutionManual}{4.4.14}
+    First, we show the Darboux trihedron analogue for Frenes formulas. Since $ T, V, N $ are orthonormal, we have $ \langle T, T \rangle = \langle V, V \rangle = \langle N, N \rangle = 1 $ and $ \langle T, V \rangle = \langle V, N \rangle = \langle N, T \rangle = 0 $. Differentiating these equations with respect to $ s $, we have
+    \[
+        \left\langle \frac{\mathrm{d}T}{\mathrm{d}s}, T \right\rangle = \left\langle \frac{\mathrm{d}V}{\mathrm{d}s}, V \right\rangle = \left\langle \frac{\mathrm{d}N}{\mathrm{d}s}, N \right\rangle = 0,
+    \]
+    and
+    \[
+        \left\langle \frac{\mathrm{d}T}{\mathrm{d}s}, V \right\rangle + \left\langle T, \frac{\mathrm{d}V}{\mathrm{d}s} \right\rangle = 0, \quad \left\langle \frac{\mathrm{d}V}{\mathrm{d}s}, N \right\rangle + \left\langle V, \frac{\mathrm{d}N}{\mathrm{d}s} \right\rangle = 0, \quad \left\langle \frac{\mathrm{d}N}{\mathrm{d}s}, T \right\rangle + \left\langle N, \frac{\mathrm{d}T}{\mathrm{d}s} \right\rangle = 0.
+    \]
+    Hence, let $ a(s) = \langle \mathrm{d}T / \mathrm{d}s, V \rangle $, $ b(s) = \langle \mathrm{d}T / \mathrm{d}s, N \rangle $, and $ c(s) = - \langle \mathrm{d}N / \mathrm{d}s, V \rangle $, we have 
+    \begin{align*}
+        \frac{\mathrm{d}T}{\mathrm{d}s} &= \left\langle \frac{\mathrm{d}T}{\mathrm{d}s}, V \right\rangle V + \left\langle \frac{\mathrm{d}T}{\mathrm{d}s}, N \right\rangle N = 0 + a V + b N, \\
+        \frac{\mathrm{d}V}{\mathrm{d}s} &= \left\langle \frac{\mathrm{d}V}{\mathrm{d}s}, T \right\rangle T + \left\langle \frac{\mathrm{d}V}{\mathrm{d}s}, N \right\rangle N \\
+        &= - \left\langle \frac{\mathrm{d}T}{\mathrm{d}s}, V \right\rangle T + 0 - \left\langle \frac{\mathrm{d}N}{\mathrm{d}s}, V \right\rangle N = -a T + 0 + c N, \\
+        \frac{\mathrm{d}N}{\mathrm{d}s} &= \left\langle \frac{\mathrm{d}N}{\mathrm{d}s}, T \right\rangle T + \left\langle \frac{\mathrm{d}N}{\mathrm{d}s}, V \right\rangle V = -b T - c V + 0.
+    \end{align*}
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item $ c(s) $ is as we defined above. By Proposition 3.2.3 (Olinde Rodrigues), $ \alpha (I) \subset S $ is a line of curvature if and only if $ N^{\prime} (s) = \lambda (s) T (s) $ for some function $ \lambda $, if and only if $ c(s) = - \langle N^{\prime} (s), V (s) \rangle = 0 $ for all $ s \in I $.
+        
+        \item Since $ k_n = k \cos \theta $, where $ \cos \theta = \langle n, N \rangle $, we have $ k_n = \langle \alpha^{\prime\prime}, N \rangle $. By the first formula, $ \alpha^{\prime\prime} = \mathrm{d}T / \mathrm{d}s = a V + b N $, so $ k_n = \langle a V + b N, N \rangle = b $.  
+        
+        \item The geodesic curvature $ k_g $ is the algebraic value of the covariant derivative of $ \alpha^{\prime} (t) $. For a unit vector field $ w (t) $ along $ \alpha (t) $, we have 
+        \[
+            \left[\frac{\mathrm{D}w}{\mathrm{d}t}\right] = \left\langle \frac{\mathrm{d}w}{\mathrm{d}t}, \, N \wedge w \right\rangle.
+        \]
+        Let $ w (t) = \alpha^{\prime} (t) = T(t) $, we have 
+        \[
+            k_g (t) = \left[\frac{\mathrm{D}\alpha^{\prime}}{\mathrm{d}t}\right] = \left\langle \frac{\mathrm{d}T}{\mathrm{d}s}, \, N \wedge T \right\rangle = \langle a V + b N, V \rangle = a (t).
+        \]
+    \end{enumerate}
+\end{solutionManual}
+
+% 4.4.15
+\begin{exerciseManual}{4.4.15}
+    Let $p_0$ be a pole of a unit sphere $S^2$ and $q, r$ be two points on the corresponding equator in such a way that the meridians $p_0q$ and $p_0r$ make an angle $\theta$ at $p_0$. Consider a unit vector $v$ tangent to the meridian $p_0q$ at $p_0$, and take the parallel transport of $v$ along the closed curve made up by the meridian $p_0q$, the parallel $qr$, and the meridian $rp_0$ (Fig.\ 4--21).
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Determine the angle of the final position of $v$ with $v$.
+        \item Do the same thing when the points $r, q$ instead of being on the equator are taken on a parallel of colatitude $\varphi$ (cf.\ Example 1).
+    \end{enumerate}
+\end{exerciseManual}
+
+\begin{solutionManual}{4.4.15}
+    
+\end{solutionManual}
+
+% 4.4.16
+\begin{exerciseManual}{*4.4.16}
+    Let $p$ be a point of an oriented surface $S$ and assume that there is a neighborhood of $p$ in $S$ all points of which are parabolic. Prove that the (unique) asymptotic curve through $p$ is an open segment of a straight line. Give an example to show that the condition of having a neighborhood of parabolic points is essential.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.4.16}
+    
+\end{solutionManual}
+
+% 4.4.18
+\begin{exerciseManual}{*4.4.18}
+    Consider a geodesic which starts at a point $p$ in the upper part ($z>0$) of a hyperboloid of revolution $x^2 + y^2 - z^2 = 1$ and makes an angle $\theta$ with the parallel passing through $p$ in such a way that $\cos\theta = 1/r$, where $r$ is the distance from $p$ to the $z$ axis. Show that by following the geodesic in the direction of decreasing parallels, it approaches asymptotically the parallel $x^2 + y^2 = 1,\ z=0$ (Fig.\ 4--22).
+\end{exerciseManual}
+
+% 4.4.19
+\begin{exerciseManual}{*4.4.19}
+    Show that when the differential equations (4) of the geodesics are referred to the arc length then the second equation of (4) is, except for the coordinate curves, a consequence of the first equation of (4).
+\end{exerciseManual}
+
+\newpage
+
+\section{Chapter 4.5}
+
+\begin{theorem}[turning tangents]
+    \[
+        \sum_{i=0}^k \left(\phi(t_{i+1}) - \phi (t_i)\right) + \sum_{i=0}^k \theta_i = \pm 2 \pi,  
+    \]
+    where the sign plus or minus depends on the orientation of the curve.
+\end{theorem}
+
+
+\begin{definition}
+    Let $S$ be an oriented surface. A region $R \subseteq S$ is called a \emph{simple region} if $ R $ is homeomorphic to a disk and the boundary $ \partial R $ of $ R $ is the trace of a simple, closed, piecewise regular, parametrized curve $ \alpha : I \to S $. Further, let $ \bvec{x}: U \subseteq \mathbb{R}^2 \to S $ be a parametrization and let $ R $ be bounded. Then, if $ f $ is a differentiable function on $ S $, the \emph{integral of $ f $ over $ R $} is given by 
+    \[
+        \iint_R \mathrm{d}\sigma \, f = \iint_{\bvec{x}^{-1} (R)} \mathrm{d}u\, \mathrm{d}v\, f(\bvec{x}(u,v)) \sqrt{EG - F^2}, 
+    \]
+    and this definition is independent of the parametrization $ \bvec{x} $ chosen.
+\end{definition}
+
+\begin{theorem}[local Gauss-Bonnet Theorem]
+    Let $ \bvec{x}: U \to S $ be an isothermal parametrization of an oriented surface $ S $, where $ U $ is homeomorphic to an open disk and $ \bvec{x} $ is compatible with the orientation of $ S $. Let $ R \subseteq \bvec{x}(U) $ be a simple region and $ \alpha : I \to S $ be such that $ \alpha (I) = \partial R $. Assume $ \alpha $ is positively oriented, parametrized by arc length, and that $ \alpha (s_0), \dots , \alpha (s_k) $ and $ \theta_0, \dots , \theta_k $ are the vertices and exterior angles of $ \alpha $, respectively. Then,
+    \[
+        \sum_{i=0}^k \int_{s_i}^{s_{i+1}} \mathrm{d}s\, k_g + \iint_R \mathrm{d}\sigma \, K + \sum_{i=0}^k \theta_i = 2 \pi, 
+    \]
+    where $ k_g $ is the geodesic curvature of the regular arcs of $ \alpha $ and $ K $ is the Gaussian curvature of $ S $.
+\end{theorem}
+
+\begin{theorem}[global Gauss-Bonnet Theorem]
+    Let $ R \subseteq S $ be a regular region of an oriented surface $ S $ and let $ C_0, \dots , C_n $ be the closed, simple, piecewise regular curves which make up $ \partial R $. Suppose each $ C_i $ is positively oriented and let $ \{ \theta_1, \dots , \theta_p \} $ be the set of the curves $ C_1, \dots , C_n $. Then, 
+    \[
+        \sum_{i=1}^n \int_{C_i} \mathrm{d}s\, k_g + \iint_R \mathrm{d}\sigma \, K + \sum_{j=1}^p \theta_j = 2 \pi \chi (R),
+    \]
+    where $ s $ denotes the arc length of $ C_i $, and the integral over $ C_i $ means the sum of integrals over each regular arc of $ C_i $.
+\end{theorem}
+
+\begin{corollary}
+    If $ R $ is a simple region, then 
+    \[
+        \sum_{i=1}^n \int_{C_i} \mathrm{d}s\, k_g + \iint_R \mathrm{d}\sigma \, K + \sum_{j=1}^p \theta_j = 2 \pi.
+    \]
+\end{corollary}
+
+\begin{corollary}
+    If $ S $ is an orientable compact surface, then 
+    \[
+        \iint_S \mathrm{d}\sigma \, K + \sum_{j=1}^p \theta_j = 2 \pi \chi (S).
+    \]
+\end{corollary}
+
+\begin{corollary}[interior angles of a geodesic triangle]
+    Let $ T $ be a geodesic triangle in an oriented surface $ S $. Assume the Gaussian curvature $ K $ does not change sign in $ T $, and let $ \phi_i $ denote the interior angles of $ T $. Then, 
+    \[
+        \sum_{i=1}^3 \phi_i = \pi + \iint_T \mathrm{d}\sigma\, K. 
+    \]
+\end{corollary}
+
+\begin{definition}[index of a vector field]
+    Let $ v $ be a differentiable vector field on a surface $ S $. A point $ p \in S $ is called a \emph{singular point} of $ v $ if $ v(p) = 0 $. A singular point $ p $ is said to be \emph{isolated} if there exists a neighborhood $ U \subset S $ of $ p $ such that $ p $ is the only singular point of $ v $ in $ U $. Let $ \bvec{x}: U \to S $ be an orthogonal parametrization of $ S $ at $ p = \bvec{x}(0,0) $ compatible with $ S $, and let $ \alpha : [0,l] \to S $ be a simple, closed, positively oriented, piecewise regular curve such that $ \alpha ([0,l]) \subseteq \bvec{x}(U) $ is the boundary of a simple region $ R $ containing $ p $ and no other singular points of $ v $. 
+\end{definition}
+
+% 4.5.1
+\begin{exerciseManual}{4.5.1}
+    Let $S \subset \mathbb{R}^3$ be a regular, compact, connected, orientable surface which is not homeomorphic to a sphere. Prove that there are points on $S$ where the Gaussian curvature is positive, negative, and zero.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.5.1}
+    By corollary of the global Gauss--Bonnet theorem for orientable compact surfaces, we have 
+    \[
+        \iint_S K \, d\sigma = 2 \pi \chi (S) \leq 0,  
+    \]
+    since compact surfaces in $ \mathbb{R}^3 $ have Euler--Poincar\'e characteristic less than or equal to zero unless they are homeomorphic to a sphere. By a previous result, every compact surface in $ \mathbb{R}^3 $ has an elliptics point, so $ K(p) > 0 $ for some $ p $. Suppose there are no points with $ K<0 $, then by continuity of $ K $ there is an open neighborhood $ U \subset S $ of $ p $ such that $ K(q) > 0 $ for all $ q \in U $. Thus,
+    \[
+        \iint_S K \, d\sigma = \iint_U K \, d\sigma + \iint_{S \setminus U} K \, d\sigma > 0,
+    \]
+    a contradiction. Finally, since $ S $ is connected and $ K $ is a continuous mapping, there exists $ r \in S $ such that $ K(r) = 0 $ by the Intermediate Value Theorem.
+\end{solutionManual}
+
+% 4.5.2
+\begin{exerciseManual}{4.5.2}
+    Let $T$ be a torus of revolution.
+    Describe the image of the Gauss map of $T$ and show, without using the Gauss-Bonnet theorem, that
+    \[
+    \iint_T K \, d\sigma = 0.
+    \]
+    Compute the Euler--Poincar\'e characteristic of $T$ and check the above result with the Gauss--Bonnet theorem.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.5.2}
+    The torus of revolution $ T $ can be parametrized by
+    \[
+        \bvec{x} (u,v) = \left( (a + r \cos v) \cos u, \, (a + r \cos v) \sin u, \, r \sin v \right),
+    \]
+    where $ a > r > 0 $, $ u \in [0, 2\pi) $, and $ v \in [0, 2\pi) $. Then $ \bvec{x}_u = \left(- (1+r \cos v) \sin u, \, (1+r \cos v) \cos u, 0 \right) $, $ \bvec{x}_v = \left(- r \sin v \cos u, \,- r \sin v \sin u, r \cos v \right) $. The Gauss map $ N : T \to S^2 $ is given by
+    \[
+        N(u,v) = \frac{\bvec{x}_u \wedge \bvec{x}_v}{\vert \bvec{x}_u \wedge \bvec{x}_v \vert} = (\cos v \cos u, \, \cos v \sin u, \, \sin v).
+    \]
+    The image of $ N $ is the entire unit sphere $ S^2 $, since for every $ (x,y,z) \in S^2 $, we can find $ (u,v) \in [0, 2\pi) \times [0, 2\pi) $ such that $ N(u,v) = (x,y,z) $. The Gaussian curvature of $ T $ is given by
+    \[
+        K(u,v) = \frac{\langle N_u \wedge N_v, N \rangle}{\vert \bvec{x}_u \wedge \bvec{x}_v \vert} = \frac{\cos v}{r (a + r \cos v)}.
+    \]
+    Then, we can directly compute 
+    \[
+        \begin{split}
+            \iint_T \mathrm{d}\sigma \, K &= \int_0^{2\pi} \int_0^{2\pi} \mathrm{d}u \, \mathrm{d}v \, K(u,v) \sqrt{EG - F^2} \\
+            &= \int_0^{2\pi} \int_0^{2\pi} \mathrm{d}u \, \mathrm{d}v \, \frac{\cos v}{r (a + r \cos v)} r (a + r \cos v) \\
+            &= \int_0^{2\pi} \mathrm{d}u \int_0^{2\pi} \mathrm{d}v \, \cos v = 0. 
+        \end{split}
+    \]
+    To compute the Euler-Poinca\'{e} characteristic of $ T $, note that the torus is isomorphic to the quotient of a square by identifying the opposite sides and identifying the vertices to a single point. Consider the triangulation of $ T $ shown in Figure~\ref{fig:torus_triangulation}, which has $ V = 9 $, $ E = 27 $, and $ F = 18 $. In fact, the \emph{minimal triangulation} only has $ V = 7 $, $ E = 21 $, and $ F = 14 $. Thus, $ \chi (T) = E - V + F = 0 $.   
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{torus_triangulation.png}
+        \caption{Triangulation of the torus.}
+        \label{fig:torus_triangulation}
+    \end{figure}
+
+    By the global Gauss-Bonnet Theorem, we have 
+    \[
+        \iint_T \mathrm{d}\sigma \, K = 0 = 2 \pi \chi (T) \implies \chi (T) = 0.
+    \]
+
+    \begin{remark}
+        Calculating Gaussian curvature for a surface of revolution: 
+    \end{remark}
+\end{solutionManual}
+
+% 4.5.3
+\begin{exerciseManual}{4.5.3}
+    Let $S \subset \mathbb{R}^3$ be a regular compact surface with $K > 0$. Let $\Gamma \subset S$ be a simple closed geodesic in $S$, and let $A$ and $B$ be the regions of $S$ which have $\Gamma$ as a common boundary. Let $N : S \to S^2$ be the Gauss map of $S$. Prove that $N(A)$ and $N(B)$ have the same area.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.5.3}
+    
+\end{solutionManual}
+
+% 4.5.4
+\begin{exerciseManual}{4.5.4}
+    Compute the Euler--Poincar\'e characteristic of
+    \begin{enumerate}
+        \item[\textbf{a.}] an ellipsoid;
+        \item[\textbf{*b.}] the surface
+        \[
+        S = \{(x,y,z) \in \mathbb{R}^3 \,;\; x^2 + y^{10} + z^6 = 1\}.
+        \]
+    \end{enumerate}
+\end{exerciseManual}
+
+\begin{solutionManual}{4.5.4}
+    ~ 
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Let $ E $ be the ellipsoid given by the equation $ \frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2} = 1 $, where $ a, b, c > 0 $. Since the linear map $ L: S^2 \to E $ given by $ L(x,y,z) = (ax,by,cz) $ is a diffeomorphism, $ E \approx S^2 $, and $ \chi (E) = 2 $. 
+        
+        \item Let $ F: \mathbb{R}^3 \to \mathbb{R} $ be defined by $ F(x,y,z) = x^2 + y^{10} + z^6 $. $ 1 $ is said to be a regular point if $ \mathrm{d} F_p \neq 0 $, or, equivalently, $ \nabla F \neq 0 $. Since $ \nabla F = (2x, 10 y^9, 6 z^5) = 0 $ only at $ (0,0,0) $, which is not in $ S $, we have that $ 1 $ is a regular value of $ F $. By the Regular Value Theorem, $ S = F^{-1} (1) $ is a regular surface. Since $ \{1\} \subseteq \mathbb{R} $ is closed and $ F $ is continuous, $ S = F^{-1}(\{1\}) $ is closed. Furthermore, we have $ |x|, |y|, |z| \leq 1 $, so $ S $ is bounded. By the Heine-Borel Theorem, $ S $ is compact. Moreover, $ S $ is orientable with $ N = \nabla F / \vert \nabla F \vert $. For fixed $ u = (u_1, u_2, u_3) \in S^2 $, let $ \phi_u : \mathbb{R}^3 \to \mathbb{R}^3 $ be defined by $ \phi_u (r) \equiv F(ru) $ for $ r>0 $. Since $ \phi_u $ is continuous, $ \phi_u ^{\prime} (r) = 2r u_1^2 + 10 r^9 u_2^{10} + 6r^5 u_3^6 > 0 $, and $ \phi_ (0) = 0 $, $ \phi_u (\infty) = \infty $, by the Intermediate Value Theorem there exists a unique $ r_u > 0 $ such that $ \phi_u (r_u) = 1 $. 
+        
+        \begin{claim}
+            The map $ \psi : S^2 \to S $ given by $ \psi (u) = r_u u $ is a continuous bijection.
+        \end{claim}
+        \begin{proof}
+            Deifne $ G: (0, \infty) \times S^2 \to \mathbb{R} $ by $ G(r,u) = F(r u ) - 1 $. Then $ G(r_u, u) = 0 $ and 
+            \[
+                \frac{\partial G}{\partial u} (r_u, u) = \langle \nabla F (r_u u), u \rangle = 2 r_u u_1^2 + 10 r_u^9 u_2^{10} + 6 r_u^5 u_3^6 > 0.
+            \] 
+            Hence, by the Implicit Function Theorem, $ r_u $ depends smoothly on $ u $, and thus $ \psi = u_r u $ is continuous. For $ p \in S $, let $ u = p / \lVert p \rVert $, then $ F (\lVert p \rVert u) = F(p) = 1 $, and by the uniqueness of $ r_u $, $ r_u = \lVert p \rVert $. Then $ \psi (u) = r_u u = p $, and $ \psi $ is surjective. Let $ p \in S $ satisfy $ \psi (p) = r_p p = 0 $. Since $ r_p > 0 $, it must be that $ p = 0 $, hence $ \psi $ is injective, and hence a bijection.  
+        \end{proof}
+        
+        \begin{theorem}
+            A continuous bijection between a compact space and a Hausdorff space is a homeomorphism.
+        \end{theorem}
+
+        Since $ \psi $ is a continuous bijection between a compact space $ S^2 $ and a Hausdorff space $ S $, by the theorem above $ \psi $ is a homeomorphism, and thus $ S \approx S^2 $. Therefore, $ \chi (S) = 2 $.
+    \end{enumerate}
+\end{solutionManual}
+
+% 4.5.5
+\begin{exerciseManual}{4.5.5}
+    Let $C$ be a parallel of colatitude $\varphi$ on an oriented unit sphere $S^2$, and let $w_0$ be a unit vector tangent to $C$ at a point $p \in C$ (cf.\ Example~1, Sec.~4--4). Take the parallel transport of $w_0$ along $C$ and show that its position, after a complete turn, makes an angle
+    \[
+        \Delta \varphi = 2\pi (1 - \cos \varphi)
+    \]
+    with the initial position $w_0$. Check that
+    \[
+        \lim_{R \to p} \frac{\Delta \varphi}{A} = 1 = \text{curvature of } S^2,
+    \]
+    where $A$ is the area of the region $R$ of $S^2$ bounded by $C$.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.5.5}
+    Let $ S^2 $ be the unit sphere parametrized by
+    \[
+        \bvec{x} (u,v) = (\sin v \cos u, \, \sin v \sin u, \, \cos v),
+    \]
+    where $ u \in [0, 2\pi) $ and $ v \in [0, \pi] $. Then, the parallel of colatitude $ \varphi $ is given by $ C : \alpha (t) = (\sin \varphi \cos t, \, \sin \varphi \sin t, \, \cos \varphi) $, where $ t \in [0, 2\pi] $. The tangent vector to $ C $ at $ p = \alpha (0) $ is given by 
+    \[
+        w_0 = \alpha^{\prime} (0) = (0, \sin \varphi, 0). 
+    \]
+    We have $ \alpha^{\prime} (t) = (-\sin \varphi \sin t, \, \sin \varphi \cos t, \, 0) $, $ \alpha^{\prime\prime} (t) = (-\sin \varphi \cos t, \, -\sin \varphi \sin t, \, 0) $, and $ \langle \alpha \wedge \alpha^{\prime} , \alpha^{\prime\prime} \rangle = \sin^2 \varphi \cos \varphi $. The geodesic curvature of $ C $ is given by 
+    \[
+        \begin{split}
+            k_g (t) &= \frac{\langle N(\alpha (t)) \wedge \alpha^{\prime} (t), \, \alpha^{\prime\prime} (t) \rangle}{\lVert \alpha^{\prime} (t) \rVert^3} = \frac{\langle \alpha (t) \wedge \alpha^{\prime} (t), \, \alpha^{\prime\prime} (t) \rangle}{\lVert \alpha^{\prime} (t) \rVert^3} = \cot \varphi, 
+        \end{split}
+    \]
+    where the Gauss map $ N $ of $ S^2 $ satisfies $ N(\alpha (t)) = \alpha (t) $. Now, we can compute the parallel transport of $ w_0 $ along $ C $. Let $ e_1 = \bvec{x}_u / \lVert \bvec{x}_u \rVert = \bvec{x}_u / \sin v $, $ e_2 = v $ be the orthonormal tangent frame. Along the paralle $ v = \varphi $, we can write 
+    \[
+        \alpha (t) = \bvec{x}_u (t, \varphi) = \sin \varphi \, e_1 (t). 
+    \]  
+    Let the paralle transport of $ w_0 $ along $ C $ be given by $ w(t) = a(t) e_1 (t) + b (t) e_2 (t) $, where $ a (0) = 1 $, $ b(0) = 0 $. Then,
+    \[
+        \frac{\mathrm{D} w}{\mathrm{d}t} \implies *
+    \]
+
+    \[
+        \Delta \varphi = \int_0^{2\pi} k_g (t) \, dt = \int_0^{2\pi} \sin \varphi\, dt = 2\pi (1 - \cos \varphi).
+    \]
+    The area of the region $ R $ bounded by $ C $ is given by 
+    \[
+        A = \iint_R K\, d\sigma = 2\pi (1 - \cos \varphi),
+    \]
+    since the Gaussian curvature of the unit sphere is identically equal to one. Thus,
+    \[
+        \lim_{R\to p} \frac{\Delta \varphi}{A} = \lim_{\varphi \to 0} \frac{2\pi (1 - \cos \varphi)}{2\pi (1 - \cos \varphi)} = 1,
+    \]
+    which is the curvature of $ S^2 $.
+\end{solutionManual}
+
+% 4.5.6
+\begin{exerciseManual}{*4.5.6}
+    Show that $(0,0)$ is an isolated singular point and compute the index at $(0,0)$ of the following vector fields in the plane:
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item[\textbf{*a.}] $v = (x,y)$;
+        \item[\textbf{b.}] $v = (-x,y)$;
+        \item[\textbf{c.}] $v = (x,-y)$;
+        \item[\textbf{*d.}] $v = (x^2 - y^2, -2xy)$;
+        \item[\textbf{e.}] $v = (x^3 - 3xy^2, y^3 - 3x^2y)$.
+    \end{enumerate}
+\end{exerciseManual}
+
+\begin{solutionManual}{4.5.6}
+    ~
+
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Since $ v(x,y) = (0,0) $ if and only if $ (x,y) = (0,0) $, $ (0,0) $ is an isolated singular point. Consider the circle $ C : \alpha (t) = (\cos t, \sin t) $, $ t \in [0, 2\pi] $. Then, $ v(\alpha (t)) = (\cos t, \sin t) $, and the angle between $ v(\alpha (t)) $ and the positive $ x $-axis is just $ t $. Thus,
+        \[
+            \operatorname{ind} (v; (0,0)) = \frac{1}{2\pi} \int_0^{2\pi} \mathrm{d}t = 1. 
+        \]
+        
+        \item Since $ v(x,y) = (0,0) $ if and only if $ (x,y) = (0,0) $, $ (0,0) $ is an isolated singular point. Consider the circle $ C : \alpha (t) = (\cos t, \sin t) $, $ t \in [0, 2\pi] $. Then, $ v(\alpha (t)) = (-\cos t, \sin t) $, and the angle between $ v(\alpha (t)) $ and the positive $ x $-axis is $ \pi - t $. Thus,
+        \[
+            \operatorname{ind} (v; (0,0)) = \frac{1}{2\pi} \int_0^{2\pi} \mathrm{d}t\, (-1) = -1.
+        \]
+        
+        \item Since $ v(x,y) = (0,0) $ if and only if $ (x,y) = (0,0) $, $ (0,0) $ is an isolated singular point. Consider the circle $ C : \alpha (t) = (\cos t, \sin t) $, $ t \in [0, 2\pi] $. Then, $ v(\alpha (t)) = (\cos t, -\sin t) $, and the angle between $ v(\alpha (t)) $ and the positive $ x $-axis is $ -t $. Thus,
+        \[
+            \operatorname{ind} (v; (0,0)) = \frac{1}{2\pi} \int_0^{2\pi} \mathrm{d}t\, (-1) = -1.
+        \]
+        
+        \item Suppose $ v(x,y) = (0,0) $, then $ -2xy = 0 $ and one of $ x, y $ must be zero. If $ x=0 $, then $ x^2 - y^2 = - y^2 = 0 $ implies $ y=0 $, and similarly for $ y=0 $. Thus, $ (0,0) $ is an isolated singular point. Consider the circle $ C : \alpha (t) = (\cos t, \sin t) $, $ t \in [0, 2\pi] $. Then, $ v(\alpha (t)) = (\cos^2 t - \sin^2 t, -2 \cos t \sin t) = (\cos 2t, -\sin 2t) $, and the angle between $ v(\alpha (t)) $ and the positive $ x $-axis is $ -2t $. Thus, the index of $ v $ at $ (0,0) $ is 
+        \[
+            \operatorname{ind} (v; (0,0)) = \frac{1}{2\pi} \int_0^{2\pi} \mathrm{d}t\, (-2) = -2.
+        \]
+        
+        \item Suppose $ v(x,y) = (0,0) $, then $ y^3 - 3x^2 y = y(y^2 - 3x^2) = 0 $ and either $ y=0 $ or $ y^2 = 3x^2 $. If $ y=0 $, then $ x^3 - 3xy^2 = x^3 = 0 $ implies $ x=0 $. If $ y^2 = 3x^2 $, then substituting into the first equation gives $ x^3 - 3x(3x^2) = x^3 - 9x^3 = -8x^3 = 0 $, so $ x=0 $ and thus $ y=0 $. Therefore, $ (0,0) $ is an isolated singular point. Consider the circle $ C : \alpha (t) = (\cos t, \sin t) $, $ t \in [0, 2\pi] $. Then, $ v(\alpha (t)) = (\cos^3 t - 3 \cos t \sin^2 t, \sin^3 t - 3 \cos^2 t \sin t) = (\cos 3t, \sin 3t) $, and the angle between $ v(\alpha (t)) $ and the positive $ x $-axis is $ 3t $. Thus, 
+        \[
+            \operatorname{ind} (v; (0,0)) = \frac{1}{2\pi} \int_0^{2\pi} \mathrm{d}t\, 3 = 3.
+        \]
+    \end{enumerate}
+\end{solutionManual}
+
+% 4.5.7
+\begin{exerciseManual}{4.5.7}
+    Can it happen that the index of a singular point is zero? If so, give an example.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.5.7}
+    \begin{remark}
+        Intuitively, the index of a singular point defines the idea of how many times the vector field "turns around" when we go around a small loop enclosing the singular point. If the vector field does not turn at all, then the index is zero. 
+    \end{remark}
+
+    Yes. Let $ v(x,y) = (x^2 + y^2, 0) $, then $ v = 0 $ if and only if $ x=y=0 $, so $ (0,0) $ is a isolated singular point. Consider the circle $ C : \alpha (t) = (\cos t, \sin t) $, $ t \in [0, 2\pi] $. Then, $ v(\alpha (t)) = (1,0) $, and the angle between $ v(\alpha (t)) $ and the positive $ x $-axis is $ 0 $ for all $ t $. Thus,
+    \[
+        \operatorname{ind} (v; (0,0)) = \frac{1}{2\pi} \int_0^{2\pi} \mathrm{d}t\, 0 = 0.
+    \] 
+\end{solutionManual}
+
+% 4.5.8
+\begin{exerciseManual}{4.5.8}
+    Prove that an orientable compact surface $S \subset \mathbb{R}^3$ has a differentiable vector field without singular points if and only if $S$ is homeomorphic to a torus.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.5.8}
+    By the Poincare\'{e}-Hopf Theorem, we have 
+    \[
+        \sum_{i=1}^n \operatorname{ind} (v; p_i) = \chi (S), 
+    \]
+    where $ p_1, \dots , p_n $ are the isolated singular points of $ v $. If $ S $ has a differentiable vector field without singular points, then the left-hand side is zero, so $ \chi (S) = 0 $. By the classification theorem of compact surfaces, the only orientable compact surface with Euler-Poincar\'e characteristic zero is, up to homeomorphism, the torus. Conversely, let $ S $ be homeomorphic to a torus. Let $ \bvec{x}(u,v) = \left((R + r \cos u) \cos v, \, (R + r \cos u) \sin v, \, r \sin v \right) $ be (the parametrization of) the standard torus of revolution $ T $, then the coordinate vector field 
+    \[
+        \bvec{x}_u = \left(- r \sin u \cos v, \, - r \sin u \sin v, \, r \cos u \right), \quad \lVert \bvec{x}_u \rVert = r > 0 
+    \]
+    never vanishes. Hence, $ T $ has a differentiable vector field without singular points. 
+\end{solutionManual}
+
+% 4.5.9
+\begin{exerciseManual}{4.5.9}
+    Let $C$ be a regular closed simple curve on a sphere $S^2$. Let $v$ be a differentiable vector field on $S^2$ with isolated singularities such that the trajectories of $v$ are never tangent to $C$. Prove that each of the two regions determined by $C$ contains at least one singular point of $v$.
+\end{exerciseManual}
+
+\begin{solutionManual}{4.5.9}
+    By the Jordan Curve Theorem, $ S \setminus C $ is divided into two simple connected regions $ R_1 $ and $ R_2 $, $ \partial R_1 = \partial R_2 = C $, and $ \overline{R}_1 , \overline{R}_2 \approx D $ the unit disk. Hence, $ \chi (R_i) = 1 $, $ i=1,2 $. Suppose no trajectory of $ v $ is tangent to $ C $, so $ v(p) \notin T_p (C) $ for all $ p $. At points $ p $ along $ C $, choose the normal $ N_i \in T_p (S^2) $ pointing outwards from $ R_i $. Let $ \phi (p) = \langle v(p), N_i (p) \rangle $, then $ \phi (p) \neq 0 $ for all $ p \in C $. Since $ C $ is connected and $ \phi $ is continuous, $ \phi (p) $ has constant sign on $ C $. Without loss of generality, assume $ \phi (p) > 0 $ for all $ p \in C $. Take $ v $ or $ -v $ to make it point everywhere outwards on $ C $, then we can apply the Poincar\'{e}-Hopf Theorem to $ R_i $:
+    \[
+        \sum_{j=1}^{n_i} \operatorname{ind} (v; p_j) = \chi (R_i) = 1,
+    \]
+    where $ p_1, \dots , p_{n_i} $ are the isolated singular points of $ v $ in $ R_i $. If there were no singular points, then the sum on the LHS would be zero, and $ v \neq 0 $ on $ C $ guarantees that no singular points lie on the boundary. Thus, each region $ R_i $ contains at least one singular point of $ v $.
+\end{solutionManual}
+
+\end{CJK}
+\end{document}

@@ -1,0 +1,674 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage[noend]{algpseudocode}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{bm}
+\usepackage{amssymb}
+\usepackage{esint}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{verbatim}
+
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\chr}{char}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Conj}{Conj}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Out}{Out}
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\pre}{pre}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Orb}{Orb}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\rank}{rank}
+
+\setcounter{MaxMatrixCols}{20}
+\def\acts{\curvearrowright}
+\usetikzlibrary{tikzmark}
+\newcommand{\surj}[0]{\xrightarrow[]{}\mathrel{\mkern-14mu}\rightarrow}
+\newcommand{\inj}[0]{\xhookrightarrow{}}
+\newcommand{\tikzarc}[1]{%
+\tikzmarknode{a}{#1}
+\begin{tikzpicture}[overlay,remember picture]
+\draw ([yshift=1pt]a.north west) to[bend left=20] ([yshift=1pt]a.north east);
+\end{tikzpicture}%
+}
+
+\title{Introduction to Algebra (II)}
+\author{Cheng-Yun Yeh}
+
+\begin{document}
+\maketitle
+
+\section*{Chapter 11. Module}
+\subsection*{11.1 Definition and $R$-linear transformation}
+\indent
+
+\textbf{Recall. }Let $F$ be a field. We say $V$ is a \textbf{vector space} over $F$ if it is equipped with two operations: $+$ and $\cdot$, s.t.:
+
+\begin{itemize}
+    \item[] (i) $(V,+)$ is an abelian group
+
+    \item[] (ii) $1_F \cdot v=v$, $\forall v \in V$
+
+    \item[] (iii) $(a_1+a_2)v=a_1v+a_2v$, $\forall a_1,a_2 \in F,\ \forall v \in V$
+
+    \item[] (iv) $a(v_1+v_2)=av_1+av_2$, $\forall a \in F,\ \forall v_1,v_2 \in V$
+
+    \item[] (v) $(a_1a_2)v=a_1(a_2v)$, $\forall a_1,a_2 \in F$, $v \in V$ \\
+\end{itemize}
+
+\textbf{Note. }In chapter 11, the ring $R$ is always commutative and contains $1$. \\ \\
+
+\textbf{Def. }Let $R$ be a commutative ring, we say a set $M$ equipped with two operations $+$ and $\cdot$ is a \textbf{$R$-module} if it satisfies the following axioms:
+
+\begin{itemize}
+    \item[] (i) $(M,+)$ is an abelian group
+
+    \item[] (ii) $1_R \cdot m=m$, $\forall m \in M$
+
+    \item[] (iii) $(r_1+r_2)m=r_1m+r_2m$, $\forall r_1,r_2 \in R$, $\forall m \in M$
+
+    \item[] (iv) $r(m_1+m_2)=rm_1+rm_2$, $\forall r \in R$, $\forall m_1,m_2 \in M$
+
+    \item[] (v) $(r_1r_2)m=r_1(r_2m)$, $\forall r_1,r_2 \in R$, $\forall m \in M$ \\
+\end{itemize}
+
+\textbf{Remark. }$0 \cdot m=(1-1) \cdot m=1 \cdot m-1 \cdot m=m-m=0$. \\ \\
+
+\textbf{Example. }Any abelian group $M$ is a $Z$-module equipped with the operation $\cdot$ defined as: $\forall n \in \mathbb{Z}$, $\forall m \in M$, we have:
+
+\[
+    nm=\left\{\begin{matrix}
+        \underbrace{m+\cdots+m}_{n\text{ times}}&,&n >0 \\ \\
+        0&,&n=0 \\ \\
+        \quad(\underbrace{m+\cdots+m}_{\lvert n \rvert\text{ times}})^{-1}&,&n <0
+    \end{matrix}\right.
+\]
+
+\textbf{Remark. }For any $Z$-module $M$, if we forget the scarlar $\mathbb{Z}$-structure on $M$, we will get an abelian group $G=(M,+)$. If we equip $G$ the $\mathbb{Z}$-structure as above to form a $\mathbb{Z}$-module $N$, then $M=N$. \\
+
+pf. By definition, given any $n \in \mathbb{Z}_{>0}$ and $m \in M$, we have $nm=(\underbrace{1+\cdots+1}_{n\text{ times}})m=\underbrace{1 \cdot m+\cdots+1 \cdot m}_{n\text{ times}}=\underbrace{m+\cdots+m}_{n\text{ times}}$, which is exactly the $\mathbb{Z}-$structure we defined in the example. \\ \\
+
+\textbf{Def. }Let $R$ be a ring and $M,N$ be $R$-modules. A map $\phi:M \to N$ is a \textbf{$R$-linear transformation} or a \textbf{$R$-module homomorphsim} if $\forall m_1,m_2 \in M$, $\forall r \in R$, we have $\phi(rm_1+m_2)=r_1\phi(m_1)+\phi(m_2)$. \\ \\
+
+\textbf{Remark. }As $\phi(0)=\phi(0+0)=\phi(0)+\phi(0)$, we have $\phi(0)=0$. \\ \\
+
+\textbf{Example-1. }Consider $R^n=\underbrace{R \times \cdots \times R}_{n\text{ times}}$ and $R \acts R^n$ by $r(a_1,...,a_n)=(ra_1,...,ra_n)$ for $r,a_1,...,a_n \in R$. Then $R^n$ is an $R$-module. \\ \\
+
+\textbf{Example-2. }Let $F$ be a field, consider a $F[x]$-module $M$. Since $F \subseteq F[x]$, $M$ is also an $F$-module and thus a $F$-vector space. For the polynomial $x \in F[x]$, define $\phi_x:M \to M$ by $\phi_x(m)=x \cdot m$, the $F[x]$-multiplication equipped on $M$. Given $c \in F$ and $m_1,m_2 \in M$, we have $\phi_x(cm_1+m_2)=x \cdot (cm_1+m_2)=(cx) \cdot m_1+x \cdot m_2=c(x \cdot m_1)+x \cdot m_2=c\phi_x(m_1)+\phi_x(m_2)$, which means $\phi_x:M \to M$ is a $F$-linear transformation. In particular, $\phi_x$ along with the laws of module characterize the action for $F[x]$ on $M$. That is:
+
+\begin{align*}
+    (\sum_{i=1}^na_ix^i) \cdot m&=\sum_{i=1}^na_i(x^i \cdot m) \\
+    &=\sum_{i=1}^na_i\underbrace{(x\cdot...\cdot x)}_{i\text{ times}}m \\
+    &=\sum_{i=1}^na_i\phi_x^i(m)
+\end{align*}
+
+Therefore, a $F[x]$-module $M$ is actually a $F$-vector space $M$ along with a $F$-linear transformation $\phi_x$. Conversely, given a $F$-vector space $M$ and a $F$-linear transformation $T:M \to M$. Define a $F[x] \acts M$ by:
+
+\begin{itemize}
+    \item[] (1) Given $m \in M$, if $c \in F$, then $c \cdot m=cm$, where $cm$ uses the $F$-multiplication in the original $F$-vector space.
+    \item[] (2) Given $m \in M$, for $x \in F[x]$, define $x \cdot m=T(m)$.
+    \item[] (3) Extend (1) and (2) linearly. That is, define $x^i \cdot m=T^i(m)$, and for $f(x)=\sum_{i=0}^na_ix^i\in F[x]$, define $f(x) \cdot m=\sum_{i=1}^na_i(x^i \cdot m)$ for any $m \in M$.
+\end{itemize}
+
+We check that (1),(2),(3) along with the abelian group $(M,+)$ form a $F[x]$-module. First, for any $m \in M$, $1 \cdot m=m$ by definition. For all $f(x)=\sum_{i=0}^na_ix^i,g(x)=\sum_{i=0}^nb_ix^i \in F[x]$ and $m_1,m_2 \in M$, we have:
+
+\begin{align*}
+    (f(x)+g(x))m_1&=\sum_{i=0}^n(a_i+b_i)(x^i \cdot m_1) \\
+    &=\sum_{i=0}^na_i(x^i \cdot m_1)+\sum_{i=1}^nb_i(x^i \cdot m_1) \\
+    &=f(x) \cdot m_1+g(x) \cdot m_2
+\end{align*}
+
+Also:
+
+\begin{align*}
+    f(x) \cdot (m_1+m_2)&=\sum_{i=0}^na_i(x^i \cdot (m_1+m_2)) \\
+    &=\sum_{i=0}^na_iT^i(m_1+m_2) \\
+    &=\sum_{i=0}^na_iT^i(m_1)+\sum_{i=1}^na_iT^i(m_2) \\
+    &=\sum_{i=0}^na_i(x^i \cdot m_1)+\sum_{i=1}^na_i(x^i \cdot m_2) \\
+    &=f(x) \cdot m_1+f(x) \cdot m_2
+\end{align*}
+
+Finally:
+
+\begin{align*}
+    (f(x)g(x)) \cdot m_1&=\sum_{i=0}^n\sum_{j=0}^na_ib_j(x^{i+j} \cdot m_1) \\
+    &=\sum_{i=0}^n\sum_{j=0}^na_ib_jT^{i+j}(m_1) \\
+    &=\sum_{i=0}^na_iT^i\left(\sum_{j=1}^nb_jT^j(m_1)\right) \\
+    &=\sum_{i=1}^na_i \left(x^i \cdot\left(\sum_{j=1}^nb_j(x^j \cdot m_1)\right)\right) \\
+    &=\sum_{i=1}^na_i(x^i \cdot (g(x) \cdot m_1)) \\
+    &=f(x) \cdot (g(x) \cdot m_1)
+\end{align*}
+
+In conclusion, $(M,+)$ along with $(1),(2),(3)$ form a $F[x]$-module. \\ \\
+
+\textbf{Remark. }Let $T:M \to M$ be a $F$-linear transformation on a $F$-vector space $M$, and $m_T(x) \in F[x]$ be its minimal polynomial. (That is, $m_T$ is monic and generates the ideal $I_T=\{f(x):f(T)=0\}$.) Then, $M$ is a $F[x]/(m_T(x))$-module, where the $F[x]/(m_T(x))$-multiplication is defined by $[f(x)+(m_T(x))] \cdot m=f(T) \cdot m=\sum_{i=0}^na_i(x^i \cdot m)$, where $f(x)=\sum_{i=0}^na_ix^i$ and $m \in M$. It is well-defined since $m_T(T)=0$ and thus if $f(x)=g(x)+a(x)m_T(x)$, then $f(T)(m)=g(T)(m)$. \\ \\
+
+\subsection*{11.2 Submodules and quotient modules}
+\indent
+
+\textbf{Def. }Let $M$ be an $R$-module, a \textbf{$R$-submodule} $N$ of $M$ is a subgroup $(N,+) \subseteq (M,+)$ s.t. $\forall r \in R$, $n \in N$, we have $r \cdot n \in N$. \\ \\
+
+\textbf{Remark. }An ideal $I \trianglelefteq R$ is an $R$-submodule of $R$ as an $R$-module. \\ \\
+
+
+\textbf{Prop 1. }Let $M$ be an $R$-module and $N \subseteq M$ be a submodule, then:
+
+\begin{itemize}
+    \item[] (i) The quotient group $M/N$ along with the natural addition and $R$-multiplication rules form an $R$-module, called the \textbf{quotient module}. That is, for any $m_1,m_2 \in M$, $r \in R$, $(m_1+N)+(m_2+N)=(m_1+m_2)+N$ and $r \cdot (m_1+N)=r \cdot m_1+N$.
+
+    \item[] (ii) The \textbf{quotient map} $\pi:M \surj M/N$ defined by $\pi(m)=m+N$ is an $R$-module homomorphism with $\ker \pi=N$.
+\end{itemize}
+
+pf-1. First, since $(M,+)$ is abelian, we have $(N,+) \trianglelefteq (M,+)$ and thus $(M/N,+)$ is a well-defined subgroup of $(M,+)$. Moreover, given $m_1,m_2 \in M$ s.t. $m_2 \in m_1+N$, say $m_2=m_1+n$ for $n \in N$. Then for any $r \in R$, we have $r \cdot (m_2+N)=r\cdot m_2+N=r \cdot (m_1+n) +N=(r \cdot m_1+N)+(r \cdot n)+N\underset{r \cdot n \in N}{=}r \cdot m_1+N=r \cdot (m_1+N)$. Therefore, $M/N$ is a submodule. \\
+
+pf-2. We know that $\pi:(M,+) \to (M/N,+)$ is a homomorphism. For multiplication, given $r \in R$ and $m \in M$, we have $\pi(rm)=rm+N=r(m+N)=r\pi(m)$. Thus, $\pi$ is an $R$-module homomorphism. Moreover, $m \in \ker \pi \Leftrightarrow \pi(m)=N \Leftrightarrow m+N=N \Leftrightarrow m \in N$, which means $\ker \pi=N$. \\ \\
+
+\textbf{Prop 2. }Let $\phi:M \to N$ be an $R$-module homomorphism, then:
+
+\begin{itemize}
+    \item[] (i) $\ker \phi$ is an $R$-submodule of $M$.
+
+    \item[] (ii) $\phi$ is injective if and only if $\ker\phi=\{0\}$
+
+    \item[] (iii) $\phi$ induces an injective homomorphism $\overline{\phi}:M/\ker\phi \to N$ defined by $\overline{\phi}(m+\ker\phi)=\phi(m)$
+\end{itemize}
+
+pf-1. First, $\ker\phi$ is a subgroup of $M$, so the addition is closed. Given $r \in \ker\phi$ and $m \in \ker \phi$, we have $\phi(rm)=r\phi(m)=0$, so $\ker\phi$ is a $R$-submodule. \\
+
+pf-2. If $\phi$ is injective and $\phi(m)=0$, then since $\phi(0)=0$, we have $m=0$. Conversely, if $\ker\phi=\{0\}$ and $\phi(m_1)=\phi(m_2)$, since $\phi(m_1-m_2)=\phi(m_1)-\phi(m_2)=0$, we have $m_1-m_2=0$, and thus $m_1=m_2$. In conclusion, we have $\phi$ is injective if and only if $\ker\phi=\{0\}$. \\
+
+pf-3. First, given $m_1,m_2 \in M$ s.t. $m_2 \in m_1+\ker\phi$, say $m_2=m_1+n$ for some $n \in \ker\phi$. Then:
+
+\begin{align*}
+    \overline{\phi}(m_2+\ker\phi)&=\overline{\phi}(m_1+n+\ker\phi) \\
+    &=\phi(m_1+n) \\
+    &=\phi(m_1)+\phi(n) \\
+    &=\phi(m_1) \\
+    &=\overline{\phi}(m_1+\ker\phi)
+\end{align*}
+
+So the map is well-defined. Moreover, given $r \in R$, $m_1,m_2 \in M$, we have:
+
+\begin{align*}
+    \overline{\phi}((m_1+\ker\phi)+(m_2+\ker\phi))&=\overline{\phi}((m_1+m_2)+\ker\phi) \\
+    &=\phi(m_1+m_2) \\
+    &=\phi(m_1)+\phi(m_2) \\
+    &=\overline{\phi}(m_1+\ker\phi)+\overline{\phi}(m_2+\ker\phi)
+\end{align*}
+
+And:
+
+\begin{align*}
+    \overline{\phi}(r(m_1+\ker\phi))&=\overline{\phi}(rm_1+\ker\phi) \\
+    &=\phi(rm_1) \\
+    &=r\phi(m_1) \\
+    &=r\overline{\phi}(m_1+\ker\phi)
+\end{align*}
+
+It means that $\overline{\phi}$ is a homomorphism. Finally, given $m+\ker\phi \in \ker\overline{\phi}$, then $\overline{\phi}(m+\ker\phi)=\phi(m)=0$, i.e. $m \in \ker\phi$ and thus $m+\ker\phi=\ker\phi$. Therefore, $\ker\overline{\phi}=\{\ker\phi\}$, $\overline{\phi}$ is injective by (ii). \\ \\
+
+\textbf{Def. }Let $M_1,...,M_\ell$ be $R$-modules, the \textbf{product} is the set $M_1 \times \cdots \times M_\ell=\{(m_1,...,m_n):m_i \in M_i\}$. \\ \\
+
+\textbf{Remark. }$M_1 \times \cdots \times M_\ell$ is also an $R$-module using $r(m_1,...,m_\ell)=(rm_1,...,rm_\ell)$. 
+
+
+\subsection*{11.3 Principal modules and cyclic modules}
+\indent
+
+\textbf{Def. }Let $M$ be an $R$-module, then:
+
+\begin{itemize}
+    \item[] (i) Given $a \in R$, the set $aM=\{am:m \in M\}$ is a \textbf{principal $R$-submodule} of $M$. (Check later)
+
+    \item[] (ii) Given $m \in M$, $Rm=\{rm:r \in R\}$ is a \textbf{cyclic $R$-submodule} of $M$. (Check later)
+
+    \item[] (iii) In general, the $R$-submodule generated by $\{m_1,...,m_s\} \subset M$ is $\langle m_1,...,m_s \rangle=\{\sum_{i=1}^sa_im_i:a_i \in R,\ 1 \le i \le s\}$. \\
+\end{itemize}
+
+\textbf{Remark. }Given $a \in R$, $aM$ is a $R$-submodule of $M$. \\
+
+pf. First, clearly, $aM \subseteq M$ is a subgroup of $M$. Given $r \in R$ and $m \in M$, $r(am)=(ra)m=(ar)m=a(rm) \in aM$, so $aM$ is a $R$-submodule. \\ \\
+
+\textbf{Remark. }When $M=R$, then $aR$ is a principal ideal of $R$. \\ \\
+
+\textbf{Remark. }Given $m \in M$, $Rm$ is a $R$-submodule of $M$. \\
+
+pf. First, $\langle m \rangle$ is a subgroup of $(M,+)$. For the $R$-multiplication, given $r \in R$ and $r'm \in Rm$, we have $r(r'm)=(rr')m \in Rm$. So, $Rm$ is a $R$-submodule. \\ \\
+
+\textbf{Prop 3. }Let $M$ be an $R$-module. Given $a \in R$, $aM$ be the principal $R$-submodule generated by $a$, then $M/aM$ has a natural structure as an $R/aR$-module. Note that $R/aR$ is still a ring since $aR \trianglelefteq R$. \\
+
+pf. First, $M/aM$ is a quotient subgroup of $M$, so it is also abelian. Moreover, given $\overline{r}:=r+aR \in R/aR$ and $\overline{m}=m+aM \in M/aM$, define $\overline{r} \cdot \overline{m}=\overline{rm}=rm+aM$. We first check that it is well-defined. Let $\overline{r'}=\overline{r}$ and $\overline{m'}=\overline{m}$, say $r'=r+a\alpha$ and $m'=m+an$ for some $\alpha \in R$, $n \in M$. Then we have:
+
+\begin{align*}
+    \overline{r'}\cdot\overline{m'}&=\overline{r'm'} \\
+    &=r'm'+aM \\
+    &=(r+a\alpha)(m+an)+aM \\
+    &=rm+a(\alpha m+rn+a\alpha n)+aM \\
+    &=rm+aM \\
+    &=\overline{rm} \\
+    &=\overline{r} \cdot \overline{m}
+\end{align*}
+
+So it is well-defined. For the rest axioms, given $m_1,m_2 \in M$, $r_1,r_2 \in R$: $\overline{1} \cdot \overline{m_1}=\overline{1 \cdot m_1}=\overline{m_1}$. Also:
+
+\begin{align*}
+    \overline{(r_1+r_2)} \cdot m&=\overline{(r_1+r_2)m_1} \\
+    &=\overline{r_1m_1+r_2m_1} \\
+    &=r_1m_1+r_2m_1+aM \\
+    &=(r_1m_1+aM)+(r_2m_1+aM) \\
+    &=\overline{r_1m_1}+\overline{r_2m_1} \\
+    &=\overline{r_1}\cdot\overline{m_1}+\overline{r_2}\cdot\overline{m_1}
+\end{align*}
+
+And:
+
+\begin{align*}
+    \overline{r_1} \cdot \overline{(m_1+m_2)}&=\overline{r_1(m_1+m_2)} \\
+    &=\overline{r_1m_1+r_1m_2} \\
+    &=r_1m_1+r_1m_2+aM \\
+    &=(r_1m_1+aM)+(r_1m_2+aM) \\
+    &=\overline{r_1m_1}+\overline{r_1m_2} \\
+    &=\overline{r_1} \cdot \overline{m_1}+\overline{r_1} \cdot \overline{m_2}
+\end{align*}
+
+Finally:
+
+\begin{align*}
+    \overline{r_1r_2} \cdot \overline{m}=\overline{r_1r_2m}=\overline{r_1} \cdot \overline{r_2m}
+\end{align*}
+
+In conclusion, $M/aM$ is a $R/aR$-module. \\ \\
+
+\textbf{Remark. }In general, if $I \trianglelefteq R$, then $IM:=\{\sum_{i=1}^sr_im_i:s \in \mathbb{Z}_{>0},\ r_i \in I,\ m_i \in M\}$ is a $R$-submodule of $M$ and $M/IM$ ia an $R/I$ submodule. \\ \\
+
+\textbf{Def. }Let $I$ be an arbitrary indices set and $\forall i \in I$, $M_i$ is an $R$-module. The \textbf{direct product} of $M_i$ is defined as $\prod_{i \in I}M_i:=\{(m_i)_{i \in I}:m_i \in M_i\}$, and the \textbf{direct sum} of $M_i$ is defined as $\bigoplus_{i \in I}M_i=\{(m_i)_{i \in I}:m_i \in M_i\text{ and only finitely many $m_i$ are nonzero}\}$.
+
+\subsection*{11.4 Span, linearly independence, and basis}
+\indent
+
+\textbf{Def. }Let $M$ be an $R$-module and $S \subseteq M$ is a subset, then:
+
+\begin{itemize}
+    \item[] (i) The \textbf{span} of $S$ is defined as $\spn S=\{\sum_{i=1}^\ell r_im_i:m_i \in S,\ \ell \in \mathbb{Z}_{>0}\}$. We say thet $S$ spans $M$ if $M=\spn S$.
+
+    \item[] (ii) We say $S$ is \textbf{$R$-linearly independent} if $\forall r_i \in R$ and distinct $m_i \in S$, we have $\sum_{i=1}^\ell r_im_i=0 \Leftrightarrow r_i=0,\ \forall 1 \le i \le \ell$.
+
+    \item[] (iii) We say $S$ is a \textbf{$R$-basis} for $M$ if $\spn S=M$ and $S$ is $R$-linearly independent. \\
+\end{itemize}
+
+\textbf{Warning. }Not every non-zero module $M$ has a basis. For example, given $m \in \mathbb{Z}_{>0}$, then $\mathbb{Z}/m\mathbb{Z}$ is a $\mathbb{Z}$-module. If there exists $S \subseteq \mathbb{Z}/m\mathbb{Z}$ s.t. $\spn S=\mathbb{Z}/m\mathbb{Z}$, then $\exists a \in \mathbb{Z}$ s.t. $0 \ne \overline{a} \in S$. However, $r \cdot a=0$ doesn't imply $r=0$ since we can take $r=m$. So, $\mathbb{Z}/m\mathbb{Z}$ is a $\mathbb{Z}$-module without $\mathbb{Z}$-basis. \\ \\
+
+\textbf{Def. }Let $M$ be an $R$-module, then:
+
+\begin{itemize}
+    \item[] (i) We say $M$ is a \textbf{free $R$-module} if it has a basis.
+
+    \item[] (ii) We say $M$ is a \textbf{finitely generated $R$-module} if $\exists $a finite set $S \subseteq M$ s.t. $\spn S=M$. In particular, if $\#S=1$, then $M$ is cyclic. \\
+\end{itemize}
+
+\textbf{Remark. }$\mathbb{Z}/m\mathbb{Z}$ is finitely generated by $\{1\}$, but not a free module. \\ \\
+
+\textbf{Remark. }Ler $R=\mathbb{Z}[x]$, consider the $\mathbb{Z}[x]-$module $M=(p,x)=\{h_1(x) \cdot p+h_2(x) \cdot x:h_1,h_2 \in \mathbb{Z}[x]\}$, where $p$ is a prime. Then, $M$ is a finitely generated $R$-module but is not free and is not principal. \\
+
+pf. First, we claim: any subset of $M$ with cardinality $\ge 2$ cannot be $\mathbb{Z}[x]$-linearly independent. Given $S=\{f_1(x),...,f_n(x)\} \subseteq M$, with $n \ge 2$. Let $a_1=f_2(x) \in \mathbb{Z}[x]$ and $a_2=-f_1(x) \in \mathbb{Z}[x]$, $a_3=\cdots=a_n=0$. Then, $\sum_{i=1}^na_if_i(x)=0$ but $a_1 \ne 0$. Moreover, if $S \subseteq M$ spans $M$, then since $M \ne \{0\}$, we have $S \ne \phi$. Therefore, $S=\{f(x)\}$ for some $f(x) \in M=(p,x)$. \\
+
+Next, since $p \in (p,x)=M=\spn S$, we have $p=a(x)f(x)$ for some $a(x) \in \mathbb{Z}[x]$. By degree and the fact that $p$ is a prime, $f(x)$ must be $1$ or $p$. If $f(x)=1 \in M$, then there exists $a_1(x),a_2(x) \in \mathbb{Z}[x]$ s.t. $a_1(x) \cdot p+a_2(x) \cdot x=1$. By degree, $a_2(x)=0$ and $a_1(x)$ is an integer. But $p>1$, we cannot find this $a_1(x)$. On the other hand, if $f(x)=p$, since $x \in (p,x)=M=\spn\{p\}$, we have $x=g(x) \cdot p$ for some $g(x) \in \mathbb{Z}[x]$. But $g(x)$ can only be $\frac{x}{p}$, which is not in $\mathbb{Z}[x]$, so it also leads to a contradiction. In conclusion, $M$ is not free, and the second paragraph in particular shows that $M$ is not principal. \\ \\
+
+\textbf{Notation. }Let $R$ be a commutative ring and $M,N$ be $R$-modules. We denote $\Hom_R(N,M)=\{\phi:\phi\text{ is a $R$-module homomorphism from $N$ to $M$}\}$ and $\End_R(M)=\{\phi:\phi\text{ is a $R$-module endomorphism on $M$}\}=\Hom_R(M,M)$. \\ \\
+
+\textbf{Example. }Let $R=\mathbb{Z}$ and see $\mathbb{Z}$ as a $R$-module, then $\End_R(\mathbb{Z})=\mathbb{Z}$ since each $f \in \End_R(\mathbb{Z})$ is uniquelly determined by $f(1)$. ($\because$ if $f(1)=g(1)$, then $f(n)=nf(1)=ng(1)=g(n)$ for all $n \in \mathbb{Z}$) \\ \\
+
+\textbf{Prop 4. }Let $R$ be a commutative ring and $N,M$ be $R$-modules. Then:
+
+\begin{itemize}
+    \item[] (i) The space $\Hom_R(N,M)$ is an $R$-module via the operation $(\phi+\psi)(n)=\phi(n)=\psi(n)$ and $(r\phi)(n)=r\phi(n)$, $\forall r \in R$ and $n \in N$.
+
+    \item[] (ii) The space $\End_R(M)$ is a ring via the addition in (a) and the multiplication $(\phi\psi)(m)=\phi(\psi(m))$, $\forall m \in M$.
+\end{itemize}
+
+The analogy in vector spaces $V$ and $W$ is that $\mathcal{L}(V,W)$ is a vector space and $\mathcal{L}(V)$ is a vector space with multiplication. But we will see that there are some difference. \\
+
+pf-1. Given $\phi,\psi \in \Hom_R(N,M)$, for any $n_1,n_2 \in N$, $r \in R$, we have:
+
+\begin{align*}
+    (\phi+\psi)(rn_1+n_2)&=\phi(rn_1+n_2)+\psi(rn_1+n_2) \\
+    &=r\phi(n_1)+\phi(n_2)+r\psi(n_1)+\psi(n_2) \\
+    &=r(\phi(n_1)+\psi(n_1))+(\phi(n_2)+\psi(n_2)),\ \text{as $M$ is abelian} \\
+    &=r(\phi+\psi)(n_1)+(\phi+\psi)(n_2)
+\end{align*}
+
+So, $\phi+\psi \in \Hom_R(N,M)$. Moreover, for any $r' \in R$, we have:
+
+\begin{align*}
+    (r'\phi)(rn_1+n_2)&=r'\phi(rn_1+n_2) \\
+    &=r'r\phi(n_1)+r'\phi(n_2) \\
+    &=r(r'\phi)(n_1)+(r'\phi)(n_2),\ \text{as $R$ is commutative}
+\end{align*}
+
+So, $r'\phi \in \Hom_R(N,M)$. Therefore, the operations are well-defined. Now, we check the axioms for $R$-module. For any $n \in N$, we first have $(1 \cdot \phi)(n)=1 \cdot \phi(n)=\phi(n)$, so $1 \cdot \phi=\phi$. Moreover, for any $r_1,r_2 \in R$, we have $((r_1+r_2)(\phi))(n)=(r_1+r_2)\phi(n)=r_1\phi(n)+r_2\phi(n)=(r_1\phi+r_2\phi)(n)$. Also, $(r_1(\phi+\psi))(n)=r_1(\phi+\psi)(n)=r_1\phi(n)+r_1\psi(n)=(r_1\phi+r_1\psi)(n)$. Therefore, $(r_1+r_2)\phi=r_1\phi+r_2\phi$ and $r_1(\phi+\psi)=r_1\phi+r_1\psi$. Finally, $((r_1r_2)(\phi))(n)=(r_1r_2)\phi(n)=r_1(r_2\phi(n))=r_1(r_2\phi)(n)=(r_1(r_2\phi))(n)$. So, $(r_1r_2)\phi=r_1(r_2\phi)$. In conclusion, $\Hom_R(N,M)$ is a $R$-module. \\
+
+pf-2. By (i), $\End_R(M)$ is a $R$-module. It remains to show that the multiplication is well-defined and its distributive law. Given $m_1,m_2 \in M$ and $r \in R$, for $\phi,\psi \in \End_R(M)$, we have: 
+
+\begin{align*}
+    (\phi\psi)(rm_1+m_2)&=\phi(\psi(rm_1+m_2)) \\
+    &=\phi(r\psi(m_1)+\psi(m_2)) \\
+    &=r\phi(\psi(m_1))+\phi(\psi(m_2)) \\
+    &=r(\phi\psi)(m_1)+(\phi\psi)(m_2)
+\end{align*}
+
+So, $\phi\psi \in \End_R(M)$, it is well-defined. Moreover, for $\phi_1,\phi_2,\psi \in \Hom_R(M)$ and $m \in M$, we have:
+
+\begin{align*}
+    ((\phi_1+\phi_2)\psi)(m)&=(\phi_1+\phi_2)(\psi(m)) \\
+    &=\phi_1(\psi(m))+\phi_2(\psi(m)) \\
+    &=(\phi_1\psi)(m)+(\phi_2\psi)(m) \\
+    &=(\phi_1\psi+\phi_2\psi)(m)
+\end{align*}
+
+and:
+
+\begin{align*}
+    (\psi(\phi_1+\phi_2))(m)&=\psi((\phi_1+\phi_2)(m)) \\
+    &=\psi(\phi_1(m)+\phi_2(m)) \\
+    &=\psi(\phi_1(m))+\psi(\phi_2(m)) \\
+    &=(\psi\phi_1)(m)+(\psi\phi_2)(m) \\
+    &=(\psi\phi_1+\psi\phi_2)(m)
+\end{align*}
+
+Therefore, the multiplication has distributive law, which means $\End_R(M)$ is a ring. \\ \\
+
+\textbf{Remark. }In general, $\End_R(M)$ is not necessarily commutative. \\ \\
+
+\textbf{Example. }Let $R=\mathbb{Z}$ and see $\mathbb{Z}^n$ as $R$-module, then $\End_R(\mathbb{Z}^n) \simeq M_n(\mathbb{Z})$, the collection of $n$ by $n$ matrices with integer entries. \\ \\
+
+\textbf{Prop 5. }Let $R$ be a commutative ring. The set $M_{r \times s}(R)=\{(a_{ij})_{1 \le i \le r,\ 1 \le j \le s}:a_{ij} \in R\}$ is a free $R$-module. Moreover, $M_{r \times s}(R) \simeq R^{rs}$ as $R$-module. \\
+
+pf. Let $E_{pq}=(a_{ij}) \in M_{r \times s}(R)$ s.t. $a_{pq}=1$ and $a_{ij}=0$ for $(i,j) \ne (p,q)$. Let $\mathcal{B}=\{E_{pq}\}_{1 \le p \le r,\ 1 \le q \le s}$. Then, it's clear that $M_{r \times s}(R)=\spn(\mathcal{B})$ (it implies that $M_{r \times s}(R)$ is a $R$-module) and $\mathcal{B}$ is linearly independent. Therefore, $\mathcal{B}$ is a basis for $M_{r \times s}(R)$. Moreover, define a map:
+
+\[
+    \begin{matrix}
+        R^{rs}&\to& M_{m \times n}(R) \\
+        (a_{11},a_{12},...,a_{rs}) &\mapsto& \sum_{i=1}^r\sum_{j=1}^s a_{ij}E_{ij}
+    \end{matrix}
+\]
+
+By $\spn(\mathcal{B})=M_{r \times s}(R)$, the map is surjective, and by $\mathcal{B}$ is linearly independent, the map is injective. Also, the map is clearly a $R$-module homomorphism. Therefore, it is a $R$-module isomorphism and thus $M_{r \times s}(R) \simeq R^{rs}$. \\ \\
+
+\textbf{Prop 6. }Let $M$ be a finitely generated free $R$-module and $N$ be a finitely generated $R$-module. Fix an $R$-basis $\mathcal{B}=\{m_1,...,m_r\}$ of $M$ and a generating set $\mathcal{A}=\{n_1,...,n_s\}$ of $N$ (i.e. $\spn_R(\mathcal{A})=N$). Then:
+
+\begin{itemize}
+    \item[] (i) The map $\iota:\Hom_R(N,M) \to M_{r \times s}(R)$ defined by $\iota(\phi)=\mathcal{M}_{\phi,\mathcal{A},\mathcal{B}}$ is an injective $R$-module homomorphism, where $\mathcal{M}_{\phi,\mathcal{A},\mathcal{B}}=(a_{ij})_{1 \le i \le r,\ 1 \le j \le s}$ if $\phi(n_j)=\sum_{i=1}^ra_{ij}m_i$. (Analogy: $[T]_{\mathcal{B}}^{\mathcal{B}'}$ in linear algebra.)
+
+    \item[] (ii) The map $\iota:\End_R(M) \to M_{r \times r}(R)$ defined by $\iota(\phi)=\mathcal{M}_{\phi,\mathcal{B},\mathcal{B}}$ is an isomorphism as rings.
+
+    \item[] (iii) If $\mathcal{A}$ is a basis for $N$, then $\Hom_R(N,M) \simeq M_{r \times s}(R)$ by the map $\iota:\phi \mapsto \mathcal{M}_{\phi,\mathcal{A},\mathcal{B}}$ as $R$-module.
+\end{itemize}
+
+pf-1. First, $\iota(\phi)=0 \Leftrightarrow \mathcal{M}_{\phi,\mathcal{A},\mathcal{B}}=0 \Leftrightarrow a_{ij}=0,\ \forall i,j \Leftrightarrow \phi(n_j)=0,\ \forall j \Leftrightarrow \phi=0$, as $\spn_R(\mathcal{A})=N$. Therefore, $\iota$ is injective. Moreover, suppose $\phi(n_j)=\sum_{i=1}^ra_{ij}m_i$ and $\psi(n_j)=\sum_{i=1}^nb_{ij}m_i$, we compute that:
+
+\begin{align*}
+    (\phi+\psi)(n_j)&=\phi(n_j)+\psi(n_j) \\
+    &=\sum_{i=1}^ra_{ij}m_i+\sum_{i=1}^rb_{ij}m_i \\
+    &=\sum_{i=1}^r(a_{ij}+b_{ij})m_j
+\end{align*}
+
+Therefore, $\iota(\phi+\psi)=\mathcal{M}_{\phi+\psi,\mathcal{A},\mathcal{B}}=(a_{ij}+b_{ij})_{1 \le i \le r,\ 1 \le j \le s}=(a_{ij})_{1 \le i \le r,\ 1 \le j \le s}+(b_{ij})_{1 \le i \le r,\ 1 \le j \le s}=\mathcal{M}_{\phi,\mathcal{A},\mathcal{B}}+\mathcal{M}_{\psi,\mathcal{A},\mathcal{B}}=\iota(\phi)+\iota(\psi)$. For $R$-multiplication, given $r' \in R$, we have:
+
+\begin{align*}
+    (r'\phi)(n_j)&=r'\phi(n_j) \\
+    &=r'\sum_{i=1}^ra_{ij}m_i \\
+    &=\sum_{i=1}^r(r'a_{ij})m_i
+\end{align*}
+
+Therefore, $\iota(r'\phi)=\mathcal{M}_{r'\phi,\mathcal{A},\mathcal{B}}=(r'a_{ij})_{1 \le i \le r,\ 1 \le j \le s}=r'(a_{ij})_{1 \le i \le r,\ 1 \le j \le s}=r'\mathcal{M}_{\phi,\mathcal{A},\mathcal{B}}=r'\iota(\phi)$. In conclusion, $\iota$ is an injective $R$-module homomorphism. \\
+
+pf-2. First, $\End_R(M) \xhookrightarrow{\iota} M_{r \times r}(R)$ as $R$ modules by (i). We show that $\iota$ is surjective. Given $A=(a_{ij})_{1 \le i,j \le r} \in M_{r \times r}(R)$, define $\phi(m_j)=\sum_{j=1}^ra_{ij}m_i$. As $\{m_1,...,m_r\}$ is a $R$-basis of $M$, $\phi$ is well-defined. Then, $\iota(\phi)=A$, $\iota$ is surjective. It remains to show that $\iota(\phi\psi)=\iota(\phi)\iota(\psi)$. Suppose $\phi(m_j)=\sum_{i=1}^ra_{ij}m_i$ and $\psi(m_j)=\sum_{k=1}^rb_{kj}m_k$, we have:
+
+\begin{align*}
+    (\phi\psi)(m_j)&=\phi(\psi(m_j)) \\
+    &=\phi\left(\sum_{k=1}^rb_{kj}m_k\right) \\
+    &=\sum_{k=1}^rb_{kj}\phi(m_k) \\
+    &=\sum_{k=1}^r\sum_{i=1}^r b_{kj}a_{ik}m_i \\
+    &=\sum_{i=1}^r\left(\sum_{k=1}^ra_{ik}b_{kj}\right)m_i
+\end{align*}
+
+Since $(\mathcal{M}_{\phi,\mathcal{B},\mathcal{B}}\mathcal{M}_{\psi,\mathcal{B},\mathcal{B}})_{ij}=\sum_{k=1}^ra_{ik}b_{kj}$, we have $\iota(\phi\psi)=\mathcal{M}_{\phi\psi,\mathcal{B},\mathcal{B}}=\mathcal{M}_{\phi,\mathcal{B},\mathcal{B}}\mathcal{M}_{\phi,\mathcal{B},\mathcal{B}}=\iota(\phi)\iota(\psi)$. Therefore, $\iota$ is a ring isomorphism. \\
+
+pf-3. Let $\phi(n_j)=\sum_{i=1}^ra_{ij}m_i$, then since $\mathcal{A}$ is an $R$-basis, $\phi$ is well-defined. Also, $\iota(\phi)=\mathcal{M}_{\phi,\mathcal{A},\mathcal{B}}$. Therefore, $\iota$ is surjective and thus $\iota$ is a $R$-module isomorphism. \\ \\
+
+\textbf{Conclusion. }If $M,N$ are both finitely generated free $R$-modules, then $\Hom_R(N,M)$ is also finitely generated free $R$-module by proposition 6-(iii) and proposition 5. \\ \\
+
+\textbf{Theroem 7. }Let $M$ be a finitely generated free $R$-module, then every basis for $M$ has the same number of elements. In general, if $M_1 \simeq M_2$, then the number element of any basis in $M_1$ and the number of elements of any basis in $M_2$ are the same. \\
+
+\textbf{Def. }The number is called the \textbf{rank} of $M$, denoted by $\rank_R(M)$ or $\rk_R(M)$. (If $R$ is clear, then it is simply $\rank M$ or $\rk(M)$.) \\
+
+pf for theorem 7. Recall that two bases of a vector space must have the same number of elements, so we want to reduce the case to a vector space case, i.e. over a field. Let $\mathcal{B}_1,\mathcal{B}_2$ be two bases for $M_1,M_2$ over $R$, respectively. Then, there exists $R$-module isomorphisms $\iota_1:M_1 \overset{\sim}{\to} R^{n_1}$ and $\iota_2:M_2 \overset{\sim}{\to} R^{n_2}$, where $n_1=\#\mathcal{B}_1$ and $n_2=\mathcal{B}_2$. For example, if $\mathcal{B}_1=\{m_1,...,m_{n_1}\}$, then $\iota_1(m_i)=e_i:=(0,0,...,0,\underset{i\text{-th}}{1},0,...,0)$ for $i=1,...,n_1$. For $\iota_2$ is similar. \\
+
+Recall that in the last semester, we use Zorn's lemma to show that every nonzero commutative ring $R$ has a maximal ideal $I_m \trianglelefteq R$. Consider the set $I_mM_1=\{\sum_{i=1}^sr_im_i:s \in \mathbb{Z}_{>0},\ r_i \in m,\ m_i \in M_1\} \subset M_1$, we first show that this is a $R$-submodule of $M_1$. Given any $\alpha_1=\sum_{i=1}^{s_1}r_im_i \in I_mM_1$ and $\alpha_2=\sum_{i=1}^{s_2}r_im_i \in I_mM_1$, it's clear that $\alpha_1+\alpha_2 \in I_mM_1$. Now for any $r \in R$, we have $r\alpha_1=\sum_{i=1}^{s_1}(rr_i)m_i \in I_mM_1$ since $I_m$ is an ideal and thus $rr_i \in I_m$. Therefore, $I_mM_1$ is a $R$-submodule of $M_1$. \\
+
+Follow the same proof as proposition 3, we know that $\overline{M}_1:=M_1/I_mM_1$ is a $R/I_m$-module and it is finitely generated by $\overline{\mathcal{B}}=\{m_1+I_mM_1,...,m_{n_1}+I_mM_1\}$. Also, if $\sum_{i=1}^{n_1}r_i(m_i+I_mM_1)=I_mM_1$, then $\sum_{i=1}^{n_1}r_im_i \in I_mM_1$, i.e. $\sum_{i=1}^{n_1}r_im_i=\sum_{j=1}^s\Tilde{r_j}\Tilde{m_j}$ for some $\Tilde{r}_j \in I_m$ and $\Tilde{m}_j \in M_1$. As $\mathcal{B}=\{m_1,...,m_{n_1}\}$ is a basis for $M_1$, we can express each $\Tilde{m}_j$ as a linear sum of $m_1,...,m_{n_1}$. It means that $\sum_{j=1}^s\Tilde{r_j}\Tilde{m_j}=\sum_{i=1}^{n_1}r'_im_i$ for some $r'_j$. But $r_j'$ remains in $I_m$ since each $\Tilde{r}_j$ is in $I_m$ and $I_m$ is an ideal. Then, we have:
+
+\begin{gather*}
+    \sum_{i=1}^{n_1}r_im_i=\sum_{i=1}^{n_1}r'_im_i \Rightarrow r_i=r_i' \in I_m,\ \forall i,\\ \text{as }\mathcal{B}=\{m_1,...,m_{n_1}\}\text{ is linearly independent}
+\end{gather*}
+
+Therefore, $\sum_{i=1}^{n_1}r_i(m_i+I_mM_1)=I_mM_1 \Rightarrow r_i+I_m=I_m,\ \forall i$, which means $\overline{B}$ is linearly independent. Then, we have $\overline{M}_1 \simeq (R/I_m)^{n_1}$. Similarly, we have $\overline{M_2} \simeq (R/I_m)^{n_2}$. As $M_1 \simeq M_2$, we also have $\overline{M}_1 \simeq \overline{M}_2$ as $R/I_m$-module. But $R/I_m$ is actually a field since $I_m$ is maximal, which means $\overline{M}_1$ and $\overline{M}_2$ are isomorphic vector spaces and thus has the same number of elements of any basis. (i.e. their dimension is the same) Hence, $n_1=n_2$, the proof is completed. \\ \\
+
+\subsection*{11.5 Noetherian rings and modules}
+\indent
+
+\textbf{Question. }Let $M$ be a finitely generated $R$-module, are all its submodules finitely generated? \\
+
+The answer is no. Consider $R$ as $R$-module, then itself is finitely generated by $1$, and its submodule is exactly its ideal. If $R=\mathbb{Q}[x_i]_{i \in \mathbb{Z}>0}=\{\sum_{(i_1,...,i_r)}a_{(i_1,...,i_r)}x_{i_1}^{e_{i_1}}x_{i_2}^{e_{i_2}}...x_{i_r}^{e_{i_r}}:i_k\text{ are indices},\ a_{(i_1,...,i_r)} \in \mathbb{Q},\ e_{i_k} \in \mathbb{Z}_{>0}\}$. Then, for $I=\{f \in R:f\vert_{x_i=0,\ \forall i}=0\}=\{f \in R:f\text{ has no constant}\}$, it it not finitely generated. \\ \\
+
+\textbf{Prop 8. }Let $M$ be a $R$-module, then TFAE:
+
+\begin{itemize}
+    \item[] (i) Every $R$-submodule of $M$ is finitely generated.
+
+    \item[] (ii) For any chain of submodules in $M$, say $N_1 \subseteq N_2 \subseteq \cdots \subseteq N_i \subseteq \cdots $, there is a $k \in \mathbb{Z}_{>0}$ s.t. $N_k=N_{k+i}$, $\forall i \in \mathbb{Z}_{\ge 0}$.
+
+    \item[] (iii) If $S$ is any non-empty collection of submodules of $M$, then there is an element $N \in S$ with the property that $N' \in S$ and $N \subseteq N'$ imply $N=N'$. This $N$ is called a \textbf{maximal element} in $S$.
+\end{itemize}
+
+pf (i)$\Rightarrow$(ii). Let $N:=\bigcup_{i \in \mathbb{Z}_{>0}}N_i$. For any $a,b \in N$, there exists $i$ s.t. $a,b \in N_i$, which means $a+b \in N_i$ and thus $a+b \in N$. Also, for all $r \in R$, $ra \in N_i$, so $ra \in N$. Therefore, $N$ is a $R$-submodule of $M$. By assumption of (i), $N$ is finitely generated, say $N=\spn\{n_1,...,n_r\}$, $n_j \in N$. As $n_j \in N$, there exists $k$ s.t. $n_j \in N_k$, $\forall j$. Then, $N=\spn\{n_1,...,n_r\} \subseteq N_k \subseteq N$, which means $N_k=N$. This implies $\forall i \in \mathbb{Z}_{>0}$, we have $N=N_k \subseteq N_{k+i} \subseteq N$, i.e. $N_k=N_{k+i}$. \\
+
+pf (ii)$\Rightarrow$(iii). Suppose NOT, i.e. $\exists S$, a non-empty collection of $R$-submodules of $M$ without maximal element. Pick any $N_1 \in S$, then $N_1$ is not maximal, which means there exists $N_2 \in S$ s.t. $N_1 \subsetneq N_2$. Iteratively, we have an ascending chain $N_1 \subsetneq N_2 \subsetneq \cdots \subsetneq N_i \subsetneq \cdots$ with each $N_i \in S$. But by assumption, $\exists k$ s.t. $N_k=N_{k+i}$ for all $i \in \mathbb{Z}_{>0}$, which leads to a contradiction. Therefore, $S$ has a maximal element. \\
+
+pf (iii)$\Rightarrow$(i). Let $N \subseteq M$ be a submodule of $M$, and $S:=\{N' \subseteq M:N'$ is a finitely generated submodules of $N\}$. As $\{0\} \in S$, $S$ is not empty. By assumption of (iii), $S$ has a maximal element $P$. Claim: $P=N$. If NOT, $\exists \alpha \in N \setminus P$, we consider $P+R\alpha$, it is clearly a submodule of $N$ and it finitely generated by the generators of $P$ and $\alpha$. But, $\alpha \notin P$, which means $P+R\alpha \supsetneq P$, which contradicts to the fact that $P$ is maximal. Therefore, $N=P$ is finitely generated. This holds for all submodules of $M$, so every $R$-submodule of $M$ is finitely generated. \\ \\
+
+\textbf{Def. }Let $M$ be a $R$-module. $M$ is said to be \textbf{Noetherian} if $M$ satisfies one of the equivalent statements in proposition 8. \\ \\
+
+\textbf{Def. }A commutative ring $R$ is said to be \textbf{Noetherian} if $R$ is \textbf{Noetherian} as $R$-module, i.e. all ideals $I \trianglelefteq R$ is finitely generated. \\ \\
+
+\textbf{Example. }Any ideal of a PID is principal, so it is finitely generated. So, a PID is Noetherian. \\ \\
+
+\textbf{Prop 9. }Let $M$ be a $R$-module, $N$ be a $R$-submodule of $M$, then $M$ is Noetherian if and only if both $N$ and $M/N$ are Noetherian. \\
+
+pf ($\Rightarrow$). Let $P \subseteq N$ be a submodule of $N$, then $P$ is also a submodule of $M$. By proposition 8-(i), $P$ is finitely generated, so $N$ is Noetherian since it holds for all submodule $P \subseteq N$. \\
+
+Let $\overline{P} \subset M/N$ be a submodule of $M/N$, consider $\pi:M \surj M/N$, then $\pi^{-1}(\overline{P})$ is also a submodule of $M$. ($\alpha,\beta \in \overline{P}$, $r \in R$, we have $\pi(\alpha+\beta)=\pi(\alpha)+\pi(\beta) \in \overline{P}$ and $\pi(r\alpha)=r\pi(\alpha) \in \overline{P}$, so $\alpha+\beta,\ r\alpha \in \pi^{-1}(\overline{P})$) Since $M$ is Noetherian, $\pi^{-1}(\overline{P})$ is finitely generated by proposition 8-(i). This means $\pi^{-1}(\overline{P})=\spn\{\alpha_1,...,\alpha_\ell\}$ for some $\alpha_i \in \pi^{-i}(\overline{P})$. As $\pi^{-1}(\overline{P})$ is the preimage of $\overline{P}$, we have $\spn\{\pi(\alpha_1),...,\pi(\alpha_\ell)\}=\overline{P}$, i.e. $\overline{P}$ is finitely generated. This holds for all submodule $\overline{P} \subseteq M/N$, so $M/N$ is Noetherian. \\
+
+pf ($\Leftarrow$). Let $P \subseteq M$ be a submodule of $M$, then $P \cap N \subseteq N$ is clearly a submodule of $N$. As $N$ is Noetherian, $P \cap N$ is finitely generated, say $P \cap N=\spn\{f_1,...,f_r\}$, $f_i \in P \cap N$. Consider the map $\pi:M \surj M/N$ and restrict it on $P$, we have $\alpha \in \ker(\pi\vert_P) \Leftrightarrow \pi\vert_P(\alpha)=0 \Leftrightarrow \alpha \in P \cap N$, i.e. $\ker(\pi\vert_P)=P \cap N$. Therefore, $P/P\cap N \inj M/N$ injectively by proposition 2. As $M/N$ is Noetherian, $P/P \cap N$ is finitely generated, say $P/P\cap N=\spn\{\overline{g}_1,...,\overline{g}_s\}$, $\overline{g}_i \in P/P \cap N$. Choose $g_i \in P$ s.t. $(\pi \vert_P)(g_i)=\overline{g}_i$. Claim: $P=\spn\{f_1,...,f_r,g_1,...,g_s\}$. \\
+
+Given $\alpha \in P$, then $\pi(\alpha) \in P/P \cap N=\spn\{\overline{g}_1,...,\overline{g}_s\}$. So, $\exists b_i \in R$ s.t. $\pi(\alpha)=\sum_{i=1}^sb_i\overline{g}_i=\sum_{i=1}^s\pi(b_ig_i)=\pi(\sum_{i=1}^sb_ig_i)$. Then:
+
+\[
+    \pi\left(\alpha-\sum_{i=1}^sb_ig_i\right)=0\Rightarrow \alpha-\sum_{i=1}^sb_ig_i \in \ker(\pi\vert_P)=P \cap N=\spn\{f_1,...,f_r\}
+\]
+
+It means that $\exists a_i \in R$ s.t. $\alpha-\sum_{i=1}^sb_ig_i=\sum_{i=1}^ra_if_i$, i.e. $\alpha=\sum_{i=1}^ra_if_i+\sum_{i=1}^sb_ig_i \in \spn\{f_1,...,f_r,g_1,...,g_s\}$. Therefore, $P$ is finitely generated, which means $M$ is Noetherian by proposition 8-(i). \\ \\
+
+\textbf{Theorem 10. }Let $R$ be a Noetherian ring and let $M$ be finitely generated $R$-module, then $M$ is a Noetharian $R$-module. \\
+
+pf. Step 1. We first claim: $R^r$ is Noetherian, for all $r \in \mathbb{Z}_{\ge 1}$. The base case $r=1$ is by assumption. Assume that $R^{r-1}$ is Noetherain for $r-1 \ge 1$, then for $r \ge 2$, we consider the inclusion homomorphism, $\iota:R^{r-1} \inj R$, $\iota:(a_1,...,a_{r-1}) \mapsto (a_1,...,a_{r-1},0)$. Then, we have:
+
+\[
+    R^{r-1} \xhookrightarrow{\iota} R^r \xrightarrow[]{\pi}\mathrel{\mkern-14mu}\rightarrow R,
+\]
+
+where $\pi:(b_1,...,b_r) \mapsto b_r$. Then, $\ker\pi=R^{r-1}=\Img \iota$. By induction hypothesis, $R^{r-1}$ is a Noetherian $R$-module. Also, $R^r/R^{r-1} \simeq R$ is also a Noetherian $R$-module. By proposition 9, $R^n$ is Noetherian. \\
+
+Step 2. We show that $M$ is a Noetherian $R$-module. Let $M=\spn\{m_1,...,m_r\}$, $m_i \in M$, it gives a surjective $R$-module homomorphism $\phi:R^r \surj M$, $(a_1,...,a_r) \mapsto \sum_{i=1}^ra_im_i$. As $\phi$ is surjective, we have $R^r/\ker\phi \simeq M$. By proposition 2 ($\ker\phi$ is an $R$-submodule of $R^r$) and proposition 9 ($R^r$ is Noetherian $\Rightarrow R^r/\ker\phi$ is Noetherian), $M$ is a Noetherian $R$-module. \\ \\
+
+\textbf{Theorem 11. (Hilbert basis theorem) }Let $R$ be a commutative ring. If $R$ is a Noethrian ring, then $R[x]$ is also a Noetherian ring. That is, $R[x]$ is a Noetherian $R[x]$-module. Remark that $R[x]=\bigoplus_{i \in \mathbb{Z}_{ \ge 0}}Rx^i$ is not a finitely generated $R$-module and thus not a Noetherian $R$-module. \\
+
+pf. By proposition 8-(i), it suffices to prove that for all ideal $I \trianglelefteq R[x]$, $I$ is finitely generated using coefficients in $R[x]$. First, we define, for a $f \in R[x] \setminus \{0\}$,$L(f):=\text{Leading coefficient of $f$}$. For $0$, we define $L(0)=0$. Also, we define $J:=\{L(f):f \in I\}$. We now show that $J \trianglelefteq R$. \\
+
+Given $\alpha,\beta \in J$, then $\exists f,g \in I$ s.t. $L(f)=\alpha$ and $L(g)=\beta$. Write $f(x)=\alpha x^{d_1}+\sum_{i=1}^{d_1-1}a_ix^i$ and $g(x)=\beta x^{d_2}+\sum_{i=0}^{d_2-1}b_ix^i$. WLOG, $d_1 \ge d_2$. Then, $L(f+x^{d_1-d_2}g)=\alpha+\beta$. As $I \trianglelefteq R$, we have $f+x^{d_1-d_2}g \in I$ and thus $\alpha+\beta \in J$. Given $r \in R$, if $r\alpha=0$, then $r\alpha=L(0) \in J$ as $0 \in I$. If $r\alpha \ne 0$, then $r\alpha=L(rf) \in J$ as $rf \in I$. Therefore, $r\alpha \in J$. In conclusion, $J \trianglelefteq R$. \\
+
+Now, since $R$ is a Noetherian ring, $J$ is finitely generated over $R$, say $J=\spn_R\{a_1,...,a_n\}$, $a_i \in J$. Then $\exists f_i \in I$ s.t. $L(f_i)=a_i$, $1 \le i \le n$. Let $D=\max_{1 \le i \le n}\{\deg f_i\}$, then $\spn_R\{1,x,...,x^{D-1}\}$ is a finitely generated $R$-submodule of $R[x]$. Again, $R$ is a Noetherian ring, by theorem 10, $\spn_R\{1,x,...,x^{D-1}\}$ is a Noetherian $R$-module. Let $K:=\spn_R\{1,x,...,x^{D-1}\} \cap I$, then $K$ is a $R$-submodule of $\spn_R\{1,x,...,x^{D-1}\}$. By proposition 9, we have $K$ is a Noetherian $R$-module, say $K=\spn_R\{g_1,...,g_s\}$, $g_i \in K \subseteq I$. Claim: $I=\spn_{R[x]}\{g_1,...,g_s,f_1,...,f_n\}$, which is our desired result. \\
+
+Proof for the claim. We only need to show $\subseteq$ as $g_1,...,g_s,f_1,...,f_n \in I$ and $\supseteq$ holdes automatically. Given $f \in I$, if $f=0$, then $f \in \spn_{R[x]}\{g_1,...,g_s,f_1,...,f_n\}$ is trivial. If $f \in I \setminus \{0\}$, we let $d=\deg f$. If $d \le D-1$, then $f \in K=\spn_R\{g_1,...,g_s\} \subseteq \spn_{R[x]}\{g_1,...,g_s,f_1,...,f_j\}$. Assume that any polynomial of degree $d-1 \ge D-1$ in $I$ has been proved in $\spn_{R[x]}\{g_1,...,g_s,f_1,...,f_n\}$, then for $d \ge D$, we want to construct a polynomial in $I$ with leading coefficient $L(f)$ and degree $d$ s.t. we can subtract them and use induction. By definition, we first have $L(f) \in J=\spn_R\{a_1,...,a_n\}=\spn_R\{L(f_1),...,L(f_n)\}$. Write $L(f)=\sum_{i=1}^n\alpha_ia_i$, note that $L(f) \ne 0$ as $f \ne 0$. As:
+
+\begin{gather*}
+    L(x^{d-\deg f_i}f_i)=a_i \\
+    L(\alpha_ix^{d-\deg f_i}f_i)=\alpha a_i \\
+    \deg (\alpha_1 x^{d-\deg f_1}f_1)=\cdots=\deg (\alpha_n x^{d-\deg f_n}f_n)
+\end{gather*}
+
+We have $L(\sum_{i=1}^n\alpha_ix^{d-\deg f_i}f_i)=\sum_{i=1}^n\alpha_ia_i=L(f)$. Therefore, $h:=f-\sum_{i=1}^n\alpha_i x^{d-\deg f_i}f_i$ has degree $<d=\deg f$ and $h \in I$ as $f \in I$ and $\sum_{i=1}^n\alpha_i x^{d-\deg f_i}f_i \in I$. By induction hypothesis, $h \in \spn_{R[x]}\{g_1,...,g_s,f_1,...,f_n\}$. Then, $f=h+\sum_{i=1}^n\alpha_i x^{d-\deg f_i}f_i \in \spn_{R[x]}\{g_1,...,g_s,f_1,...,f_n\}$. Hence, the claim is true.
+
+\subsection*{11.6 Modules over PID}
+\indent
+
+\textbf{Def. }Let $R$ be an integral domain, $M$ is an $R$-module, we say $M$ is a \textbf{torsion-free} $R$-module if for $r \in R$, $m \in M$ s.t. $r \cdot m=0$, then $r=0$ or $m=0$. Otherwise, we say $M$ is torsion. \\ \\
+
+\textbf{Example. }Consider $\mathbb{Z}/n\mathbb{Z}$ as $R$-module, then $\mathbb{Z}/n\mathbb{Z}$ is torsion since $n \cdot \overline{1}=\overline{n}=0$ but $n \ne 0$, $\overline{1} \ne 0$. \\ \\
+
+\textbf{Example. }Let $R$ be an integral domain. If $M$ is a free $R$-module, then $M$ is torsion-free. \\
+
+pf. Say $M=\spn_R\{m_1,...,m_n\}$ and $\{m_1,...,m_n\}$ is $R$-linearly independent. Given $r \in R$, $m \in M$ s.t. $r \cdot m=0$. Write $m=\sum_{i=1}^nr_im_i$, then $\sum_{i=1}^n(rr_i)m_i=0$. Linear independence of $\{m_1,...,m_n\}$ gives us $rr_i=0$, $\forall i$. Since $R$ is an integral domain, we have $r=0$ or $r_i=0$, $\forall i$, i.e. $m=0$. \\ \\
+
+\textbf{Lemma 12. }Let $R$ be an integral domain and $M$ be a finitely generated free $R$-module. Then, we can embed $M$ into a finite free $R$-module as module, i.e. $M \inj N$ as $R$-module, where $N$ is free and $\rk N<\infty$. \\
+
+pf. If $M=0$, we define $M=\spn_R(\phi)$, so it is automatically free. So WLOG, $M \ne 0$. Since $M$ is finitely generated, there exists $n \in \mathbb{Z}_{>0}$ and $m_i \in M$ s.t. $R^n \xrightarrow[]{\pi}\mathrel{\mkern-14mu}\rightarrow M$, $\pi:(a_1,...,a_n) \mapsto \sum_{i=1}^na_im_i$. Our goal is to find an $R$-linearly independent subset of $M$ with maximal cardinality. \\
+
+If $\{y_1,...,y_t\}$ is an $R$-linearly independent subset of $M$, then $y_j=\sum_{i=1}^na_{ij}m_i$. Let $v_j \in R^n$ s.t. $\pi(v_j)=y_j$, then $\{v_j\}_{j=1}^t$ is also $R$-linearly independent in $R^n$ (otherwise, $\{y_1,...,y_n\}$ will be $R$-linearly dependent). We will prove later that this implies $t \le n$. So, we can choose $t_0 \le n$ s.t. $\{y_1,...,y_{t_0}\}$ is $R$-linearly independent with maximal cardinality. (Note that $t_0 \ge 1$ as $M \ne 0$.) \\
+
+Now, for any $1 \le i \le n$, $\{m_i,y_1,...,y_{t_0}\}$ is $R$-linearly dependent since it has cardinality more than $t_0$. Then, $\exists a_{ik} \in R$, $0 \le k \le t_0$, s.t. $a_{i,0}m_i+\sum_{k=1}^{t_0}a_{i,k}y_k=0$. But $\{y_1,...,y_{t_0}\}$ is $R$-linearly independent, this forces $a_{i,0} \ne 0$. Since each $a_{i,0}m_i \in \spn_R\{y_1,...,y_{t_0}\}$, if we let $A:=\prod_{i=1}^na_{i,0} \in R \setminus \{0\}$ ($A \ne 0$ since $R$ is an integral domain), then $A \cdot m \in \spn_R\{y_1,...,y_{t_0}\}$ for all $m \in M$. ($\because Am_1,...,Am_n \in \spn_R\{y_1,...,y_{t_0}\}$). \\
+
+As $\{y_1,...,y_{t_0}\}$ is linearly independent, $\spn_R\{y_1,...,y_{t_0}\} \simeq R^{t_0}$. So we have a $R$-module homomorphism $\phi_A:M \to A \cdot M \inj \spn_R\{y_1,...,y_{t_0}\}$ by $\phi_A(m)=A \cdot m$. Since $M$ is torsion-free by assumption and $A \ne 0$, $A \cdot m=0 \Rightarrow m=0$, i.e. $\phi_A$ is injective. Therefore, $M \inj R^{t_0}$, and $R^{t_0}$ is free with finite rank $t_0$, which proves the claim. \\ \\
+
+\textbf{Remark. }Let $R$ be an integral domain, if a finite subset $\{y_1,...,y_t\} \subseteq R^n$ is $R$-linearly independent, then $t \le n$. \\
+
+pf. Consider $K=\Frac(R)$, then $R^n \subseteq K^n$. Suppose that $t>n$. Since $\{y_1,...,y_n\}$ is $K$-linearly dependent, there exists $a_1,...,a_t$, not all zero, s.t. $\sum_{i=1}^ta_iy_i=0$, where each $a_i=\frac{b_i}{c_i}$, $b_i,c_i \in R$ and $c_i \ne 0$. Multiply $\text{lcm}(c_1,...,c_t)$ to get a $R$-linear combination $\sum_{i=1}^td_iy_i=0$ with $d_i$ not all zero, which contradicts to our assumption. Therefore, $t \le n$. \\ \\
+
+\textbf{Theorem 13. }Let $R$ be a PID and $N$ be a finite free $R$-module of rank $n$. Then each $R$-submodule $M$ of $N$ is free of rank $\le n$. \\
+
+pf. As a finite free $R$-module of rank $n$ is isomorphic to $R^n$, we assume that $N=R^n$. Given $M \subseteq R^n$, $R$-submodule. If $M=0$ or $n=0$, it is trivial, so WLOG, $M \ne 0$ and $n>0$. When $n=1$, $M$ is an non-zero ideal $I \trianglelefteq R$. Since $R$ is a PID, $I=(a)$ for some $a \ne 0$. Then, $R \simeq I$ (as $R$-module) via the isomorphism $r \mapsto ra$. (It is surjective since $I=(a)$ and is injective since $R$ is a domain.) \\
+
+Assume the theorem holds up to $n$, consider $0 \ne M \subseteq R^{n+1}$. Consider the sequence:
+
+\[
+    \begin{matrix}
+        R &\overset{\iota}{\longrightarrow}& R^{n+1} &\overset{d_{n+1}}{\longrightarrow}& R^n \\
+        &&(a_1,...,a_{n+1}) &\longmapsto& (a_1,...,a_n) \\
+        r &\longmapsto& (0,...,0,r)
+    \end{matrix}
+\]
+
+First, $d_{n+1}$ is surjective and $\ker d_{n+1}=R$. We know that $M \subseteq R^{n+1}$, so we can consider the $R$-submodule $d_{n+1}(M)$ of $R^n$. By induction hypothesis, $d_{n+1}(M)$ is free of rank $t \le n$. Let $\{\overline{m_1},...,\overline{m_t}\}$ be a $R$-basis of $d_{n+1}(M)$. Let $m_i \in M$ s.t. $d_{n+1}(m_i)=\overline{m_i}$, then $\{m_1,...,m_t\}$ is $R$-linearly independent. For any $m \in M$, we can write $d_{n+1}(m)=\sum_{i=1}^ta_i\overline{m}_i$, $a_i \in R$, then $d_{n+1}(m-\sum_{i=1}^na_im_i)=0$, which means $m-\sum_{i=1}^ta_im_i \in \ker d_{n+1} \cap M$. As $\ker d_{n+1} \simeq R$, we have $\ker d_{n+1} \cap M \simeq (a) \subseteq R$. \\
+
+If $a=0$, then $m-\sum_{i=1}^ta_im_i=0$, i.e. $m=\sum_{i=1}^ta_im_i$, which gives us $M=\spn_R\{m_1,...,m_t\}$ and $\{m_1,...,m_t\}$ is a $R$-basis for $M$. If $a \ne 0$, by base case, $(a) \simeq R$ as $R$-module. We then consider $\phi:M \to R^{t} \oplus (\ker d_{n+1} \cap M)$ by $\phi(m)=((a_1,...,a_t),m-\sum_{i=1}^ta_im_i)$ if $d_{n+1}(m)=\sum_{i=1}^na_i\overline{m}_i$. We show that $\phi$ is an isomorphism by finding its inverse $\psi$. Define $\psi:R^{t} \oplus (\ker d_{n+1} \cap M) \to M$ by $((\alpha_1,...,\alpha_t),\beta) \mapsto \sum_{i=1}^t\alpha_1m_i+\beta$. Then it's clear that $\psi$ is a $R$-module homomorphism. Since:
+
+\begin{align*}
+    \psi \circ \phi(m)&=\psi((a_1,...,a_n),m-\sum_{i=1}^ta_im_i) \\
+    &=\sum_{i=1}^ta_im_i+m-\sum_{i=1}^ta_im_i \\
+    &=m
+\end{align*}
+
+And:
+
+\begin{align*}
+    \phi\circ \psi((\alpha_1,...,\alpha_t),\beta)&=\phi\left(\sum_{i=1}^t\alpha_im_i+\beta\right) \\
+    &=\left((\alpha_1,...,\alpha_t),\sum_{i=1}^t\alpha_im_i+\beta-\sum_{i=1}^{t}\alpha_im_i\right)\\
+    &\quad\left(\text{Since }\beta \in \ker d_{n+1},\ d_{n+1}\left(\sum_{i=1}^t\alpha_im_i+\beta\right)=\sum_{i=1}^t\alpha_i\overline{m}_i\right) \\
+    &=((\alpha_1,...,\alpha_t),\beta)
+\end{align*}
+
+Therefore, $\psi$ is the inverse homomorphism of $\phi$, $\phi$ is an isomorphism, which gives us $M \simeq R^t \oplus (\ker d_{n+1} \cap M) \simeq R^t \oplus R \simeq R^{t+1}$. In conclusion, $M \simeq R^t$ or $M \simeq R^{t+1}$, i.e. $M$ is finite, free of rank $\le t+1$. By mathematical induction, the theorem is true. \\ \\
+
+\textbf{Corollary 14. }Let $R$ be a PID and $M$ be a finitely generated $R$-module. Then, $M$ is a torsion-free if and only if $M$ is free. \\
+
+pf ($\Rightarrow$). By lemma 12, $M \inj R^n$ for some $n$. Since $R^n$ is a finite free $R$-module, by theorem 2, $M$ is finite free and $\rk M \le n$. \\
+
+pf ($\Leftarrow$). It is shown in the second example in the begining of 11.6. \\ \\
+
+\textbf{Corolarry 15. }Let $R$ be a PID. Consider a tower of $R$-moduels $M_0 \supseteq M_1 \supseteq M_2$, if $M_0 \simeq R^n$ and $M_2 \simeq R^n$, then $M_1 \simeq R^n$. \\
+
+pf. As $M_1 \subseteq M_0 \simeq R^n$, by theorem 13, $M_1$ is finite free and $\rk M_1 \le n$. Again by theorem 13, since $M_2 \subseteq M_1$, we have $n=\rk M_2 \le \rk M_1 \le n$, which means $\rk M_1=n$ and thus $M_1 \simeq R^n$. \\ \\
+
+\textbf{Corollary 16. }Let $R$ be a PID, $M$ be a finite free $R$-module, $N \subseteq M$ be a $R$-submodule s.t. $M/N$ is torsion-free. Then, each $R$-basis of $N$ can ve extended to an $R$-basis of $M$. \\
+
+pf. If $N=0$, it is trivial since we can just take the basis of $M$, we assume $0 \ne N \subseteq M$. Since $M$ is finite free and $R$ is a PID, by theorem 13, $N$ is also finite free of rank $\le \rk M$. Since $M$ is finitely generated, $M/N$ can be finitely generated by the basis of $M$ by seeing the elements as elements in $M/N$. By assumption, $M/N$ is torsion-free, which tells us $M/N$ is free by corollary 14. Let $\rk N=s$ with basis $\{e_1,...,e_s\}$ and $\rk(M/N)=t$ with basis $\{\overline{e}_{s+1},...,\overline{e}_{s+t}\}$. Let $e_i \in M$ s.t. $e_i+N=\overline{e}_i$, $s+1 \le i \le s+t$. If we can show that $\{e_1,...,e_{s+t}\}$ is a basis for $M$, then we are done. \\
+
+First, we show that $M=\spn_R\{e_1,...,e_{s+t}\}$. Given $m \in M$, consider the quotient map $\pi:M \surj M/N$, then $\pi(m) \in M/N=\spn_R\{\overline{e}_{s+1},...,\overline{e}_{s+t}\}$, which means we can write $\pi(m)=\sum_{i=s+1}^{s+t}a_i\overline{e}_i$. Then, by the same technique we have done several times, $\pi(m-\sum_{i=s+1}^{s+t}a_ie_i)=0$ and thus $m-\sum_{i=s+1}^{s+t}a_ie_i \in \ker \pi=N=\spn_R\{e_1,...,e_s\}$. Then, $m-\sum_{i=s+1}^{s+t}a_ie_i=\sum_{i=1}^sa_ie_i$, which gives us $m=\sum_{i=1}^{s+t}a_ie_i \in \spn_R\{e_1,...,e_{s+t}\}$. Therefore, $M=\spn_R\{e_1,...,e_{s+t}\}$. \\
+
+Next, we show that $\{e_1,...,e_{s+t}\}$ is $R$-linearly independent. If $\sum_{i=1}^{s+t}a_ie_i=0$, then $0=\pi(\sum_{i=1}^{s+t}a_ie_i)=\sum_{i=s+1}^{s+t}a_i\overline{e}_i$. As $\{\overline{e}_{s+1},...,\overline{e}_{s+t}\}$ is a $R$-basis for $M/N$, we have $a_i=0$ for $s+1 \le i \le s+t$. So, $0=\sum_{i=1}^{s+t}a_ie_i=\sum_{i=1}^sa_ie_i$. As $\{e_1,...,e_s\}$ is a $R$-basis for $N$, we have $a_i=0$ for $1 \le i \le s$. \\
+
+In conclusion, $\{e_1,...,e_{s+t}\}$ spans $M$ and is $R$-linearly independent, so it is a $R$-basis for $M$, which is extended by the $R$-basis $\{e_1,...,e_s\}$ for $N$. \\ \\
+
+\textbf{Def. }Let $R$ be a PID, $M$ be a finite free $R$-module. Let $M' \subseteq M$ be a $R$-submodule. Then a basis $\{v_1,...,v_n\}$ for $M$ and a basis $\{a_1v_1,...,a_sv_s\}$ ($s \le n$) for $M'$ with $a_i \in R \setminus \{0\}$ is called \textbf{a pair of aligned basis}. \\ \\
+
+\textbf{Theorem 17. }Let $R$ be a PID. Each finite free $R$-module $M$ of rank $n \ge 1$ and $R$-submodule $M' \subseteq M$ of rank $m \le n$ admit a pair of aligned basis. That is, there exists $\{v_1,...,v_n\}$, $R$-linearly independent, s.t. $M=\bigoplus_{i=1}^nRv_i$ (i.e. $M=\spn_R\{v_1,...,v_n\}$) and $\exists a_i \ne 0$ s.t. $M'=\bigoplus_{i=1}^mR(a_iv_i)$m. Moreover, we can arrange to get $a_i \mid a_{i+1}$, $1 \le i \le s-1$. \\
+
+pf. I suggest that you see the proof in the pdf in the annoucement. (Theorem 2.14) \\ \\
+
+\textbf{Def. }We know that every abelian group $G$ can be regarded as a $\mathbb{Z}$-module by equipping the $\mathbb{Z}$-multiplication in 11.1. We say $G$ is a \textbf{finitely generated abelian group} if $G$ is a finitely generated $\mathbb{Z}$-module. \\ \\
+
+\textbf{Application. (Fundamental theorem of finite generated abelian group) }Given any $G$, finite generated abelian group. Then $G=\mathbb{Z}^{n-t} \oplus \bigoplus_{i=1}^t\mathbb{Z}/a_i\mathbb{Z}$ for some $a_i$ and $n,t \in \mathbb{Z}$, $t \le n$. \\
+
+pf. First, $G$ is finitely generated, Then, there exists $\{g_1,...,g_n\} \in G$ s.t. $G=\spn_{\mathbb{Z}}\{g_1,...,g_n\}$, which is equivalent to the existence of the surjective map $\pi:\mathbb{Z}^n \surj G$. Consider $\ker \pi$, since $\mathbb{Z}^n$ is a finite free $\mathbb{Z}$-module, by theorem 13, $\ker \pi$ is free of rank $t \le n$. By theorem 17, if $\{v_1,...,v_n\}$ is a $\mathbb{Z}$-basis for $\mathbb{Z}^n$, then there exists $a_i \in \mathbb{Z}$, $a_i>0$, s.t. $\{a_1v_1,...,a_tv_t\}$ is a $\mathbb{Z}$-basis for $\ker \pi$. Now, by the first isomorphism theorem, $G=\Img \pi \simeq \mathbb{Z}^n/\ker \pi=\mathbb{Z}^{n-t} \oplus \bigoplus_{i=1}^t(\mathbb{Z}/a_i\mathbb{Z})$. \\
+
+We can elaborate more on the last inequality. Given $p=(\sum_{i=1}^nb_iv_i+\ker\pi) \in \mathbb{Z}^n/\ker\pi$, let $\overline{b}_i \in \mathbb{Z}/a_i\mathbb{Z}$ s.t. $\overline{b}_i\equiv b_i$ (mod $a_i$) for $1 \le i \le t$. Define:
+
+\[
+    \begin{matrix}
+        \phi:\mathbb{Z}^n/\ker\pi &\longrightarrow& \bigoplus_{i=1}^t(\mathbb{Z}/a_i\mathbb{Z})\oplus\mathbb{Z}^{n-t} \\
+        p=\sum_{i=1}^nb_iv_i+\ker\pi &\longmapsto& ((\overline{b}_1,...,\overline{b}_t),(b_{t+1},...,b_n))
+    \end{matrix}
+\]
+
+We first show that $\phi$ is well-defined. Given $q=(\sum_{i=1}^nc_iv_i+\ker\pi) \in \mathbb{Z}^n/\ker\pi$ s.t. $\sum_{i=1}^nb_iv_i+\ker\pi=\sum_{i=1}^nc_iv_i+\ker\pi$. This means $\sum_{i=1}^n(b_i-c_i)v_i \in \ker\pi=\spn_{\mathbb{Z}}\{a_1v_1,...,a_tv_t\}$, then we can write $\sum_{i=1}^n(b_i-c_i)v_i=\sum_{i=1}^t k_i(a_iv_i)$ for some $k_i \in \mathbb{Z}$. Since $\{v_1,...,v_n\}$ is $\mathbb{Z}$-linearly independent, we have $b_i=c_i+k_ia_i$ for $1 \le i \le t$ and $b_i=c_i$ for $t+1 \le i \le n$. This means that $b_i \equiv c_i$ (mod $a_i$) for $1 \le i \le t$, and thus $\overline{b}_i=\overline{c}_i$ for $1 \le i \le t$. So:
+
+\begin{align*}
+    \phi(p)&=((\overline{b}_1,...,\overline{b}_t),(b_{t+1},...,b_n)) \\
+    &=((\overline{c}_1,...,\overline{c}_t),(c_{t+1},...,c_n)) \\
+    &=\phi(q)
+\end{align*}
+
+Next, we show that $\phi$ is injective. Given $p=(\sum_{i=1}^nb_iv_i+\ker\pi) \in \ker\phi$, i.e. $((\overline{b}_1,...,\overline{b}_t),(b_{t+1},...,b_n))=((\overline{0}_1,...,\overline{0}_t),(0,...,0))$, where $\overline{0}_i$ is the identity in $\mathbb{Z}/a_i\mathbb{Z}$. Then, $b_i=\ell_ia_i$ for some $\ell_i \in \mathbb{Z}$, for $1 \le i \le t$, and $b_i=0$ for $t+1 \le i \le n$, which means $\sum_{i=1}^nb_iv_i=\sum_{i=1}^t\ell_i(a_iv_i) \in \spn_\mathbb{Z}\{a_1v_1,...,a_tv_t\}=\ker\pi$. Therefore, $p=\sum_{i=1}^nb_iv_i+\ker\pi$ is the identity in $\mathbb{Z}^n/\ker\pi$. \\
+
+Finally, we show that $\phi$ is surjective. This is pretty straighforward since for any $((\alpha_1,...,\alpha_t),(\beta_{t+1},...,\beta_n)) \in \bigoplus_{i=1}^t(\mathbb{Z}/a_i\mathbb{Z}) \oplus \mathbb{Z}^{n-t}$, we can regard $\alpha_i$ as elements in $\mathbb{Z}$ and thus $\phi(\sum_{i=1}^t\alpha_iv_i+\sum_{i={t+1}}^n\beta_iv_i+\ker\pi)=((\alpha_1,...,\alpha_t),(\beta_{t+1},...,\beta_n))$. In conclusion, $\phi$ is an isomorphism, which gives our desired result. \\ \\
+
+\textbf{Corollary of the application. (Fundamental theorem of finite abelian group) }Given any $G$, finite abelian group. Then $G=\bigoplus_{i=1}^n\mathbb{Z}/a_i\mathbb{Z}$ for some $a_i$ and $n \in \mathbb{Z}$. \\
+
+pf. First, $G$ is finitely generated by itself, so fundamental theorem of finitely generated abelian group applies. Since $G$ is finite, it cannot be isomorphic to $\mathbb{Z}^{n-t} \oplus \bigoplus_{i=1}^t(\mathbb{Z}/a_i\mathbb{Z})$ if $n>t$. Therefore, $n=t$, which proves the claim.
+\end{document}

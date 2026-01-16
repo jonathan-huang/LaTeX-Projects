@@ -1,0 +1,618 @@
+\chapter{Geometric Singular Perturbation Theory}
+% \lecture{3}{2 Jan. 10:30}{reading notes}
+
+\begin{note}
+    Some useful background information include: knowledge about the geometry of curves and surfaces and general smooth manifolds and an elementary understanding of classical bifurcation theory.
+\end{note}
+
+\section{Fenichel's Theorem}
+
+Let's start with the general formulation of an $ (m,n) $-fast-slow system: 
+\begin{definition}
+    For $ (x,y) \in \mathbb{R}^m \times \mathbb{R}^n $, a slow-fast system is defined by the equations
+    \begin{equation}
+        \label{eq:slow_time_scale}
+        \begin{split}
+            \varepsilon \frac{\mathrm{d}x}{\mathrm{d}\tau} &= \varepsilon \dot{x} = f(x,y,\varepsilon), \\
+            \frac{\mathrm{d}y}{\mathrm{d}\tau} &= \dot{y} = g(x,y,\varepsilon),
+        \end{split}
+    \end{equation}
+    where $ 0 < \varepsilon \ll 1 $ is a small parameter representing the ratio of time scales between the fast variable $ x $ and the slow variable $ y $. Here, $ f: \mathbb{R}^m \times \mathbb{R}^n \times [0,\varepsilon_0) \to \mathbb{R}^m $ and $ g: \mathbb{R}^m \times \mathbb{R}^n \times [0,\varepsilon_0) \to \mathbb{R}^n $ are sufficiently smooth functions.
+\end{definition}
+
+On the fast time scale $ t = \tau / \varepsilon $, the system can be rewritten as
+\begin{equation}
+    \label{eq:fast_time_scale}
+    \begin{split}
+        \frac{\mathrm{d}x}{\mathrm{d}t} &= x' = f(x,y,\varepsilon), \\
+        \frac{\mathrm{d}y}{\mathrm{d}t} &= y' = \varepsilon g(x,y,\varepsilon).
+    \end{split}
+\end{equation}
+
+\begin{enumerate}
+    \item Slow subsystem: Setting $ \varepsilon = 0 $ in the slow time scale equations (\ref{eq:slow_time_scale}) gives 
+    \begin{equation}
+        \label{eq:slow_subsystem}
+        \begin{split}
+            0 &= f(x,y,0), \\
+            \dot{y} &= g(x,y,0).
+        \end{split}
+    \end{equation}
+    The slow flow is constrained to the \textit{critical manifold} defined by
+    \begin{equation}
+        \label{eq:critical_manifold}
+        C_0 = \{ (x,y) \in \mathbb{R}^m \times \mathbb{R}^n : f(x,y,0) = 0 \}.
+    \end{equation}
+    A main goal of this chapter is to state Fenichel's theorem for perturbations of the critical manifold $ C_0 $.
+
+    \item Fast subsystem: Setting $ \varepsilon = 0 $ in the fast time scale equations (\ref{eq:fast_time_scale}) gives
+    \begin{equation}
+        \label{eq:fast_subsystem}
+        \begin{split}
+            x' &= f(x,y,0), \\
+            y' &= 0.
+        \end{split}
+    \end{equation}
+\end{enumerate}
+
+\begin{definition}[normal hyperbolicity]
+    A subset $ S \subseteq C_0 $ of the critical manifold is said to be \textit{normally hyperbolic} if $ (\mathrm{D}_x f) (p, 0) \in M_{m \times m} $ has no eigenvalues with zero real part for all $ p \in S $.
+\end{definition}
+
+Recall that an equilibrium point $ p \in S $ is said to be \textit{hyperbolic} if the linearization $ (D_x f)(p,0) $ has no eigenvalues with zero real part.
+
+\begin{proposition}
+    A subset $ S \subseteq C_0 $ is normally hyperbolic if and only if for each equilibrium point $ p = (x^*, y^*) \in S $, $ x^* $ is a hyperbolic equilibrium point of the fast subsystem $ x^{\prime} = f(x,y^*,0) $.  
+\end{proposition}
+    
+\begin{definition}
+    A normally hyperbolic subset $ S \subseteq C_0 $ is called \emph{attracting} if all eigenvalues of $ (D_x f)(p,0) $ have negative real parts for $ p \in S $, \emph{repelling} if all eigenvalues have positive real parts for all $ p \in S $, and of \emph{saddle type} otherwise.
+\end{definition}
+
+We also need a notion of distance between sets.
+
+\begin{definition}[Hausdorff distance]
+    Let $ A, B \subseteq \mathbb{R}^n $ be two nonempty compact sets. The \emph{Hausdorff distance} between $ A $ and $ B $ is defined as
+    \begin{equation}
+        \mathrm{dist}(A,B) = \max \left\{ \sup_{a \in A} \inf_{b \in B} \lVert a - b \rVert, \; \sup_{b \in B} \inf_{a \in A} \lVert b - a \rVert \right\}.
+    \end{equation}
+\end{definition}
+
+Now we can state the \emph{Fenichel-Tikhonov theorem}, in a form suitable for the study of fast-slow systems. 
+
+\begin{theorem}[\label{thm:fenichel-tikhonov}Fenichel-Tikhonov]
+    Suppose $ S = S_0 $ is a compact normally hyperbolic submanifold of the critical manifold $ C_0 $ in equation (\ref{eq:critical_manifold}), and $ f, f \in C^r $ for $ r < \infty $. Then, for sufficiently small $ \varepsilon > 0 $, we have 
+    \begin{enumerate}[(i)]
+        \item There exists a locally invariant manifold $ S_\varepsilon $ diffeomorphic to $ S_0 $ (this implies trajectories can enter and leave $ S_0 $ only through its boundary).
+        \item $ S_{\varepsilon} $ and $ S_0 $ have Hausdorff distance $ \mathrm{dist}(S_\varepsilon, S_0) = O(\varepsilon) $.
+        \item The flow on $ S_\varepsilon $ converges to the slow flow on $ S_0 $ as $ \varepsilon \to 0 $.
+        \item $ S_{\varepsilon} $ is $ C^r $-smooth.
+        \item $ S_{\varepsilon} $ is normally hyperbolic and has similar stability properties with respect to fast variables to $ S_0 $.
+        \item $ S_{\varepsilon} $ is in general not unique. At regions lying at a fixed distance from $ \partial S_{\varepsilon} $, all manifolds satisfying (i)-(v) lie at a Hausdorff distance $ O(e^{-K/\varepsilon}) $ from each other for some $ 0 < K = O(1) $.
+    \end{enumerate}
+\end{theorem}
+
+\begin{definition}[slow manifold]
+    The locally invariant manifold $ S_{\varepsilon} $ obtained in theorem \ref{thm:fenichel-tikhonov} is called a \textit{slow manifold}.
+\end{definition}
+
+\begin{remark}
+    Even though theorem \ref{thm:fenichel-tikhonov} makes clear that slow manifolds are in general not unique, any two slow manifolds are exponentially close to each other in $ \varepsilon $ away from the boundary $ \partial S_{\varepsilon} $. Thus, for practical purposes, it is conventional to refer to \textit{the} slow manifold $ S_{\varepsilon} $ when discussing dynamics away from $ \partial S_{\varepsilon} $.
+\end{remark}
+
+We can extend slow manifolds under the flow of the full system, where the extension may not have anything to do with a critical manifold.
+
+\begin{eg}[Finding the slow manifold]
+    Consider a $ (1,1) $-fast-slow system given by
+    \begin{equation}
+        \label{eq:example-slow-manifold}
+        \begin{split}
+            x^{\prime} &= y^2 - x, \\
+            y^{\prime} &= - \varepsilon y.
+        \end{split}
+    \end{equation}
+    The critical manifold is given by $ C_0 = \{ (x,y) \in \mathbb{R}^2 \mid x^{\prime} = y^2 - x = 0 \} $. Since $ \partial / \partial x (y^2 - x) = -1 < 0 $, $ C_0 $ is normally hyperbolic and attracting. By Fenichel's theorem, there exists a slow manifold $ S_{\varepsilon} $ for sufficiently small $ \varepsilon > 0 $. To find an expression for $ S_{\varepsilon} $, notice that we can solve equation (\ref{eq:example-slow-manifold}) explicitly as 
+    \begin{equation}
+        \left(x(t), y(t)\right) = \left( \left[x(0) - \frac{y(0)^2}{1 - 2 \varepsilon}\right] e^{-t} + \frac{y(0)^2}{1 - 2 \varepsilon} e^{-2 \varepsilon t}, \, y(0) e^{-\varepsilon t} \right),
+    \end{equation}
+    by solving for $ y(t) $ first. In the case $ x(0) = y(0)^2 / (1 - 2\varepsilon) $, the system evolves only on the slow time scale $ \tau = \varepsilon t $, and in particular 
+    \begin{equation}
+        x(t) = \frac{1}{1 - 2 \varepsilon} y(t)^2 \quad \text{for all } t \geq 0.
+    \end{equation} 
+    Hence, 
+    \begin{equation}
+        S_{\varepsilon} = \left\{ \left( x,y \right) \in \mathbb{R}^2 \;\middle|\; x = \frac{y^2}{1 - 2 \varepsilon} \right\}.
+    \end{equation}
+\end{eg}
+
+\begin{exercise}
+    Show that for $ 0 < \varepsilon \ll 1 $, the equilibrium point $ q $ is globally asymptotically stable.
+\end{exercise}
+\begin{answer}
+    To see this, first recall the definition of (Lyapunov) stability and asymptotic stability. An equilibrium point $ q $ is \emph{(Lyapunov) stable} if for every neighborhood $U$ of $q$, there exists a neighborhood $V \subseteq U$ such that every solution starting in $V$ remains in $U$ for all future time ($t \geq 0$). An equilibrium point $ q $ is \emph{asymptotically stable} if it is stable and for any initial condition $ (x(0), y(0)) $, the solution trajectory $ (x(t), y(t)) $ approaches $ q $ as $ t \to \infty $.
+
+    Since $ \varepsilon > 0 $, by the explicit solution, we have 
+    \begin{equation}
+        \begin{split}
+            x(t) &= \left[x(0) - \frac{y(0)^2}{1 - 2 \varepsilon}\right] e^{-t} + \frac{y(0)^2}{1 - 2 \varepsilon} e^{-2 \varepsilon t} \to 0, \\
+            y(t) &= y(0) e^{-\varepsilon t} \to 0 \quad \text{as } t \to \infty,
+        \end{split}
+    \end{equation} 
+    and hence $ (x(t), y(t)) \to (0,0) = q $ as $ t \to \infty $, and $ q $ is globally attracting. Suppose $ \lVert (x,y) - (0,0) \rVert $ is small. By the triangle inequality, we have
+    \begin{equation}
+        \begin{split}
+            x(t) &\leq \vert x(0) \vert + \left\vert \frac{y(0)^2}{1 - 2 \varepsilon} \right\vert + \left\vert \frac{y(0)^2}{1 - 2 \varepsilon} \right\vert, \\
+            y(t) &\leq \vert y(0) \vert. 
+        \end{split} 
+    \end{equation}
+    Hence, for small enough $ x(0) $, $ y(0) $, the solution trajectories $ (x(t), y(t)) $ are arbitrarily close to $ q $. Together, $ q $ is globally asymptotically stable.
+\end{answer}
+
+\begin{remark}
+    The general problem of computing slow manifolds analytically or numerically is highly nontrivial. 
+\end{remark}
+
+\section{The Slow Flow}
+To obtain an analytical expression for the slow flow on the critical manifold, we define the weaker (with respect to normal hyperbolicity) concept of \emph{regularity}. 
+
+\begin{definition}
+    \label{def:fast-slow-regular-point}
+    Let $ C_0 $ be the critical manifold. We call $ C_{0, s} = \{p \in C_0 \mid \det (\mathrm{D}_x f(p, 0)) \neq 0 \} $ the \emph{fast-slow singular points}, and $ C_{0,r} = C_0 - C_{0,s} $ the \emph{fast-slow regular points}.
+\end{definition}
+
+Consider an equilibrium point $ p^* \in C_0 $ with fast subsystem linearization 
+\begin{equation}
+    \mathrm{D}_x f (p^*, 0) = \begin{pmatrix}
+        0 & -1 \\
+        1 & 0
+    \end{pmatrix}, \quad 
+    \left(\mathrm{D}_x f\right) (p^*, 0)^{-1} = \begin{pmatrix}
+        0 & 1 \\
+        -1 & 0
+    \end{pmatrix}.
+\end{equation}
+Hence $ p^* \in C_{0,r} $ is a (fast-slow) regular point in the sense of definition \ref{def:fast-slow-regular-point}, but not normally hyperbolic since the eigenvalues of $ \mathrm{D}_x f (p^*, 0) $ are purely imaginary.
+
+
+\begin{eg}[parametrizing the fast system using slow variables]
+    Let $ C_0 $ be a manifold, and $ p \in C_0 $ a regular point. By the implicit function theorem, there exists a neighborhood $ U \subseteq \mathbb{R}^n $ of $ y^* $ and a smooth function $ h: U \to \mathbb{R}^m $ such that the critical manifold can be locally represented as the graph of $ h $, i.e.,
+    \begin{equation}
+        C_0 \cap ( \mathbb{R}^m \times U ) = \{ (h(y), y) \mid y \in U \}.
+    \end{equation}
+    Hence, we can reduce the slow subsystem (\ref{eq:slow_subsystem}) to
+    \begin{equation}
+        \dot{y} = g(h(y), y, 0), \quad y \in U, 
+    \end{equation} 
+    in some neighborhood $ U $ of $ p $. Consider the unforced van der Pol oscillator given by
+    \begin{equation}
+        \begin{split}
+            \varepsilon \dot{x} &= y - \frac{1}{3} x^3 + x, \\
+            \dot{y} &= - x.
+        \end{split}
+    \end{equation}
+    For this system, $ C_0 = \{ (x,y) \in \mathbb{R}^2 \mid y = x^3 / 3 - x \} $. Differentiating the slow-variable equation with respect to the slow time $ \tau $ gives
+    \begin{equation}
+        \frac{\partial f }{\partial x} \dot{x} + \frac{\partial f }{\partial y} \dot{y} = 0 \implies (1 - x^2) \dot{x} + \dot{y} = 0.
+    \end{equation}
+    Using $ \dot{y} = -x $, we have an explicit expression for the \emph{slow flow} on $ C_0 $:
+    \begin{equation}
+        \dot{x} = \frac{x}{1 - x^2}. 
+    \end{equation} 
+    The slow flow has an equilibrium point at $ x = 0 $, which is unstable since $ \dot{x} > 0 $ for $ x > 0 $ and $ \dot{x} < 0 $ for $ x < 0 $. The points $ x = \pm 1 $ are singularities of the slow flow, and they separate $ C_0 $ into 
+    \begin{equation}
+        \begin{split}
+            C_0^{a-} &= C_0 \cap \{ (x,y) \in \mathbb{R}^2 \mid x < -1 \} \\ 
+            C_{0}^r &= C_0 \cap \{ (x,y) \in \mathbb{R}^2 \mid \vert x \vert  < 1 \} \\
+            C_0^{a+} &= C_0 \cap \{ (x,y) \in \mathbb{R}^2 \mid x > 1 \}.  
+        \end{split}
+    \end{equation}
+    We can compute $ \mathrm{D}_x f \vert_{C_0} = -x^2 + 1 $. Hence $ \mathrm{D}_x f \vert_{C_0^{a-}}, \mathrm{D}_x f \vert_{C_0^{a+}} < 0 $, $ \mathrm{D}_x f \vert_{C_0^r} > 0 $, and thus $ C_0^{a-} $ and $ C_0^{a+} $ are normally hyperbolic and attracting, while $ C_0^r $ is normally hyperbolic and repelling. 
+
+    \begin{remark}
+        A problem with the Implicit Function Theorem formulation is that it does not describe a vector field in $\mathbb{R}^{n+m} $ \textbf{(why?)}. Therefore, we cannot compare the singular limit with the full system directly.
+    \end{remark}
+
+    \begin{fact}
+        The slow subsystem must be tangent to the critical manifold, and hence one can always embed it into $ \mathbb{R}^{m+n} $. 
+    \end{fact}
+\end{eg}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figures/3.2.png}
+    \caption{The critical manifold (blue curve) and the slow flow (black arrows) of the unforced van der Pol oscillator. The red dots indicate the singularities of the slow flow at $ x = \pm 1 $.}
+    \label{fig:vdp-slow-flow}
+\end{figure}
+
+\begin{proposition}
+    Let the critical manifold $ C_0 \subseteq \mathbb{R}^m \times \mathbb{R}^n $ be smooth, $ p = (x_0, y_0) \in C_0 $, and let $ (\mathrm{D}_x f)(p,0) $ have maximal rank (hence $ p \in C_{0,r} $). Then there exists a neighborhood $ V \subseteq C_0 $ of $ p $ such that the slow flow on $ C_0 \cap V $ is given by
+    \begin{equation}
+        \begin{split}
+            \dot{x} &= - \left(\mathrm{D}_x f (q,0)\right)^{-1} \left(\mathrm{D}_y f(q,0)\right) g(q,0), \\
+            \dot{y} &= g(q,0), \quad q \in C_0 \cap V.
+        \end{split}
+    \end{equation}
+\end{proposition}
+
+\begin{notation}
+    We may write 
+    \begin{equation}
+        \begin{split}
+            \dot{x} &= - (\mathrm{D}_x f)^{-1} (\mathrm{D}_y f) \, g, \\
+            \dot{y} &= g,
+        \end{split}
+    \end{equation}
+\end{notation}
+
+It is in general very difficult to obtain an explicit expression for the slow flow on $ C_0 $, since this involves solving a nonlinear equation $ f(x,y,0) = 0 $ in high dimensions. 
+
+\section{Singularities}
+
+A large part of multiple time scale dynamics deals with loss of
+regularity and normal hyperbolicity. Therefore, let's consider a singular point $ p \in C_{0,s} $. The simplest case is when $ (\mathrm{D}_x f)(p,0): \mathbb{R}^m \to \mathbb{R}^m $ has rank $ m-1 $ with zero eigenvalue of multiplicity one. 
+
+\begin{eg}
+    Consider the $ (1,1) $-fast-slow system in fast time scale $ t $:
+    \begin{equation}
+        \begin{split}
+            x^{\prime} &= f(x,y, \varepsilon) = - x^2 + y, \\
+            y^{\prime} &= \varepsilon g(x,y, \varepsilon).
+        \end{split}
+    \end{equation}
+    We have $ C_0 = \{ (x,y) \in \mathbb{R}^2 \mid y = x^2 \} $, and $ (\mathrm{D}_x f)(p,0) = -2x = 0 $ at the origin. Therefore, $ p = (0,0) \in C_{0,s} $ is not regular nor normally hyperbolic. Also, we can check that 
+    \begin{equation}
+        \frac{\partial^2 f}{\partial x^2} (p,0) = -2 \neq 0. 
+    \end{equation}
+    The fast subsystem given by
+    \begin{equation}
+        x^{\prime} = - x^2 + y, \quad y^{\prime} = 0
+    \end{equation}
+    gives rise to what is called a "fold bifurcation" at $ y=0 $.
+\end{eg}
+
+\begin{definition}[\label{def:fold-bifurcation}fold bifurcation]
+    A point $ p \in C_0 $ such that $ f(p,0) = 0 $ is called a \emph{fold point} if $ \rank \mathrm{D}_x f(p,0) = m-1 $. It is said to be \emph{nondegenerate} if for vectors $ w,v $ in the left and right nullspaces of $ \mathrm{D}_x f(p,0) $, respectively, we have
+    \begin{equation}
+        w^T \mathrm{D}_{xx} f(p,0) v^2 \neq 0, \quad w^T \mathrm{D}_y f(p,0) \neq 0.
+    \end{equation}
+\end{definition}
+
+\begin{note}
+    Fold points can be viewed as fold bifurcations of the fast subsystem. Fold bifurcations are also called \emph{saddle-node bifurcation}, \emph{turning point}, or \emph{limit point}.
+\end{note}
+
+Although a fold bifurcation point can be made to disappear for $ x = f(x) $ with $ x \in \mathbb{R} $ by a perturbation, a nondegenerate fold bifurcation is stable under perturbations in $1$-parameter families of vector fields given by the fast subsystem $ x^{\prime} = f(x,y) $ (it has “codimension one”).
+
+\begin{definition}[codimension]
+    From linear algebra, the \emph{codimension} of a subspace $ W $ of a finite-dimensional vector space $ V $ is defined as $ \operatorname{codim} (W) = \dim(V) - \dim(W) $. More generally, the codimension of $ W $ in $ V $ is the (possibly infinite) dimension of the quotient space $ V / W $.
+\end{definition}
+
+\begin{proposition}
+    Fold bifurcations are \emph{generic} in the topological sense in $1$-parameter families of (sufficiently smooth) vector fields.
+\end{proposition}
+
+There are many other singularities and bifurcations that can occur in fast-slow systems, such as \emph{cusp singularity}, \emph{transcritical point}, and \emph{Hopf bifurcation}.
+
+\begin{eg}[cusp singularity]
+    Consider the $(1,2)$-fast-slow system
+    \begin{equation}
+        \begin{split}
+            x' &= y_1 + y_2 x - x^3 = f(x,y,\varepsilon), \notag \\
+            y_1' &= \varepsilon g_1(x,y,\varepsilon), \notag \\
+            y_2' &= \varepsilon g_2(x,y,\varepsilon).
+        \end{split}
+    \end{equation}
+    The critical set 
+    \begin{equation}
+        C_0 = \{(x,y)\in\mathbb{R}^2 : y_1 = -y_2 x + x^3\}
+    \end{equation}
+    is a \emph{manifold}, but it contains a curve of fold points given by
+    \begin{equation}
+        L = \left\{(x,y)\in C_0 : \frac{\partial f}{\partial x} = y_2 - 3x^2 = 0 \right\}.
+    \end{equation}
+    We can further compute the second partial derivatives:
+    \begin{equation}
+        \frac{\partial^2 f}{\partial x^2} = -6x . 
+    \end{equation}
+    Hence, by definition~\ref{def:fold-bifurcation} the fold points are nondegenerate everywhere except at the origin, where we have a \emph{cusp singularity}; see Figure~\ref{fig:various-singularities}(c).
+
+    \begin{note}
+        A cusp singularity is a codimension-2 bifurcation of the fast subsystem. From bifurcation theory, we know two parameters are needed to understand its dynamics.
+    \end{note}
+\end{eg}
+
+\begin{eg}[other singularities]
+    Consider the $(2,1)$-fast--slow system
+    \begin{align}
+    x_1' &= y x_1 - x_2 - x_1(x_1^2 + x_2^2) = f_1(x,y), \notag \\
+    x_2' &= x_1 + y x_2 - x_2(x_1^2 + x_2^2) = f_2(x,y), \notag \\
+    y' &= \varepsilon g(x,y,\varepsilon),
+    \tag{3.22}
+    \end{align}
+    where $f := (f_1,f_2)$. The critical manifold
+    \[
+    C_0 = \{(x,y)\in\mathbb{R}^2 : x_1 = 0 = x_2\}
+    \]
+    is simply the $y$-axis. The linearization with respect to the fast variables is
+    \[
+    D_x f \big|_{C_0}
+    =
+    \left(
+    \begin{array}{cc}
+    \dfrac{\partial f_1}{\partial x_1} & \dfrac{\partial f_1}{\partial x_2} \\
+    \dfrac{\partial f_2}{\partial x_1} & \dfrac{\partial f_2}{\partial x_2}
+    \end{array}
+    \right)_{C_0}
+    =
+    \begin{pmatrix}
+    y - 1 & -1 \\
+    1 & y
+    \end{pmatrix}.
+    \]
+    Therefore, $C_0$ consists only of regular points, but $D_x f|_{C_0}$ has a pair of complex eigenvalues $\pm i$ at $y=0$, so that $C_0$ is not normally hyperbolic at the origin, which is a Hopf bifurcation of the fast subsystem; see Figure~\ref{fig:various-singularities}(d).
+\end{eg}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figures/3.3cd.png}
+    \caption{From Figure 3.3 (c) (d) of main text. (c) Cusp surface containing a curve of folds L (green, solid); a projection of the curve of folds onto the slow variables (green dashed curve). The cusp point itself (green dot) is at the origin. (d) Hopf bifurcation (green dot). Two fast subsystem trajectory segments starting at $ (x_1, x_2, y) = (1, 1, \pm \frac{1}{2})$ are shown.}
+    \label{fig:various-singularities}
+\end{figure}
+
+As most singularities are natural transition points from the slow to the fast subsystem or vice versa, we can define the idea of a \emph{candidate orbit}.
+
+\begin{definition}[candidate orbit]
+    A \emph{candidate orbit} is a homeomorphic image $ \gamma_0 (t) $ of a real interval $ (a,b) $ with $ a<b $ where 
+    \begin{enumerate}[(i)]
+        \item The interval $ (a,b) $ is partitioned as $ a = t_0 < t_1 < \dots < t_m = b $. 
+        \item The image of each subinterval $ (t_{i-1}, t_i) $ for $ i = 1, \dots, m $ is either a trajectory of the slow subsystem (\ref{eq:slow_subsystem}) or a trajectory of the fast subsystem (\ref{eq:fast_subsystem}).
+        \item The orbit $\gamma_0(a, b)$ has an orientation consistent with the that induced by the fast and slow flows on each subinterval $\gamma_0(t_{j-1}, t_j)$.
+    \end{enumerate}
+     The trajectories are called \emph{singular trajectories}.  
+\end{definition}
+
+\begin{remark}
+    Usually, An \emph{orbit} is the set of points of the manifold, while a \emph{trajectory} is a mapping whose image set is the orbit. However, in the text they seem to be used interchangeably.
+\end{remark}
+
+what happens when the critical manifold is neutrally stable over a large subset, e.g. when it is elliptic?
+
+
+\section{Examples}
+
+Here we consider a few examples of fast-slow systems to illustrate the concepts introduced so far.
+
+\begin{eg}[slow manifold and Fenichel-Tikhonov]
+    Consider the affine $(1,1)$-fast-slow system
+    \begin{equation}
+        \label{eq:example-slow-manifold-2}
+        \begin{split}
+            \varepsilon \dot{x} &= y - x, \\
+            \dot{y} &= 1,
+        \end{split}
+    \end{equation}
+    with critical manifold $ C_0 = \{(x,y)\in\mathbb{R}^2 : y = x\} $.    The solution of \eqref{eq:example-slow-manifold-2} can be calculated explicitly as 
+    \begin{equation}
+         (x(\tau),y(\tau)) = \bigl( y(0)+\tau-\varepsilon+(x(0)-y(0)+\varepsilon)e^{-\tau/\varepsilon}, \; y(0)+\tau \bigr).
+    \end{equation}
+
+    Observe that since 
+    \[
+        x(\tau )-y(\tau)+\varepsilon = (x(0)-y(0)+\varepsilon)e^{-\tau/\varepsilon},
+    \]
+    $x(0)-y(0)+\varepsilon=0$ implies that $x(\tau)-y(\tau)+\varepsilon=0$ for all times. Therefore, the curve
+    \[
+    C_\varepsilon = \{(x,y)\in\mathbb{R}^2 : y = x + \varepsilon\}
+    \]
+    is a slow manifold. Furthermore, $C_0 \neq C_\varepsilon$ for $\varepsilon>0$ and $ d_H(C_0,C_\varepsilon)=\mathcal{O}(\varepsilon) $ as $\varepsilon\to0$ in the Hausdorff distance, since $ x(\tau) - y(\tau) = \varepsilon $ for all $ \tau $.
+\end{eg}
+
+\begin{eg}
+    Consider the $(1,1)$-fast--slow system
+    \begin{align}
+    \varepsilon \dot{x} &= -(x+y^{1/\varepsilon}) = f(x,y,\varepsilon), \notag \\
+    \dot{y} &= -y = g(x,y,\varepsilon),
+    \tag{3.24}
+    \end{align}
+    in a small fixed neighborhood
+    \[
+    \mathcal{N}=\{\,|x|<\delta,\ |y|<\delta\,\}
+    \]
+    of $(x,y)=(0,0)$. For fixed $\delta\in(0,1)$, we have that $y\in\mathcal{N}$ implies
+    $|y|^{1/\varepsilon}<\delta^{1/\varepsilon}\to0$ as $\varepsilon\to0$.
+    Therefore, the critical manifold of~(3.24) is formally given by
+    \[
+    C_0=\{(x,y)\in\mathcal{N} : x=0\}.
+    \]
+    Certainly $C_0$ is a smooth curve, since it is just a line. For the full system~(3.24), one has
+    \[
+        y(\tau)=y(0)e^{-\tau},
+    \]
+    so that
+    \[
+        \dot{x} = -\frac{1}{\varepsilon}\bigl(x+y(0)^{1/\varepsilon}e^{-\tau/\varepsilon}\bigr) \implies x(\tau)=x(0)e^{-\tau/\varepsilon}-y(0)^{1/\varepsilon}\frac{\tau}{\varepsilon}e^{-\tau/\varepsilon}.
+    \]
+    Hence, the $x$-axis is a smooth invariant manifold along which the fast dynamics
+    \[
+        x(\tau)=x(0)e^{-\tau/\varepsilon}=x(0)e^{-t}
+    \]
+    take place. Any slow manifold $C_\varepsilon$, which exists by Fenichel's theorem, near the origin is constructed from two curves. We substitute $ \tau (y) $ from the above solution and eliminate $ \tau $ to obtain
+    \begin{equation}
+        x = x(0)\left(\frac{y}{y(0)}\right)^r + r y^r \ln\!\left(\frac{y}{y(0)}\right), \quad r \equiv \frac{1}{\varepsilon}.
+    \end{equation}
+\end{eg}
+
+\begin{eg}[FitzHugh-Nagumo]
+    Consider the three-dimensional \emph{FitzHugh-Nagumo equation} (with parameter $I=0$) given by
+    \begin{equation}
+        \begin{split}
+            x_1' &= f_1(x,y) = x_2, \\
+            x_2' &= f_2(x,y) = s x_2 - x_1(x_1-a)(1-x_1) + y, \\
+            y' &= \varepsilon g(x,y) = \frac{\varepsilon}{s}(x_1-\gamma y).
+        \end{split}
+    \end{equation}
+    The one-dimensional critical manifold is given by
+    \begin{equation}
+        C_0 =\{(x_1,x_2,y)\in\mathbb{R}^2\times\mathbb{R} \mid x_2=0,\; y=x_1(x_1-a)(1-x_1) \}.
+    \end{equation}
+    
+    Solve 
+    \[
+        \frac{\partial}{\partial x_1} \bigl( x_1(x_1-a)(1-x_1) \bigr) = 3x_1^2 - 2(1+a)x_1 + a = 0,
+    \]
+    and we get the two nondegerate fold points of the critical manifold, with 
+    \begin{equation}
+        x_{1, \pm} = \frac{1+a \pm \sqrt{(1+a)^2 - 3a}}{3}.
+    \end{equation}
+
+    Although the 3D FitzHugh-Nagumo equation has no attractors, it has many interesting bounded invariant sets corresponding to traveling waves of the associated PDE.
+\end{eg}
+
+\begin{exercise}[identifying candidate orbits]
+    Identify different (classes of) candidate orbits for
+    \begin{enumerate}[(a)]
+        \item The unforced van der Pol equation and the van der Pol equation with constant forcing. 
+        \item The three-dimensional FitzHugh-Nagumo system.
+    \end{enumerate}
+\end{exercise}
+
+\begin{answer}
+    ~ 
+
+    \begin{enumerate}[(a)]
+        \item The van der Pol equation with forcing term is given by 
+        \begin{equation}
+            x^{\prime\prime} + \mu (x^2 - 1) x^{\prime} + x = a > 0.
+        \end{equation}
+        Upon rescaling, we can put it into the fast-slow form
+        \begin{equation}
+            \label{eq:vdp_fastslow}
+            \begin{split}
+                \varepsilon \dot{x} &= f(x,y) = y - \frac{x}{3} + x, \\
+                \dot{y} &= g(x,y) = a - x, \quad 0 < \varepsilon \ll 1.
+            \end{split}
+        \end{equation}
+
+        Setting $\varepsilon=0$ in \eqref{eq:vdp_fastslow} gives the critical manifold
+        \begin{equation}
+            C_{0}=\{(x,y): f(x,y)=0\} =\Bigl\{(x,y): y=\frac{x^{3}}{3}-x\Bigr\}.
+        \end{equation}
+        The fold points satisfy $f_x=0$, i.e.\ $1-x^{2}=0$, hence
+        \begin{equation}\label{eq:fold_points}
+            x=\pm 1, \quad y=\frac{x^{3}}{3}-x =
+            \begin{cases}
+            -\frac{2}{3}, & x=1,\\[2mm]
+            \phantom{-}\frac{2}{3}, & x=-1.
+            \end{cases}
+        \end{equation}
+        For the fast dynamics, stability of $C_{0}$ is determined by $f_x$:
+        \begin{equation}\label{eq:attract_repelling}
+        f_x(x,y)=1-x^{2}
+        \begin{cases}
+        <0, & |x|>1\quad\text{(attracting)},\\
+        >0, & |x|<1\quad\text{(repelling)}.
+        \end{cases}
+        \end{equation}
+
+        Along $C_{0}$ we have $0=f(x,y)$, so differentiating in slow time gives
+        \[
+        0=\frac{\mathrm{d}}{\mathrm{d}\tau}f(x(\tau),y(\tau))
+        =f_x\dot x+f_y\dot y
+        =(1-x^2)\dot x+(a-x),
+        \]
+        hence, away from the folds $x=\pm 1$, the slow flow can be derived exactly as 
+        \begin{equation}
+            \dot x=\frac{x-a}{1-x^{2}}.
+        \end{equation}
+
+        At the fold values $y=\pm 2/3$, the cubic $y=\frac{x^{3}}{3}-x$ has the additional roots
+        \begin{align}
+        y=-\frac{2}{3} &:\quad x^3-3x+2=0 \;\Rightarrow\; x=1 \text{ (double)},\; x=-2, \label{eq:jump_right}\\
+        y=\phantom{-}\frac{2}{3} &:\quad x^3-3x-2=0 \;\Rightarrow\; x=-1 \text{ (double)},\; x=2. \label{eq:jump_left}
+        \end{align}
+        Thus the singular jump targets are
+        \begin{equation}\label{eq:jump_targets}
+        (1,-2/3)\ \leadsto\ (-2,-2/3),
+        \qquad 
+        (-1,2/3)\ \leadsto\ (2,2/3),
+        \end{equation}
+        where $\leadsto$ denotes a fast jump at (approximately) constant $y$.
+
+        Candidate invariant sets / orbits:
+
+        \begin{enumerate}[(1)]
+            \item Equilibrium: Solving $\dot y=0$ gives $x=a$, and then $f(x,y)=0$ gives
+            \begin{equation}\label{eq:equilibrium}
+            (x,y)=(a,\;a^{3}/3-a).
+            \end{equation}
+            Linearizing \eqref{eq:vdp_fastslow} at \eqref{eq:equilibrium} gives
+            \[
+            J=
+            \begin{pmatrix}
+            \frac{1-a^{2}}{\varepsilon} & \frac{1}{\varepsilon}\\[1mm]
+            -1 & 0
+            \end{pmatrix},
+            \qquad 
+            \operatorname{tr}J=\frac{1-a^{2}}{\varepsilon},\quad 
+            \det J=\frac{1}{\varepsilon},
+            \]
+            so the equilibrium is unstable for $0<a<1$ and stable for $a>1$. 
+
+            \item Relaxation periodic orbit ($a=0$): For $a=0$, the equilibrium is at $(0,0)$ and lies on the repelling sheet. A singular closed orbit is obtained by concatenating slow drift on the attracting sheets of $C_0$
+            with the fast jumps \eqref{eq:jump_targets}:
+            \begin{equation}\label{eq:singular_cycle_unforced}
+            (2,\tfrac{2}{3})
+            \ \xrightarrow{\text{slow on }C_0^{a}}
+            (1,-\tfrac{2}{3})
+            \ \xrightarrow{\text{fast}}
+            (-2,-\tfrac{2}{3})
+            \ \xrightarrow{\text{slow on }C_0^{a}}
+            (-1,\tfrac{2}{3})
+            \ \xrightarrow{\text{fast}}
+            (2,\tfrac{2}{3}).
+            \end{equation}
+            This is the candidate singular relaxation oscillation that persists as a limit cycle for sufficiently small $\varepsilon$.
+
+            \item Relaxation-type cycle ($0<a<1$): For $0<a<1$ the equilibrium \eqref{eq:equilibrium} lies on the repelling sheet, so one again expects a relaxation-type singular cycle obtained from the same fold-to-fold jumps \eqref{eq:jump_targets}, but with slow drift determined by the slow flow.
+
+            \item Canards near $a\approx 1$: Since the equilibrium crosses the fold at $a=1$, for small $\varepsilon$ there can be
+            canard trajectories that track the repelling sheet $|x|<1$ for $\mathcal{O}(1)$ time before jumping; these form additional periodic orbits in a narrow parameter window near $a=1$. Refer to Figure~\ref{fig:canard} for a demonstration.
+        \end{enumerate}
+        \begin{note}
+            The term \emph{canard}, french for "duck", was coined in the early 1980s by French mathematicians because these solutions are “ducks” in the sense of being strange, rare, and hard to catch.
+        \end{note}
+
+        \item To be finished...
+    \end{enumerate}
+\end{answer}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/vdp1.png}
+        % \caption*{(a) $ a=0.994 $.}
+    \end{minipage}
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/vdp2.png}
+        % \caption*{(b) $ a= $.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/vdp3.png}
+        % \caption*{(c) $ a = $.}
+    \end{minipage}
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/vdp4.png}
+        % \caption*{(d) $ a =  $.}
+    \end{minipage}
+    \caption{Canard solutions in the forced van der Pol equation for $ \varepsilon = 0.04 $. The blue line is the solution with $ (x(0),y(0)) = (2,0) $, and the red line is the critical manifold $ y = x^3 / 3 - x $. The green dots mark the turning points from repeling to attracting branches. Various values of $ a $ near the fold value $ a = 1 $ are plotted. Grey arrows are the magnitude of $ \dot{x} $. Even though the center branch is repelling, when $ a $ is sufficiently close to $ 1 $, solutions can track the repelling branch for a significant amount of time ($ O(1) $) before jumping away. Source: \url{https://www.youtube.com/watch?v=P1X2zkJDdUQ}.}
+    \label{fig:canard}
+\end{figure}
+
+\begin{eg}[turning point]
+    To be finished...
+\end{eg}

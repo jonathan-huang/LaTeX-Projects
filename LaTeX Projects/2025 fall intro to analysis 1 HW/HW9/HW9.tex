@@ -1,0 +1,777 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{problem}{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem*{recall}{Recall}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+    \title{%
+  \textbf{Math 2213 Introduction to Analysis I} \\
+  \vspace{0.5cm}
+  \large Homework 9 Due November 21 (Friday), 2025
+}
+\author{物理三 黃紹凱 B12202004}
+\date{\today}
+
+\maketitle
+
+% Exercise 1
+\begin{exercise}[15 points]
+    Let $\sum_{n=0}^{\infty}  a_n x^n$ be a power series with radius of convergence $R$. Let $S_n = \sum_{k=0}^n a_k$ be the partial sums of $\sum a_n$. Denote the radius of convergence of $\sum_{n=0}^{\infty}  S_n x^n$ by $r$.
+    \begin{enumerate}[(a)]
+        \item Show that $r \le R$.
+        \item Show that $\min\{1, R\} \le r$. Hint: The power series $\sum_{n=0}^{\infty} S_nx^n$ can be seen as the Cauchy product between $\sum_{n=0}^{\infty} a_n x^n$ and a specific power series that you need to choose.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}[(a)]
+        \item 
+        \item Let $ (b_n) = (1,1, \dots ) $ be a sequence of all ones. Then 
+        \[
+            \sum_{n=0}^{\infty} S_n x^n = \sum_{n=0}^{\infty} \left(\sum_{k=0}^n a_k\right) x^n = \left(\sum_{n=0}^{\infty} a_n x^n\right) * \left(\sum_{n=0}^{\infty} b_n x^n\right),
+        \]
+        where $ * $ denotes the Cauchy product. Since the radius of convergence of \( \sum_{n=0}^{\infty} b_n x^n \) is 1, we have $ r \geq \min \{1, R\} $.
+    \end{enumerate}
+\end{solution}
+
+% Exercise 2
+\begin{exercise}[30 points]
+    For each real $t$, define 
+    \[
+        f_t(x) = 
+        \begin{cases}
+        \dfrac{x e^{x t}}{e^x - 1}, & x \in \mathbb{R},\ x \ne 0,\\[6pt]
+        1, & x = 0.
+        \end{cases}
+    \]
+    \begin{enumerate}[(a)]
+        \item Show that there exists $\delta>0$ such that $f_t$ admits a power series expansion in $x$ for all $|x|<\delta$.
+
+        \textit{Hint.} Write
+        \[
+        f_t(x) = e^{xt} g(x),
+        \]
+        where
+        \[
+        g(x) =
+        \begin{cases}
+        \dfrac{x}{e^x - 1}, & x \neq 0,\\[6pt]
+        1, & x = 0.
+        \end{cases}
+        \]
+    Both $e^{xt}$ and $g(x)$ are analytic near $0$. Also $g(x)=\frac{1}{h(x)}$ where $h(x)=\dfrac{e^x - 1}{x}$ for $x \neq 0$ and we can express
+    it as an power series in $x$. Then may use the fact that if $h$ is analytic on $\mathbb{R}$ and $h(0)\neq 0$, then $1/h$ is analytic on a smaller interval $(-\delta,\delta)$.
+
+    \item Define $P_0(t), P_1(t), P_2(t), \ldots$ by the equation
+    \[
+    f_t(x) = \sum_{n=0}^{\infty} P_n(t)\, \frac{x^n}{n!}, \qquad x \in (-\delta,\delta),
+    \]
+    and use the identity
+    \[
+    \sum_{n=0}^{\infty} P_n(t)\, \frac{x^n}{n!}
+    = e^{t x} \sum_{n=0}^{\infty} P_n(0)\, \frac{x^n}{n!}
+    \]
+    to prove that
+    \[
+    P_n(t) = \sum_{k=0}^{n} \binom{n}{k} P_k(0)\, t^{\,n-k}.
+    \]
+    (Hint:  $f_t(x)=e^{tx}f_0(x)$ and $f_0(x)=g(x)$.)
+    This shows that each function $P_n$ is a polynomial.  
+    These are the \emph{Bernoulli polynomials}.  
+    The numbers $B_n := P_n(0)$ ($n=0,1,2,\ldots$) are called the \emph{Bernoulli numbers}.  
+    Derive the following further properties:
+
+    \item $B_0 = 1,\qquad B_1 = -\tfrac{1}{2},\qquad 
+    \sum_{k=0}^{n-1} \binom{n}{k} B_k = 0,\ \text{if } n=2,3,\ldots$
+
+    \item $P_n'(t) = n\, P_{n-1}(t)$, \quad if $n=1,2,\ldots$
+
+    \item $P_n(t+1) - P_n(t) = n\, t^{n-1}$, \quad if $n=1,2,\ldots$
+
+    \item $P_n(1-t) = (-1)^n P_n(t)$
+
+    \item $B_{2n+1} = 0$, \quad if $n=1,2,\ldots$
+
+    \item 
+    \[
+    1^n + 2^n + \cdots + (k-1)^n = \frac{P_{n+1}(k) - P_{n+1}(0)}{n+1},
+    \qquad (n = 2,3,\ldots).
+    \]
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}
+        \item[(a)] Since both $ e^{xt} $ and $ g(t) $ are analytic near $ 0 $, we have $ h(x) = \frac{e^x - 1}{x} = \sum_{n=0}^{\infty} \frac{x^n}{(n+1)!} $, which is convergent for all $ x \in \mathbb{R} $. Note that $ h(0) = 1 \neq 0 $, thus there exists some $ \delta > 0 $ such that $ g(x) = \frac{1}{h(x)} $ is analytic on $ (-\delta, \delta) $. Therefore, $ f_t(x) = e^{xt} g(x) $ is analytic on $ (-\delta, \delta) $.
+        
+        \item[(b)] Using $ f_t (x) = e^{tx} f_0 (x) $, by the Cauchy product formula, we have 
+        \begin{equation*}
+            \begin{split}
+                f_t (x) &= \sum_{n=0}^{\infty} P_n(t) \frac{x^n}{n!} = e^{tx} \sum_{n=0}^{\infty} P_n(0) \frac{x^n}{n!} \\
+                &= \left( \sum_{m=0}^{\infty} \frac{(tx)^m}{m!} \right) \left( \sum_{n=0}^{\infty} P_n(0) \frac{x^n}{n!} \right) \\
+                &= \sum_{n=0}^{\infty} \left( \sum_{k=0}^{n} P_k(0) \frac{x^k}{k!} \frac{(tx)^{n-k}}{(n-k)!} \right) \\
+                &= \sum_{n=0}^{\infty} \left(\sum_{k=0}^n \binom{n}{k} \frac{x^n}{n!}\right) P_k(0) t^{n-k}.  
+            \end{split}
+        \end{equation*}
+        Comparing the coefficients of $ x^n $ in the sense of a formal power series, we have
+        \[
+            P_n(t) = \sum_{k=0}^{n} \binom{n}{k} P_k(0) t^{n-k}.
+        \]
+
+        \item[(c)] The Bernoulli numbers are given by 
+        \[
+            g(x) = \frac{x}{e^x - 1} = \sum_{n=0}^{\infty} B_n \frac{x^n}{n!}.
+        \]
+        Compare this with the Taylow expansion, we have $ \lim_{x \to  0} g^{(n)} (x) = B_n $. The first few derivatives and their limits are
+        \begin{align*}
+            g(x) &= \frac{x}{e^x - 1}, \quad \lim_{x \to 0} g(x) = 1, \\ 
+            g^{\prime} (x) &= \frac{e^x (x-1) + 1}{(e^x - 1)^2}, \quad \lim_{x \to 0} g^{\prime} (x) = -\frac{1}{2}, \\
+        \end{align*}
+        and so on. Hence, $ B_0 = 1 $ and $ B_1 = -\frac{1}{2} $. Next, we will work in the ring of formal power series $ \mathbb{R}[[x]] $. We have 
+        \[
+            e^x - 1 = \sum_{m=0}^{\infty} \frac{x^{m+1}}{(m+1)!},
+        \]
+        thus, by the Cauchy product of power series,
+        \begin{equation*}
+            \begin{split}
+                x &= \left(\sum_{n=0}^{\infty} B_n \frac{x^n}{n!} \right) \left(\sum_{m=0}^{\infty} \frac{x^{m+1}}{(m+1)!} \right) = \sum_{k=0}^{\infty} \left(\sum_{j=0}^k B_j \frac{x^j}{j!}  \frac{x^{k-j+1}}{(k-j+1)!}\right) \\
+                &= \sum_{k=0}^{\infty} \sum_{j=0}^k B_j \frac{(k+1)!}{j! (k-j+1)!} \frac{x^{k+1}}{(k+1)!} = \sum_{k=0}^{\infty} \left( \sum_{j=0}^{k} \binom{k+1}{j} B_j \right) \frac{x^{k+1}}{(k+1)!} \\
+            \end{split}
+        \end{equation*}
+        Reindex $ k = n-1 $ and $ j = k $, then 
+        \[
+            x = \sum_{n=1}^{\infty} \left( \sum_{k=0}^{n-1} \binom{n}{k} B_k \right) \frac{x^n}{n!} \implies \sum_{k=0}^{n-1} \binom{n}{k} B_k = 0, \quad n = 2, 3, \ldots.
+        \]
+        
+        \item[(d)] Differentiating both sides of (b) in $ \mathbb{R}[[t]] $, we have
+        \begin{equation*}
+            \begin{split}
+                P_n^{\prime} (t) &= \sum_{k=0}^n \binom{n}{k} P_k(0) (n-k) t^{n-k-1} = \sum_{k=0}^n \frac{n!}{k! (n-k-1)!} t^{n-k-1} \\
+                &= n \sum_{k=0}^{n-1} \binom{n-1}{k} P_k(0) t^{n-1-k} = n P_{n-1} (t). 
+            \end{split}
+        \end{equation*}
+
+        \item[(e)] By the formula in (b), we have 
+        \begin{equation*}
+            \begin{split}
+                P_n (t+1) - P_n(t) &= \sum_{k=0}^n \binom{n}{k} P_k(0) (t+1)^{n-k} - \sum_{k=0}^n \binom{n}{k} P_k(0) t^{n-k} \\
+                &= \sum_{k=0}^n \binom{n}{k} P_k(0) \left( (t+1)^{n-k} - t^{n-k} \right) \\
+            \end{split}
+        \end{equation*}
+        \item[(f)] Substitute $ 1-t $ into the generating function of Bernoulli polynomials, we have
+        \[
+            \sum_{n=0}^{\infty} P_n(1-t) \frac{x^n}{n!} = \frac{x e^{(1-t)x}}{e^x - 1} = \frac{x e^{-tx}}{e^{-x} - 1} = \frac{(-x) e^{t(-x)}}{1 - e^{-x}} = \sum_{n=0}^{\infty} (-1)^n P_n(t) \frac{x^n}{n!}.
+        \]
+
+        \item[(g)] Consider the function $ \tilde{g}(x) = g(x) - P_1 (0) x = g(x) - B_1 x $. We have 
+        \[
+            \tilde{g}(x) = \frac{x}{e^x - 1} + \frac{x}{2} = \frac{x (e^{x/2} + e^{-x/2})}{2(e^{x/2} - e^{-x/2})} = \frac{x}{2} \coth \left( \frac{x}{2} \right)
+        \]
+        is even, thus all odd derivatives of $ \tilde{g} $ at $ 0 $ are zero. Therefore, for $ n \geq 1 $, we have
+        \[
+            B_{2n+1} = g^{(2n+1)} (0) = \tilde{g}^{(2n+1)} (0) = 0.
+        \]
+
+        \item[(h)] The first and third equalities follow from (e), and the second is due to the telescoping sum:
+        \[
+            \sum_{j=1}^{k-1} j^n = \sum_{j=1}^{k-1} \frac{P_n (j+1) - P_n (j)}{n} = \frac{P_n (k) - P_n (1)}{n} = \frac{P_n (k) - P_n (0)}{n},
+        \]
+    \end{enumerate}
+\end{solution}
+
+% Exercise 3
+\begin{exercise}[Tao II Exercise 4.2.7., 15 points]
+    Show that for every integer $n \ge 3$, we have
+    \[
+    0 < \frac{1}{(n+1)!} + \frac{1}{(n+2)!} + \cdots < \frac{1}{n!}.
+    \]
+
+    \textit{(Hint: first show that $(n+k)! > 2^k n!$ for all $k = 1, 2, 3, \ldots$.)} 
+    
+    Conclude that $n! e$ is not an integer for every $n \ge 3$. Deduce from this that $e$ is irrational. \textit{(Hint: prove by contradiction.)}  
+\end{exercise}
+
+\begin{solution}
+    First, we show that $ (n+k)! > 2^k n! $ for all $ k \in \mathbb{N} $ and $ n\geq 3 $ by induction. For $ k=1 $, we have $ (n+1)! = (n+1)n! > 2n! $. Assume it holds for $ k $, then for $ k+1 $, we have $ (n+k+1)! = (n+k+1) \cdots (n+1) n! > 2^{k+1} n! $. Thus, the inequality holds for all $ k \in \mathbb{N} $. Then, 
+    \[
+        0 < \sum_{k=1}^{\infty} \frac{1}{(n+k)!} < \sum_{k=1}^{\infty} \frac{1}{2^k n!} = \frac{1}{n!} \sum_{k=0}^{\infty} \frac{1}{2^k} = \frac{1}{n!}. 
+    \]
+    Suppose there exists some $ n \geq 3 $ such that $ n! e $ is an integer. Then,
+    \[
+        n! e = n! \sum_{k=0}^{\infty} \frac{1}{k!} = \sum_{k=0}^n (n-k)! + n! \sum_{k=n+1}^{\infty} \frac{1}{k!} 
+    \]
+    is an integer, and hence
+    \[
+        0 < n! \sum_{k=n+1}^{\infty} \frac{1}{k!} < \frac{n!}{n!} = 1 
+    \] 
+    is an integer, a contradiction. Therefore, $ n! e $ is not an integer for any $ n \geq 3 $. If $ e $ were rational, then $ q! e $ is an integer, where $ q \in \mathbb{N} $ is the denominator of $ e $, contradicting the previous result. Thus, $ e $ is irrational.
+\end{solution}
+
+% Exercise 4
+\begin{exercise}[Tao II Exercise 4.5.6, 10 points]
+    Prove that the natural logarithm function $\ln x$ is real analytic on $(0,+\infty)$. Hint: For any $a>0$, consider the change of variable $y=x-a$.
+\end{exercise}
+
+\begin{solution}
+    To show $ \ln $ is real analytic on $ (0,\infty) $, it suffices to show that for every $ a>0 $, there is a power series centered at $ a $ that equals $ \ln x $ on some interval around $ a $. From Tao II Theorem 4.5.6 (e), we have $ \ln (1+x) $ is real analytic at $ x=0 $, such that 
+    \[
+        \ln (1+x) = \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} x^n , \quad x \in (-1,1),  
+    \]
+    with radius of convergence $ 1 $. For any $ a>0 $, let $ y = x - a $, then
+    \[
+        \ln x = \ln (a+y) = \ln a + \ln \left( 1 + \frac{y}{a} \right) = \ln a + \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} \left( \frac{y}{a} \right)^n, \quad y \in (-a,a),
+    \]
+    with radius of convergence $ a $. Switch back to $ x = a + y $, we have
+    \[
+        \ln x = \ln a + \sum_{n=0}^{\infty} \frac{(-1)^{n+1}}{n} \left( \frac{x-a}{a} \right)^n, \quad \vert x - a \vert < a. 
+    \]
+    Since $ a $ is arbitrary, for each $ a \in (0, \infty) $, there is a neighborhood of $ x $ such that $ \ln x $ is represented by a convergent power series. Hence, $ \ln x $ is real analytic on $ (0, \infty) $.
+\end{solution}
+
+% Exercise 5
+\begin{exercise}[Tao II Exercise 4.5.7, 10 points]
+    Let $f : (0,\infty) \to \mathbb{R}$ be a positive, real analytic function such that 
+    $f'(x) = f(x)$ for all $x \in \mathbb{R}$.  
+    Show that $f(x) = C e^x$ for some positive constant $C$; justify your reasoning.  
+    \textit{(Hint: there are basically three different proofs available. One proof uses the logarithm function, another proof uses the function $e^{-x}$, and a third proof uses power series. Of course, you only need to supply one proof.)}
+\end{exercise}
+
+\begin{solution}
+    Since $ f(x) $ is analytic, it is infinitely differentiable and given exactly by its Taylor series at any $ x \in \mathbb{R} $. Since $ f^{\prime} (x) = f(x) $, by induction $ f^{(n)}(x) = f(x) $ for any $ n \geq 1 $. Fix some $ a > 0 $, then 
+    \[
+        f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)} (a)}{n!} x^n = \sum_{n=0}^{\infty} \frac{f(a)}{n!} x^n = f(a) e^x, \quad f(a) \in \mathbb{R}_{>0} \text{ is a constant. }
+    \]
+\end{solution}
+    
+% Exercise 6
+\begin{exercise}[Tao II Exercise 4.5.8, 10 points]
+    Let $m > 0$ be an integer. Prove
+    \[
+    \lim_{x \to +\infty} \frac{e^x}{x^m} = +\infty.
+    \] 
+    without using the L'Hopital's rule. Hint: $e^x \ge \sum_{k=0}^{m+1} \frac{x^k}{k!}$ for $x>0$.
+\end{exercise}
+
+\begin{solution}
+    Since $ e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} $ and each term in the series is nonnegative when $ x>0 $, we have $ e^x \ge \sum_{n=0}^{m+1} \frac{x^n}{n!} $ for $x>0$. Then, for any $ N>0 $ 
+    \[
+        \frac{e^x}{x^m} = \sum_{n=0}^{\infty} \frac{x^{n-m}}{n!} \geq \sum_{n=0}^{m+1} \frac{x^{n-m}}{n!} > \frac{x}{(m+1)!} > \frac{N}{(m+1)!} 
+    \]
+    whenever $ x > N $. Therefore, $ \lim_{x \to +\infty} \frac{e^x}{x^m} = +\infty $. 
+\end{solution}
+
+% Exercise 7
+\begin{exercise}[Tao II Exercise 4.5.9, 10 points]
+    Let $P(x)$ be a polynomial, and let $c>0$. Show that there exists a real number $N > 0$ such that $e^x > |P(x)|$ for all $x > N$; thus an exponentially growing function, no matter how small the growth rate $c$, will eventually overtake any given polynomial $P(x)$, no matter how large. Hint: use Exercise 4.5.8. 
+\end{exercise}
+
+\begin{solution}
+    Let $ P(x) = \sum_{k=0}^n a_k x^k \in \mathbb{R}[x] $ be a polynomial of degree $ n $. Then, for any $ x > 0 $, we have
+    \[
+        \vert P(x) \vert \leq \sum_{k=0}^n \vert a_k \vert x^k \leq M x^n,
+    \]
+    where $ M = |a_n| + |a_{n-1}| + \cdots + |a_0| $. From Exercise 4.5.8, we know that $ \lim_{x \to +\infty} \frac{e^{cx}}{x^n} = +\infty $. Therefore, there exists some $ N > 0 $ such that for all $ x > N $, we have
+    \[
+        \frac{e^{cx}}{x^n} > M \implies e^{cx} > M x^n \geq |P(x)|. 
+    \]
+    Thus, we conclude that there exists some real number $ N > 0 $ such that $ e^{cx} > |P(x)| $ for all $ x > N $.
+\end{solution}
+
+\newpage
+
+\begin{center}
+    物理三 黃紹凱 B12202004 \\
+    November 21, 2025
+\end{center}
+\begin{center}
+    You can do the following problems to practice. \\
+    You don't have to submit the following problems.
+\end{center}
+
+% Exercise 8
+\begin{exercise}[Tao II Exercise 4.5.4, Optional]
+    Let $f : \mathbb{R} \to \mathbb{R}$ be the function defined by setting $f(x) := \exp(-1/x)$ when $x > 0$, and $f(x) := 0$ when $x \le 0$. Prove that $f$ is infinitely differentiable, and $f^{(k)}(0) = 0$ for every integer $k \ge 0$, but that $f$ is \emph{not} real analytic at $0$.
+\end{exercise}
+ 
+\begin{solution}
+    Since both $ 0 $ and $ e^{-1/x} $ are compositions of elementary functions, they are infinitely differentiable on their respective domains. We only need to show that $ f $ is infinitely differentiable at $ x=0 $ and $ f^{(k)} (0) = 0 $ for all $ k \geq 0 $.
+    \begin{claim}
+        For $ x>0 $, the $ n $-th derivative of $ e^{-1/x} $ is 
+        \[
+            f^{(n)}(x) = e^{-1/x} (-1)^n \sum_{k=1}^{n} \binom{n+k}{n-k} \binom{n+k-1}{n-k} (n-k)! \,(-1)^{k} x^{-(n+k)}.
+        \]
+    \end{claim} 
+    \begin{proof}
+        For $ n=1 $, $ f^{\prime} (x) = \frac{1}{x^2} e^{-1/x} $, so the base case is satisfied. Suppose the formula holds for $ n $, then for $ n+1 $, we have
+        \begin{equation*}
+            \begin{split}
+                f^{(n+1)} (x) &= \frac{d}{dx} f^{(n)} (x) \\
+                &= \frac{d}{dx} \left( e^{-1/x} (-1)^n \sum_{k=1}^{n} \binom{n+k}{n-k} \binom{n+k-1}{n-k} (n-k)! \,(-1)^{k} x^{-(n+k)} \right) \\
+                &= e^{-1/x} (-1)^{n+1} \sum_{k=1}^n \frac{(n+k)!}{(n-k)!(2k)!} \frac{(n+k-1)!}{(n-k)!(2k-1)!} (n-k)! (n+k)\,(-1)^k x^{-(n+1+k)} \\
+                &= e^{-1/x} (-1)^{n+1} \sum_{k=1}^{n+1} \binom{n+1+k}{n+1-k} \binom{n+k}{n+1-k} (n+1-k)! \,(-1)^{k} x^{-(n+1+k)}.
+            \end{split}
+        \end{equation*}
+        Thus, the formula holds for all $ n \geq 1 $ by induction.
+    \end{proof}
+    By our claim, for any $ n \geq 1 $, we have
+    \begin{equation*}
+        \begin{split}
+            \lim_{x \to 0^+} f^{(n)}(x) &= \lim_{x \to 0^+} e^{-1/x} (-1)^n \sum_{k=1}^{n} \binom{n+k}{n-k} \binom{n+k-1}{n-k} (n-k)! \,(-1)^{k} x^{-(n+k)} \\
+            &= \lim_{u \to +\infty} e^{-u} (-1)^n \sum_{k=1}^{n} \binom{n+k}{n-k} \binom{n+k-1}{n-k} (n-k)! \,(-1)^{k} u^{n+k} \\
+            &= 0, 
+        \end{split}
+    \end{equation*}
+    by Exercise 4.5.8, while $ \lim_{x \to 0^-} f^{(n)} = 0 $. Therefore, $ f^{(n)} (0) = 0 $ for all $ n \geq 0 $ and $ f $ is differentiable. Since the Taylor series of $ f $ at $ 0 $ is identically zero, but $ f(x) > 0 $ for all $ x > 0 $, $ f $ is not real analytic at $ 0 $.
+\end{solution}
+
+% Exercise 9
+\begin{exercise}[Optional]
+    In class, we proved that the function $f(x)=a^x$ is continuous on $\mathbb{Q}$ for $a>1$. Let $n \in \mathbb{N}$. Prove that $f$ is uniformly continuous on the rational interval
+    \[
+    [-n,n] \cap \mathbb{Q}.
+    \] 
+
+    \noindent\textbf{Remark.}  
+    If this is true, then $f(x)=a^x$ admits a unique continuous extension to all real numbers $x \in [-n,n]$. 
+\end{exercise}
+
+\begin{solution}
+    Since $ f $ is continuous on $ \mathbb{Q} $, for any $ \epsilon > 0 $ and $ x \in [-n,n] \cap \mathbb{Q} $, there exists some $ \delta_x > 0 $ such that for any $ y \in \mathbb{Q} $ with $ |x-y| < \delta_x $, we have $ |f(x) - f(y)| < \epsilon $. The collection of open intervals $ \{ (x - \delta_x/2, x + \delta_x/2) : x \in [-n,n] \cap \mathbb{Q} \} $ forms an open cover of the compact set $ [-n,n] $. Thus, there exists a finite subcover $ \{ (x_i - \delta_{x_i}/2, x_i + \delta_{x_i}/2) : i = 1, 2, \ldots, m \} $. Let $ \delta = \min_{1 \leq i \leq m} \delta_{x_i}/2 > 0 $. Then, for any $ x, y \in [-n,n] \cap \mathbb{Q} $ with $ |x-y| < \delta $, there exists some $ i $ such that $ x \in (x_i - \delta_{x_i}/2, \, x_i + \delta_{x_i}/2) $. Therefore,
+    \[
+        |y - x_i| \leq |y - x| + |x - x_i| < \delta + \frac{\delta_{x_i}}{2} \leq \delta_{x_i}.
+    \]
+    Hence, by the triangle inequality, we have
+    \[
+        |f(x) - f(y)| \leq |f(x) - f(x_i)| + |f(x_i) - f(y)| < \epsilon + \epsilon = 2\epsilon, 
+    \]
+    and $ f $ is uniformly continuous on $ [-n,n] \cap \mathbb{Q} $.
+\end{solution}
+
+% Exercise 10
+\begin{exercise}[Optional]
+    Define the sequence
+    \[
+    \forall n \ge 1, \qquad S_n = \sum_{k=1}^n \ln k.
+    \]
+    \begin{enumerate}
+        \item[(a)]
+        Show that for every $k \ge 2$, we have
+        \[
+        \int_{k-1}^{k} \ln t \, dt \;\le\; \ln k \;\le\; \int_{k}^{k+1} \ln t \, dt.
+        \]
+        Deduce that
+        \[
+        S_n = n \ln n - n + o(n).
+        \]
+        \item[(b)]
+        By considering the sequence $(A_n)_{n\ge 1}$, defined by
+        \[
+        \forall n \ge 1, \qquad A_n = S_n - n \ln n + n,
+        \]
+        show that $A_n - A_{n-1} \sim \dfrac{1}{2n}$ and deduce that
+        \[
+        A_n \sim \frac12 \ln n.
+        \]
+        \item[(c)]
+        Let
+        \[
+        D_n := S_n - n \ln n + n - \frac12 \ln n \qquad \text{for } n \ge 1.
+        \]
+        Show that
+        \[
+        D_n - D_{n-1} \sim -\,\frac{1}{12 n^2}.
+        \]
+        \item[(d)]
+        Show that $D_n$ converges to some $D_\infty$ when $n \to \infty$.  
+        Deduce that there exists some constant $C > 0$ such that
+        \[
+        n! \sim C \left( \frac{n}{e} \right)^n \sqrt{n}.
+        \]
+        \item[(e)]
+        Using the expression of $I_{2n}= \int_{0}^{\pi/2} \sin^{2n} x \, dx
+        =\frac{\pi}{2} \cdot \frac{(2n)!}{2^{2n}(n!)^2} = \sqrt{\frac{\pi}{4n}}\,(1 + o(1))$ (proved in the following), show that
+        \[
+        C = \sqrt{2\pi}.
+        \]
+        \item[(f)]
+        Show that
+        \[
+        n! \sim \sqrt{2\pi n}\left(\frac{n}{e}\right)^n 
+        \left( 1 + \frac{1}{12n} + o\!\left(\frac{1}{n}\right) \right).
+        \]
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}
+        \item[(a)] For $ k \geq 2 $, since $ \ln t $ is increasing on $ (0, \infty) $, we have
+        \[
+            \int_{k-1}^{k} \mathrm{d}t\, \ln t \leq \int_{k-1}^{k} \mathrm{d}t\, \ln k = \ln k \leq \int_{k}^{k+1} \mathrm{d}t\, \ln t.
+        \]
+        Summing over $ k=2, 3, \ldots, n $, we have
+        \[
+            \int_{1}^{n} \mathrm{d}t\, \ln t \leq S_n \leq \int_{2}^{n+1} \mathrm{d}t\, \ln t 
+        \]
+        and hence
+        \[
+            n \ln n - n + 1 \leq S_n \leq (n+1) \ln (n+1) - (n+1) + 1  \implies S_n = n \ln n - n + o(n).
+        \]
+
+        \item[(b)] We have 
+        \begin{equation*}
+            \begin{split}
+                A_n - A_{n-1} &= S_n - S_{n-1} - n \ln n + n + (n-1) \ln (n-1) - (n-1) \\
+                &= \ln n - n \ln n + (n-1) \ln (n-1) + 1 \\
+                &= 1 + (n-1) \ln \left( 1 - \frac{1}{n} \right) \\
+                &= 1 + (n-1) \left( -\frac{1}{n} - \frac{1}{2 n^2} + o\!\left( \frac{1}{n^2} \right) \right) = \frac{1}{2n} + R(n),
+            \end{split}
+        \end{equation*}
+        where $ \lim_{n \to \infty} \frac{R(n)}{n^{-3}} = 0 $. Then we have 
+        \[
+            \lim_{n \to \infty} \frac{A_n - A_{n-1}}{\frac{1}{2n}} = 1 + 2n R(n) = 1 \implies A_n - A_{n-1} \sim \frac{1}{2n}.
+        \]
+
+        \item[(c)] We have 
+        \begin{equation*}
+            \begin{split}
+                D_n - D_{n-1} &= \left(S_n - n\ln n + n - \frac{1}{2}\ln n\right) - \left(S_{n-1} - (n-1)\ln (n-1) + (n-1) - \frac{1}{2}\ln (n-1) \right) \\
+                &= \ln n - \ln (n-1) + n \ln \left(1-\frac{1}{n}\right) + 1 + \frac{1}{2} \ln \left(1 - \frac{1}{n}\right) \\
+                &= 1 + (n-\frac{1}{2}) \ln \left(1- \frac{1}{n}\right) \\
+                &= 1 + \left(n-\frac{1}{2}\right) \left[-\frac{1}{n} - \frac{1}{2n^2} - \frac{1}{3n^3} + o\left(\frac{1}{n^3}\right)\right] = -\frac{1}{12 n^2} + R(n), 
+            \end{split}
+        \end{equation*}
+        where $ \lim_{n \to \infty} \frac{R(n)}{n^{-4}} = 0 $. Then we have 
+        \[
+            \lim_{n \to \infty} \frac{D_n - D_{n-1}}{\frac{1}{12n^2}} = 1 - 12 n^2 R(n) = 1 \implies D_n - D_{n-1} \sim -\frac{1}{12n^2}
+        \] 
+
+        \item[(d)] Let $ G_n = D_n - D_{n-1} $. Since $ D_n - D_{n-1} \sim -\frac{1}{12 n^2} $, for any $ \varepsilon > 0 $, there exists $ N \in \mathbb{N} $ such that $ \left| 12n^2 G_n + 1 \right| < \varepsilon $ whenever $ n>N $. Then, 
+        \[
+            \vert G_n \vert < \left\vert G_n + \frac{1}{12n^2} \right\vert < \frac{\varepsilon}{12n^2} < \varepsilon, \quad \text{whenever } n > N.
+        \]
+        Hence, $ \{D_n\}_{n=1}^{\infty} $ is a Cauchy sequence, and by completeness of the reals there is a unique limit $ D_\infty $ in $ \mathbb{R} $.By definition of $ D_n $, we have 
+        \[
+            S_n = \ln n! = n \ln n - n + \frac{1}{2} \ln n + D_n.
+        \]
+        Exponentiating both sides gives $ n! = e^{D_n} \sqrt{n} \left(\frac{n}{e}\right)^n $, and 
+        \[
+            \lim_{n \to \infty} \frac{n!}{\sqrt{n} \left(\frac{n}{e}\right)^n} = \lim_{n \to \infty} e^{D_n} = e^{D_\infty} \equiv C > 0 \implies n! \sim C \left( \frac{n}{e} \right)^n \sqrt{n}.
+        \]
+        
+        \item[(e)] From the expression of $ I_{2n} $, we have
+        \[
+            I_{2n} = \frac{\pi}{2} \cdot \frac{(2n)!}{2^{2n} (n!)^2} = \sqrt{\frac{\pi}{4n}} (1 + o(1)).
+        \]
+        Using the identity from part (d), we have
+        \[
+            I_{2n} = \frac{\pi}{2} \cdot \frac{(2n)!}{2^{2n} (n!)^2} \sim \frac{\pi}{2} \cdot \frac{C \left( \frac{2n}{e} \right)^{2n} \sqrt{2n}}{2^{2n} C^2 \left( \frac{n}{e} \right)^{2n} n} = \frac{\pi}{2C} \sqrt{\frac{2}{n}}.
+        \]
+        Therefore, we have $ \frac{\pi}{2C} \sqrt{\frac{2}{n}} = \sqrt{\frac{\pi}{4n}} $, and hence $ C = \sqrt{2\pi} $.
+
+        \item[(f)] From part (e), we have $ D_{\infty} = \log C = \frac{1}{2} \log (2\pi) $. Then, 
+        \begin{equation*}
+            \begin{split}
+                D_n - D_{\infty} &= S_n - n \ln n + n - \frac{1}{2} \ln n - D_{\infty} \\
+                &= \ln n! - n \ln n + n - \frac{1}{2} \ln n - \frac{1}{2} \ln (2\pi) \\
+                &= \ln \left( \frac{n!}{\sqrt{2\pi n} \left( \frac{n}{e} \right)^n} \right).
+            \end{split}
+        \end{equation*}
+        From part (c), we have 
+        \[
+            D_n - D_{\infty} \sim -\frac{1}{12 n^2} \implies \lim_{n \to \infty} \frac{D_n - D_{\infty}}{-\frac{1}{12 n^2}} = 1.
+        \]
+        Therefore, for any $ \varepsilon > 0 $, there exists some $ N \in \mathbb{N} $ such that
+        \[
+            \left| \frac{D_n - D_{\infty}}{-\frac{1}{12 n^2}} - 1 \right| < \varepsilon \implies \left| D_n - D_{\infty} + \frac{1}{12 n^2} \right| < \frac{\varepsilon}{12 n^2}
+        \]
+        whenever $ n > N $. Hence, we have
+        \[
+            \left| \ln \left( \frac{n!}{\sqrt{2\pi n} \left( \frac{n}{e} \right)^n} \right) + \frac{1}{12 n^2} \right| < \frac{\varepsilon}{12 n^2} \implies \left| \frac{n!}{\sqrt{2\pi n} \left( \frac{n}{e} \right)^n} - e^{-\frac{1}{12 n^2}} \right| < e^{-\frac{1}{12 n^2}} \left( e^{\frac{\varepsilon}{12 n^2}} - 1 \right)
+        \]
+        whenever $ n > N $. Since $ e^{x} = 1 + x + o(x) $ as $ x \to 0 $, we have
+        \[
+            \frac{n!}{\sqrt{2\pi n} \left( \frac{n}{e} \right)^n} = e^{-\frac{1}{12 n^2}} + o\!\left( \frac{1}{n^2} \right) = 1 - \frac{1}{12 n^2} + o\!\left( \frac{1}{n^2} \right).
+        \]
+        Exponentiating both sides gives
+        \[
+            n! = \sqrt{2\pi n} \left( \frac{n}{e} \right)^n \left( 1 + \frac{1}{12 n} + o\!\left( \frac{1}{n} \right) \right).
+        \]
+    \end{enumerate}
+\end{solution}
+
+% Exercise 11
+\begin{exercise}[Optional]
+    Let $\mathcal{P}$ be the set of all the primes. In this exercise, we will prove that $\displaystyle \sum_{p \in \mathcal{P}} \frac{1}{p}$ is divergent.
+    \begin{enumerate}
+        \item[(a)]  
+        Show that for $s > 1$, we have
+        \[
+        - \sum_{p \in \mathcal{P}} \log\!\left(1 - \frac{1}{p^{\,s}}\right)
+        = \log \zeta(s).
+        \]
+        \item[(b)] Deduce that there exists $ M > 0 $ such that for any $s > 1$, we have
+        \[
+        \left|\, \sum_{p\in\mathcal{P}} \frac{1}{p^{\,s}} - \log \zeta(s) \,\right| < M.
+        \]
+        \item[(c)]
+        Show that as $s \to 1^{+}$, we have $\zeta(s) \to +\infty$.
+        \item[(d)]
+        Conclude that  
+        \[
+        \sum_{p \in \mathcal{P}} \frac{1}{p}
+        \]
+        is divergent.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}
+        \item[(a)] The Riemann zeta function is defined as
+        \[
+            \zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s}.
+        \]
+        Fix $ s>1 $ and $ N \in \mathbb{N} $. Consider the finite product
+        \[
+            P_N \equiv \prod_{p \in \mathcal{P}, p \leq N} \frac{1}{1 - p^{-s}} = \prod_{p \in \mathcal{P}, p \leq N} \left(1 + \frac{1}{p^s} + \frac{1}{p^{2s}} + \cdots \right) = \sum_{n \in A} \frac{1}{n^s}, 
+        \]
+        where $ A $ is the set of numbers all of whose prime factors are less than $ N $. Let $ S_N $ be the $ N $-th partial sum of $ \zeta (s) $, then since $ P_N $ contains all terms of the form $ \frac{1}{n^s} $ for $ n \leq N $ by the Fundamental Theorem of Arithmetic, $ S_N \leq P_N $. On the other hand, $ P_N \leq \zeta (s) $ since it is a sum of a subsequence of terms in $ \zeta (s) $, which are all positive. Therefore, we have $ S_N \leq P_N \leq \zeta (s) $ for all $ N \in \mathbb{N} $. $ S_N \to \zeta (s) $ as $ N \to \infty $ by definition, and $ P_N $ is an increasing sequence in $ N $, so by the Squeeze Theorem $ P_N \to \zeta (s) $ as $ N \to \infty $. Hence, we have
+        \[
+            \zeta (s) = \lim_{N \to \infty} P_N = \prod_{p \in \mathcal{P}} \frac{1}{1 - p^{-s}} \implies - \sum_{p \in \mathcal{P}} \log \left( 1 - \frac{1}{p^s} \right) = \log \zeta (s). 
+        \]
+
+        \item[(b)] Using the Taylor expansion of $ \log (1-x) $, we have
+        \[
+            -\log \left( 1 - \frac{1}{p^s} \right) = \frac{1}{p^s} + \frac{1}{2 p^{2s}} + \frac{1}{3 p^{3s}} + \cdots.
+        \]
+        Since $ p>1 $, $ p^{-ms} < 1 $ for all $ m>0 $, so the Taylor series always converges. Therefore,
+        \[
+            \log \zeta (s) = - \sum_{p \in \mathcal{P}} \log \left( 1 - \frac{1}{p^s} \right) = \sum_{p \in \mathcal{P}} \frac{1}{p^s} + \sum_{p \in \mathcal{P}} \sum_{k=2}^{\infty} \frac{1}{k p^{ks}},
+        \]
+        and hence 
+        \[
+            \left| \sum_{p \in \mathcal{P}} \frac{1}{p^s} - \log \zeta (s) \right| = \left| \sum_{p \in \mathcal{P}} \sum_{k=2}^{\infty} \frac{1}{k p^{ks}} \right| \leq \sum_{p \in \mathcal{P}} \sum_{k=2}^{\infty} \frac{1}{p^{ks}} = \sum_{p \in \mathcal{P}} \frac{1}{p^{2s} (1-p^{-s})}. 
+        \]
+        Since $ s>1 $, $ 1-p^{-s} \leq 1 - 2^{-s} < \frac{1}{2} $, so 
+        \[
+            \left\vert \sum_{p \in \mathcal{P}} \frac{1}{p^s} - \log \zeta (s) \right\vert \leq 2 \sum_{p \in \mathcal{P}} \frac{1}{p^{2s}} < 2 \sum_{n=1}^{\infty} \frac{1}{n^{2}} \equiv M < \infty.
+        \]
+        The series converges by comparison test with the convergent p-series $ \sum_{n=1}^{\infty} \frac{1}{n^2} $.
+
+        \item[(c)] Near $ s=1 $, uniform convergence fails so we cannot switch the order of limit and summation. For $ s > 1 $, consider $ f(x) = x^{-s} $, which is positive decreasing on $ [1,\infty] $. Then, by the integral test, we have 
+        \[
+            \zeta (s) = \sum_{n=1}^{\infty} \frac{1}{n^s} \geq \int_{1}^{\infty} \mathrm{d}x\, x^{-s} = \frac{1}{s-1}.
+        \]
+        Therefore, as $ s \to 1^+ $, $ \zeta (s) \to +\infty $.
+        
+        \item[(d)] Suppose $ \sum_{p \in \mathcal{P}} \frac{1}{p} $ converges, then $ \lim_{s \to 1^+} \sum_{p \in \mathcal{P}} \frac{1}{p^s} $ is bounded. Then, by (b), 
+        \[
+            \lim_{s \to 1^+} \log \zeta (s) \text{ is bounded} \implies \lim_{s \to 1^+} \zeta (s) \text{ is bounded},
+        \]
+        a contradiction to (c). Therefore, $ \sum_{p \in \mathcal{P}} \frac{1}{p} $ diverges.
+    \end{enumerate}
+\end{solution}
+
+% Exercise 12
+\begin{exercise}[Optional]
+    \begin{theorem}[Wallis Integrals --- Factorial Version]
+    For each integer $n \ge 0$, define
+    \[
+    I_n := \int_{0}^{\pi/2} \sin^n x \, dx.
+    \]
+    Then:
+
+    \begin{itemize}
+    \item[(a)]
+    \[
+    I_0 = \frac{\pi}{2}, \qquad I_1 = 1.
+    \]
+
+    \item[(b)]
+    For all $n \ge 2$,
+    \[
+    n I_n = (n-1) I_{n-2}.
+    \]
+
+    \item[(c)]
+    For each $m\in\mathbb{N}$,
+    \[
+    I_{2m-1} 
+    = \frac{2^{\,2m-1}(m-1)!\,m!}{(2m)!},
+    \qquad
+    I_{2m}
+    = \frac{\pi}{2}\cdot \frac{(2m)!}{2^{\,2m}(m!)^2}.
+    \]
+
+    \item[(d)]
+    For all $n\ge1$,
+    \[
+    I_n I_{n-1} = \frac{\pi}{2n}.
+    \]
+
+    \item[(e)]
+    As $n\to\infty$,
+    \[
+    I_n = \sqrt{\frac{\pi}{2n}}\,(1+o(1)).
+    \]
+
+    \item[(f)]
+    In particular,
+    \[
+    I_{2n}
+    = \frac{\pi}{2}\cdot \frac{(2n)!}{2^{\,2n}(n!)^2}.
+    \]
+    \end{itemize}
+    \end{theorem}
+\end{exercise}
+
+\begin{solution}
+    Here we provide a proof for Theorem 1. 
+
+    \begin{enumerate}
+        \item[(a)] By directly computing the integrals, we have
+        \[
+        I_0 = \int_0^{\pi/2} 1\,dx = \frac{\pi}{2},
+        \qquad
+        I_1 = \int_0^{\pi/2} \sin x \, dx = [-\cos x]_{0}^{\pi/2} = 1.
+        \]
+
+        \item[(b)] For $n\ge2$, we have
+        \[
+            I_n = \int_0^{\pi/2} \mathrm{d}x\, \sin^n x = \int_0^{\pi/2} \mathrm{d}x\, \sin^{n-1}x\sin x.
+        \]
+        Do integration by parts with $u=\sin^{n-1}x$ and $\mathrm{d}v=\sin x\,\mathrm{d}x$, we have $ v = - \cos x $, $ \mathrm{d}u = (n-1) \sin^{n-2} x \cos x \, \mathrm{d}x $. Then, 
+        \begin{equation*}
+            \begin{split}
+                I_n &= \left[-\sin^{n-1} x \cos x \right]_0^{\pi/2} + (n-1) \int_0^{\pi/2} \mathrm{d}x\, \sin^{n-2} x \cos^2 x \\
+                &= (n-1) \int_0^{\pi/2} \mathrm{d}x\, \sin^{n-2} x (1 - \sin^2 x) = (n-1) I_{n-2}.
+            \end{split}
+        \end{equation*}
+
+        \item[(c)] We should discuss the two cases where $ n $ is an odd or even integer, with $ I_0 $ and $ I_1 $ from part (a) as the base cases. For $n=2m-1$, where $ m \in \mathbb{N} $, we have 
+        \[
+        I_{2m-1}
+        = \frac{2m-2}{2m-1}\cdot\frac{2m-4}{2m-3}\cdots\frac{2}{3}\cdot I_1
+        = \frac{2^{\,2m-1}(m-1)!\,m!}{(2m)!}.
+        \]
+        On the other hand, for $n=2m$, we have 
+        \[
+        I_{2m}== \frac{2m-1}{2m}\cdot\frac{2m-3}{2m-2}\cdots\frac{1}{2}\cdot I_0
+        = \frac{\pi}{2}\cdot\frac{(2m)!}{2^{\,2m}(m!)^2}.
+        \]
+
+        \item[(d)] Again, we discuss the cases when $ n $ is an even or an odd number. For $n=2m+1$,
+        \[
+        I_{2m+1}I_{2m}
+        = \frac{\pi}{2(2m+1)}
+        = \frac{\pi}{2n}.
+        \] 
+        Thus,
+        \[
+        I_n I_{n-1} = \frac{\pi}{2n}.
+        \]
+        For $n=2m$, a similar calculation gives 
+        \[
+        I_{2m}I_{2m-1}
+        = \left(\frac{\pi}{2}\cdot\frac{(2m)!}{2^{2m}(m!)^2}\right)
+        \left(\frac{2^{2m-1}(m-1)!\,m!}{(2m)!}\right)
+        = \frac{\pi}{2(2m)}
+        = \frac{\pi}{2n}.
+        \]
+        Hence, $ I_n I_{n-1} = \frac{\pi}{2n} $, for all $n \ge 1$.
+        
+        \item[(e)] Notice that since $ \sin x \in [0,1] $ for all $ x \in [0, \pi/2] $,
+        \[
+            I_n = \int_0^{\pi/2} \sin^n x \, dx \leq \int_0^{\pi/2} \sin^{n-1} x \, dx = I_{n-1},
+        \]
+        and hence $ \{I_n\}_{n=0}^{\infty} $ is a positive, decreasing sequence. From the product identity in part (d) and $ I_{n-1} \leq I_n \leq I_{n+1} $, we have 
+        \[
+            \frac{\pi}{2(n+1)} = I_{n+1} I_n \leq I_n^2 \leq I_n I_{n-1} = \frac{\pi}{2n}.
+        \]
+        Everything is positive, so, multiplying by $\frac{2n}{\pi}$ and taking square roots, we get 
+        \[
+        \sqrt{\frac{n}{n+1}}
+        \le \sqrt{\frac{2n}{\pi}}\,I_n \le 1 \implies I_n \sim \sqrt{\frac{\pi}{2n}},
+        \]
+        or, equivalently, using the little-$ o $ notation gives
+        \[
+            I_n = \sqrt{\frac{\pi}{2n}} \left(1 + o(1)\right)
+        \]
+
+        \item[(f)] Directly from part (c), we have 
+        \[
+        I_{2n}
+        = \frac{\pi}{2}\cdot\frac{(2n)!}{2^{\,2n}(n!)^2}.
+        \]
+    \end{enumerate}
+\end{solution}
+
+\end{CJK}
+\end{document}

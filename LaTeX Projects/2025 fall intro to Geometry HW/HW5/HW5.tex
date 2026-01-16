@@ -1,0 +1,216 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+  \textbf{2025 Fall Introduction to Geometry} \\
+  \vspace{0.5cm}
+  \large 
+  Homework 5 (Due Oct 10, 2025)\\
+}
+\author{物理、數學三 黃紹凱 B12202004}
+
+\maketitle
+
+% Problem 1
+\begin{problem}[Do Carmo 2.3.16*]
+    Let $R^{2} = \{(x, y, z) \in \mathbb{R}^{3} ; z = -1\}$ be identified with the complex plane $\mathbb{C}$ by setting $(x, y, -1) = x + iy = \zeta \in \mathbb{C}$. Let $P : \mathbb{C} \to \mathbb{C}$ be the complex polynomial
+    \[
+    P(\zeta) = a_{0}\zeta^{n} + a_{1}\zeta^{n-1} + \cdots + a_{n}, \quad a_{0} \neq 0, \, a_{i} \in \mathbb{C}, \, i = 0, \ldots, n.
+    \]
+    Denote by $\pi_{N}$ the stereographic projection of $S^{2} = \{(x, y, z) \in \mathbb{R}^{3}; x^{2} + y^{2} + z^{2} = 1\}$ from the north pole 
+    $N = (0, 0, 1)$ onto $R^{2}$. Prove that the map $F : S^{2} \to S^{2}$ given by
+    \[
+    F(p) = 
+    \begin{cases}
+    \pi_{N}^{-1} \circ P \circ \pi_{N}(p), & \text{if } p \in S^{2} - \{N\}, \\
+    N, & \text{if } p = N,
+    \end{cases}
+    \]
+    is differentiable.
+\end{problem}
+
+\begin{solution}
+    Given a point $ p \in S^2 \backslash \{N\} $, write it as $ p = (x, y, z) $. Since the composition of differentiable functions is differentiable, we only need to show that $ \pi_N, \pi_N^{-1} $ and $ P $ are differentiable. The stereographic projection $ \pi_N : S^2 \backslash \{N\} \to \mathbb{R}^2 $ is given by
+    \[
+        \pi_N(x, y, z) = \left( \frac{x}{1-z}, \frac{y}{1-z} \right) .
+    \]
+    Since $ z \neq 1 $ for all $ p \in S^2 \backslash \{N\} $, $ \pi_N $ is differentiable. Similarly, note that the inverse stereographic projection $ \pi_N^{-1} : \mathbb{R}^2 \to S^2 \backslash \{N\} $ is given by
+    \[
+        \pi_N^{-1}(u, v) = \left( \frac{2u}{u^2 + v^2 + 1}, \frac{2v}{u^2 + v^2 + 1}, \frac{u^2 + v^2 - 1}{u^2 + v^2 + 1} \right) .
+    \]
+    Since $ u^2 + v^2 + 1 > 0 $ for all $ (u, v) \in \mathbb{R}^2 $, $ \pi_N^{-1} $ is differentiable. Moreover, polynomials are differentiable everywhere, so $ P $ is differentiable. Thus, $ F $ is differentiable on $ S^2 \backslash \{N\} $.
+\end{solution}
+
+% Problem 2
+\begin{problem}[Do Carmo 2.4.10. Tubular Surfaces]
+    Let $\alpha : I \to \mathbb{R}^{3}$ be a regular parametrized curve with nonzero curvature everywhere and arc length as parameter.  
+    Let
+    \[
+    \mathbf{x}(s, v) = \alpha(s) + r \big( n(s)\cos v + b(s)\sin v \big), 
+    \quad r = \text{const.} \neq 0, \, s \in I,
+    \]
+    be a parametrized surface (the tube of radius $r$ around $\alpha$), where $n$ is the normal vector and $b$ is the binormal vector of $\alpha$.
+    Show that, when $\mathbf{x}$ is regular, its unit normal vector is
+    \[
+    N(s, v) = -\big( n(s)\cos v + b(s)\sin v \big).
+    \]
+\end{problem}
+
+\begin{solution}
+    Let $ \bvec{x}: U \to \mathbb{R}^3 $ as defined in the problem statement be a regular Parametrization, where $ U $ is an open set in $ \mathbb{R}^2 $. The unit normal vector at each point $ q \in \bvec{x}(U) $ is defined as
+    \[
+        N(q) = \frac{\bvec{x}_s \wedge \bvec{x}_v}{|\bvec{x}_s \wedge \bvec{x}_v|} (q) .
+    \]
+    Let prime denote derivative with respect to $ s $. Then we have
+    \[
+        \bvec{x}_s = \alpha'(s) + r \big( n'(s)\cos v + b'(s)\sin v \big), \quad
+        \bvec{x}_v = r \big( -n(s)\sin v + b(s)\cos v \big),
+    \]
+    and by the Frenet-Serret formulas,
+    \[ \alpha^{\prime} (s) = t(s), \quad n'(s) = -\kappa(s)t(s) - \tau (s) b(s), \quad b'(s) = \tau(s)n(s), \]
+    where $ t $ is the unit tangent, $ \kappa $ is the curvature, and $ \tau $ is the torsion of $ \alpha $. Thus, 
+    \begin{align*}
+        \bvec{x}_s &= t(s) + r \big( (-\kappa(s)t(s) - \tau (s) b(s)) \cos v + \tau(s)n(s)\sin v \big), \\
+        \bvec{x}_v &= r \big( -n(s)\sin v + b(s)\cos v \big).
+    \end{align*}
+    Now suppress $ s $ and compute the wedge product in the Frenet frame $ \{t, n, b\} $:
+    \begin{align*}
+        \bvec{x}_s \wedge \bvec{x}_v &= \big( t + r \big( -\kappa t \cos v - \tau b \cos v + \tau n \sin v \big) \big) \wedge r \big( -n \sin v + b \cos v \big) \\
+        &= -r (t \wedge n) \sin v + r (t \wedge b) \cos v - r^2 \kappa \sin v \cos  v (t \wedge n) - r^2 \kappa \cos^2 v (t \wedge b) \\
+        &\quad + r^2 \tau \sin v \cos v (b \wedge n ) + r^2 \tau \sin v \cos v (n \wedge b) \\
+        &= -r (1 - r \kappa \cos v) \left( \cos v n + \sin v b \right). 
+    \end{align*}
+
+    Dividing by the norm and noting that $ n $ and $ b $ are unit length and orthogonal, we have
+    \[
+        N(s, v) = -\big( n(s)\cos v + b(s)\sin v \big).
+    \]
+\end{solution}
+
+% Problem 3
+\begin{problem}[Do Carmo 2.4.17]
+    Two regular surfaces $S_{1}$ and $S_{2}$ intersect \emph{transversally} if whenever $p \in S_{1} \cap S_{2}$ then $T_{p}(S_{1}) \neq T_{p}(S_{2})$. Prove that if $S_{1}$ intersects $S_{2}$ transversally, then $S_{1} \cap S_{2}$ is a regular curve.
+\end{problem}
+
+\begin{solution}
+    Let $ S_1, S_2 $ be two regular surfaces that intersect transversally, and let $ p \in S_1 \cap S_2 $. Since $ S_1, S_2 $ are regular surfaces, there exists a differentiable function $ f : \mathbb{R}^3 \to \mathbb{R} $ and a neighborhood $ V_1 $ of $ p $ such that $ S_1 \cap V_1 = f^{-1}(0) \cap V_1 $. Similarly, there exists a differentiable function $ g : \mathbb{R}^3 \to \mathbb{R} $ and a neighborhood $ V_2 $ of $ p $ such that $ S_2 \cap V_2 = g^{-1}(0) \cap V_2 $. Define $ F : \mathbb{R}^3 \to \mathbb{R}^2 $ by $ F(q) = (f(q), g(q)) $. Then
+    \[ 
+    F^{-1}(0,0) = f^{-1}((0,0)) \cap g^{-1}((0,0)) \supseteq (V_1 \cap V_2) \cap (S_1 \cap S_2). 
+    \]
+    Let $ V = V_1 \cap V_2 $. In $ V $, we have $ S_1 \cap S_2 = F^{-1}(0,0) $. Since $ T_p(S_1) \neq T_p(S_2) $, we have $ N_{p_1}(0,0) \wedge N_{p_2}(0,0) \neq 0 $, where 
+    \[ 
+    N_{p_1} = \frac{(f_x, f_y, f_z)(p)}{\lVert (f_x, f_y, f_z)(p) \rVert }, \quad N_{p_2} = \frac{(g_x, g_y, g_z)(p)}{\lVert (g_x, g_y, g_z)(p) \rVert } . 
+    \] 
+    Hence 
+    \[ 
+    \mathrm{d}F_{(x,y,z)} = 
+    \begin{pmatrix}
+        f_x & f_y & f_z \\
+        g_x & g_y & g_z
+    \end{pmatrix}(x,y,z) \neq 0,
+    \]
+    and $ \mathrm{d}F $ is surjective. Therefore, $ (0,0) $ is a regular point of $ F $, and by [Do Carmo] Problem 2.2.17 (b) (The inverse image of a regular value of a differentiable map \(F:U\subset\mathbb{R}^{3}\to\mathbb{R}^{2}\) is a regular curve in \(\mathbb{R}^{3}\)), $ S_1 \cap S_2 $ is a regular curve.
+\end{solution}
+
+% Problem 4
+\begin{problem}[Do Carmo 2.4.23]
+    Prove that the map $F : S^{2} \to S^{2}$ defined in Exercise 16 of Sec. 2-3 has only a finite number of critical points (see Exercise 13).
+\end{problem}
+
+\begin{solution}
+    From Problem 2.3.16, $F : S^{2} \to S^{2}$ is differentiable. Let $ p \in S^2 $ be a critical point of $ F $, then $ \mathrm{d}F_p = 0 $. Since $ F = \pi_N^{-1} \circ P \circ \pi_N $, by the chain rule, we have
+    \[
+        \mathrm{d}F_p = \mathrm{d}(\pi_N^{-1})_{P(\pi_N(p))} \circ \mathrm{d}P_{\pi_N(p)} \circ \mathrm{d}(\pi_N)_p.
+    \]
+    Note that $ \mathrm{d}(\pi_N)_p $ and $ \mathrm{d}(\pi_N^{-1})_{P(\pi_N(p))} $ are isomorphisms, so $ \mathrm{d} F_p = 0 $ if and only if $ \mathrm{d} P_{\pi_N(p)} = 0 $. Since $ P : \mathbb{C} \to \mathbb{C} $ is a polynomial of degree $ n $, $ \mathrm{d}P $ is a polynomial of degree $ n-1 $, and thus has $ n-1 $ roots by the Fundamental Theorem of Algebra. Therefore, the map $ F : S^2 \to S^2 $ has only a finite number of critical points.
+\end{solution}
+
+% Problem 5
+\begin{problem}[Do Carmo 2.4.28]
+    ~
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item Define regular value for a differentiable function $f : S \to \mathbb{R}$ on a regular surface $S$.
+        \item Show that the inverse image of a regular value of a differentiable function on a regular surface $S$ is a regular curve on $S$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[label=\textbf{\alph*.}]
+        \item A \emph{regular value} of a differentiable function $f : S \to \mathbb{R}$ defined on a regular surface $S$ is a value $c \in \mathbb{R}$ such that for every point $p \in f^{-1}(c)$, the differential $\mathrm{d}f_{p} : T_{p}(S) \to \mathbb{R} $ is surjective (i.e., $\mathrm{d}f_{p} \neq 0$).
+        \item Let $c$ be a regular value of a differentiable function $f : S \to \mathbb{R}$ and let $ p \in f^{-1}(c) $. Pick a local parametrization $ \bvec{x}: U \subseteq \mathbb{R}^2 \to S $ such that $ \bvec{x}((0,0)) = p $. Define $ g : U \to \mathbb{R} $ by $ g = f \circ \bvec{x} $, then $ g(0,0) = f(\bvec{x}(0,0)) = f(p) = c $. Since $ \mathrm{d}f_{p} \neq 0 $ and $ \mathrm{d}\bvec{x}_{(0,0)} $ is surjective onto $ T_p S $, we have $ \mathrm{d}g_{(0,0)} \neq 0 $. By the Implicit Function Theorem, there exists a neighborhood $ V \subseteq U $ of $ (0,0) $ such that $ g^{-1}(c) \cap V $ is the graph of a $ C^1 $ function, say $ v = \phi (u) $. Then we can define a local parametrization of the curve $ f^{-1}(c) $ on $ S $ by
+        \[
+            \alpha(u) = \bvec{x}(u, \phi(u)), \quad u \in I
+        \] 
+        where $ I $ is some neighborhood of $ u = 0 $. Suppose for some $ u^\ast $, we have $ \alpha^{\prime} (u^\ast) = 0 $, then 
+        \[ \mathrm{d}\bvec{x}_{(u^\ast, \phi(u^\ast))} \left(1, \phi^{\prime}(u^\ast) \right) = 0. \]
+        Since $ \mathrm{d}\bvec{x} $ is one-to-one, we must have $ (1, \phi^{\prime}(u^\ast)) = 0 $, contradiction. Thus, $ \alpha^{\prime} (u) \neq 0 $ for all $ u \in I $, and in a neighborhood of each $ p \in f^{-1}(c) $, $ f^{-1}(c) $ is the image of a regular curve $ \alpha $ on $ S $. Patching the local parametrizations together, we conclude that $ f^{-1}(c) $ is a regular curve on $ S $. 
+    \end{enumerate}
+\end{solution}
+
+\end{CJK}
+\end{document}

@@ -1,0 +1,17 @@
+[0] Config.pm:308> INFO - This is Biber 2.20
+[0] Config.pm:311> INFO - Logfile is 'master.blg'
+[1129] biber-MSWIN64:340> INFO - === 
+[1351] Biber.pm:420> INFO - Reading 'master.bcf'
+[1812] Biber.pm:994> INFO - Found 4 citekeys in bib section 0
+[1840] Biber.pm:4463> INFO - Processing section 0
+[1879] Biber.pm:4654> INFO - Looking for bibtex file 'reference.bib' for section 0
+[2115] bibtex.pm:1713> INFO - LaTeX decoding ...
+[2276] bibtex.pm:1519> INFO - Found BibTeX data source 'reference.bib'
+[2655] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[2657] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[2658] Biber.pm:4283> INFO - Sorting list 'anyt/global//global/global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[2658] Biber.pm:4289> INFO - No sort tailoring available for locale 'en-US'
+[2724] bbl.pm:676> INFO - Writing 'master.bbl' with encoding 'UTF-8'
+[2746] bbl.pm:779> INFO - Output to master.bbl
+[2749] Biber.pm:131> WARN - legacy month field 'August' in entry 'mangh2020threshold' is not an integer - this will probably not sort properly.
+[2750] Biber.pm:133> INFO - WARNINGS: 1

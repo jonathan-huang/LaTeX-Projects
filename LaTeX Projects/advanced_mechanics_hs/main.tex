@@ -1,0 +1,42 @@
+\documentclass[12pt, a4paper, twoside]{article}
+\input{header.tex}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{高中進階力學}
+\author{Shao-Kai Jonathan Huang 黃紹凱}
+\date{\today}
+\cfoot{\thepage}
+% header and footer
+\pagestyle{fancy}
+\rhead{Shao-Kai Jonathan Huang}
+\lhead{高中進階力學}
+
+\maketitle
+\tableofcontents
+\newpage
+
+%
+\section{數學基礎}
+\input{Sections/00 basics.tex}
+\newpage
+
+% 
+\section{基礎力學的介紹}
+\input{Sections/01 basic_mech.tex}
+\newpage
+
+% 
+\section{靜力學}
+\input{Sections/02 statics.tex}
+\newpage
+
+%
+\section{動力學}
+\input{Sections/03 kinematics.tex}
+\newpage
+
+\end{CJK}
+
+\end{document}

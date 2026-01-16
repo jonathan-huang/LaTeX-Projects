@@ -1,0 +1,36 @@
+\contentsline {section}{\numberline {1}半導體簡介}{3}{}%
+\contentsline {subsection}{\numberline {1.1}性質}{3}{}%
+\contentsline {subsection}{\numberline {1.2}類金屬的化學}{3}{}%
+\contentsline {subsection}{\numberline {1.3}分類}{4}{}%
+\contentsline {subsubsection}{\numberline {1.3.1}本徵半導體 Intrinsic}{4}{}%
+\contentsline {subsubsection}{\numberline {1.3.2}雜質半導體 Extrinsic}{4}{}%
+\contentsline {subsubsection}{\numberline {1.3.3}退化半導體 Degenerate}{4}{}%
+\contentsline {subsubsection}{\numberline {1.3.4}化合物半導體 Compound}{4}{}%
+\contentsline {section}{\numberline {2}物理原理}{4}{}%
+\contentsline {subsection}{\numberline {2.1}遷移率 Mobility}{4}{}%
+\contentsline {subsection}{\numberline {2.2}能帶理論 Band theory}{4}{}%
+\contentsline {subsubsection}{\numberline {2.2.1} 費米能階}{5}{}%
+\contentsline {subsubsection}{\numberline {2.2.2}費米氣體模型}{6}{}%
+\contentsline {subsubsection}{\numberline {2.2.3}能帶的命名 }{6}{}%
+\contentsline {subsection}{\numberline {2.3}電子–電洞對}{6}{}%
+\contentsline {section}{\numberline {3}什麼是「有機」半導體？}{8}{}%
+\contentsline {subsection}{\numberline {3.1}簡史}{8}{}%
+\contentsline {subsection}{\numberline {3.2}摻雜}{9}{}%
+\contentsline {subsubsection}{\numberline {3.2.1}電化學∕化學摻雜}{9}{}%
+\contentsline {subsubsection}{\numberline {3.2.2}光致摻雜}{9}{}%
+\contentsline {subsubsection}{\numberline {3.2.3}接觸注射電荷載子}{10}{}%
+\contentsline {subsection}{\numberline {3.3}基本性質}{11}{}%
+\contentsline {subsubsection}{\numberline {3.3.1}有機晶體 Molecular Crystals}{11}{}%
+\contentsline {subsubsection}{\numberline {3.3.2}導電聚合物}{11}{}%
+\contentsline {subsection}{\numberline {3.4}種類}{11}{}%
+\contentsline {subsubsection}{\numberline {3.4.1}并五苯 Pentacene}{12}{}%
+\contentsline {subsubsection}{\numberline {3.4.2}紅螢烯 Rubrene}{12}{}%
+\contentsline {subsubsection}{\numberline {3.4.3}聚\tmspace +\thickmuskip {.2777em}口卡\tmspace +\thickmuskip {.2777em}唑 Polycarbazole}{13}{}%
+\contentsline {subsubsection}{\numberline {3.4.4}聚\tmspace +\thickmuskip {.2777em}口塞\tmspace +\thickmuskip {.2777em}吩 Polythiophene}{14}{}%
+\contentsline {section}{\numberline {4}有機半導體與生活}{14}{}%
+\contentsline {subsection}{\numberline {4.1}應用}{14}{}%
+\contentsline {subsection}{\numberline {4.2}未來發展}{14}{}%
+\contentsline {section}{\numberline {5}參考資料}{14}{}%
+\contentsline {section}{\numberline {6}附錄}{16}{}%
+\contentsline {subsection}{\numberline {6.1}電子級矽的工業製法}{16}{}%
+\contentsline {subsection}{\numberline {6.2}關於矽–氧鍵結的小知識}{16}{}%

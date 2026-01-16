@@ -1,0 +1,434 @@
+\documentclass[12pt, A4, twoside]{article}
+\usepackage{scrextend}
+\usepackage{geometry}
+ \geometry{
+	 a4paper,
+ 	total={170mm,257mm},
+ 	left=20mm,
+	 top=20mm,
+ }
+\usepackage{amsmath}
+\usepackage[normalem]{ulem}
+\usepackage{indentfirst}
+\usepackage{pifont}
+\usepackage{fancyhdr}   % 頁首頁尾
+\usepackage{gensymb}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+
+% Mandarin
+\usepackage{CJKutf8}
+% bkai = 標楷體
+% bsmi = 新細明體
+
+\usepackage{lmodern,bm}                
+\usepackage[T1]{sansmath} 
+\SetMathAlphabet{\mathsfbf}{sans}{\sansmathencoding}{\sfdefault}{bx}{sl}
+\usepackage{etoolbox}
+\AtBeginEnvironment{sansmath}{\let\bm\mathsfbf}{}{}
+\usepackage{mdframed}
+
+\usepackage{amsthm}
+%\theoremstyle{problem}
+\newtheorem{problem}{Problem}
+\newtheorem{thm}{Theorem}
+\newtheorem{mydef}{Definition}
+%\newtheorem{proof}{Proof}
+\newtheorem{property}{Property}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\comment}[1]{}
+
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\GenF}{\mathcal{F}}
+\newcommand{\Lagr}{\mathcal{L}}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%pictures
+\usepackage{wrapfig}
+\usepackage{subfig}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{有機半導體}
+\author{22625 黃紹凱}
+\date{\today}
+\lfoot{\theauthor}
+\cfoot{\thepage}
+
+\maketitle
+\tableofcontents
+
+\newpage
+這篇報告首將先簡單介紹廣義的半導體、討論相關的重要概念（如電子–電洞對、導電性質等等）然後深入說明物理原理。最後介紹新興的有機半導體，以及它們在日常生活中的應用。
+\section{半導體簡介}
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=10cm]{bandfilling.png}
+	\end{center}
+	\caption{Energy band filling for different materials according to band theory.}
+\end{figure}
+自從50多年前矽基半導體問世以來，科技的發展就再也無法離開半導體。從電子元件、電晶體、到太空科技都跟半導體晶片息息相關，戈登．摩爾甚至針對半導體發展提出了著名的摩爾定律：
+
+\vspace{4mm}
+「積體電路上可容納的電晶體數目，約每隔兩年便會增加一倍。」
+\vspace{4mm}
+
+在了解半導體的物理前要先有心理準備，因為它牽涉到量子概念，而單用古典觀念做的類比會引起誤解，我自己在國中時對於半導體的「理解」便是這樣非常片面的。圖 1是能帶（Energy band）對於不同物質的分布情形。能帶的概念後面會更詳細說明，主要來說，最左邊的金屬導電性最好是因為上下兩個能帶幾乎直接接觸，電子可以自由地穿梭於其中，形成「電子海」，而最右邊的絕緣體上下兩能帶以一定的能量分離，電子難以移動到上方的傳導帶，也就不能導電了。
+
+\subsection{性質}
+半導體，相對於導體或絕緣體，有高度可變的電導率。自然情況下的「半導體」材質，因為下面的價帶被填滿，導電能力跟絕緣體差不多，這時藉由摻雜，可以形成在傳導帶中有多餘可移動電洞的p型半導體，或有多餘可移動電子的n型半導體。對半導體施予電壓可以打破它所處的熱力學平衡，使半導體中的電子、電洞數量改變，導電性值隨之改變。這樣的性質使其可以作為現代電子元件。
+
+\subsection{類金屬的化學}
+關於類金屬（Metalloid），大多將硼、鍺、銻、碲、砷、矽、釙、石厄\;歸在此類。這些元素有特殊的性質使它們的導電性質介於金屬與非金屬之間，也就是一般說的半導體。大多用14族的矽或鍺作為主體，並用15族或13族的元素進行摻雜或修飾。
+
+\begin{wrapfigure}{r}{5cm}
+	\vspace{-1cm}
+	\begin{center}
+		\includegraphics[width=4cm]{silicon.png}
+	\end{center}
+	\caption{Silicon crystal.}
+	\vspace{-2cm}
+\end{wrapfigure}
+
+\vspace{5mm}
+
+矽的研究是半導體演化歷程中的起點，更是不可或缺的一員。至今，全世界幾千億的晶片都還是仰賴矽半導體，其中最主要的生產公司包含了美國Intel、韓國三星、台灣台積電等等。在微晶體中最常出現的即是矽晶體。晶體矽（crystalline silicon）如此廣泛地被應用於半導體工業有許多原因，其中包括矽在地殼中存量極多（含量僅次於氧）、矽可以與氧形成穩定性高的二氧化矽且矽可以以高效率、高純度的方法從地殼中萃取。電晶體需要高純度的電子級矽（electronic grade silicon, EGS），製備方法可以參考附錄1。
+
+\begin{remark}
+	矽–氧鍵結異常強的原因可以參考附錄2。
+\end{remark}
+
+\subsection{分類}
+\subsubsection{本徵半導體 Intrinsic}
+電子和電洞的濃度相同且為一固定值，稱為「本徵濃度」（intrinsic concentration）。
+
+\subsubsection{雜質半導體 Extrinsic}
+% 摻有少量其他物質，如n型和p型半導體。電子、電洞濃度根據平衡常數決定，此為半導體的質量作用定律（mass-action law）：\[ K=[hole^{+}][e^{-}]=const. \]
+
+\subsubsection{退化半導體 Degenerate}
+% 摻有大量其他物質，極高電子或電洞濃度使其性質反而開始接近金屬，且不遵守質量作用定律。因為較複雜，以下不討論。
+
+\subsubsection{化合物半導體 Compound}
+由超過一種元素組成的共價網狀固體。如 GaAs（IR範圍）、InGaN（藍綠光、LED）、GaN（UV範圍），以及三元的InGaAs、GaAsP（紅、黃光）等等。
+
+\section{物理原理}
+\subsection{遷移率 Mobility}
+在電路學中我們知道，電流跟電子的移動速率有關，而移動速率由外加於導線的電場產生。因為一般來說速率正比於外加電場，我們可以定義一個稱為遷移率的係數。
+\[ v_{d} = \mu E \]
+則電流密度可以表示為：
+\[ J = nev_{d} = ne \mu E \]
+但是要注意，因為所謂速率正比於外加電場是指在一般金屬導體中才成立的，對於一般半導體或有機半導體等非歐姆元件，電荷載子密度$n$和遷移率$\mu$都可以隨外加電場變化。雖然如此，遷移率的概念還是很有用的，因為我們還是可以拿一類材料遷移率典型的數量級來探討它們的導電能力。
+
+\subsection{能帶理論 Band theory}
+固體的「能帶結構」（band structure）或「電子能帶結構」（electronic band structure），是固態物理學中用來描述一個固體系統中電子被允許佔有的能階分布，同時也告訴我們電子被禁止擁有的能量範圍，稱為「能隙」（band gaps）。描述這些作用的理論稱為「能帶理論」（band theory）。
+
+能帶源自量子力學中原子軌域的結合，當獨立原子結合形成固體的分子時，它們的原子軌域可以重疊並結合產生新的軌域。一般認為能帶有兩個、一上一下分為傳導帶和價帶是不對的，要了解這個概念，首先需要知道能帶如何形成，而以下我們也運用關於分子軌域的知識做出比較容易了解的類比。
+
+\subsubsection{ 費米能階}
+假設有$N$個相同原子組成一個固體（如果我們考慮$1cm^{3}$的金屬塊，$N$可以保守估計大約有$\sim 10^{22}$數量級），則每一個相對應的能階都會相互作用並分裂成$N$個新的、非退化的能階。例如原本$N$個同能量的（退化的）$2s$軌域會分裂成$N$個不同能量、能量差不大的軌域，共可以容納$2N$個電子；原本$N$個同能量的$3p$軌域會分裂成$N$個不同能量、能量差不大的軌域，共可以容納$6N$個電子。這是分子軌域守恆的結果，一個簡單的類比是氫分子的形成，兩個氫原子的$1s$原子軌域（AO）作用，形成$\sigma^{\ast}_{u}$、$\sigma_{g}$共兩個分子軌域（MO），同樣概念可以延伸到$N$個原子，把固體想像成一個巨大的分子。
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=12cm]{mo_conserved.png}
+	\end{center}
+	\caption{Conservation of molecular orbitals, demonstrated with Na crystal.}
+\end{figure}
+
+將$N$個原子硬壓入固體中這樣的小空間將造成如上所述的能階分裂（energy splitting），因為$N$的數量及夠大，我們可以把這些新能階視為連續的分布（in continuum），並稱它們形成的帶狀結構為「能帶」。
+
+在新形成的能帶中，電子根據構築原理和包立不相容原理，由最低的能階往上填。電子所佔有的最高能階稱之為「費米能階」（$E_{F}$）。
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=8cm]{bandexample.png}
+	\end{center}
+	\caption{Typical energy band distribution.}
+\end{figure}
+
+\newpage
+
+\subsubsection{費米氣體模型}
+費米氣體模型（Fermi gas model）又稱為自由電子模型（free electron model），是一個用來描述金屬中電子雲的模型。這個模型考慮「費米子」（Fermion），即一群遵守包立不相容原理和「費米–迪拉克分布」（Fermi-Dirac distribution）的粒子。雖然比較不適用於半導體並，但以下計算可以對費米能階這個概念提供一個簡略的了解。
+
+假設一個各向同性、非相對論性的$3D$費米子氣體，置於邊長$L$的無限位能井中，我們可以拿3D Particle in a Box的結果直接套用在這裡。我們令$n_{x} = n_{y} = n_{z} = 0$時的零點能為$E_{0}$，並引入連續化半徑$\vec{n}_{F}$（$N$足夠大）：
+\[E_{n_{x},n_{y},n_{z}} = E_{0} + \frac{\hbar^{2}\pi^{2}}{2mL^{2}} |\vec{n}_{F}|^{2} \]
+
+考慮在n–空間中的一個八分之一球：
+\[ N = 2 \times \frac{1}{8} \times \frac{4}{3}\pi n_{F}^{3} \]
+\[ E_{F} =  \frac{\hbar^{2}\pi^{2}}{2mL^{2}}\left( \frac{3N}{\pi} \right)^{\frac{2}{3}} \]
+
+這個模型雖然簡單，卻很難解釋半導體、非導體、金屬之間的差異。實際上，若要考慮晶格的影響，需要用到Bloch的週期性位能模型。
+
+\begin{figure}[h!]%
+		\centering
+		\subfloat{\includegraphics[width=6cm]{distribution.png}}%
+		\quad
+     		\subfloat{\includegraphics[width=8cm]{bloch.png}}%	
+		\caption{Left: different statistics models: Fermi-Dirac, Bose-Einstein, and Maxwell-Boltzmann. Right: Bloch periodic potential.}
+	\end{figure}
+
+\subsubsection{能帶的命名 }
+
+能帶有無限多個。回到例子來說，兩個氫原子雖然只有$1s$軌域中有電子，但仍然還是有外層、高能量的軌域，如果電子受到適當波長的激發還是可以發生躍遷進到高能階。同樣的，形成分子軌域後的氫分子，還是有更高層的分子軌域，給予適當激發，電子可以跳到$2\pi^{\ast}$、$5\delta$或任何你想要的能階。
+
+從這個討論可以發現，固體中的能帶其實也有無限多個，而一般說的傳導帶（conduction band）和價帶（valence band），是我們對於最接近這個固體的費米能階的上下兩個能帶給的特別名稱，因為它們的物理影響是最明顯的。舉例來說，雖然原子有無限個能階，但我們在做任何相關的計算時根本不會考慮太高的能階，因為要讓電子能夠越遷到那麼高能的狀態非常困難也不常見；反過來說，在內層的電子已經填滿了它們所屬的軌域，而且離外層很遠，因此不會參與反應或是電子的傳導。
+
+
+\begin{wrapfigure}{r}{7cm}
+	\vspace{-1cm}
+	\begin{center}
+		\includegraphics[width=6cm]{multiplebands.png}
+	\end{center}
+	\caption{Various energy bands.}
+\end{wrapfigure}
+
+\subsection {電子–電洞對}
+電子和電洞是一般半導體中的主要電荷載子（charge carrier）。電子–電洞對可以因為外加電壓而產生，此過程稱為「產生」（generation），而電子、電洞相結合而消失的過程則是「復合」（recombination）。在價帶中的電子受到激發或是藉由摻雜導入過多電子進入傳導帶，遵守以下分布：
+\[ f_{e^{-}}(E) = \frac{1}{e^{(E-\epsilon_{F})/k_{B}T}+1}\]
+\[ 1 - f_{hole}(E) = \frac{1}{1+e^{(\epsilon_{F}-E)/k_{B}T}} \]
+
+\vspace{3mm}
+不過有趣的是，一般不認為有機半導體的電荷載子是電子–電洞對，而是後面會簡單提到的「極子」（polaron）。
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=8cm]{electronandhole.png}
+	\end{center}
+	\caption{Diagram of electron-and-hole-pair generation.}
+\end{figure}
+
+\newpage 
+
+\section{什麼是「有機」半導體？}
+有機半導體是具有半導體性質的有機材料，有機是相對於傳統矽基（Silicon-based）半導體用的矽、鎵、鍺及其摻雜的砷、磷、鋁等無機元素。已知可做為有機半導體的物質包括有機分子晶體和有機聚合物分子。而實際上這些分子除了需要依照特定方式結晶、做適當修飾外，更是需要特定的排列、加工製成薄層或附著於特定骨架上方可作用。幾乎所有的有機固體都是絕緣體，這包含了一般情況下的有機半導體，但是可以用摻雜等方式使其具有可控制的導電性。這一類化合物有著與眾不同的性質，也成為近年物理化學、半導體科學領域中炙手可熱的研究目標。
+
+\subsection{簡史}
+\begin{itemize}
+	\setlength\itemsep{1mm}
+	\item 1950年代，科學家發現多環芳香化合物可以和鹵素形成有半導體性質的電荷轉移錯合物（organic charge-transfer complex, CTC），並在1954年發現導電度$0.12 S/cm$的perylene–碘錯合物。
+	\begin{remark}
+		電荷轉移錯合物：配基和配位中心軌域間的電子發生轉移。下圖是電荷轉移錯合物的能階圖示。
+	\end{remark}
+	\begin{figure}[h!]%
+		\centering
+		\subfloat{\includegraphics[width=6cm]{heteroatomCTC.png}}%
+		\quad
+     		\subfloat{\includegraphics[width=9cm]{ctc2.png}}%	
+		\caption{Charge transfer complex.}
+	\end{figure}
+	\item 接著Kallmann和Pope發現，當他們讓naphthalene晶體與含有碘、帶正電的電解質接觸並加予電壓時，晶體竟然可以讓電洞流通過！這是因為碘在反應中作為注射電荷載子（電洞）的媒介。
+	\item 1973年，第一個融合有機半導體的設備問世，是Dr. John McGinness的黑色素雙穩態電壓控制開關（黑色素其實沒有單一的結構，所以這裡專指下圖中的聚合分子）。
+	\begin{figure}[h!]%
+		\centering
+		\subfloat{\includegraphics[width=6cm]{switch.png}}%
+		\quad
+		\subfloat{\includegraphics[width=5cm]{melanin1.png}}%
+		\quad
+    	 	\subfloat{\includegraphics[width=4cm]{melanin2.png}}%
+		\caption{Melanin bistable switch.}
+	\end{figure}
+	\item 1977年，白川英樹發現碘摻雜聚乙炔可以使其具有高導電性，開啟導電性有機聚合物研究的大門。2年後，高導電性的聚\;口比\;咯polypyrrole被發現。
+	\item 1980年代，高效能的電致發光二極體（electroluminiscent diodes）和薄膜電晶體（thin-film transistor）的研發更加推動無摻雜型有機半導體的研究。
+\end{itemize}
+\begin{remark}
+	許多相關的導體電荷轉移錯合物可以在Ullmann's Encyclopedia of Industrial Chemistry中找到，也是這一部分的主要參考資料。
+\end{remark}	
+
+\subsection{摻雜}
+前面提到白川英樹利用碘摻雜使聚乙炔的導電性大增，摻雜是什麼樣的技術呢？
+
+摻雜是引入雜質到純的本徵半導體（此為有機半導體）中，增加其電荷載子並使其導電性質改變的過程。本徵半導體中的電子、電洞數目一樣，費米能階在能隙中間；n–型半導體的摻雜物在傳導帶下方形成「摻雜帶」（impurity band），費米能階較接近傳導帶；p–型半導體的摻雜物則在價帶上方形成摻雜帶，費米能階較接近價帶。
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=14cm]{doped_fermi.png}
+	\end{center}
+	\vspace{-5mm}
+	\caption{Fermi level for different types of semiconductors, from left to right: intrinsic / n-type / p-type semiconductor.}
+\end{figure}
+
+有機半導體的摻雜可以大致分為以下幾類：
+
+\subsubsection{電化學∕化學摻雜}
+分子晶體一般用所謂的「分子摻雜劑」，即性質相近且相對較大的電荷載子，如$\textrm{Mo(tfd)}_{3}$和F4-TCNQ。化學摻雜主要是用碘、溴、$\textrm{AsF}_{5}$等氧化劑（p型摻雜），不過當然想用還原劑（n型摻雜）也是可以，例如加入第1族的鹼金屬，只是這個方法很少見。另外，在製造過程中，有機半導體也可能與氧反應而發生預料外的p型摻雜，這就是有機半導體在空氣中的衰敗（decay）。電化學摻雜則是將有機聚合物浸入不可溶的電解質中，用電壓讓適合的離子（電荷載子）進入。最後，可以用外加電壓控制電荷載子的移動，就可以操控半導體的導電性了！
+
+\subsubsection{光致摻雜}
+光致摻雜（photoinduced doping）藉由光的照射提供光能讓電子克服束縛能，造成電子予體和電子受體間發生電荷轉移，就成功產生電荷載子了。
+
+\subsubsection{接觸注射電荷載子}
+電荷載子的接觸注射（injection from contacts）是有機發光二極體（OLEDs）的主要基礎，在電極金屬與半導體接觸處的能量障壁夠低讓電子電洞可以流動。嚴格來說這不是一種摻雜，而只是有效增加載子濃度的方法。可以回想一下當時Kallmann和Pope的發現，其實就是這個方法的初期展現。
+
+\begin{figure}[h!]
+	\centering
+	\subfloat{\includegraphics[width=5cm]{mo(tfd)3.png}}
+	\hspace{1cm}
+	\subfloat{\includegraphics[width=3.5cm]{F4TCNQ.png}}
+	\caption{Molecular dopants: $\textrm{Mo(tfd)}_{3}$ and F4-TCNQ. }
+\end{figure}
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=14cm]{conductivity.png}
+	\end{center}
+	\vspace{-5mm}
+	\caption{Conductivity of doped organic conductors and semiconductors.}
+\end{figure}
+
+\newpage 
+
+\subsection{基本性質}
+有機晶體跟導電聚合物有很多共同點，例如都有各向異性，或是都擁有$\textrm{sp}^{2}$碳原子組成的$\pi$共軛系統（$\pi$-conjugated system），電子會通過$\pi$電子雲的去離域化、躍遷及量子穿隧等相關機制移動，也會伴隨極子的形成（下面將介紹）。另外，因為$\pi$系統較弱，它們最低能的電子激發模式是$\pi \rightarrow \pi^{\ast}$，能階差大約是$1.5 \sim 3 eV$。
+
+\begin{figure}[h!]
+	\centering
+	\subfloat{\includegraphics[width=4cm]{polaron.png}}
+	\hspace{2cm}
+	\subfloat{\includegraphics[width=7cm]{electronic_energy.png}}
+	\caption{Left: diagram of polaron formation. Right: different types of electron transitions.}
+\end{figure}
+
+\subsubsection{有機晶體 Molecular Crystals}
+有機晶體一般藉由昇華或蒸發後凝結製成薄膜，或培養成晶體。跟Si、Ge等共價晶體不同，它們僅由分子間凡德瓦力作用穩定，因此熔點低、易塑形。這也使它們電子雲波函數在晶體中的去離域化（delocalization）較弱，而這會直接影響材質的光學及電荷傳遞性質。對於有機小分子或低聚物，電子的傳遞過程中會從原分子中解離出來，在晶體中形成電子–陽離子自由基對，接著電子再跟另一分子形成陰離子自由基。
+\[ M \rightarrow M^{\bullet +} + e^{-} \]
+\[ M + e^{-} \rightarrow M^{\bullet -} \]
+這個「離子態分子晶格」（ionic molecular states）為了屏蔽經過的自由電子而產生如上圖的位移，在晶體中所造成的振動稱為「分子聲子」（molecular phonons）。這樣的交互作用就是稱為「極子」（polaron）的準粒子。位移後的離子分子就像是一個介電質被極化一樣，可以提供穩定系統的極化能。不過，這當然也會增加遷移電子的等效質量（可以想像晶格產生形變來「拖住電子」）而降低材質的遷移率。
+
+\begin{remark}
+	因為較弱的去離域化，上面提到的分子振動即使在常溫也是很明顯的，因此有機晶體又稱「有向氣體」（oriented gas）。
+\end{remark}
+
+\subsubsection{導電聚合物}
+導電聚合物必須從溶液相加工，製成非晶型（amorphous）或聚合物薄層（thin film）。跟有機晶體類似，導電聚合物的電子雲波函數去離域化較弱，但不同的是這裡由聚合物鏈的型態、排列等因素造成。因為聚合物有很大的加工潛能，可以藉由各種力學程序修飾材料的物理性質，因此應用日漸廣泛。
+
+\vspace{5mm}
+
+\subsection{種類}
+\begin{itemize}
+	\setlength\itemsep{1mm}
+	\item 分子晶體：CuPc、C60、$\textrm{Alq}_{3}$、并五苯、紅螢烯
+	\item 聚合物：聚\;口卡\;唑、聚\;口塞\;吩、PCDTBT、聚氮化硫	
+\end{itemize}
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=14cm]{maintypes.png}
+	\end{center}
+	\vspace{-5mm}
+	\caption{Some examples of important organic semiconductors.}
+\end{figure}
+
+\newpage
+
+以下簡單介紹幾個重要的有機半導體材料。
+
+\subsubsection{并五苯 Pentacene}
+\begin{wrapfigure}{r}{5cm}
+	\vspace{-1cm}
+	\begin{center}
+		\includegraphics[width=3.6cm]{pentacene2.png}
+	\end{center}
+	\vspace{-5mm}
+	\caption{STM photo of pentacene crystals.}
+	\vspace{-2cm}
+\end{wrapfigure}
+
+并五苯是有機半導體中研究數一數二深入的化合物，一開始關於有機半導體的研究就是從并苯（acenes）開始。
+
+\vspace{3mm}
+
+并五苯的電洞遷移率 5.5 $cm^{2}/(V \cdot s)$，是有機薄膜電晶體(OTFT)和有機場效應電晶體(OFET)研究的主流材料。像大多數有機半導體或導電聚合物，并五苯的缺點是在空氣中不穩定，會迅速氧化成綠色的\;酉昆\;衍生物。最後，并五苯是一個非常有趣的化合物，除了在有機半導體方面占有極大地位外，更有許多奇特的物理、化學性質，以及令人眼界一開的化學反應。
+
+
+\subsubsection{紅螢烯 Rubrene}
+紅螢烯的主要應用是有機發光二極體（OLED）。關於紅螢烯的研究也不少，而很特別的是它具有所有已知有機半導體中最高的載流子遷移率（根據Hasegawa, Tatsuo and Takeya，高達 40 $cm^{2}/(V \cdot s)$）。相較於并五苯，紅螢烯在空氣中的穩定性就好很多。
+
+\begin{figure}[h!]
+	\vspace{-5mm}
+	\centering
+	\subfloat{\includegraphics[width=3cm]{rubrene1.png}}%
+	\quad
+     \subfloat{\includegraphics[width=7cm]{rubrene2.png}}%	
+	\quad
+    	\subfloat{\includegraphics[width=4cm]{rubrene3.png}}%	
+	\caption{Rubrene.}
+\end{figure}
+
+\subsubsection{聚\;口卡\;唑 Polycarbazole}
+口卡\;唑為無色晶體，源自煤焦油，也可人工合成。在不同碳位進行聚合（靠電化學引導的聚合過程）會產生不同的聚合體，它們有不同的能隙和有效共軛系統長度，也就是電子產生去離域化的範圍大小，因此導電性質也差很多。另外，這種聚合物也有相對高的載流子遷移率。
+
+\begin{figure}[h!]
+	\vspace{-5mm}
+	\centering
+	\subfloat{\includegraphics[width=7cm]{carbazoles.png}}%
+	\quad
+     \subfloat{\includegraphics[width=3cm]{carbazole.png}}%	
+	\caption{Carbazole derivatives.}
+\end{figure}
+
+\newpage 
+
+\subsubsection{聚\;口塞\;吩 Polythiophene}
+聚\;口塞\;吩和它的衍生物是近年來熱門的研究主題。它有奇特的光學性質，例如在溶劑、溫度和電位等影響下，聚\;口塞\;吩主鏈發生扭轉，共軛結構被破壞，導致它迅速發生顏色的轉變。圖 中可以看到聚\;口塞\;吩聚合分子中極子和雙極子（bipolarions）的產生，所以我們知道極子導電機構不只局限於分子晶體，而是在導電聚合物中也扮演舉足輕重的角色。
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=8cm]{polythiophene_doping.png}
+		\quad
+		\includegraphics[width=6cm]{glow.png}
+	\end{center}
+	\caption{Left: polythiophene (PT) doping. Right: glow of PT under UV light.}
+\end{figure}
+
+\vspace{5mm}
+
+\section{有機半導體與生活}
+ 
+\subsection{應用}
+現在有機半導體被應用在有機發光二極體（OLED）、有機太陽能電池（OSC）、有機光伏電池（OPVC）、有機場效應電晶體（OFET）、生物感測、有機電子元件等等。
+
+\subsection{未來發展}
+有機半導體的研發趨於成熟，它們可以被用於緊湊、輕便、省電的發光設備，未來可望作為手機螢幕的元件。
+
+\section{參考資料}
+\begin{itemize}
+	\setlength\itemsep{1mm}
+	\item 新概念物理教程
+	\item Organic Semiconductors - W. Brutting
+	\item Polymers, Electrically Conducting - Ullmann's Encyclopedia of Industrial Chemistry 2002 doi:10.1002/14356007.a21{\_}429
+	\item Chemistry Libretext - Semiconductor Grade Silicon
+	\item https://en.wikipedia.org/wiki/Organic{\_}semiconductor
+	\item https://smithsonianchips.si.edu/proctor/
+	\item https://blog.disorderedmatter.eu/2008/04/15/polaron-polaron-pair-exciton-exciplex/
+\end{itemize}
+
+\newpage
+
+\section{附錄}
+\subsection{電子級矽的工業製法}
+電子級矽可以從冶金級矽純化得到，而較不純的冶金級矽又可以簡單地由出土二氧化矽礦石在工廠提取，這也是為什麼矽在半導體材料中是數一數二便宜的。
+
+\begin{figure}[h!]%
+	\centering
+     \subfloat{\includegraphics[width=8cm]{metallurgicalsiliconMGS.png}}%
+	\;
+     \subfloat{\includegraphics[width=8cm]{electronicsiliconEGS.png}}%
+	\caption{Metallurgical Grade Si / Electronic Grade Si.}
+\end{figure}
+
+\subsection{關於矽–氧鍵結的小知識}
+雖然與此主題關連不大，不過有趣的是，矽–氧鍵結的鍵能之所以如此大，有人認為是因為矽的3d軌域電子與氧形成反饋$\pi$鍵（$\pi$-backbonding），提供矽–氧鍵部分雙鍵性質。同時矽–氧鍵長的長度剛好不會太長。反過來看，碳雖然半徑更短，但就沒有d軌域可以產生反饋$\pi$鍵，這就是為什麼同樣是14族的碳無法像矽和鍺一樣與氧形成穩定的網狀共價物，地層中的分布當然就少了它們一大截。
+\begin{figure}[h!]%
+	\centering
+     \subfloat{\includegraphics[width=8cm]{bonding.png}}%
+	\caption{$\sigma$ and $\pi$ bonding.}
+\end{figure}
+
+\end{CJK}
+\end{document}

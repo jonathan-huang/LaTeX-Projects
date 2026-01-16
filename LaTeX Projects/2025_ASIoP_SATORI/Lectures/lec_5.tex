@@ -1,0 +1,43 @@
+\chapter{Coding in the Age of AI}
+% \lecture{7}{9 Sep. 08:00}{Eighth Lecture}
+
+\section{Vibe Coding}
+
+\subsection{What is vibe coding?}
+“Vibe coding” is introduced by renowned Computer scientist  Andrej Karpathy in February 2025 and emphasized the significance of AI tools in software development.
+
+\section{Context Engineering}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{Figures/context.png}
+    \caption{Context engineering diagram from https://blog.langchain.com/the-rise-of-context-engineering/}
+    \label{fig:context}
+\end{figure}
+
+Context engineering is building dynamic systems to provide the right information and tools in the right format such that the LLM can plausibly accomplish the task. Most of the time when an agent is not performing reliably the underlying cause is that the appropriate context, instructions and tools have not been communicated to the model. LLM applications are evolving from single prompts to more complex, dynamic agentic systems. As such, context engineering is becoming the most important skill an AI engineer can develop.
+
+Definition: Context engineering is building dynamic systems to provide the right information and tools in the right format such that the LLM can plausibly accomplish the task.
+
+\subsection{ChatGPT and Where It Is Going}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{Figures/gpt_evo.png}
+    \caption{A schematic diagram of the relation between various ChatGPT models by X user @arithmoquine.}
+    \label{fig:gpt_evo}
+\end{figure}
+
+The length of tasks achievable by AI agents with at least 50\% success rate has been exponentially increasing, as shown in figure \ref{fig:task_length}. This is a result of improvements in AI models and the development of more sophisticated tools that can be integrated into AI workflows.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{Figures/ai_growth.png}
+    \caption{A graph showing the exponential increase in task length achievable by AI agents over time.}
+    \label{fig:task_length}
+\end{figure}
+
+\section{Context Engineering is not Prompt Engineering}
+Why the shift from “prompts” to “context”? Early on, developers focused on phrasing prompts cleverly to coax better answers. But as applications grow more complex, it's becoming clear that providing complete and structured context to the AI is far more important than any magic wording.
+
+\section{Some Warnings}
+Research has shown that for experienced programmers, AI assistance actually \emph{slows down} productivity.

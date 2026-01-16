@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+
+\usepackage{geometry}
+    \geometry{
+        a4paper,
+        total={170mm,257mm},
+        left=20mm,
+        top=20mm,
+    }
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{fact}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\newenvironment{exerciseManual}[1]{%
+  \renewcommand{\theexercise}{#1}%
+  \begin{exercise}%
+  \addtocounter{exercise}{-1}%
+}{%
+  \end{exercise}%
+}
+
+\newenvironment{solutionManual}[1]{%
+  \renewcommand{\thesolution}{#1}%
+  \begin{solution}%
+  \addtocounter{solution}{-1}%
+}{%
+  \end{solution}%
+}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+
+\pagestyle{fancy}
+\lhead{Jonathan Huang}
+\rhead{MATH 352 Complex Analysis}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+    \textbf{MATH 352 Winter 2026 - Assignment 1} \\
+    \vspace{0.5cm}
+    \large 
+    Due Jan 23, 2026\\
+    \vspace{0.1cm}
+    Instructor: Professor Jason P. Bell
+}
+\author{Jonathan Huang 21232848 MATH}
+
+\maketitle
+
+For the problems in this assignment we use the following terminology. Let $P(z)=p_0+p_1 z +\cdots + p_d z^d$ be a complex polynomial of degree $d\ge 2$ and for $n\ge 1$ we let $P^n(z)$ denote the $n$-th iterate of $P$ under composition; that is $P^1(z)=P(z)$ and $P^n(z) = P(P^{n-1}(z))$ for $n\ge 1$.  We say that a point $c\in \mathbb{C}$ is \emph{periodic} for $P$ if there is some $m$ such that $P^m(c)=c$ and if $m$ is the smallest positive integer for which this occurs, we say that $m$ is the \emph{period} of $c$ under the map $P$.  We say that a periodic point $c$ with period $m$ is an \emph{attracting periodic point} if there is an $\epsilon>0$ such that for each $x\in B(c,\epsilon)$ we have $P^{nm}(x)\to c$ as $n\to \infty$.
+
+% 
+\newpage
+\begin{exercise}
+    Recall from the warm-up exercises that if $n$ is a positive integer then there is a unique degree-$n$ polynomial $T_n(x)$ with rational coefficients such that $T_n(\cos(\theta))= \cos(n\theta)$ for all $\theta\in [0,2\pi)$.
+    \begin{enumerate}[(a)]
+        \item (1 point) Show that $T_n\circ T_m(x)=T_m\circ T_n(x)=T_{nm}(x)$ and so these polynomials commute with one another under composition.
+
+        \item (1 point) Show that $T_n((z+1/z)/2)= (z^n+1/z^n)/2$ for all nonzero $z\in \mathbb{C}$. Hint: show it first when $|z|=1$.
+
+        \item (2 points) Use part (b) to show every periodic point of $T_n(z)$ is of the form $\cos(\pi \alpha)$ with $\alpha$ rational.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}[(a)]
+        \item By definition, for all $ \theta \in [0, 2\pi] $, we have $ T_n (\cos \theta) = \cos(n \theta) $, $ T_m (\cos \theta) = \cos(m \theta) $, and $ T_{nm} (\cos \theta) = \cos(nm \theta) $. We have 
+        \[
+            T_n \circ T_m( \cos \theta) = T_n ( \cos (m \theta)) = \cos (n m \theta) = T_{nm} (\cos \theta) = T_m \circ T_n( \cos \theta).
+        \]
+        Since polynomials that agree on infinitely many points are identical, we have $ T_n \circ T_m (x) = T_{nm} (x) = T_m \circ T_n (x) $ for all $ x \in \mathbb{C} $.
+
+        \item The complex cosine is defined for $ \theta \in [0, 2\pi) $ as 
+        \[
+            \cos \theta = \frac{e^{i\theta} + e^{-i\theta}}{2} = \frac{1}{2} \left(z + \frac{1}{z}\right), 
+        \]
+        where we set $ z = e^{i\theta} \in \{ z \in \mathbb{C} \mid |z| = 1 \} $. By definition of $ T_n $, we have
+        \[
+            T_n \left(\frac{z + 1/z}{2}\right) = T_n \left(\cos \theta \right) = \cos \left(n \theta \right) = \frac{e^{i n \theta} + e^{-i n \theta}}{2} = \frac{z^n + 1/z^n}{2}.
+        \]
+        Since both sides are polynomials in $ z $ that agree on the unit circle, they agree for all nonzero $ z \in \mathbb{C} $.
+
+        \item 
+    \end{enumerate}
+    
+\end{solution}
+
+% 
+\newpage
+\begin{exercise}
+    Get ready to have some fun with Julia sets.
+    \begin{enumerate}[(a)]
+        \item (1 point) Find the complex periodic points for $P(z)=z^d$ where $d$ is a positive integer $\ge 2$.  Which ones are attracting?
+        
+        
+        \item (1 point) Let $J$ denote the closure of the non-attracting periodic points for $P(z)=z^d$.  What is $J$? 
+
+        \item (2 points) Let $P(z)=z^2$ and let $Q(z)=-2z^2-z$.  Show that $P(z)$ and $Q(z)$ have only finitely many common periodic points.  What are they?
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\end{solution}
+
+% 
+\newpage
+\begin{exercise}
+    By an \emph{algorithm}, we mean a step-by-step procedure which begins with an input and then follows a sequence of instructions and produces an output (we assume that the procedure always terminates after a finite number of steps and always produces some output); moreover, we assume algorithms are deterministic; that is, the same input always yields the same output.  
+ 
+    \begin{enumerate}[(a)]
+        \item (3 points) Give an algorithm, which takes a monic\footnote{a polynomial $P(z)$ is monic if the leading coefficient is $1$; for example, $z^3+2z+5$ is monic, which $3z^2+1$ is not.} polynomial of degree $\ge 2$ with integer coefficients as input and outputs {\tt periodic} if $0$ is a periodic point for $P(z)$ and outputs {\tt not periodic} if $0$ is not periodic.  This algorithm should work for all monic integer polynomials of degree at least $2$.  
+
+        \item (1 point) Can you give an algorithm that takes an input a monic polynomial $P(z)$ of degree at least two with \emph{rational} coefficients and outputs {\tt periodic} if $0$ is a periodic point for $P(z)$ and outputs {\tt not periodic} if $0$ is not periodic? If you get this, you can use this as your algorithm for part (a), of course, but part (a) is easier to figure out and if you get (b) wrong you will get zero points on (a).
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    
+\end{solution}
+
+\end{CJK}
+\end{document}

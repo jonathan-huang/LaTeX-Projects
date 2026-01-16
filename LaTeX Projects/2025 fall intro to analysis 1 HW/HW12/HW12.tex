@@ -1,0 +1,365 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz} 
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc,matrix}
+\usetikzlibrary{arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{xcolor}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{problem}{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem*{recall}{Recall}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+    \title{%
+  \textbf{Math 2213 Introduction to Analysis I} \\
+  \vspace{0.5cm}
+  \large Homework 12 Due December 12 (Friday), 2025
+}
+\author{物理三 黃紹凱 B12202004}
+\date{\today}
+
+\maketitle
+
+% Exercise 1
+\begin{exercise}[\textbf{Exercise 5.4.1}, 20 points]
+    Show that if $f:\mathbb{R}\to\mathbb{C}$ is both compactly supported and  $\mathbb{Z}$--periodic, then it is identically zero. Hint: A function $f:\mathbb{R}\to\mathbb{C}$ is said to be \emph{compactly supported} if the set
+    \[
+    \operatorname{supp}(f) := \overline{\{\,x\in\mathbb{R} : f(x)\neq 0\,\}}
+    \]
+    is a compact subset of $\mathbb{R}$. Equivalently, $f$ is compactly supported if there exists a bounded closed interval $[a,b]\subset\mathbb{R}$ such that
+    \[
+    f(x)=0 \qquad \text{whenever } x\notin[a,b].
+    \]
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+% Exercise 2
+\begin{exercise}[\textbf{Exercise 5.5.1}, 20 points]
+    Let $f$ be a function in $C(\mathbb{R}/\mathbb{Z};\mathbb{C})$, and define the  \emph{trigonometric Fourier coefficients} $a_n,b_n$ for $n=0,1,2,\dots$ by
+    \[
+    a_n := 2\int_{0}^{1} f(x)\cos(2\pi n x)\,dx,\qquad
+    b_n := 2\int_{0}^{1} f(x)\sin(2\pi n x)\,dx.
+    \]
+
+    \begin{enumerate}[(a)]
+    \item Show that the series
+    \[
+    \frac12 a_0+\sum_{n=1}^\infty \bigl(a_n \cos(2\pi n x)+b_n\sin(2\pi n x)\bigr)
+    \]
+    converges to $f$ in the $L^2$-metric.
+
+    \item Show that if $\sum_{n=1}^\infty |a_n|$ and $\sum_{n=1}^\infty |b_n|$ are absolutely convergent, then the above series actually converges \emph{uniformly} to $f$ (and not just in $L^2$).
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}[(a)]
+        \item By the Fourier Theorem (Theorem 5.5.1), for any $ f \in C\left(\mathbb{R} / \mathbb{Z}, \mathbb{C}\right) $, we have 
+        \[
+            \lim_{N \to \infty} \left\lVert f - \sum_{n=-N}^N \hat{f}(n) e_n \right\rVert_2 = 0.   
+        \]
+        That is, the Fourier series $ F_N = \sum_{n=-N}^N \hat{f}(n) e_n $ converges to $f$ in the $L^2$-metric. We have $ e_n = e^{2 \pi i n x} = \cos 2 \pi n x + i \sin 2 \pi n x $.
+        \[
+            \begin{split}
+                F_N &= \sum_{n=-N}^N \hat{f}(n) e_n = \hat{f}(0) + \sum_{n=1}^N \left(\hat{f}(n) e_n + \hat{f}(-n) e_{-n}\right) \\
+                &= \hat{f}(0) + \sum_{n=1}^N \left(\hat{f}(n) (\cos 2 \pi n x + i \sin 2 \pi n x) + \hat{f}(-n) (\cos 2 \pi n x - i \sin 2 \pi n x)\right) \\
+                &= \hat{f}(0) + \sum_{n=1}^N \left((\hat{f}(n) + \hat{f}(-n)) \cos 2 \pi n x + i (\hat{f}(n) - \hat{f}(-n)) \sin 2 \pi n x\right).
+            \end{split}
+        \]
+        Finally note that the given series is exactly $ F_N $: 
+        \[
+            \begin{split}
+                \hat{f}(n) + \hat{f}(-n) &= \int_{[0,1]} \mathrm{d}x\, f(x) \left(e^{2 \pi inx} + e^{-2 \pi nx}\right) \\
+                &= 2 \int_{[0,1]} \mathrm{d}x\, f(x) \cos 2 \pi n x = a_n, \quad n \geq 2, \\
+                \hat{f}(0) &= \int_{[0,1]} \mathrm{d}x\, f(x) = \frac{a_0}{2}, \\
+                i (\hat{f}(n) - \hat{f}(-n)) &= i \int_{[0,1]} \mathrm{d}x\, f(x) \left(e^{2 \pi inx} - e^{-2 \pi nx}\right) \\
+                &= -2 \int_{[0,1]} \mathrm{d}x\, f(x) \sin 2 \pi n x = b_n, \quad n \geq 1.
+            \end{split}
+        \]
+
+        \item Theorem 5.5.3 states that for $ f \in C\left(\mathbb{R} / \mathbb{Z}, \mathbb{C}\right) $, if $ \sum_{n=-\infty}^\infty |\hat{f}(n)| < \infty $, then the Fourier series converges uniformly to $f$. I.e. 
+        \[
+            \lim_{N \to \infty} \left\lVert f - \sum_{n=-N}^N \hat{f}(n) e_n \right\rVert_{\infty} = 0.
+        \]
+        Suppose $ (a_n) $ and $ (b_n) $ converge absolutely, then 
+        \[
+            S_n = \sum_{k=1}^n |a_k|, \quad T_n = \sum_{k=1}^n |b_k|, \quad n = 1, 2, \dots
+        \]
+
+        \[
+            \sum_{n=-N}^N \vert \hat{f}(n) \vert = \sum_{n=-N}^N \left\vert \int_{[0,1]} \mathrm{d}x\, f(x) e^{-2 \pi i n x} \right\vert \leq \sum_{n=-N}^N \int_{[0,1]} \mathrm{d}x\, \vert f(x) \vert \vert e^{-2 \pi i n x} \vert = (2N + 1) \lVert f \rVert_{\infty} < \infty. 
+        \]
+        \[
+            \sum_{n=-N}^N \vert \hat{f}(n) e_n \vert = \vert \hat{f}(0) \vert + \sum_{n=1}^N \left(\vert \hat{f}(n) \vert + \vert \hat{f}(-n) \vert\right) = \frac{\vert a_0 \vert}{2} + \sum_{n=1}^N \left(\frac{\vert a_n \vert}{2} + \frac{\vert b_n \vert}{2}\right). 
+        \]
+    \end{enumerate}
+\end{solution}
+
+% Exercise 3
+\begin{exercise}[\textbf{Exercise 5.5.2}, 20 points]
+    Let $f(x)$ be the function defined by $f(x)=(1-2x)^2$ when $x\in [0,1]$, and extended to be $\mathbf{Z}$–periodic on $\mathbf{R}$.
+
+    \begin{enumerate}[(a)]
+        \item Using Exercise 5.5.1, show that the series
+        \[
+        \frac13+\sum_{n=1}^\infty \frac{4}{\pi^2 n^2}\cos(2\pi n x)
+        \]
+        converges uniformly to $f$. \textit{Hint: You may use the fact that} 
+        \[
+        \int_0^1 x\,e^{-2\pi i n x}\,dx
+        =
+        -\frac{1}{2\pi i n},
+        \qquad (n\neq 0),
+        \]
+        \[
+        \int_0^1 x^2\,e^{-2\pi i n x}\,dx
+        =
+        -\frac{1}{2\pi i n}
+        +\frac{2}{(2\pi n)^2},
+        \qquad (n\neq 0).
+        \]
+
+        \item Conclude that
+        \[
+        \sum_{n=1}^\infty \frac{1}{n^2}=\frac{\pi^2}{6}.
+        \]
+
+        \item Conclude that
+        \[
+        \sum_{n=1}^\infty \frac{1}{n^4}=\frac{\pi^4}{90}.
+        \]
+        \textit{Hint: expand the cosines in terms of exponentials and use Plancherel's theorem.} 
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}[(a)]
+        \item Following Exercise 5.5.1, we compute the Fourier coefficients of $f$. For $n \geq 1$, we have
+        \[
+            \int_0^1 \mathrm{d}x\, x e^{-2 \pi i n x} = \frac{i}{2 \pi n} = \int_0^1 \mathrm{d}x\, x \cos 2 \pi n x - i \int_0^1 \mathrm{d}x\, x \sin 2 \pi n x,
+        \]
+        \[
+            \int_0^1 \mathrm{d}x\, x^2 e^{-2 \pi i n x} = \frac{1}{2 \pi^2 n^2} - \frac{i}{2 \pi n} = \int_0^1 \mathrm{d}x\, x^2 \cos 2 \pi n x - i \int_0^1 \mathrm{d}x\, x^2 \sin 2 \pi n x.
+        \]
+        Then, 
+        \[
+            \begin{split}
+                a_n &= 2 \int_0^1 (1 - 2x)^2 \cos(2 \pi n x) \, dx \\
+                &= 2 \int_0^1 (1 - 4x + 4x^2) \cos(2 \pi n x) \, dx \\
+                &= -8 (0) + 8 \left(\frac{1}{2 \pi^2 n^2}\right) = \frac{4}{\pi^2 n^2}, \quad n \geq 2, \\
+                a_0 &= 2 \int_0^1 (1 - 2x)^2 \, dx = \frac{2}{3}, \\
+                b_n &= 2 \int_0^1 (1 - 2x)^2 \sin(2 \pi n x) \, dx \\
+                &= 2 \int_0^1 (1 - 4x + 4x^2) \sin(2 \pi n x) \, dx \\
+                &= 0 - 8 \left(\frac{1}{2 \pi n}\right) + 8 (0) = 0, \quad n \geq 1.
+            \end{split}
+        \]
+        Hence, the Fourier series of $f$ is
+        \[
+            \frac{1}{3} + \sum_{n=1}^\infty \frac{4}{\pi^2 n^2} \cos(2 \pi n x).
+        \]
+        Since $\sum_{n=1}^\infty \left|\frac{4}{\pi^2 n^2}\right|$ converges, by Exercise 5.5.1(b), the series converges uniformly to $f$.
+
+        \item Plugging in $x=0$ gives
+        \[
+            f(0) = 1 = \frac{1}{3} + \sum_{n=1}^\infty \frac{4}{\pi^2 n^2} \implies \sum_{n=1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6}.
+        \]
+
+        \item We can write 
+        \[
+            F_N = \frac{1}{3} + \sum_{n=1}^{\infty} \frac{4}{\pi^2 n^2} \cos(2 \pi n x) = \frac{1}{3} + \sum_{n=1}^{\infty} \frac{2}{\pi^2 n^2} (e^{2 \pi i n x} + e^{-2 \pi i n x}), 
+        \]
+        and so the complex Fourier coefficients are
+        \[
+            \hat{f}(0) = \frac{1}{3}, \quad \hat{f}(n) = \frac{2}{\pi^2 n^2}, \quad n \geq 1.
+        \]
+        By Plancherel's theorem, we have
+        \[
+            \int_0^1 \mathrm{d}x\, |f(x)|^2 = \sum_{n=-\infty}^\infty |\hat{f}(n)|^2 = \frac{1}{9} + \frac{8}{\pi^4} \sum_{n=1}^\infty \frac{1}{n^4}.
+        \]
+        On the other hand, we have 
+        \[
+            \int_0^1 \mathrm{d}x\, (1 - 2x)^4 = \int_0^1 \mathrm{d}x\, (1 - 8x + 24x^2 - 32x^3 + 16x^4) = \frac{1}{5}.
+        \]
+        Hence, 
+        \[
+            \frac{1}{5} = \frac{1}{9} + \frac{8}{\pi^4} \sum_{n=1}^\infty \frac{1}{n^4} \implies \sum_{n=1}^\infty \frac{1}{n^4} = \frac{\pi^4}{90}.
+        \]
+    \end{enumerate}
+\end{solution}
+
+% Exercise 4
+\begin{exercise}[\textbf{Exercise 5.5.3}, 20 points]
+    If $f\in C(\mathbf{R}/\mathbb{Z};\mathbb{C})$ and $P$ is a trigonometric
+    polynomial, show that
+    \[
+    \widehat{f*P}(n) = \widehat f(n)\,c_n = \widehat f(n)\,\widehat P(n)
+    \]
+    for all integers $n$, where $c_n$ are the Fourier coefficients of $P$.
+    More generally, if $f,g\in C(\mathbf{R}/\mathbf{Z};\mathbf{C})$, show that
+    \[
+    \widehat{f*g}(n)=\widehat f(n)\,\widehat g(n)
+    \quad\text{for all }n\in\mathbf{Z}.
+    \]
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+% Exercise 5
+\begin{exercise}[\textbf{Exercise 5.5.4}, 20 points]
+    Let $f\in C(\mathbf{R}/\mathbf{Z};\mathbf{C})$ be differentiable, and assume its derivative
+    $f'$ is also continuous. Show that
+    \[
+    \sum_{n=-\infty}^\infty |n\,\widehat f(n)|^2<\infty
+    \]
+    and that the Fourier coefficients of $f'$ satisfy
+    \[
+    \widehat{f'}(n)=2\pi i n\,\widehat f(n)\qquad\text{for all }n\in\mathbf{Z}.
+    \]
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\newpage
+
+\begin{center}
+    You can do the following problems to practice. \\
+    You don't have to submit the following problems.
+\end{center}
+
+% Exercise 6
+\begin{exercise}[\textbf{Exercise 5.5.5}, Optional]
+    Let $f,g\in C(\mathbb{R}/\mathbb{Z};\mathbb{C})$. Prove the Parseval identity
+    \[
+    \Re\int_0^1 f(x)\overline{g(x)}\,dx
+    = \Re\sum_{n\in\mathbb{Z}} \widehat f(n)\,\overline{\widehat g(n)}.
+    \]
+    \textit{Hint: apply the Plancherel theorem to $f+g$ and $f-g$, and subtract the
+    two.} Then conclude that the real parts can be removed, i.e.
+    \[
+    \int_0^1 f(x)\overline{g(x)}\,dx
+    = \sum_{n\in\mathbb{Z}} \widehat f(n)\,\overline{\widehat g(n)}.
+    \]
+    \textit{Hint: apply the first identity with $f$ replaced by $if$.} 
+\end{exercise}
+
+\begin{solution}
+    
+\end{solution}
+
+% Exercise 7
+\begin{exercise}[\textbf{Exercise 5.5.6}, Optional]
+    In this exercise we develop Fourier series for functions of an arbitrary
+    period $L>0$. Let $L>0$ and let $f:\mathbb{R}\to\mathbb{C}$ be a continuous $L$-periodic function.  For each integer $n$ define
+    \[
+    c_n := \frac1L\int_{0}^{L} f(x)\,e^{-2\pi i n x/L}\,dx.
+    \]
+
+    \begin{itemize}
+        \item[(a)]
+        Show that the series
+        \[
+        \sum_{n=-\infty}^{\infty} c_n\,e^{2\pi i n x/L}
+        \]
+        converges to $f$ in $L^2$-metric.  More precisely, prove that
+        \[
+        \lim_{N\to\infty}\int_{0}^{L}
+        \Bigl| f(x)-\sum_{n=-N}^{N} c_n\,e^{2\pi i n x/L}\Bigr|^2 dx = 0.
+        \]
+        \textit{Hint: apply the Fourier theorem to the function $f(Lx)$.} 
+
+        \item[(b)]
+        If the series $\sum_{n=-\infty}^{\infty} |c_n|$ is absolutely convergent, show that
+        \[
+        \sum_{n=-\infty}^{\infty} c_n\,e^{2\pi i n x/L}
+        \]
+        converges \emph{uniformly} to $f$.
+
+        \item[(c)]
+        Show that
+        \[
+        \frac1L\int_{0}^{L} |f(x)|^2\,dx
+        = \sum_{n=-\infty}^{\infty} |c_n|^2.
+        \]
+        \textit{Hint: apply the Plancherel theorem to the function $f(Lx)$.} 
+    \end{itemize}    
+\end{exercise}
+
+\begin{solution}
+    
+\end{solution}
+
+\end{CJK}
+\end{document}

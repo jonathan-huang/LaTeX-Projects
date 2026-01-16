@@ -1,0 +1,289 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem*{recall}{Recall}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+\title{%
+  \textbf{Math 2213 Introduction to Analysis I} \\
+  \vspace{0.5cm}
+  \large Homework 2 Due September 17 (Thursday), 2025
+}
+\author{物理、數學三 黃紹凱 B12202004}
+\date{\today}
+
+\maketitle
+
+\begin{definition}[metric]\label{def:metric}
+  A function $d : X \times X \to [0,\infty)$ is called a \emph{metric} on $X$ if, for all $x,y,z \in X$, the following properties hold:
+  \begin{enumerate}[(i)]
+    \item For any $ x \in X $, we have $d(x,x) = 0$. 
+    \item (Positivity) For any distinct $ x, y \in X$, we have $d(x,y) > 0$.
+    \item (Symmetry) For any $ x, y \in X$, we have $d(x,y) = d(y,x)$.
+    \item (Triangle Inequality) For any $ x, y, z \in X$, we have $d(x,z) \leq d(x,y) + d(y,z)$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Interior, exterior, boundary points]\label{def:int-ext-bdry}
+  Let $(X,d)$ be a metric space, let $E \subseteq X$, and let $x_0 \in X$.
+  We say that $x_0$ is an \emph{interior point} of $E$ if there exists a radius $r>0$ such that $B(x_0,r)\subseteq E$. We say that $x_0$ is an \emph{exterior point} of $E$ if there exists a radius $r>0$ such that $B(x_0,r)\cap E=\varnothing$. We say that $x_0$ is a \emph{boundary point} of $E$ if it is neither an interior point nor an exterior point of $E$.
+\end{definition}
+
+\begin{definition}[Closure]\label{def:closure}
+  Let $(X,d)$ be a metric space, let $E \subseteq X$, and let $x_0 \in X$.
+  We say that $x_0$ is an \emph{adherent point} of $E$ if for every radius
+  $r>0$, the ball $B(x_0,r)$ has a non-empty intersection with $E$; i.e.,
+  $B(x_0,r)\cap E \neq \varnothing$. The set of all adherent points of $E$ is called the \emph{closure} of $E$
+  and is denoted $\overline{E}$.
+\end{definition}
+
+\begin{definition}[Open and closed sets]\label{def:open-closed}
+  Let $ (X, d) $ be a metric space, and let $ E $ be a subset of $ X $. We say that $ E $ is closed if it contains all of its boundary points, i.e., $ \partial E \subseteq E $. We say that $ E $ is open if it contains none of its boundary points, i.e., $ \partial E \cap E = \varnothing $. If $ E $ contains some of its boundary points but not others, then it is neither open nor closed.
+\end{definition}
+
+\newpage 
+
+% Problem 1
+\begin{problem}[11 pts]
+  If $(X,d)$ is a metric space, define
+  \begin{equation}
+    d^{\prime} (x,y) = \frac{d(x,y)}{1 + d(x,y)}.
+  \end{equation}
+  Prove that $d^{\prime} $ is also a metric on $X$. Note that $0 \leq d^{\prime}(x,y) < 1$ for all $x,y \in X$.
+\end{problem}
+\begin{solution}
+  We shall verify that $ d^{\prime} $ satisfies the definition of a metric (\ref{def:metric}). 
+  \begin{enumerate}[(i)]
+    \item For any $ x \in X $, we have $d^{\prime}(x,x) = d(x,x) / (1+d(x,x)) = 0$.
+    \item For any distnct $ x, y \in X$, $d^{\prime}(x,y) = d(x,y) / (1+d(x,y)) > 0$ since $d(x,y) > 0$.
+    \item For any $ x, y \in X$, $d^{\prime}(x,y) = d(x,y) / (1+d(x,y)) = d(y,x) / (1+d(y,x)) = d^{\prime}(y,x)$ by the symmetry of $d$.
+    \item For any $ x, y, z \in X$, we have
+    \begin{equation}
+      \begin{split}
+        d^{\prime}(x,z) &= \frac{d(x,z)}{1 + d(x,z)} \leq \frac{d(x,y) + d(y,z)}{1 + d(x,y) + d(y,z)} \\
+        &= \frac{d(x,y)}{1 + d(x,y) + d(y,z)} + \frac{d(y,z)}{1 + d(x,y) + d(y,z)} \\
+        &\leq \frac{d(x,y)}{1 + d(x,y)} + \frac{d(y,z)}{1 + d(y,z)} \\
+        &= d^{\prime}(x,y) + d^{\prime}(y,z).
+      \end{split}
+    \end{equation}
+    The first inequality follows from the triangle inequality of $d$: 
+    \begin{equation}
+      \begin{split}
+        d^{\prime} (x,z) &= \frac{d(x,z)}{1 + d(x,z)} = \left(1 + \frac{1}{d(x,z)}\right)^{-1} \\
+        &\leq \left(1 + \frac{1}{d(x,y) + d(y,z)}\right)^{-1} \\
+        &= \frac{d(x,y) + d(y,z)}{1 + d(x,y) + d(y,z)}.
+      \end{split}
+    \end{equation}
+  \end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 2
+\begin{problem}[Exercise 1.2.4 (12 pts)]
+  Let $(X,d)$ be a metric space, $x_0$ be a point in $X$, and $r>0$. Let $B$ be the open ball
+  \begin{equation}
+    B \equiv B(x_0,r) = \{ x \in X : d(x,x_0) < r \},
+  \end{equation}
+  and let $C$ be the closed ball
+  \begin{equation}
+    C \equiv  \{ x \in X : d(x,x_0) \leq r \}.
+  \end{equation}
+
+  \begin{enumerate}[(a)]
+    \item Show that $\overline{B} \subseteq C$.
+    \item Give an example of a metric space $(X,d)$, a point $x_0$, and a radius $r>0$ such that $\overline{B} \neq C$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+  ~
+  \begin{enumerate}[(a)]
+    \item Following definition (\ref{def:closure}), let $ x \in \overline{B} $, then $ B(x, r^{\prime}) \cap B \neq \varnothing $ for any $ r^{\prime} > 0 $. Thus, there exists some $ y \in B(x, r^{\prime}) \cap B(x_0, r) $, $ y $ satisfies $ d(x, y) < r^{\prime} $ and $ d(y, x_0) < r $. By the triangle inequality, $ d(x, x_0) \leq d(x, y) + d(y, x_0) < r^{\prime} + r $ for any $ r^{\prime} > 0 $, so $ d(x, x_{0}) \leq r $. Therefore, $ x \in C $, and $ \overline{B} \subseteq C $.    
+    \item Let $ d $ be the discrete metric and $ X $ be any set with $ \vert X \vert \geq 2 $. Then for any $ x \in X $ and $ r=1 $, $ B_{(X,d)}(x, r) = \{x\} $, $ \overline{B} = \{x\} $. However, the closed ball $ C = \overline{B}(x_{0}, r) $ is all of $ X $. We may conclude that the closure of an open ball is not always the corresponding closed ball, i.e. $ \overline{B(x,r)} \neq \overline{B}(x,r) $.
+  \end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 3
+\begin{problem}[21 pts]
+  Two metrics $d_1$ and $d_2$ on a set $X$ are said to be \emph{Lipschitz equivalent} if there exist constants $C_1>0$ and $C_2>0$ such that
+  \begin{equation}
+    \label{equ:lipschitz}
+    C_1 d_2(x,y) \leq d_1(x,y) \leq C_2 d_2(x,y) \quad \text{for all } x,y \in X.
+  \end{equation}
+  Let $E \subset X$.
+  \begin{enumerate}[(a)]
+    \item Prove that $E$ is open in $(X,d_1)$ if and only if $E$ is open in $(X,d_2)$.
+    \item Prove that $E$ is closed in $(X,d_1)$ if and only if $E$ is closed in $(X,d_2)$.
+    \item Two metrics $d_1$ and $d_2$ on a set $X$ are said to be \emph{topologically equivalent} if they induce the same topology on $X$. That is, a set $U \subset X$ is open in $(X,d_1)$ if and only if it is open in $(X,d_2)$. Give examples of topologically equivalent metrics that are not Lipschitz equivalent.
+  \end{enumerate}
+\end{problem}
+\begin{solution}
+  ~
+  \begin{enumerate}[(a)]
+    \item Suppose $ E $ is open in $ (X, d_{1}) $, then by Proposition 1.2.15 (a), there exists $ r > 0 $ such that $ B_{d_{1}}(x, r) \subseteq E $ for any $ x \in E $. By the left inequality of equation (\ref{equ:lipschitz}), we have 
+    \begin{equation}
+      d_2(x,y) \leq \frac{1}{C_1} d_1(x,y) < \frac{r}{C_1},
+    \end{equation}
+    Thus, $ x \in B_{(X,d_{2})}(x, r / C_1) \subseteq B_{(X, d_{2})}(x, r) \subseteq E $ and $ E $ is open in $(X,d_2)$. Conversely, suppose $ E $ is open in $ (X, d_{2}) $, then there exists $ r > 0 $ such that $ B_{d_{2}}(x, r) \subseteq E $ for any $ x \in E $. By the right inequality of equation (\ref{equ:lipschitz}), we have
+    \begin{equation}
+      d_1(x,y) \leq C_2 d_2(x,y) < C_2 r,
+    \end{equation}
+    Thus, $ x \in B_{(X,d_{1})}(x, C_2 r) \subseteq B_{(X, d_{1})}(x, r) \subseteq E $ and $ E $ is open in $(X,d_1)$.
+    \item By Proposition 1.2.15 (e), $ E $ is open if and only if $ E^c \equiv X / E $ is closed. Thus, by part (a), $ E $ is closed in $ (X, d_{1}) $ if and only if $ E^c $ is open in $ (X, d_{1}) $ if and only if $ E^c $ is open in $ (X, d_{2}) $ if and only if $ E $ is closed in $ (X, d_{2}) $.
+    \item Consider the metrics $ d_{1}(x,y) = \vert x-y \vert  $ and $ d_{2}(x,y) = \vert \tan x - \tan y \vert $ on $ S = (0, \pi /2) \subseteq \mathbb{R} $. Let $ U \subseteq S $ be $ d_{1} $-open, then for any $ x \in U $, there exists $ r_{x} > 0 $ such that $ B_{(S, d_{1})}(x, r_{x}) \subseteq U $. Then 
+    \begin{equation}
+      \vert \tan y - \tan x \vert = \frac{\vert \tan (y-x) \vert}{1 + \tan x \tan y} \leq \vert \tan (y-x) \vert = \tan \vert y-x \vert < \tan r_{x},
+    \end{equation}
+    so $ B_{(S, d_{2})}(x, \tan r_{x}) \subseteq U $. Conversely, suppose $ U \in S $ is $ d_{2} $-open, then there exists $ r_{x} > 0 $ such that $ B_{(S, d_{2})}(x, r_{x}) \subseteq U $. Then
+    \begin{equation}
+      \vert y - x \vert = \left\vert \arctan(\tan y) - \arctan(\tan x) \right\vert = \left\vert \int_{\tan x}^{\tan y} \frac{1}{1+t^2} dt \right\vert \leq \vert \tan y - \tan x \vert < r_{x},
+    \end{equation}
+    so $ B_{(S, d_{1})}(x, r_{x}) \subseteq U $. Therefore, $ d_{1} $ and $ d_{2} $ are topologically equivalent. However, $ d_{1} $ is bounded on $ S $ while $ d_{2} $ is unbounded, so they cannot be Lipschitz equivalent.
+  \end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 4
+\begin{problem}[15 pts]
+  Let $\mathcal{M}_n = M_n(\mathbb{R})$ denote the set of all $n \times n$ real matrices. Define a function on $\mathcal{M}_n \times \mathcal{M}_n$ by
+  \begin{equation}
+    \rho(A,B) = \operatorname{rank}(A-B).
+  \end{equation}
+  Then $\rho$ is a metric on $\mathcal{M}_n$ and it is topologically equivalent to the discrete metric on $\mathcal{M}_n$.
+\end{problem}
+\begin{solution}
+  First we verify that $ \rho $ is a metric on $ \mathcal{M}_{n} $ by verifying the four properties of definition (\ref{def:metric}).
+  \begin{enumerate}[(i)]
+    \item $ \rho(A, A) = 0 $ since the rank of the zero matrix is zero.
+    \item For any distinct $ A, B \in \mathcal{M}_{n} $, we have $ \rho(A, B) = \operatorname{rank}(A-B) > 0 $ since $ A-B $ is a non-zero matrix and the rank of a non-zero matrix is positive.
+    \item For any $ A, B \in \mathcal{M}_{n} $, we have $ \rho(A, B) = \operatorname{rank}(A-B) = \operatorname{rank}((-1)(B-A)) = \operatorname{rank}(B-A) = \rho(B, A) $, since multiplication by a nonzero scalar does not change the rank.
+    \item For any $ X, Y \in \mathcal{M}_{n} $, let $ \{e_i\} $ and $ \{f_j\} $ be the bases for the columns of $ X $ and $ Y $, respectively, then $ \{e_i\} \cup \{f_j\} $ spans the columns of $ X + Y $. Hence $ \operatorname{rank}(X+Y) \leq \left\vert \{e_i\} \cup \{f_j\} \right\vert \leq \left\vert \{e_i\} \right\vert + \left\vert \{f_j\} \right\vert = \operatorname{rank}(X) + \operatorname{rank}(Y) $. Therefore, for any $ A, B, C \in \mathcal{M}_{n} $, we have $ \rho(A, C) = \operatorname{rank}(A-C) = \operatorname{rank}((A-B)+(B-C)) \leq \operatorname{rank}(A-B) + \operatorname{rank}(B-C) = \rho(A, B) + \rho(B, C) $.
+  \end{enumerate}
+  Denote the discrete metric by $ d $. Any $ U \subseteq \mathcal{M}_{n} $ is $ d $-open in $ \mathcal{M}_{n} $, since for any $ A \in U $, we have $ B_{d}(A, 1) = \{A\} \subseteq U $. Conversely, $ \rho(A, B) = \operatorname{rank}(A-B) \geq 1 $ if and only if $ A \neq B $, so $ B_{\rho}(A, 1) = \{A\} $.  Thus, any $ U \subseteq \mathcal{M}_{n} $ is $ \rho $-open in $ \mathcal{M}_{n} $. All subsets are $ d $- and $ \rho $-open, so a subset is open in $ (\mathcal{M}_{n}, d) $ if and only if it is open in $ (\mathcal{M}_{n}, \rho) $. Therefore, $ d $ and $ \rho $ are topologically equivalent.
+\end{solution}
+
+\medskip
+
+% Problem 5
+\begin{problem}[20 pts]
+  Let $E$ be a subset of a metric space $(X,d)$. Prove the following:
+  \begin{enumerate}[(a)]
+    \item The boundary of $E$ is a closed set.  
+    \item $\partial E= \overline{E} \cap    \overline{X \setminus E}$ 
+    \item If $E$ is clopen (closed and open), what is $\partial E$?
+    \item Give an example of $S \subset \mathbb{R}$ such that $\partial(\partial S) \neq \varnothing$, and infer that \textbf{"the boundary of the boundary $\partial \circ \partial$ is not always zero."} 
+  \end{enumerate}
+\end{problem}
+\begin{solution}
+  ~
+  \begin{enumerate}[(a)]
+    \item By the result of (b), $ \partial E $ is closed since it is the intersection of two closed sets by Proposition 1.2.15.
+    \item Suppose $ x \in \partial E $, then $ x $ is not interior to $ E $, so $ B(x, r) \cap X \backslash E \neq \varnothing $ for all $ r > 0 $, hence $ x \in \overline{E} $; $ x $ is not exterior to $ E $, so $ B(x,r) \cap E \neq \varnothing $ for all $ r>0 $, hence $ x \in \overline{X \backslash E} $. Therefore, $ \partial E \subseteq \overline{E} \cap \overline{X \backslash E} $. Conversely, suppose $ x \in \overline{E} \cap \overline{X \backslash E} $, then for all $ r > 0 $, $ B(x,r) \cap E \neq \varnothing $ and $ B(x,r) \cap X \backslash E \neq \varnothing $, so $ x $ is neither interior nor exterior to $ E $, hence $ x \in \partial E $. Therefore, $ \partial E = \overline{E} \cap \overline{X \backslash E} $.    
+    \item If $ E $ is clopen, then by definition (\ref{def:open-closed}) $ \partial E \subseteq E $ and $ \partial E \cap E = \varnothing $. Thus $ \partial E = \varnothing $.
+    \item Consider the set $ S = \{ x \in \mathbb{Q} \mid 2 \leq x \leq 4 \} \subset \mathbb{R} $. Since $ \mathbb{Q} $ is dense in $\mathbb{R}$, $ \partial S = [2, 4] \subseteq \mathbb{R} $. Thus, $ \partial(\partial S) = \{2, 4\} \neq \varnothing $, giving an example where $ \partial \circ \partial $ is not zero.
+  \end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 6
+\begin{problem}
+  Let $(X, d)$ be a metric space. If subsets satisfy $A \subseteq S \subseteq \overline{A}^S$, where $\overline{A}^S$ denotes the closure of $A$ with respect to the subspace metric on $S$, then $A$ is said to be \textit{dense in $S$}. Recall that the closure of $A$ in the subspace $(S, d|_{S \times S})$ is defined by
+  \begin{equation*}
+    \overline{A}^S \equiv \{ s \in S : \forall r > 0, B_S(s, r) \cap A \neq \varnothing \},
+  \end{equation*}
+  where $B_S(s, r) = B_X(s, r) \cap S$ is the open ball in $S$ relative to $X$. Equivalently, $A$ is dense in $S$ if for every $s \in S$ and $r > 0$ one has
+  \begin{equation*}
+    B_X(s, r) \cap S \cap A \neq \emptyset.
+  \end{equation*}
+
+  \begin{enumerate}[(a)]
+    \item Suppose $A \subseteq S \subseteq T$. If $A$ is dense in $S$ and $S$ is dense in $T$, prove that $A$ is dense in $T$. Equivalently,
+    \[
+    \overline{A}^S = S \quad \text{and} \quad \overline{S}^T = T \quad \Rightarrow \quad \overline{A}^T = T,
+    \]
+    where $\overline{\cdot}^Y $ denotes closure in the subspace $Y$.
+    \item If $A$ is dense in $S$ and $B$ is open in $S$, prove that $ B \subseteq \overline{A \cap B}^S $.
+    
+    \textit{Note:} $B$ is open in $S$ iff $B = V \cap S$ for some open $V \subseteq X$, equivalently, for every $b \in B$ there exists $r > 0$ such that
+    \[
+    B_S(b, r) = B_X(b, r) \cap S \subseteq B.
+    \]
+    \item If $A$ and $B$ are both dense in $S$ and $B$ is open in $S$, prove that $ A \cap B $ is dense in $S$.
+  \end{enumerate}
+\end{problem}
+\begin{solution}
+  ~
+  \begin{enumerate}[(a)]
+    \item Suppose $ A $ is dense in $ S $ and $ S $ is dense in $ T $, then for any $ s \in S $, $ t \in T $, and $ r_A, \, r_S > 0 $, we have $ B_X(s,r_S) \cap S \cap A \neq \varnothing $ and $ B_X(t, r_T) \cap T \cap S \neq \varnothing $. For any $ t \in T $, $ r > 0 $, there exists some $ s \in S $ such that $ d(t,s) < r/2 $, and there exists some $ a \in A $ such that $ d(s,a) < r/2 $. By the triangle inequality, $ d(t,a) \leq d(t,s) + d(s,a) < r $, so $ a \in B_X(t,r) \cap T \cap A $. Therefore, $ A $ is dense in $ T $.
+    \item Suppose $ A $ is dense in $ S $ and $ B $ is open in $ S $. Let $ x \in B $, then there exists $ r> 0 $ such that $ B_{S}(x,r) \subseteq B $. By the density of $ A $ in $ S $, since $ x \in B \subseteq S $,  for any $ r^{\prime} > 0 $, $ B_X(x,r^{\prime}) \cap S \cap A = B_S(x,r^{\prime}) \cap  A \neq \varnothing $. Since $ B_S(x, r^{\prime}) \subseteq B $ whenever $ r^{\prime} < r $, we have $ \varnothing \neq B_S(x,r) \cap A \subseteq B_S(s, r) \cap A \cap B $ whenever $ r^{\prime} < r $, hence the desired result. 
+    \item Suppose $ A $ and $ B $ are dense in $ S $ and $ B $ is open in $ S $. Then by the left inclusion, $ A \cap B \subseteq S $, and by (b), $ S \subseteq \overline{B} \subseteq \overline{A \cap B} $. Therefore, $ A \cap B \subseteq S \subseteq \overline{A \cap B} $, and $ A\cap B $ is dense in $ S $.
+  \end{enumerate}
+\end{solution}
+
+\end{CJK}
+\end{document}    

@@ -1,0 +1,70 @@
+%aipnauth4-2.bst 2018-12-27 (MD) hand-edited version of apsauth4-1.bst
+%Control: key (0)
+%Control: author (9) reversed initials
+%Control: editor formatted (0) differently from author
+%Control: production of article title (0) allowed
+%Control: page (1) range
+%Control: year (1) truncated
+%Control: production of eprint (0) enabled
+\begin{thebibliography}{6}%
+\makeatletter
+\providecommand \@ifxundefined [1]{%
+ \@ifx{#1\undefined}
+}%
+\providecommand \@ifnum [1]{%
+ \ifnum #1\expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+ \fi
+}%
+\providecommand \@ifx [1]{%
+ \ifx #1\expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+ \fi
+}%
+\providecommand \natexlab [1]{#1}%
+\providecommand \enquote  [1]{``#1''}%
+\providecommand \bibnamefont  [1]{#1}%
+\providecommand \bibfnamefont [1]{#1}%
+\providecommand \citenamefont [1]{#1}%
+\providecommand \href@noop [0]{\@secondoftwo}%
+\providecommand \href [0]{\begingroup \@sanitize@url \@href}%
+\providecommand \@href[1]{\@@startlink{#1}\@@href}%
+\providecommand \@@href[1]{\endgroup#1\@@endlink}%
+\providecommand \@sanitize@url [0]{\catcode `\\12\catcode `\$12\catcode `\&12\catcode `\#12\catcode `\^12\catcode `\_12\catcode `\%12\relax}%
+\providecommand \@@startlink[1]{}%
+\providecommand \@@endlink[0]{}%
+\providecommand \url  [0]{\begingroup\@sanitize@url \@url }%
+\providecommand \@url [1]{\endgroup\@href {#1}{\urlprefix }}%
+\providecommand \urlprefix  [0]{URL }%
+\providecommand \Eprint [0]{\href }%
+\providecommand \doibase [0]{https://doi.org/}%
+\providecommand \selectlanguage [0]{\@gobble}%
+\providecommand \bibinfo  [0]{\@secondoftwo}%
+\providecommand \bibfield  [0]{\@secondoftwo}%
+\providecommand \translation [1]{[#1]}%
+\providecommand \BibitemOpen [0]{}%
+\providecommand \bibitemStop [0]{}%
+\providecommand \bibitemNoStop [0]{.\EOS\space}%
+\providecommand \EOS [0]{\spacefactor3000\relax}%
+\providecommand \BibitemShut  [1]{\csname bibitem#1\endcsname}%
+\let\auto@bib@innerbib\@empty
+%</preamble>
+\bibitem [{\citenamefont {Duminil-Copin}(2018)}]{DuminilCopin2018IntroductionTB}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibnamefont {Duminil-Copin}, \bibfnamefont {H.}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Introduction to bernoulli percolation},}\ \ }(\bibinfo {year} {2018})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Hechtl}\ \emph {et~al.}(2025)\citenamefont {Hechtl}, \citenamefont {Hauser}, \citenamefont {Schmitt}, \citenamefont {Heurich},\ and\ \citenamefont {Wendleder}}]{Hechtl2025KennaughEA}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibnamefont {Hechtl}, \bibfnamefont {C.}}, \bibinfo {author} {\bibnamefont {Hauser}, \bibfnamefont {S.}}, \bibinfo {author} {\bibnamefont {Schmitt}, \bibfnamefont {A.}}, \bibinfo {author} {\bibnamefont {Heurich}, \bibfnamefont {M.}}, and\ \bibinfo {author} {\bibnamefont {Wendleder}, \bibfnamefont {A.}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Kennaugh elements allow early detection of bark beetle infestation in temperate forests using sentinel-1 data},}\ }\href {https://doi.org/10.3390/f16081272} {\bibfield  {journal} {\bibinfo  {journal} {Forests}\ }\textbf {\bibinfo {volume} {16}} (\bibinfo {year} {2025}),\ 10.3390/f16081272}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Janssen}(2001)}]{Janssen2001DirectedPercolationWithColorsFlavors}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibnamefont {Janssen}, \bibfnamefont {H.-K.}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Directed percolation with colors and flavors},}\ }\href {https://doi.org/10.1023/A:1010300703724} {\bibfield  {journal} {\bibinfo  {journal} {Journal of Statistical Physics}\ }\textbf {\bibinfo {volume} {103}},\ \bibinfo {pages} {801--839} (\bibinfo {year} {2001})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Janssen}\ and\ \citenamefont {Täuber}(2005)}]{JANSSEN2005147}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibnamefont {Janssen}, \bibfnamefont {H.-K.}}and\ \bibinfo {author} {\bibnamefont {Täuber}, \bibfnamefont {U.~C.}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {The field theory approach to percolation processes},}\ }\href {https://doi.org/https://doi.org/10.1016/j.aop.2004.09.011} {\bibfield  {journal} {\bibinfo  {journal} {Annals of Physics}\ }\textbf {\bibinfo {volume} {315}},\ \bibinfo {pages} {147--192} (\bibinfo {year} {2005})},\ \bibinfo {note} {special Issue}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Peliti}(1985)}]{Peliti1985PathIA}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibnamefont {Peliti}, \bibfnamefont {L.}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Path integral approach to birth-death processes on a lattice},}\ }\href {https://doi.org/10.1051/jphys:019850046090146900} {\bibfield  {journal} {\bibinfo  {journal} {http://dx.doi.org/10.1051/jphys:019850046090146900}\ }\textbf {\bibinfo {volume} {46}} (\bibinfo {year} {1985}),\ 10.1051/jphys:019850046090146900}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {R{\"o}mer}(2001)}]{Roemer2001}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibnamefont {R{\"o}mer}, \bibfnamefont {R.~A.}},\ }\href {https://doi.org/10.48550/arXiv.cond-mat/0106004} {\enquote {\bibinfo {title} {Percolation, renormalization and the quantum-hall transition},}\ } (\bibinfo {year} {2001}),\ \Eprint {https://arxiv.org/abs/cond-mat/0106004} {arXiv:cond-mat/0106004 [cond-mat.mes-hall]} \BibitemShut {NoStop}%
+\end{thebibliography}%
