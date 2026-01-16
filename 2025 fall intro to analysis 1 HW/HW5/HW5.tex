@@ -1,0 +1,202 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{problem}{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem*{recall}{Recall}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+    \title{%
+  \textbf{Math 2213 Introduction to Analysis I} \\
+  \vspace{0.5cm}
+  \large Homework 5 Due October 10 (Friday), 2025
+}
+\author{物理、數學三 黃紹凱 B12202004}
+
+\maketitle
+
+% Problem 1
+\begin{problem}[15 pts]
+    ~
+    \begin{enumerate}[(a)]
+        \item Let $(X,d_{\mathrm{disc}})$ be a metric space with the discrete metric. Let $E$ be a subset of $X$ which contains at least two elements. Show that $E$ is disconnected.
+        \item Let $f : X \to Y$ be a function from a connected metric space $(X,d)$ to a metric space $(Y,d_{\mathrm{disc}})$ with the discrete metric. Show that $f$ is continuous if and only if it is constant. \emph{(Hint: use part (a))}
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    ~ 
+    \begin{enumerate}
+        \item All subsets of $ X $ are closed since all subsets of $ X $ are open with respect to $ d_\text{disc} $, so $ E $ contains a proper subset that is open and closed. By [Tao II] definition 2.4.1, $ X $ is disconnected.
+        \item Suppose $ f $ is continuous and not constant, then there exists $ x_1 , x_2 \in X $ such that $ f(x_1) \neq f(x_2) $. The set $ \{f(x_1)\} \subseteq Y $ is a proper subset that is open and closed with respect to $ d_\text{disc} $. Note that $ x_2 \notin f^{-1}(\{f(x_1)\}) $, so $ f^{-1}(\{f(x_1)\}) $ is a proper subset of $ X $ that is open and closed  by continuity of $ f $. By [Tao II] definition 2.4.1, $ X $ is disconnected, a contradiction. Thus, $ f $ is constant. Conversely, suppose $ f $ is a constant, let $ U $ be open in $ X $, then $ f(U) $ is either empty or $ \{y\} $ for some $ y \in Y $, both of which are open in $ Y $. Thus, $ f $ is continuous.
+    \end{enumerate}
+\end{solution}
+
+% Problem 2
+\begin{problem}[15 pts]
+    Let $(X,d)$ be a metric space, and let $(E_\alpha)_{\alpha\in I}$ be a collection of connected sets in $X$ with $I$ non-empty. Suppose also that $\bigcap_{\alpha\in I} E_\alpha$ is non-empty. Show that $\bigcup_{\alpha\in I} E_\alpha$ is connected.
+\end{problem}
+
+\begin{solution}
+    Suppose $ \bigcup_{\alpha \in E} E_\alpha $ is disconnected. Then there exist non-empty disjoint open sets $ U , V \subseteq X $ such that $ (U \cap \bigcup_{\alpha \in I} E_\alpha),\; (V \cap \bigcup_{\alpha \in I} E_\alpha) \neq \varnothing $ and $ (U \cap \bigcup_{\alpha \in I} E_\alpha) \cup (V \cap \bigcup_{\alpha \in I} E_\alpha) = \bigcup_{\alpha \in I} E_\alpha $. Since $ \bigcap_{\alpha \in I} E_\alpha \neq \varnothing $, there exists $ x \in \bigcap_{\alpha \in I} E_\alpha $. Without loss of generality, suppose $ x \in U $, and so $ x \notin V $. For some $ \beta \in I $, we have $ V \cap E_\beta \neq \varnothing $. Notice that
+    \[ (U \cap E_\beta) \cup (V \cap E_\beta) = E_\beta , \quad (U \cap E_\beta) \cap (V \cap E_\beta) = \varnothing , \]
+    and both $ U \cap E_\beta $ and $ V \cap E_\beta $ are non-empty since $ x \in U \cap E_\beta $. By [Tao II] definition 2.4.1, $ E_\beta $ is disconnected, a contradiction. Therefore, $ \bigcup_{\alpha \in I} E_\alpha $ is connected.
+\end{solution}
+
+% Problem 3
+\begin{problem}[20 pts]
+    Let $(X,d)$ be a metric space, and let $E$ be a subset of $X$.  
+    We say that $E$ is \emph{path-connected} iff, for every $x,y \in E$, there exists a continuous function  
+    \[
+    \gamma : [0,1] \to E
+    \]
+    from the unit interval $[0,1]$ to $E$ such that $\gamma(0)=x$ and $\gamma(1)=y$. Show that every non-empty path-connected set is connected. (The converse is false, but is a bit tricky to show and will not be detailed here.)
+\end{problem}
+
+\begin{solution}
+    Suppose $ E $ is path-connected but disconnected. Then there exist non-empty open sets $ U, V \subseteq X $ such that $ U \cap V = \emptyset , \quad U \cup V = E $. Let $ x \in U \cap E $ and $ y \in V \cap E $. Since $ E $ is path-connected, there exists a continuous function $ \gamma : [0,1] \to E $ such that $ \gamma(0) = x $ and $ \gamma(1) = y $. Note that $ \gamma^{-1}(U) $ and $ \gamma^{-1}(V) $ are non-empty disjoint open sets in $ [0,1] $, and $ \gamma^{-1}(U) \cup \gamma^{-1}(V) = [0,1] $. By [Tao II] definition 2.4.1, $ [0,1] $ is disconnected, contradicting [Tao II] theorem 2.4.5. Therefore, $ E $ is connected.
+\end{solution}
+
+% Problem 4
+\begin{problem}[15 pts]
+    Let $(X,d)$ be a metric space, and let $E$ be a subset of $X$. Show that if $E$ is connected, then the closure $\overline{E}$ of $E$ is also connected. Is the converse true?
+\end{problem}
+
+\begin{solution}
+    Suppose $ E $ is connected but $ \overline{E} $ is disconnected. Then there exist disjoint, non-empty open sets $ U , V \subseteq X $ such that $ U \cup V = \overline{E} $. Then, $ E = (U \cap E) \cup (V \cap E) $ and $ (U \cap E) \cap (V \cap E) = \varnothing $. Since $ E $ is connected, one of $ U \cap E $ or $ V \cap E $ must be empty, so suppose $ V \cap E = \varnothing $. Then $ E \subseteq U $, and $ V \subseteq \overline{E} \setminus E $ is an open set containing a limit point of $ E $. Hence for $ x \in V $, there exists a neighborhood $ W \subseteq V $ such that $ W \cap E \neq \varnothing $, hence $ V \cap E \neq \varnothing $, contradiction. Therefore, $ \overline{E} $ is connected. The converse is false. Let $ E = (0,1) \cup (1,2) \subseteq \mathbb{R} $, then $ \overline{E} = [0,2] $ is connected since it is an interval but $ E $ is disconnected.
+\end{solution}
+
+% Problem 5
+\begin{problem}[20 pts]
+    Let $(X,d)$ be a metric space. Let us define a relation $x \sim y$ on $X$ by declaring $x \sim y$ iff there exists a connected subset of $X$ which contains both $x$ and $y$. Show that this is an equivalence relation (i.e., it obeys the reflexive, symmetric, and transitive axioms). Also, show that the equivalence classes of this relation (i.e., the sets of the form $\{ y \in X : y \sim x \} $ for some $ x \in X $ are all closed and connected. These sets are known as the \emph{connected components} of $X$.
+\end{problem}
+
+\begin{solution}
+    We check the relation axioms: 
+    \begin{enumerate}[(i)]
+        \item For any $ x \in X $, the set $ \{x\} $ is connected since it is not disconnected, so $ x \sim x $.
+        \item If $ x \sim y $, then there exists a connected set $ E \subseteq X $ such that $ x,y \in E $. Then $ y,x \in E $, so $ y \sim x $.
+        \item If $ x \sim y $ and $ y \sim z $, then there exist connected sets $ E_1 , E_2 \subseteq X $ such that $ x,y \in E_1 $ and $ y,z \in E_2 $. Since $ y \in E_1 \cap E_2 $, $ E_1 \cup E_2 $ is connected by Problem 2, and thus $ x \sim z $.
+    \end{enumerate}
+    Let $ C $ be an equivalence class of this relation. For any $ x,y \in C $, there exists a connected set $ E \subseteq X $ such that $ x,y \in E $. Since $ E \subseteq C $ by definition of equivalence class, $ C $ is connected. By Problem 4, $ \overline{C} $ is connected. Hence, for all $ x \in \overline{C} $, $ x \in C $. Therefore, $ \overline{C} \subseteq C $, hence $ C $ is closed.
+\end{solution}
+
+% Problem 6
+\begin{problem}[15 pts]
+    Let $f : S \to T$ be a function from a metric space $S$ to another metric space $T$. Assume $f$ is uniformly continuous on a subset $A$ of $S$ and that $T$ is complete. Prove that there is a unique extension of $f$ to $\overline{A}$ which is uniformly continuous on $\overline{A}$.
+\end{problem}
+
+\begin{solution}
+    For each $ x \in \overline{A} $, there exists a sequence $ \left(x_n\right)^{\infty}_{n=1} $ in $ A $ such that $ x_n \to x $. Since $ f $ is uniformly continuous on $ A $ and $ (x_n) $ is Cauchy, $ \left(f(x_n)\right)^{\infty}_{n=1} $ is a Cauchy sequence in $ T $ by Problem 7. Since $ T $ is complete, there exists $ y \in T $ such that $ f(x_n) \to y $. Define $ \overline{f} : \overline{A} \to T$, $ \overline{f}(x) = y $, which is a valid extension since $ f|_A = f = \overline{f}|_A $. Let $ \left(y_n\right)^{\infty}_{n=1} \to x $ be another sequence and let $ \left(c_n\right)^{\infty}_{n=1} $ be such that $ c_{2n-1} = x_n $, $ c_{2n} = y_n $. Then $ c_n \to x $ and $ \left(f(c_n)\right)^{\infty}_{n=1} $ is Cauchy in $ T $ with $ f(c_n) \to y $. Since $ (f(x_n)), f(y_n) $ are subsequences pf $ f(c_n) $, they both converge to $ y $, hence $ \overline{f} $ is well-defined. Since $ f $ is uniformly continuous on $ A $, $ \overline{f} $ is uniformly continuous on $ \overline{A} $. Suppose $ f_1, f_2 $ are two uniform extensions of $ f $ on $ \overline{A} $, and let $ I = \{ x \in \overline{A} \,|\, f_1(x) = f_2(x) \} $. We claim $ I $ is closed. Let $ b \in I^c $, then $ f_1(b) \neq f_2(b) $ and there exist non-empty disjoint open sets in $ T $ such that $ f_1(b) \in U,\; f_2(b) \in V $. Since $ f_1, f_2 $ are continuous, $ W \equiv f^{-1}(U) \cap f^{-1}(V) $ is open in $ I^c $. Let $ x \in W $, then $ f_1(x) \in U $, $ f_2(x) \in V $, so $ f_1(x) \neq f_2(x) $ and $ x \in I $, hence $ W \subseteq I^c $. $ I^c $ is the union of all such sets, hence open, hence $ I $ is closed. Then $ A \subseteq I \subseteq \overline{A} $, hence $ \overline{A} \subseteq \overline{I} \subseteq \overline{A} $, hence $ I = \overline{I} = \overline{A} $ and the uniform extension is unique. 
+\end{solution}
+
+\newpage 
+
+% Problem 7
+\begin{problem}[Optional]
+    Assume $f : S \to T$ is uniformly continuous on $S$, where $S$ and $T$ are metric spaces. If $\{x_n\}$ is a Cauchy sequence in $S$, prove that $\{f(x_n)\}$ is a Cauchy sequence in $T$.
+\end{problem}
+
+\begin{solution}
+    Let $\varepsilon > 0$. By uniform continuity, there exists $\delta > 0$ such that for all $x,y \in S$ with $d_S(x,y) < \delta$, we have $ d_T(f(x_n), f(x_m)) < \varepsilon $. Since $(x_n)$ is a Cauchy sequence in $S$, there exists $N \in \mathbb{N}$ such that for all $m,n \geq N$, we have $d_S(x_m,x_n) < \delta $. Therefore, we have $ d_T(f(x_n), f(x_m)) < \varepsilon $ whenever $ m,n \geq N $. This shows that $\{f(x_n)\}$ is a Cauchy sequence in $T$.
+\end{solution}
+
+% Problem 8
+\begin{problem}[Optional]
+    Given a function $f : \mathbb{R}^n \to \mathbb{R}^m$ which is one-to-one and continuous on $\mathbb{R}^n$. If $A$ is open and disconnected in $\mathbb{R}^n$, prove that $f(A)$ is open and disconnected in $f(\mathbb{R}^n)$.
+\end{problem}
+
+\begin{solution}
+    The statement is incorrect for $ n \neq m $. Consider the map $ f: \mathbb{R} \to \mathbb{R}^2 $ given by
+    \begin{equation*}
+        t \mapsto \left(\frac{t}{1+t^2}, - \frac{t(1-t^{2})}{1+t^4} \right).
+    \end{equation*}
+    $ f $ is one-to-one and continuous, since its components are continuous. However, $ f(\mathbb{R} \setminus \{1\}) $ is the whole curve minus the rightmost point and hence connected. Also, $ (-0.1,0.1) $ is mapped to a line segment in $ \mathbb{R}^2 $, which is not open. 
+
+    Let's assume $ n=m $. Recall the Invariance of Domain Theorem: \textit{if $ U $ is an open subset of $ \mathbb{R}^n $ and $ f : U \to \mathbb{R}^n $ is a continuous injective map, then $ f(U) $ is open in $ \mathbb{R}^n $ and $ f $ is a homeomorphism between $ U $ and $ f(U) $.} Since $ A \subseteq \mathbb{R}^n $ is open, by the theorem, $ f(A) $ is open in $ \mathbb{R}^n $. Suppose $ f(A) $ is connected. Since $ f $ is a homeomorphism, $ f^{-1} $ is continuous and preserves connectedness. Hence, by injectivity, $ f^{-1}(f(A)) = A $ is connected. Therefore, $ f(A) $ is disconnected by contrapositive.
+
+    \emph{Solution from TA:} Suppose $ A \subseteq U \cup V $, where $ U, V $ are open in $ \mathbb{R}^n $, $ U \cap V = \varnothing $, and $ A \cap U, A \cap V = \varnothing $. For any closed (and bounded) set $ C \subseteq \mathbb{R}^n $, $ C $ is compact in $ \mathbb{R}^n $. Since $ f $ is continuous, $ f(C) $ is compact in $ f(\mathbb{R}^n) $. Hence $ f(C) $ is closed (and bounded) in $ f(\mathbb{R}^n) $. Therefore, $ f^{-1} $ is continuous, and for all open set $ U \subseteq \mathbb{R}^n $, $ f(U) $ is open in $ f(\mathbb{R}^n) $. We have $ f((A \cap U) \cup (A \cap V)) = f(A \cap U) \cup f(A \cap V) $ is disconnected and open. 
+\end{solution}
+
+% Problem 9
+\begin{problem}[Optional]
+    Let $S$ be an open connected set in $\mathbb{R}^n$. Let $T$ be a connected component of $\mathbb{R}^n \setminus S$. Prove that $\mathbb{R}^n \setminus T$ is connected.
+\end{problem}
+
+\begin{solution}
+    For any connected component $ V $, by Problem 5 $ V $ is relatively closed in $ \mathbb{R}^n \setminus S $. Write $ \mathbb{R}^n \setminus T = S \cap \cup_{V \in \mathbb{R}^n \setminus S, V \neq T} V $, where $ V $ is a connected component. Since $ V $ is open, $ \partial V \subseteq \mathbb{R}^n \setminus S $, hence $ V \cap \partial S \neq \varnothing $ for all $ V \neq T $. Recall that if $ S $ is connected, then any $ S^{\prime} $ such that $ S \subseteq S^{\prime} \subseteq \overline{S} $ is connected. Therefore, $ V \cup S $ is connected. Since $ \mathbb{R}^n \setminus T $ is the union of $ S $ and the connected components that have non-empty intersection with $ S $, it is connected. 
+\end{solution}
+
+% Problem 10
+\begin{problem}[Optional]
+    Let $(S,d)$ be a connected metric space which is not bounded. Prove that for every $a \in S$ and every $r > 0$, the set 
+    \[
+    \{x : d(x,a) = r\}
+    \]
+    is nonempty.
+\end{problem}
+
+\begin{solution}
+    Suppose $ (S,d) $ is not bounded. Then there does not exist $ x\in S, R>0 $ such that $ S \subseteq B_{(S,d)}(x,R) $. Let $ a \in S $ and $ r > 0 $. Suppose $ \{ x : d(x,a) = r \} = \emptyset $, then $ S = B_{(S,d)}(a,r) \cup (S \setminus \overline{B_{(S,d)}(a,r)}) $, where both sets are non-empty since $ S $ is not bounded. Since both sets are open in $ S $, by [Tao II] definition 2.4.1, $ S $ is disconnected, a contradiction. Therefore, $ \{ x : d(x,a) = r \} \neq \emptyset $.
+\end{solution}
+
+\end{CJK}
+\end{document}

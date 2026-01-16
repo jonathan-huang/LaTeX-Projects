@@ -1,0 +1,380 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz-cd}
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc, arrows,matrix}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem*{recall}{Recall}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+    \title{%
+  \textbf{Math 2213 Introduction to Analysis I} \\
+  \vspace{0.5cm}
+  \large Homework 3 Due September 25 (Thursday), 2025
+}
+\author{物理、數學三 黃紹凱 B12202004}
+\date{\today}
+
+\maketitle
+
+% Problem 1
+\begin{problem}[10 pts]
+ (10 pts)  Let $(x^{(n)})_{n=m}^\infty$ be a sequence of points in a metric space $(X,d)$, and let $L\in X$. Show that if $L$ is a limit point of the sequence $(x^{(n)})_{n=m}^\infty$, then $L$ is an adherent point of the set
+\[
+    S = \{ x^{(n)} : n\ge m \}.
+\]
+Is the converse true?
+\end{problem}
+\begin{solution}
+
+\end{solution}
+
+\medskip
+
+% Problem 2
+\begin{problem}[20 pts]
+    The following construction generalizes the construction of the reals from the rationals in Chapter~5, allowing one to view any metric space as a subspace of a complete metric space. In what follows we let $(X,d)$ be a metric space.
+    \begin{enumerate}[(a)]
+        \item Given any Cauchy sequence $(x_n)_{n=1}^\infty$ in $X$, we introduce the \emph{formal limit} 
+        \[
+        \operatorname{LIM}_{n\to\infty} x_n.
+        \]
+        We say that two formal limits $\operatorname{LIM}_{n\to\infty} x_n$ and $\operatorname{LIM}_{n\to\infty} y_n$ are equal if 
+        \[
+        \lim_{n\to\infty} d(x_n,y_n) = 0.
+        \]
+        Show that this equality relation obeys the reflexive, symmetry, and transitive axioms, i.e.\ that it is an equivalence relation.
+
+        \item Let $\overline{X}$ be the space of all formal limits of Cauchy sequences in $X$, modulo the above equivalence relation. Define a metric $d_{\overline{X}}:\overline{X}\times\overline{X}\to [0,\infty)$ by
+        \[
+        d_{\overline{X}}\!\left(\operatorname{LIM}_{n\to\infty}x_n, \operatorname{LIM}_{n\to\infty} y_n\right) := \lim_{n\to\infty} d(x_n,y_n).
+        \]
+        Show that this function is well-defined (the limit exists and does not depend on the choice of representatives) and that it satisfies the axioms of a metric. Thus $(\overline{X},d_{\overline{X}})$ is a metric space.
+
+        \item Show that the metric space $(\overline{X},d_{\overline{X}})$ is complete.
+
+        \item We identify an element $x\in X$ with the corresponding constant Cauchy sequence $(x,x,x,\dots)$, i.e.\ with the formal limit $\operatorname{LIM}_{n\to\infty} x$. Show that this is legitimate: for $x,y\in X$, 
+        \[
+        x=y \quad \Longleftrightarrow \quad \operatorname{LIM}_{n\to\infty} x = \operatorname{LIM}_{n\to\infty} y.
+        \]
+        With this identification, show that 
+        \[
+        d(x,y) = d_{\overline{X}}(x,y),
+        \]
+        and thus $(X,d)$ can be thought of as a subspace of $(\overline{X},d_{\overline{X}})$.
+
+        \item Show that the closure of $X$ in $\overline{X}$ is $\overline{X}$ itself. (This explains the choice of notation.)
+
+        \item Finally, show that the formal limit agrees with the actual limit: if $(x_n)_{n=1}^\infty$ is a Cauchy sequence in $X$ that converges in $X$, then
+        \[
+            \lim_{n\to\infty} x_n = \operatorname{LIM}_{n\to\infty} x_n \quad \text{in } \overline{X}.
+        \]
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[(a)]
+        \item We show that $ \text{LIM}_{n\to \infty}x_{n} = \lim_{n\to \infty} x_{n} $ is an equivalence relation.
+        \begin{enumerate}[(i)]
+            \item Reflexivity: $ \lim_{n \to \infty} d(x_{n}, x_{n}) = 0 $ by definition of a metric. 
+            \item Symmetry: $ \lim_{n \to \infty} d(y_{n}, x_{n}) = \lim_{n \to \infty} d(x_{n}, y_{n}) = 0 $ by symmetry of a metric.
+            \item Transitivity: Suppose $ \lim_{n \to \infty} d(x_{n}, y_{n}) = 0 $ and $ \lim_{n \to \infty} d(y_{n}, z_{n}) = 0 $. By triangle inequality, we have $ \lim_{n \to \infty} d(x_{n}, z_{n}) \leq \lim_{n \to \infty} d(x_{n}, y_{n}) + \lim_{n \to \infty} d(y_{n}, z_{n}) = 0 $.
+        \end{enumerate}
+        \item Since $ (x_{n})_{n=1}^{\infty} $ and $ (y_{n})_{n=1}^{\infty} $ are Cauchy sequences, for all $ \epsilon >0 $, there exists $ N>0 $ such that $ d(x_n, x_m) < \epsilon / 2$ and $ d(y_n, y_m) < \epsilon /2 $ for all $ n,m > N $. Then 
+        \begin{equation*}
+            \left\vert d(x_n, y_n) - d(x_m, y_m) \right\vert \leq d(x_n,x_m) + d(y_n, y_m) < \epsilon,
+        \end{equation*}
+        hence the sequence $ (d(x_n, y_n))_{n=1}^{\infty} $ is Cauchy in $ \mathbb{R} $. Since $ \mathbb{R} $ is complete, $ \lim_{n \to \infty} d(x_n, y_n) $ exists. Next, suppose $ \text{LIM}_{n\to \infty} x_{n} = \text{LIM}_{n\to \infty} x_{n}^{\prime} $, $ \text{LIM}_{n\to \infty} y_{n} = \text{LIM}_{n\to \infty} y_{n}^{\prime} $, then $ \lim_{n \to \infty} d(x_n, x_n^{\prime}) = 0 $ and $ \lim_{n \to \infty} d(y_n, y_n^{\prime}) = 0 $. By triangle inequality, we have
+        \begin{equation*}
+            \lim_{n \to \infty} d(x_n, y_n) \leq \lim_{n \to \infty} d(x_n, x_n^{\prime}) + \lim_{n \to \infty} d(x_n^{\prime}, y_n^{\prime}) + \lim_{n \to \infty} d(y_n^{\prime}, y_n)  = \lim_{n \to \infty} d(x_n^{\prime}, y_n^{\prime}). 
+        \end{equation*}
+        Similarly, we can show that $ \lim_{n \to \infty} d(x_n^{\prime}, y_n^{\prime}) \leq \lim_{n \to \infty} d(x_n, y_n) $. Hence $ \lim_{n \to \infty} d(x_n, y_n) = \lim_{n \to \infty} d(x_n^{\prime}, y_n^{\prime}) $, and $ d_{\overline{X}} $ is well-defined.
+
+        Next, we check the metric definition. For clarity we will use the following notation: $ \tilde{x} \equiv \text{LIM}_{n\to \infty} x_{n}, \tilde{y} \equiv \text{LIM}_{n\to \infty} y_{n}, \tilde{z} \equiv \text{LIM}_{n\to \infty} z_{n} \in \overline{X} $.
+        \begin{enumerate}[(i)]
+            \item $ d_{\overline{X}} \left(\tilde{x}, \tilde{y}\right) = \lim_{n \to \infty} d(x_{n}, y_{n}) = 0 $ if and only if $ \tilde{x} = \tilde{y} $. Otherwise $ d_{\overline{X}} \left(\tilde{x}, \tilde{y}\right) > 0 $ by positivity of $ d $.
+            \item $ d_{\overline{X}} (\tilde{x}, \tilde{y}) = \lim_{n \to \infty} d(x_{n}, y_{n}) = \lim_{n \to \infty} d(y_{n}, x_{n}) = d_{\overline{X}} (\tilde{y}, \tilde{x}) $, by symmetry of $ d $.
+            \item $ d_{\overline{X}} (\tilde{x}, \tilde{y}) = \lim_{n \to \infty} d(x_{n}, y_{n}) \leq \lim_{n \to \infty} d(x_{n}, z_{n}) + \lim_{n \to \infty} d(z_{n}, y_{n}) = d_{\overline{X}} (\tilde{x}, \tilde{z}) + d_{\overline{X}} (\tilde{z}, \tilde{y}) $, by triangle inequality of $ d $ and the fact that both $ \lim_{n \to \infty} d(x_n, z_n) $ and $ \lim_{n \to \infty} d(z_n, y_n) $ exist.
+        \end{enumerate}
+        
+        \item A metric space is complete if every Cauchy sequence converges. Let $ \left(\text{LIM}_{n\to \infty} x_{n}^{(m)}\right)_{m=1}^{\infty} $ be a Cauchy sequence in $ \overline{X} $. Then for all $ \epsilon > 0 $, there exists $ N \in \mathbb{N} $ such that 
+        \[
+            d_{\overline{X}}(\text{LIM}_{n\to \infty} x_{n}^{(m)}, \text{LIM}_{n\to \infty} x_{n}^{(k)}) < \epsilon 
+        \] 
+        whenever $ m, k > N $. Hence there exists $ M>0 $ such that $ d(x_n^{(m)}, x_n^{(k)}) < \epsilon $ for all $ n > M $, and $ \left(x^{(m)}_n\right)_{m=1}^{\infty} $ is Cauchy in $ X $ for some fixed $ n > M $. By definition of $ d_{\overline{X}} $, we have
+        \[
+            \lim_{n \to \infty} d(x_{n}^{(m)}, x_{n}^{(k)}) < \epsilon.
+        \]
+        Thus, for each fixed $ n $, $ (x_{n}^{(m)})_{m=1}^{\infty} $ is a Cauchy sequence in $ X $ and hence converges to some limit $ x_{\infty}^{(m)} \in \overline{X} $, i.e.
+        \[
+            \text{LIM}_{n\to \infty} x_{n}^{(m)} = x_{\infty}^{(m)} \quad \text{for all } m.
+        \]
+        For all $ \epsilon >0 $, there exists $ N >0 $ such that 
+        \begin{equation*}
+            d_{\overline{X}}(\text{LIM}_{n\to \infty} x^{(m)}_n, \text{LIM}_{k \to \infty} x^{(k)}_k) = \lim_{n \to \infty} d\left(x^{(k)}_n , x^{(n)}_n\right) < \epsilon.
+        \end{equation*}
+        Hence $ \lim_{m \to \infty} \text{LIM}_{n\to \infty} x_{n}^{(m)} \in \overline{X} $, and $ (\overline{X}, \overline{d}) $ is complete. 
+        \item Suppose $ x, y \in X $. Then $ x = y $ if and only if $ d(x,y) = 0 $ if and only if $ \lim_{n \to \infty} d(x_{n}, y_{n}) = 0 $ for $ (x_n)_{n=1}^{\infty} = (x,x, \dots)$ and $ (y_n)_{n=1}^{\infty} = (y,y, \dots) $ if and only if $ \text{LIM}_{n\to \infty} x_{n} = \text{LIM}_{n\to \infty} y_{n} $. Therefore, $ d_{\overline{X}}\left(\text{LIM}_{n\to \infty} x_{n}, \text{LIM}_{n\to \infty} y_{n}\right) = \lim_{n \to \infty} d(x_n, y_n) = d(x,y) $. 
+        \item Denote the closure as $ \tilde{X} $. Let $ x \in \tilde{X} $, then for all $ \epsilon > 0 $, there exists $ y \in X $ such that $ d_{\overline{X}}(x,y) < \epsilon $. Since $ y \in X $, the Cauchy sequence $ (y_n)_{n=1}^{\infty} = (y,y, \dots) $ satisfies $ \text{LIM}_{n\to \infty} y_{n} = y $. Then
+        \[
+            d_{\overline{X}}(x,y) = \lim_{n \to \infty} d(x_n, y_n) < \epsilon, 
+        \]
+        where $ x, y $ here stand for the constant sequences $ (x, x, \dots) $ and $ (y, y, \dots) $ respectively. Hence $ x \in \overline{X} $. Conversely, let $ x \in \overline{X} $, then $ x = \text{LIM}_{n\to \infty} x_{n} $ for some Cauchy sequence $ (x_n)_{n=1}^{\infty} $ in $ X $. Since $ (x_n)_{n=1}^{\infty} $ is a Cauchy sequence, for all $ \epsilon > 0 $, there exists $ N \in \mathbb{N} $ such that $ d(x_n, x_m) < \epsilon $ whenever $ n, m > N $. Take $ y = x_{N+1} \in X $, then by definition of $ d_{\overline{X}} $, we have
+        \[
+            d_{\overline{X}}(x,y) = \lim_{n \to \infty} d(x_n, y) = \lim_{n \to \infty} d(x_n, x_{N+1}) < \epsilon. 
+        \]
+        Hence $ x \in \tilde{X} $. Therefore, $ \tilde{X} = \overline{X} $. 
+        \item Suppose $ \left(x_n\right)_{n=1}^{\infty} $ is a Cauchy sequence in $ X $ converging in $ X $. Then there exists $ x \in X $ such that for all $ \epsilon > 0 $, there exists $ N \in \mathbb{N} $ such that $ d(x_n, x) < \epsilon $ whenever $ n > N $. By definition of $ d_{\overline{X}} $, we have
+        \[
+            d_{\overline{X}}\left(\text{LIM}_{n\to \infty} x_{n}, x\right) = \lim_{n \to \infty} d(x_n, x) = 0,
+        \]
+        where $ x $ in $ d_{\overline{X}} $ stands for the constant sequence $ (x, x, \dots) $. Hence $ \text{LIM}_{n\to \infty} x_{n} = x $ in $ \overline{X} $. 
+    \end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 3
+\begin{problem}[20 pts]
+In the following, all the sets are subsets of a metric space $(X,d)$.
+
+\begin{enumerate}[(a)]
+    \item If $\overline{A}\cap\overline{B}=\varnothing$, then 
+    \[
+    \partial(A\cup B) = \partial A \cup \partial B.
+    \]
+
+    \item For a finite family $\{A_i\}_{i=1}^n\subseteq X$, show that
+    \[
+    \operatorname{int}\!\Bigl(\bigcap_{i=1}^n A_i\Bigr)
+    \;=\;
+    \bigcap_{i=1}^n \operatorname{int}(A_i).
+    \]
+
+    \item For an arbitrary (possibly infinite) family $\{A_\alpha\}_{\alpha\in F}\subseteq X$, prove that
+    \[
+    \operatorname{int}\!\Bigl(\bigcap_{\alpha\in F} A_\alpha\Bigr)
+    \;\subseteq\;
+    \bigcap_{\alpha\in F}\operatorname{int}(A_\alpha).
+    \]
+
+    \item Give an example where the inclusion in part \textup{(c)} is strict (i.e., equality fails).
+
+    \item For any family $\{A_\alpha\}_{\alpha\in F}\subseteq M$, prove that
+    \[
+    \bigcup_{\alpha\in F}\operatorname{int}(A_\alpha)
+    \;\subseteq\;
+    \operatorname{int}\!\Bigl(\bigcup_{\alpha\in F} A_\alpha\Bigr).
+    \]
+
+    \item Give an example of a finite collection $F$ in which equality does not hold in part \textup{(e)}.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+    
+\end{solution}
+
+\medskip
+
+% Problem 4
+\begin{problem}[10 pts]
+Let $(X, d)$ be a metric space and $Y \subset X$ be an open subset. For any subset $A \subset Y$, show
+that $A$ is open in $Y$ if and only if it is open in $X$.
+\end{problem}
+
+\begin{solution}
+    
+\end{solution}
+
+\medskip
+
+% Problem 5
+\begin{problem}[20 pts]
+    On the space $(0,1]$, we may consider the topology induced by the metric space $(\mathbb{R},d)$ defined by
+    $d(x,y)=|x-y|$ . Alternatively, we may also define a distance $d^{\prime} $ on $(0,1]$, given by
+    \[
+        d^{\prime} (x,y) = \left| \frac{1}{x} - \frac{1}{y} \right|, \qquad \forall x,y \in (0,1].
+    \]
+
+    \begin{enumerate}[(a)]
+        \item Show that $d^{\prime} $ is a metric on $(0,1]$
+        \item Let $x \in (0,1]$ and $\varepsilon>0$. Let $B = B_{d}(x,\varepsilon)=\{y | |y-x| < \varepsilon \} \cap (0,1]$  be the open ball centered at $x$ of radius $\varepsilon$ for the metric $d$ in $(0,1]$.  
+        Show that for any $y \in B$, we may find $\varepsilon'>0$ such that
+        \[
+        B_{d^{\prime} }(y,\varepsilon') \subseteq B = B_{d}(x,\varepsilon).
+        \]
+
+        \item Show that an open ball in $((0,1],d^{\prime} )$ is also an open ball in $((0,1],d)$.
+
+        \item Conclude that the metric spaces $((0,1],d)$ and $((0,1],d^{\prime} )$ are topologically equivalent, that is, a set $A$ is open in one space if and only if it is also open in the other one.
+
+        \item Is $((0,1],d')$ a complete metric space? How about $((0,1],d)$?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    ~
+    \begin{enumerate}[(a)]
+        \item We show that $ d' $ satisifes the definition a metric on $ (0,1] $.
+        \begin{enumerate}[(i)]
+            \item For all $ x, y \in \mathbb{R} $, $ d^{\prime} (x,x) = \vert 1/x - 1/x \vert = 0 $. 
+            \item For all distinct $ x, y \in \mathbb{R} $, $ d^{\prime} (x, y) > 0 $.  
+            \item For all $ x, y \in \mathbb{R} $, $ d^{\prime} (x,y) = \vert 1/x - 1/y \vert = \vert 1/y - 1/x \vert = d^{\prime} (y,x) $.
+            \item For all $ x, y, z \in \mathbb{R} $, $ d^{\prime} (x, y) = \vert 1/x - 1/y \vert \leq \vert 1/x-1/z \vert + \vert 1/z-1/y \vert = d^{\prime} (x,z) + d^{\prime} (z,y) $. 
+        \end{enumerate}
+        \item Let 
+        \item Let $ B = B_{((0,1], d^{\prime})}(x,r) $ be an open ball in $ ((0,1], d^{\prime}) $. Then for all $ y \in B $, we have $ d^{\prime} (x,y) = \vert 1/x - 1/y \vert < r $. By triangle inequality, we have
+        \[
+            \vert x - y \vert = \left\vert \frac{xy}{y} - \frac{xy}{x} \right\vert = \vert xy \vert \cdot \vert \frac{1}{x} - \frac{1}{y} \vert < \vert xy \vert r \leq r.
+        \]
+        Hence $ B $ is also an open ball in $ ((0,1], d) $.
+        \item Conversely to (c), let $ S \subseteq (0,1] $ be an open set. We can find an open ball $ B = B_{((0,1], d)}(x,r) \subseteq S $. Then for all $ y \in S $, we have $ d(x,y) = \vert x - y \vert < r $. By triangle inequality, we have
+        \[
+            \vert \frac{1}{x} - \frac{1}{y} \vert = \left\vert \frac{y-x}{xy} \right\vert = \frac{\vert y-x \vert}{\vert xy \vert} < \frac{r}{\vert xy \vert} \leq r.
+        \]
+        Hence $ B $ is also an open ball in $ ((0,1], d^{\prime}) $, and $ ((0,1],d) $ is topologically equivalent to $ ((0,1], d^{\prime}) $.
+        \item $ ((0,1], d) $ is not complete since the Cauchy sequence $ (1/n)_{n=1}^{\infty} $ does not converge in $ (0,1] $. However, $ ((0,1], d^{\prime}) $ is complete since for any Cauchy sequence $ (x_n)_{n=1}^{\infty} $ in $ ((0,1], d^{\prime}) $, the sequence $ (1/x_n)_{n=1}^{\infty} $ is a Cauchy sequence in $ \mathbb{R} $ and hence converges to some limit $ L \in \mathbb{R} $. Since $ x_n \in (0,1] $, we have $ 1/x_n \geq 1 $ for all $ n $, and hence $ L \geq 1 $. Thus, the sequence $ (x_n)_{n=1}^{\infty} $ converges to $ 1/L \in (0,1] $.
+    \end{enumerate}
+\end{solution}
+
+\medskip
+
+% Problem 6
+\begin{problem}[20 pts]
+~
+
+\begin{enumerate}[(a)]
+    \item We say that a family of closed balls 
+    \[
+        \bigl(\overline{B}(x_n,r_n)\bigr)_{n\ge 1}
+    \]
+    is a \emph{decreasing sequence of closed balls} if 
+    the nesting condition
+    \[
+        \overline{B}(x_{n+1},r_{n+1}) \;\subseteq\; \overline{B}(x_n,r_n)
+    \quad\text{for all } n\in\mathbb{N}
+    \]
+    is satisfied. Give an example of a decreasing sequence of closed balls in a complete metric space with empty intersection. 
+    \item  We say that a family of closed balls 
+    \[
+        \bigl(\overline{B}(x_n,r_n)\bigr)_{n\ge 1}
+    \]
+    is a \emph{decreasing sequence of closed balls with radii tending to zero} if 
+    \[
+        r_n \;\to\; 0 \quad\text{as } n\to\infty,
+    \]
+    and the nesting condition
+    \[
+        \overline{B}(x_{n+1},r_{n+1}) \;\subseteq\; \overline{B}(x_n,r_n)
+    \quad\text{for all } n\in\mathbb{N}
+    \]
+    is satisfied.
+    
+    Show that a metric space $(M,d)$ is complete if and only if every decreasing sequence of closed balls with radii going to zero has a nonempty intersection.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    ~ 
+    \begin{enumerate}[(a)]
+        \item Consider the metric space $ (\mathbb{N}, d) $, where 
+        \[
+            d(m,n) = \begin{cases}
+                0 & m=n, \\
+                1 + \frac{1}{\operatorname{min} \{m, n\}} & m \neq n .
+            \end{cases}
+        \]
+        This is a metric space since it satisfies the definition of a metric: 
+        \begin{enumerate}[(i)]
+            \item For all $ m, n \in \mathbb{N} $, we have $ d(m,n) \geq 0 $ and $ d(m,n) = 0 $ if and only if $ m = n $ by construction.
+            \item For all $ m, n \in \mathbb{N} $, we have $ d(m,n) = d(n,m) $ by symmetry of $ \operatorname{min}(\cdot, \cdot) $.
+            \item For all $ m, n, p \in \mathbb{N} $, we have
+            \begin{equation*}
+                \begin{split}
+                    d(m,n) &= 1 + \frac{1}{\operatorname{min} \{m, n\}} \leq 1 + \frac{1}{\operatorname{min} \{m, p\}} + 1 + \frac{1}{\operatorname{min} \{p, n\}} \\
+                    &= d(m,p) + d(p,n),
+                \end{split}
+            \end{equation*}
+            since we can check that the inequality holds for all the cases: $ p \leq \operatorname{min}\{m,n\} $, $ \operatorname{min}\{m,n\} < p < \operatorname{max}\{m,n\} $, $ \operatorname{max}\{m,n\} \leq p $.   
+        \end{enumerate}
+        Only same point sequences $ (x, x, x, \dots ) $ are Cauchy sequences in $ (\mathbb{N}, d) $, hence they converge in $ \mathbb{N} $ and $ (\mathbb{N}, d) $ is complete. Take $ \left(\overline{B} (n, r_{n})\right)_{n\geq 1} $, where $ r_{n} = 1 + \frac{1}{n} $. Then
+        \[
+            \overline{B} (n+1, r_{n+1}) = [n+1, \infty) \subseteq [n, \infty) = \overline{B} (n, r_{n}), 
+        \]
+        so nesting property is satisfied. However, the intersection is empty since 
+        \[
+            \bigcap_{n=1}^{\infty} \overline{B} (n, r_{n}) = \bigcap_{n=1}^{\infty} [n, \infty) = \varnothing.
+        \]
+        \item Suppose (M,d) is a complete metric space. Let $ \left(\overline{B}(x_n,r_n)\right)_{n\ge 1} $ be a decreasing sequence of closed balls with radii going to zero. Take $ x_n \in \overline{B}(x_n,r_n) $ for all $ n $, and for all $ \epsilon > 0 $, there exists $ N \in \mathbb{N} $ such that $ r_n < \epsilon/2 $ whenever $ n > N $. Notice that
+        \[
+            d(x_n, x_m) \leq d(x_n, x_N) + d(x_N, x_m) < r_N + r_N < \epsilon,
+        \]
+        so $ (x_n)_{n=1}^{\infty} $ is a convergent Cauchy sequence in $ (M,d) $, and thus there exists $ x \in M $ such that $ x_n \to x $. For all $ n $, since $ x_n \in \overline{B}(x_n,r_n) $, we have $ d(x_n, x) \leq r_n $, hence $ x \in \overline{B}(x_n,r_n) $, and the intersection is non-empty. 
+
+        Conversely, suppose every decreasing sequence of closed balls with radii going to zero has a nonempty intersection. Let $ (x_n)_{n=1}^{\infty} $ be a Cauchy sequence in $ (M,d) $. Then for all $ \epsilon > 0 $, there exists $ N \in \mathbb{N} $ such that $ d(x_n, x_m) < \epsilon $ whenever $ n, m > N $. By assumption for all $ \epsilon>0 $, $ r_n < \epsilon $ whenever $ n > N^{\prime} $ for some $ N^{\prime} \in \mathbb{N} $. 
+
+        Notice that in (a) the radii do not tend to zero.
+    \end{enumerate}
+    
+\end{solution}
+
+\end{CJK}
+\end{document}

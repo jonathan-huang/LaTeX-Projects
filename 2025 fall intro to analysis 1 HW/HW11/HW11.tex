@@ -1,0 +1,392 @@
+\documentclass[a4paper]{article}
+%% Formatting %%
+\usepackage[margin=3cm]{geometry}
+\usepackage{type1cm, titlesec, fancyhdr, titling}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{ulem}
+\usepackage{parskip}
+\setlength{\parindent}{2em}
+\setlength{\headheight}{15pt}
+\setlength{\droptitle}{-1.5cm}
+\parindent=24pt
+%% Math and Symbols %%
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage{yhmath, faktor, dsfont}
+\usepackage{academicons, wasysym, marvosym}
+\usepackage[scr]{rsfso} 
+\usepackage{latexsym, amsmath, amscd, amsmath, amsthm}
+\usepackage{amssymb,amsmath,amsthm,graphicx,dsfont}
+\usepackage{hyperref}
+
+%% Enhancement %%
+\usepackage{graphicx, tabularx}
+\usepackage[shortlabels,inline]{enumitem}
+%% TikZ %%
+\usepackage{tikz} 
+\usepackage[breakable]{tcolorbox}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc,matrix}
+\usetikzlibrary{arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{xcolor}
+
+%% Other packages %%
+\usepackage{amsopn}
+
+%% Traditional Chinese %%
+\usepackage{CJKutf8}
+
+%% Math environments %%
+\newtheoremstyle{mystyle}
+  {6pt}{15pt}% 上下間距
+  {}%          內文字體
+  {}%              縮排
+  {\bf}%       標頭字體
+  {.}%       標頭後標點
+  {1em}% 內文與標頭距離
+  {}% Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{mystyle}	
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{solution}{Solution}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{problem}{Problem}
+\newtheorem{answer}{Answer}[section]
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem*{recall}{Recall}
+\newtheorem*{claim}{Claim}
+\newtheorem*{observation}{Observation}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\begin{document}
+\begin{CJK}{UTF8}{bkai}
+
+    \title{%
+  \textbf{Math 2213 Introduction to Analysis I} \\
+  \vspace{0.5cm}
+  \large Homework 11 Due December 5 (Friday), 2025
+}
+\author{物理三 黃紹凱 B12202004}
+\date{\today}
+
+\maketitle
+
+% Exercise 1
+\begin{exercise}[\textbf{Exercise 5.2.6}, 20 points]
+    Let $f \in C(\mathbb{R}/\mathbb{Z}, \mathbb{C})$, and let $(f_n)_{n=1}^\infty$ be a sequence of functions in $C(\mathbb{R}/\mathbb{Z}; \mathbb{C})$.
+
+    \begin{enumerate}[(a)]
+        \item Show that if $f_n$ converges uniformly to $f$, then $f_n$ also converges to $f$ in the $L^2$ metric.
+
+        \item Give an example where $f_n$ converges to $f$ in the $L^2$ metric, but does \emph{not} converge to $f$ uniformly. \textit{(Hint: take $f = 0$. Try to make the functions $f_n$ large in sup norm.)} 
+
+        \item Give an example where $f_n$ converges to $f$ in the $L^2$ metric, but does \emph{not} converge to $f$ pointwise. \textit{(Hint: take $f = 0$. Try to make the functions $f_n$ large at one point.)} 
+
+        \item Give an example where $f_n$ converges to $f$ pointwise, but does \emph{not} converge to $f$ in the $L^2$ metric. \textit{(Hint: take $f = 0$. Try to make the functions $f_n$ large in $L^2$ norm.)} 
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}
+        \item[(a)] Suppose $ f_n \rightrightarrows f $, then for any $ \varepsilon > 0 $, there exists $ N \in \mathbb{N} $ such that for all $ n \geq N $ and for all $ x \in \mathbb{R}/\mathbb{Z} $, we have $ \vert f (x) - f_n (x) \vert_{\infty} < \varepsilon $ whenever $ n>N $. Then, for $ n>N $, we have
+        \[
+            \lVert f_n - f \rVert_2 = \left( \int_0^1 \mathrm{d}t\, \vert f_n(t) - f(t) \vert^2 \right)^{1/2} \leq \left( \int_0^1 \mathrm{d}t\, \varepsilon^2 \right)^{1/2} = \varepsilon,
+        \]
+        so $ f_n \to f $ in the $ L^2 $ metric.
+
+        \item[(b)] Consider the sequence of functions $ f_n(x) = \begin{cases} n, & x \in [0, \frac{1}{n^3}] \\ 0, & \text{otherwise} \end{cases} $. Then, for any $ n \in \mathbb{N} $, we have
+        \[
+            \lVert f_n - 0 \rVert_2 = \left( \int_0^1 \mathrm{d}t\, \vert f_n(t) - 0 \vert^2 \right)^{1/2} = \left( \int_0^{1/n^3} \mathrm{d}t\, n^2 \right)^{1/2} = 1/\sqrt{n} \to 0,
+        \]
+        but $ f_n $ does not converge to $ 0 $ uniformly since $ \vert f_n - f \vert_{\infty} = n \to \infty $ as $ n \to \infty $.
+
+        \item[(c)] The same example as in (b) works here. We have $ f_n \to f $ in the $ L^2 $ metric, but for $ x=0 $, $ \vert f_n(0) - 0 \vert = n \to \infty $ as $ n \to \infty $.
+        
+        \item[(d)] Consider the sequence of functions $ f_n(x) = \begin{cases} \sqrt{n}, & x \in [0, \frac{1}{n}] \\ 0, & \text{otherwise} \end{cases} $. Then $ f(0) = 0 $, and for any $ x \in (0,1] $, there exists $ N \in \mathbb{N} $ such that for all $ n \geq N $, we have $ x \notin [0, \frac{1}{n}] $, so $ f_n(x) = 0 $. Thus, $ f_n(x) \to 0 $ pointwise. However, we have
+        \[
+            \lVert f_n - 0 \rVert_2 = \left( \int_0^1 \mathrm{d}t\, \vert f_n(t) - 0 \vert^2 \right)^{1/2} = \left( \int_0^{1/n} \mathrm{d}t\, n \right)^{1/2} = 1,
+        \]
+        so $ f_n $ does not converge to $ 0 $ in the $ L^2 $ metric.
+    \end{enumerate}
+\end{solution}
+
+% Exercise 2
+\begin{exercise}[20 points]
+    Let $\{\phi_N\} : \mathbb{R} \to \mathbb{R}$ be a sequence of continuous, periodic functions on $\mathbb{R}$ (with period 1) which satisfy
+    \[
+        \int_0^{1} \phi_N(t)\,dt = 1 \qquad\text{and}\qquad \int_0^{1} |\phi_N(t)|\,dt \le M < \infty
+    \]
+    for all $N \in \mathbb{N}$, and
+    \[
+        \lim_{N\to\infty} \int_{\delta}^{1 - \delta} |\phi_N(t)|\,dt = 0
+    \]
+    for each $0 < \delta < 1$. Suppose that $f : \mathbb{R} \to \mathbb{R}$ is continuous and periodic with period $1$. Prove that
+    \[
+        \lim_{N\to\infty} \int_0^{1} f(x - t)\,\phi_N(t)\,dt = f(x)
+    \]
+    uniformly for $x \in \mathbb{R}$.
+\end{exercise}
+
+\begin{solution}
+    Since $ f $ is continuous on the compact set $ [0,1] $, it is uniformly continuous. Thus, for any $ \varepsilon > 0 $, there exists $ \delta > 0 $ such that for all $ x, y \in \mathbb{R} $ with $ \vert x - y \vert < \delta $, we have $ \vert f(x) - f(y) \vert < \varepsilon / (3M) $. For any $ x \in \mathbb{R} $, let $ F(x,t) = f(x-t) - f(x) $, the triangle inequality gives 
+    \begin{align*}
+        &\left\Vert \int_0^1 \mathrm{d}t\, f(x - t) \phi_N(t) - f(x) \right\Vert_{\infty} = \left\Vert \int_0^1  \mathrm{d}t\, F(x,t) \phi_N(t) \right\Vert_{\infty} \\
+        &\le \left\Vert \int_0^{\delta} \mathrm{d}t\, F(x,t) \phi_N(t) \right\Vert_{\infty} + \left\Vert \int_{\delta}^{1 - \delta} \mathrm{d}t\, F(x,t) \phi_N(t) \right\Vert_{\infty} + \left\Vert \int_{1 - \delta}^{1} \mathrm{d}t\, F(x,t) \phi_N(t) \right\Vert_{\infty} .
+    \end{align*}
+
+    For the first and third integrals, since $ \vert F(x,t) \vert  < \varepsilon / (3M) $ for $ \vert t \vert < \delta $, which for $ t \in \mathbb{R}/\mathbb{Z} $ is equivalent to $ t < \delta $ and $ t > 1 - \delta $, we have
+    \[
+        \left\Vert \int_0^{\delta} \mathrm{d}t\, F(x,t) \phi_N(t) \right\Vert_{\infty} < \frac{\varepsilon}{3M} \int_0^{\delta} |\phi_N(t)| \, dt \leq \frac{\varepsilon}{3},
+    \]
+    and 
+    \[
+        \left\Vert \int_{1 - \delta}^{1} \mathrm{d}t\, F(x,t) \phi_N(t) \right\Vert_{\infty} < \leq \frac{\varepsilon}{3M} \int_{1 - \delta}^{1} |\phi_N(t)| \, dt \leq \frac{\varepsilon}{3}.
+    \]
+    Since $ f $ is uniformly continuous, it is also bounded, so there exists $ B > 0 $ such that $ |f(x)| \leq B $ for all $ x \in \mathbb{R} $. By assumption, there exists $ N_0 \in \mathbb{N} $ such that for all $ N \geq N_0 $, we have
+    \[
+        \int_{\delta}^{1 - \delta} |\phi_N(t)| \, dt < \frac{\varepsilon}{6B}
+    \] 
+    Thus, for the second integral, we have
+    \[
+        \left\Vert \int_{\delta}^{1 - \delta} \mathrm{d}t\, F(x,t) \phi_N(t) \right\Vert_{\infty} \leq 2B \int_{\delta}^{1 - \delta} |\phi_N(t)| \, dt < 2B \cdot \frac{\varepsilon}{6B} < \frac{\varepsilon}{3}.
+    \]
+    Therefore, given any $ \varepsilon>0 $, for all $ x \in \mathbb{R} $ and $ N \geq N_0 $, we have 
+    \[
+        \left\Vert \int_0^1 \mathrm{d}t\, f(x - t) \phi_N(t) - f(x) \right\Vert_{\infty} < \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon,
+    \]
+    and hence on $ \mathbb{R} $, we have  
+    \[
+        \int_0^1 \mathrm{d}t\, f(x - t) \phi_N(t) \rightrightarrows f(x).
+    \]   
+\end{solution}
+
+% Exercise 3
+\begin{exercise}[\textbf{Exercise 5.2.3}, 15 points]
+    If $f \in C(\mathbb{R}/\mathbb{Z};\mathbb{C})$ is a non-zero function, show that 
+    \[
+    0 < \|f\|_{2} \;\le\; \|f\|_{\infty}.
+    \]
+    Conversely, if $0 < A \le B$ are real numbers, show that there exists a non-zero function $f \in C(\mathbb{R}/\mathbb{Z};\mathbb{C})$ such that 
+    \[
+    \|f\|_2 = A  \qquad\text{and}\qquad \|f\|_{\infty} = B.
+    \]
+    \textit{(Hint: let $g$ be a non-constant non-negative real-valued function in 
+    $C(\mathbb{R}/\mathbb{Z};\mathbb{C})$, and consider functions of the form
+    $f=(c + d g)^{1/2}$ for some constant real numbers $c,d>0$.)}    
+\end{exercise}
+
+\begin{solution}
+    If $ f $ is nonzero, by the definition of the norm we must have $ \lVert f \rVert_2 > 0 $. For each $ x \in \mathbb{R}/\mathbb{Z} $, we have $ f(x) \leq \lVert f \rVert_{\infty} $. Therefore, 
+    \[
+        \lVert f \rVert_2^2 = \int_0^1 \mathrm{d}t\, \vert f(t) \vert^2 \leq \int_0^1 \mathrm{d}t\, \lVert f \rVert_{\infty}^2 = \lVert f \rVert_{\infty}^2. 
+    \]
+    Conversely, suppose $ 0 < A \leq B $ are real numbers. If $ A = B $, then let $ f = A $ be the constant function and we are done. If $ A < B $, let $ g(x) = \sin^2(2\pi x) \leq 1 $, then $ g \in C(\mathbb{R}/\mathbb{Z}; \mathbb{C}) $ is non-constant and non-negative. Consider the function $ f(x) = (c + d g(x))^{1/2} $, where $ c, d > 0 $ are constants to be determined. We have
+    \[
+        \lVert f \rVert_{\infty} = \max_{x \in \mathbb{R}/\mathbb{Z}} (c + d g(x))^{1/2} = (c + d)^{1/2},
+    \]
+    and
+    \[
+        \lVert f \rVert_2^2 = \int_0^1 \mathrm{d}t\, (c + d g(t)) = c + d \int_0^1 \mathrm{d}t\, \sin^2(2\pi t) = c + \frac{d}{2}.
+    \]
+    Thus, we want to solve for $ c $, $ d $ such that $ (c+d)^{1/2} = B $ and $ (c + \frac{d}{2})^{1/2} = A $. The solution is $ c = 2A^2 - B^2 $, $ d = 2 \left(B^2 - A^2\right) $, and hence the function
+    \[
+        f(x) = \left(2A^2 - B^2 + 2 \left(B^2 - A^2\right) \sin^2(2\pi x)\right)^{1/2}
+    \]
+    works.
+\end{solution}
+
+% Exercise 4
+\begin{exercise}[15 points]
+    A \emph{square wave function} is a $\mathbb{Z}$-periodic function defined by
+    \[
+    f(x) =
+    \begin{cases}
+    1, & x \in [k,\, k + \tfrac{1}{2}),\\[4pt]
+    -1, & x \in [k + \tfrac{1}{2},\, k + 1),
+    \end{cases}
+    \qquad k \in \mathbb{Z}.
+    \]
+    Thus $f$ alternates between $1$ and $-1$ on each half-interval, repeating the same
+    pattern on every interval of length $1$.
+
+    Find a sequence of continuous periodic functions which converges in $L^2$ to the
+    square wave function.
+
+    \bigskip
+
+    \begin{tikzpicture}[x=2cm,y=1.2cm]
+
+    % axes
+    \draw[->] (-2.2,0) -- (3.2,0) node[below right] {$x$};
+    \draw[->] (0,-1.6) -- (0,1.6) node[left] {$y$};
+
+    % y-level labels
+    \draw (-0.08,1) -- (0.08,1) node[right=2pt] {$1$};
+    \draw (-0.08,-1) -- (0.08,-1) node[right=2pt] {$-1$};
+
+    % vertical grid at integers and half-integers (light helpers)
+    \foreach \k in {-2,-1,0,1,2,3}{
+    \draw[gray!20] (\k,-1.5) -- (\k,1.5);
+    }
+    \foreach \k in {-1.5,-0.5,0.5,1.5,2.5}{
+    \draw[gray!10,dashed] (\k,-1.5) -- (\k,1.5);
+    }
+
+    % integer tick labels
+    \foreach \k in {-2,-1,0,1,2,3}{
+    \draw (\k,0) -- (\k,0.07) node[below=4pt] {$\k$};
+    }
+
+    % the square wave: draw for n = -2,...,2
+    \foreach \n in {-2,-1,0,1,2}{
+    % top half: [n, n+1/2) -> y=1
+    \draw[line width=1pt] (\n,1) -- (\n+0.5,1);
+    % bottom half: [n+1/2, n+1) -> y=-1
+    \draw[line width=1pt] (\n+0.5,-1) -- (\n+1,-1);
+
+    % endpoints: closed at left, open at right for each half-interval
+    % top half endpoints
+    \fill (\n,1) circle (1.2pt); % closed at left
+    \draw[fill=white] (\n+0.5,1) circle (1.2pt); % open at right
+    % bottom half endpoints
+    \fill (\n+0.5,-1) circle (1.2pt); % closed at left
+    \draw[fill=white] (\n+1,-1) circle (1.2pt); % open at right
+    }
+
+    % legend for one period
+    \draw[decorate,decoration={brace,amplitude=5pt}] (0,-1.35) -- (1,-1.35)
+    node[midway,below=6pt] {period $=1$};
+
+    % labels for pieces
+    %\node[above right] at (-1.8,1) {$f(x)=1$ on $[n,n+\tfrac12)$};
+    %\node[below right] at (-1.8,-1) {$f(x)=-1$ on $[n+\tfrac12,n+1)$};
+
+    \end{tikzpicture}
+\end{exercise}
+
+\begin{solution}
+    The square wave function has a discontinuity at $ x = k + \frac{1}{2} $. Thus, we can do the following approximation of it. Let 
+    \[
+        f(x) = \begin{dcases}
+            1, & x \in \left[k, k + \frac{1}{2} - \frac{1}{n}\right), \\
+            -n \left(x - k - \frac{1}{2}\right), & x \in \left[k + \frac{1}{2} - \frac{1}{n}, k + \frac{1}{2}\right), \\
+            -1, & x \in \left[k + \frac{1}{2}, k + 1 - \frac{1}{n}\right), \\
+            2n (x-k-1) + 1, & x \in \left[k + 1 - \frac{1}{n}, k + 1\right),
+        \end{dcases}
+    \]
+    Then, $ f $ is periodic since $ f(x+1) = f(x) $ by construction, and $ f $ is continuous since the limits of $ f $ at $ x = k + \frac{1}{2} \pm \frac{1}{n} $ exists and are equal to $ \pm 1 $. To check the $ L^2 $-convergence of $ f_n $ to $ f $, by periodicity we focus on the intervals $ I_n^{(1)} = [\frac{1}{2} - \frac{1}{n}, \frac{1}{2}] $ and $ I_n^{(2)} = [1 - \frac{1}{n}, 1]$, since $ f_n = f $ on $ \left[0, \frac{1}{2} - \frac{1}{n}\right] \cup \left[\frac{1}{2}, 1 - \frac{1}{n}\right] $. We have $ \vert I_n^{(1)} \vert = \vert I_n^{(2)} \vert = \frac{1}{n} $, and for any $ x \in I_n^{(i)} $, $ i = 1,2 $, we have $ \vert f_n(x) - f(x) \vert \leq 2 $. Therefore, for all $ \varepsilon>0 $, take $ N = 8 / \varepsilon $, and we have   
+    \begin{equation*}
+        \begin{split}
+            \left\lVert f_n (x) - f(x) \right\rVert_2^2 &= \int_{I_n^{(1)} \cup I_n^{(2)}} \mathrm{d}t\, \vert f_n(t) - f(t) \vert^2 \leq \int_{I_n^{(1)} \cup I_n^{(2)}} \mathrm{d}t\, 4 = \frac{8}{n} < \varepsilon, 
+        \end{split}
+    \end{equation*}
+    whenever $ n > N $. Thus, $ f_n \to f $ in the $ L^2 $ metric.
+\end{solution}
+
+% Exercise 5
+\begin{exercise}[15 points]
+    ~ 
+
+    \begin{enumerate}[(a)]
+        \item Evaluate 
+        \[
+        S_n(\theta) = \sum_{k=1}^{n} \sin(k\theta).
+        \]
+        \item Show that 
+        \[
+        |S_n(\theta)| \le \pi \varepsilon^{-1}
+        \qquad \text{on } [\varepsilon,\, 2\pi - \varepsilon] \text{ for all } n \ge 1.
+        \]
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    ~
+
+    \begin{enumerate}
+        \item[(a)] Recall that $ \sin x = \frac{e^{ix} - e^{-ix}}{2i} $. Thus, by the geometric series formula, we have
+        \begin{align*}
+            S_n (\theta) &= \sum_{k=1}^n \sin (k \theta) = \sum_{k=1}^n \frac{e^{ik\theta} - e^{-ik\theta}}{2i} \\
+            &= \frac{1}{2i} \left( \sum_{k=1}^n e^{ik\theta} - \sum_{k=1}^n e^{-ik\theta} \right) \\
+            &= \frac{1}{2i} \left( e^{i\theta} \frac{1 - e^{in\theta}}{1 - e^{i\theta}} - e^{-i\theta} \frac{1 - e^{-in\theta}}{1 - e^{-i\theta}} \right) \\
+            &= \frac{1}{2i} \left( e^{i (n+1) \theta / 2} \frac{e^{in \theta /2} - e^{-in \theta / 2}}{e^{i\theta/2} - e^{-i\theta/2}} - e^{- i (n+1) \theta / 2} \frac{e^{in\theta/2} - e^{-in \theta / 2}}{e^{i\theta/2} - e^{-i\theta/2}} \right) \\
+            &= \left(\frac{e^{i (n+1)\theta/2} - e^{-i (n+1)\theta/2}}{2i}\right) \left( \frac{e^{in \theta /2} - e^{-in \theta / 2}}{e^{i\theta/2} - e^{-i\theta/2}} \right) \\
+            &= \frac{\sin \left( \frac{(n+1)\theta}{2} \right) \sin \left( \frac{n\theta}{2} \right)}{\sin \left( \frac{\theta}{2} \right)}.
+        \end{align*}
+
+        \item[(b)] Let $ \theta \in [\varepsilon, 2\pi - \varepsilon] $. Then, since $ \sin x $ is increasing on $ [0, \pi/2] $ and decreasing on $ [\pi/2, \pi] $, we have
+        \[
+            \left\vert \sin \left( \frac{\theta}{2} \right) \right\vert \geq \left\vert \sin \left( \frac{\varepsilon}{2} \right) \right\vert.
+        \]
+        On $ [0, \frac{\pi}{2}] $, since $ \sin x $ passes through $ \left(\frac{\pi}{2}, 1\right) $, and is concave because $ \left(\sin x\right)^{\prime\prime} = - \sin x < 0 $, we have $ \sin x \geq \frac{2}{\pi} x $. Thus, by part (a), we have
+        \[
+            |S_n(\theta)| = \left\vert \frac{\sin \left( \frac{(n+1)\theta}{2} \right) \sin \left( \frac{n\theta}{2} \right)}{\sin \left( \frac{\theta}{2} \right)} \right\vert \leq \frac{1}{\left\vert \sin \left( \frac{\varepsilon}{2} \right) \right\vert} \leq \frac{1}{\vert \sin \left(\frac{\theta}{2}\right) \vert} \leq \frac{\pi}{\varepsilon}.
+        \]
+
+        \begin{remark}
+            This implies that $ S_n (\theta) $ is uniformly bounded for all $ n $ on any compact subset of the interval $ (0, 2 \pi) $. 
+        \end{remark}
+    \end{enumerate}
+\end{solution}
+
+% Exercise 6
+\begin{exercise}[15 points]
+    Let $f, g \in C(\mathbb{R}/\mathbb{Z}; \mathbb{R})$. We define their \emph{periodic convolution} $f * g : \mathbb{R} \to \mathbb{R}$ by
+    \[
+    (f * g)(x) := \int_{0}^{1} f(y)\, g(x-y)\, dy.
+    \] 
+    Prove that $(f * g)$  is smooth whenever $f$ is smooth. (Remark: A function is called smooth if it has derivatives of all orders.)
+\end{exercise}
+
+\begin{solution}
+    First consider $ z = x-y $, then let $ h = f * g $, we have
+    \[
+        h(x) = \int^{x+1}_{x} \mathrm{d}z\, f(x-z) g(z) = \int^{1}_{0} \mathrm{d}z\, f(x-z) g(z),
+    \]
+    since both $ f $ and $ g $ are periodic with period $ 1 $. For each fixed $ y \in [0,1] $, by the Mean Value Theorem, there exists $ \xi_t \in (0, t) $ such that
+    \begin{align*}
+        \frac{h(x+t) - h(x)}{t} &= \int_0^1 \mathrm{d}z\, g(z) \frac{f(x + t - z) - f(x - z)}{t} = \int_0^1 \mathrm{d}z\, g(z) f^{\prime} (x - z + \xi_t). 
+    \end{align*}
+    Since $ x - z \in [-1,1] $, we have $ x - z + \xi_t \in [-1-t, 1+t] $. Since $ f $ is smooth, $ f^{\prime} $ is continuous on the compact set $ [-1-t, 1+t] $, so $ f^{\prime} $ is uniformly continuous there. Thus, for all $ \varepsilon>0 $, there exists $ \delta > 0 $ such that when $ \vert (x-z+ \xi_t) - (x-z) \vert = \vert \xi_t \vert < t < \delta $, we have 
+    \[
+        \left\vert f^{\prime} (x-z + \xi_t) - f^{\prime} (x-z) \right\vert < \varepsilon.
+    \]
+    Since $ g $ is continuous on the compact set $ [0,1] $, it is bounded, so there exists $ M > 0 $ such that $ \vert g(z) \vert \leq M $ for all $ z \in [0,1] $. Therefore, for all $ t < \delta $, we have 
+    \begin{align*}
+        \left\vert \frac{h(x+t) - h(x)}{t} - \int_0^1 \mathrm{d}z\, g(z) f^{\prime} (x - z) \right\vert &\leq \int_0^1 \mathrm{d}z\, \vert g(z) \vert \left\vert f^{\prime} (x - z + \xi_t) - f^{\prime} (x - z) \right\vert \leq M \varepsilon, 
+    \end{align*}
+    and hence the first derivative exists: 
+    \[
+        h^{\prime} (x) = \lim_{t \to 0} \frac{h(x+t) - h(x)}{t} = \int_0^1 \mathrm{d}z\, g(z) f^{\prime} (x - z).
+    \] 
+    We can show the higher-order derivatives similarly by induction. The base case $ n=1 $ is done above. Suppose the $ n $-th derivative exists and is given by
+    \[
+        h^{(n)} (x) = \int_0^1 \mathrm{d}z\, g(z) f^{(n)} (x - z).
+    \]
+    Then, for the $ (n+1) $-th derivative, we have
+    \begin{align*}
+        \frac{h^{(n)}(x+t) - h^{(n)}(x)}{t} &= \int_0^1 \mathrm{d}z\, g(z) \frac{f^{(n)} (x + t - z) - f^{(n)} (x - z)}{t} \\
+        &= \int_0^1 \mathrm{d}z\, g(z) f^{(n+1)} (x - z + \xi_t),
+    \end{align*}
+    for some $ \xi_t \in (0, t) $. By the same argument as above, we may switch the order of limit and integration, and thus  
+    \[
+        h^{(n+1)} (x) = \int_0^1 \mathrm{d}z\, g(z) f^{(n+1)} (x - z).
+    \]
+    Therefore, by induction, $ h $ has derivatives of all orders, so $ h $ is smooth.
+\end{solution}
+
+\end{CJK}
+\end{document}
