@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={16cm, 20cm}]{geometry}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./Figures/}{#1.pdf_tex}
+}
+
+\usepackage{scrextend}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem} % enumerate with letters
+\usepackage[normalem]{ulem}
+\usepackage{indentfirst}
+\usepackage{pifont}
+\usepackage{fancyhdr}   % 頁首頁尾
+\usepackage{amssymb}
+\usepackage{empheq} % box around multiple equations
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+% figures
+\usepackage{graphicx} % Required for inserting images
+\usepackage{wrapfig} 
+\usepackage{subfig}
+\usepackage{makecell} % table wrap text
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\usepackage{lmodern,bm}                
+\usepackage[T1]{sansmath} 
+\SetMathAlphabet{\mathsfbf}{sans}{\sansmathencoding}{\sfdefault}{bx}{sl}
+\usepackage{etoolbox}
+\AtBeginEnvironment{sansmath}{\let\bm\mathsfbf}{}{}
+\usepackage{mdframed}
+\usepackage{amsmath, nccmath}
+\usepackage{mathtools} % for text above and under arrows
+
+\usepackage{bbm}
+\usepackage{bbold} % blackboard bold font
+
+\usepackage{relsize} % math symbol size
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\usepackage{thmtools}
+\usepackage{mdframed}
+\usepackage[dvipsnames]{xcolor} % different colors
+
+
+\declaretheoremstyle[
+    headfont=\sffamily\bfseries\color{black}, % Sans-serif, bold, blue title
+    bodyfont=\normalfont,
+    headpunct={.}, % Adds a period after the theorem heading
+    postheadspace=1em,
+]{mydefstyle}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Definition,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{definition}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Example,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+\newcommand{\mycomment}[1]{} % block comments
+
+% figures
+\usepackage{wrapfig} 
+\usepackage{subfig}
+
+\title{%
+  Special Function for Michaelis-Menten Calculations \\
+}
+% \author{Jonathan Huang}
+% \date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{\large Special Function}
+As defined by Dr. Lin, the equation 
+\begin{equation}
+    1 - mx = \frac{cx}{k+x} \label{equ:MM_special}
+\end{equation}
+admits the nonnegative solution given by
+\begin{equation}
+    p(c, k, m) = \frac{1}{2m}\left[(1 - c - mk) + \sqrt{(1 - c- mk)^2 + 4mk} \right]. 
+\end{equation}
+The quantity $ p(c,k,m) $ always lies between $ 0 $ and $ 1/m $, is an increasing function of $ c $, $ m $, and a decreasing function of $ k $. For our system, we can express the fixed point solution as 
+\begin{subequations}
+    \begin{align}
+        Y^\ast_1 &= p\left(\frac{a_1 \theta_2}{b \theta_1}, k_1, 1\right) \equiv p(c_1, k_1, m_1), \\
+        Y^\ast_2 &= p \left(\frac{a_2 \theta_3}{a_1 \theta_2} \frac{k_1 + Y^\ast_1}{Y^\ast_1}, k_2, \frac{b \theta_1}{a_1 \theta_2} \frac{k_1 + Y^\ast_1}{Y^\ast_1}\right) \equiv p(c_2, k_2, m_2), \\
+        Y^\ast_{k+2} &= \theta_k W^\ast, \quad W^\ast \equiv 1 - Y^\ast_1 - Y^\ast_2, \quad k = 1,2,3.
+    \end{align}
+\end{subequations}
+
+Let's consider the relevant limits of $ p(c,k,m) $ for the $ b \to 0 $ and $ b \to \infty $ limits. When $ b \to 0 $, we have $ c_1 \to \infty $ and $ c_2 \to \infty $. In this case, even though it seems like $ m_2 \to 0 $, we simultaneously have $ Y_1^\ast \to 0 $, and hence $ m_2 = O(1) $. It feels handwavy to conclude so, but a full expansion shown later will verify this fact. On the other hand, when $ b \to \infty $, we have $ c_1 \to 0 $, $ Y_1^\ast \to 1 $, and hence $ m_2 \to \infty $.
+\begin{enumerate}[(1)]
+    \item $ c \to 0 $: By direct expansion of $ p(c,k,m) $ about $ c=0 $, we have 
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{equation}
+        p(c,k,m) = \frac{1}{m} - \frac{c}{m\,(k m + 1)} + \frac{k}{(k m + 1)^3}\,c^{2} + \frac{k\,(1 - k m)}{(k m + 1)^5}\,c^{3} + O(c^{4}).
+    \end{equation}      
+    \end{mdframed}
+    \item $ c \to \infty $: By direct expansion of $ p(c,k,m) $ about $ c = \infty $, we have 
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{equation}
+        p(c,k,m) = \frac{k}{c} + \frac{k - k^{2} m}{c^{2}} + \frac{k\,(k^{2} m^{2} - 3 k m + 1)}{c^{3}} + O(c^{-4}).
+    \end{equation}
+    \end{mdframed}
+    \item $ m \to 0 $: By direct expansion of $ p(c,k,m) $ about $ m = 0 $, we have
+    \begin{equation*}
+        p(c,k,m) = \frac{|c - 1| - (c - 1)}{2m} + \frac{k}{2}\!\left(\frac{1 + c}{|c - 1|} - 1\right) - \frac{c\,k^{2}}{|c - 1|^{3}}\,m + \frac{k^{3} c (c + 1)}{|c - 1|^{5}}\,m^{2} + O(m^{3}).
+    \end{equation*}
+    Assuming $ c < 1 $, this becomes 
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{equation}
+        p(c,k,m) = \frac{1-c}{2m} + \frac{ck}{1-c} - \frac{c\,k^{2}}{(1-c)^{3}}\,m + \frac{k^{3} c (c + 1)}{(1-c)^{5}}\,m^2 + O(m^{3}).
+    \end{equation}
+    \end{mdframed}
+    If we instead assume $ c > 1 $, then 
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{equation}
+        p(c,k,m) = \frac{k}{c - 1} - \frac{c\,k^{2}}{(c - 1)^{3}}\,m + \frac{k^{3} c (c + 1)}{(c - 1)^{5}}\,m^{2} + O(m^{3}).
+    \end{equation}
+    \end{mdframed}
+    \item $ m \to \infty $: By direct expansion of $ p(c,k,m) $ about $ m = \infty $, we have  
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{equation}
+        p(c,k,m) = \frac{1}{m} - \frac{c}{k\,m^{2}} + \frac{c(1 + c)}{k^{2}\,m^{3}} + O(m^{-4}).
+    \end{equation}
+    \end{mdframed}
+\end{enumerate}
+
+Notice that $ p $ diverges when $ m \to 0 $, but fortunately we do not need this limit in our analysis at all. Using these expansions, we can now give a preliminary analysis of the starvation and overabundance limits.
+
+\section{\large Starvation Limit}
+When $ b \to 0 $, we have $ c_1 \to \infty $, $ c_2 \to \infty $, and $ m_2 = O(1) $. Therefore, using the $ c \to \infty $ expansion on $ c_1 $, we have
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{equation}
+    Y_1 = k_1 \left(\frac{b \theta_1}{a_1 \theta_2}\right) + k_1 (1 - k_1) \left(\frac{b \theta_1}{a_1 \theta_2}\right)^2 + O \left( n_1^3 \right), 
+\end{equation}
+\end{mdframed}
+and
+\begin{align}
+    \frac{Y_1^\ast}{k_1 + Y_1^\ast} &= \left(\frac{\theta_1}{a_1 \theta_2}\right) b - (2-k_1) \left(\frac{\theta_1}{a_1 \theta_2}\right)^2 b^2 + O\left(\left(\frac{b \theta_1}{a_1 \theta_2}\right)^3\right), \\
+    \frac{k_1 + Y_1^\ast}{Y_1^\ast} &= \left(\frac{a_1 \theta_2}{\theta_1}\right) \frac{1}{b} + (2 - k_1) + O\left(\frac{b \theta_1}{a_1 \theta_2}\right).
+\end{align}
+Then, using the same expansion on $ c_2 $, we have
+\begin{equation}
+    \frac{1}{c_2} = \left(\frac{a_1 \theta_2}{a_2 \theta_3}\right) \left(\frac{Y_1^\ast}{k_1 + Y_1^\ast}\right) = \left(\frac{\theta_1}{a_2 \theta_3}\right) b - (2-k_1) \left(\frac{\theta_1^{2}}{a_1 a_2 \theta_2 \theta_3}\right) b^{2} + O\left(\left(\frac{b \theta_1}{a_1 \theta_2}\right)^3\right),
+\end{equation}
+\begin{equation}
+    m_2 = 1 + (2-k_1) \left(\frac{\theta_1}{a_1 \theta_2}\right)b + O\left(\frac{b \theta_1}{a_1 \theta_2}\right)^2.
+\end{equation}
+It is as expected that $ m_2 = O(1) $. Then, for $ Y_2^\ast $ we have 
+\begin{equation}
+    Y_2^\ast = k_2 (2 - k_2) \left(\frac{\theta_1}{a_2 \theta_3}\right) b - 2 k_2 (2-k_1) \left(\frac{\theta_1^2}{a_1 a_2 \theta_2 \theta_3}\right) b^2 + O\left(\left(\frac{b \theta_1}{a_1 \theta_2}\right)^3\right).
+\end{equation}
+This does not match the full expansion given in the next section. This may be because of the assumption that $ m_2 = O(1) $, which is not fully justified. A more rigorous derivation is given in the corresponding Subsection.
+
+\section{\large Full Calculation}
+We also show the result of a full on expansion for comparision with results from the special function method. Consider the series expansion of $Y_1, Y_2, Y_3$ in the limit $b \to 0$. In effect, we are computing the series expansion with respect to the dimensionless quantity $ n_1 = b \theta_1 / a_1 \theta_2 $ and $ n_2 = b \theta_1 / a_2 \theta_3 $. We have
+
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{align}
+    Y_1 &= k_1 \left(\frac{b \theta_1}{a_1 \theta_2}\right) + \frac{k_1 \theta_2 (1 - k_1)}{\theta_2} \left(\frac{b \theta_1}{a_1 \theta_2}\right)^2 + O \left( n_1^3 \right), \\
+    Y_2 &= k_2 \left(\frac{b \theta_1}{a_2 \theta_3}\right) - \frac{k_2 (a_1 k_2 \theta_2 - a_1 \theta_2 + a_2 k_1 \theta_3)}{a_1 \theta_2 } \left(\frac{b \theta_1}{a_2 \theta_3}\right)^2 + O\left(n_2^3\right) , \\
+    Y_3 &= \theta_1 - b\theta_1^2\left(\frac{k_1}{a_1\theta_2} + \frac{k_2}{a_2\theta_3}\right) + O\left(\min \{n_1^2, n_2^2\}\right).
+\end{align}
+\end{mdframed}
+
+\end{document}

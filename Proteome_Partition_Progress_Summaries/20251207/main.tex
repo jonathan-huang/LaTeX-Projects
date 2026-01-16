@@ -1,0 +1,312 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={16cm, 23cm}]{geometry}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./Figures/}{#1.pdf_tex}
+}
+
+\usepackage{scrextend}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem} % enumerate with letters
+\usepackage{ulem}
+% \usepackage[normalem]{ulem}
+\usepackage{indentfirst}
+\usepackage{pifont}
+\usepackage{fancyhdr}   % 頁首頁尾
+\usepackage{amssymb}
+\usepackage{empheq} % box around multiple equations
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+% figures
+\usepackage{graphicx} % Required for inserting images
+\usepackage{wrapfig} 
+\usepackage{subfig}
+\usepackage{makecell} % table wrap text
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\usepackage{lmodern,bm}                
+\usepackage[T1]{sansmath} 
+\SetMathAlphabet{\mathsfbf}{sans}{\sansmathencoding}{\sfdefault}{bx}{sl}
+\usepackage{etoolbox}
+\AtBeginEnvironment{sansmath}{\let\bm\mathsfbf}{}{}
+\usepackage{mdframed}
+\usepackage{amsmath, nccmath}
+\usepackage{mathtools} % for text above and under arrows
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{bbm}
+\usepackage{bbold} % blackboard bold font
+
+\usepackage{relsize} % math symbol size
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\usepackage{thmtools}
+\usepackage{mdframed}
+\usepackage[dvipsnames]{xcolor} % different colors
+
+
+\declaretheoremstyle[
+    headfont=\sffamily\bfseries\color{black}, % Sans-serif, bold, blue title
+    bodyfont=\normalfont,
+    headpunct={.}, % Adds a period after the theorem heading
+    postheadspace=1em,
+]{mydefstyle}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Definition,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{definition}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Claim,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{claim}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Proposition,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{proposition}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Example,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+\newcommand{\mycomment}[1]{} % block comments
+
+% figures
+\usepackage{wrapfig} 
+\usepackage{subfig}
+\usepackage{cleveref}
+
+\title{%
+  20251127 - 20251210 Summary \\
+}
+\author{Shao-Kai Jonathan Huang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+%
+\section{\large Bounding the Linear Relationship Regime}
+
+One of the oldest references regarding growth laws in bacterial physiology: \textcolor{ForestGreen}{[O. Maaløe \& N. O. Kjeldgaard, “Control of Macromolecular Synthesis: A Study of DNA, RNA, and Protein Synthesis in Bacteria,” (1966).]}. They observe that ribosome fraction increases with growth rate, protein synthesis per ribosome is roughly constant, and that cells reallocate macromolecular composition to support chosen growth rate. 
+
+The starvation limit behavior predicted by our model is calculated to be 
+\begin{equation}
+    Y_5^* = \sqrt{\frac{k_2}{a_1}} \sqrt{\lambda} + O\!\left(\frac{\lambda}{a_2}\right). 
+\end{equation}
+
+We plot the relations in Figures \ref{fig:R_linear_regime} and \ref{fig:theta3_linear_regime}. From the slope plots, we see the linear regime based on experimental results are recovered in the intermediate regime of nutrient quality, where the slope $ \mathrm{d}Y_5^* / \mathrm{d}\lambda $ and $ \mathrm{d}\theta_3 / \mathrm{d}\lambda $ are approximately constant. In the starvation regime, however, the slopes deviates from linear behavior, and in fact appears to be $ \sqrt{} $.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{bound.png}
+    \caption{Manually drawn bound of near constant slope.}
+    \label{fig:bounded_linear_regime}
+\end{figure}
+
+\begin{figure}[htbp]
+    \begin{minipage}
+        {0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{R_1.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}
+        {0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{R_slope_1.png}
+    \end{minipage}
+    \caption{The slope of the ribosomal allocation fraction $ Y_5^*$ vs. growth rate $\lambda$. Here we have $ b \in [0.001, 10.0] $, or, $ \log b \in [-3, 1] $.}
+    \label{fig:R_linear_regime}
+    \begin{minipage}
+        {0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{theta3_1.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}
+        {0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{theta3_slope_1.png}
+    \end{minipage}
+    \caption{The slope of the translation fraction $\theta_3$ vs. growth rate $\lambda$. Here we have $ b \in [0.001, 10.0] $, or, $ \log b \in [-3, 1] $.}
+    \label{fig:theta3_linear_regime}
+\end{figure}
+
+A similar trend has been theoretically calculated in \textcolor{ForestGreen}{Dourado, H., \& Lercher, M. J. (2020). An analytical theory of balanced cellular growth. Nature Communications, 11, 1226.}. Figure \ref{fig:dourado_fig2} in appendix uses an analytical model the authors call \textbf{Growth Balance Analysis (GBA)}. 
+
+\newpage
+\section{\large Plots}
+We plot a few relevant plots dicsussing the bahavior in the intermediate regime.
+
+\begin{figure}[htbp]
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{landscape1.png}
+        \caption{Growth rate landscape for partition fractions $ \theta_1 $ and $ \theta_3 $. The optimal proteome partition for each fixed ribosome fraction $ \theta_3 $ is indicated by the dashed line.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{landscape2.png}
+        \caption{Growth rate landscape for nutrient quality $ b $ and partition fraction $ \theta_3 $. The optimal proteome partition at each nutrient quality is indicated by the dashed line.}
+    \end{minipage} 
+    \\ \\
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{lambda.png}
+        \caption{Growth rate versus nutrient quality $ b $, for $ b $ running from $ 10^{-5} $ to $ 10^5 $. The $ x $ axis is plotted in log scale, showing non-convexity.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{theta.png}
+        \caption{Resource allocation as shown by proteome partition $ (\theta_1, \theta_2, \theta_3) $ over a wide range of nutrient quality $ b $. Here $ b $ runs from $ 0.1 $ to $ 10^3 $.}
+    \end{minipage}
+\end{figure}
+
+\newpage 
+\section{\large Plots for Metabolic Control Analysis}
+We plot a few relevant plots dicsussing the bahavior in the regimes of low, intermediate, and high nutrient quality. Data smoothing was done using 
+\begin{center}
+    \verb|from scipy.signal import savgol_filter| 
+\end{center}
+with \verb|window_length = 15| and \verb|polyorder = 3| to reduce numerical noise when differenting. To showcase the trends, we plot on arbitrary $ y $ axis, and shift the curves vertically for better visibility.
+
+\begin{figure}[htbp]
+    \begin{minipage}
+        {0.98\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{all_flux_large_b.png}
+        \caption{Fluxes for high nutrient quality $ b \in [5 \times 10^7, 10^8] $.}
+    \end{minipage}
+    \\[1cm]
+    \begin{minipage}
+        {0.98\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{all_FCC_large_b.png}
+        \caption{FCCs for high nutrient quality $ b \in [5 \times 10^7, 10^8] $.}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+    \begin{minipage}
+        {0.98\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{all_flux_medium_b.png}
+        \caption{Fluxes for intermediate nutrient quality $ b \in [10^{-3}, 10] $.}
+    \end{minipage}
+    \\[1cm]
+    \begin{minipage}
+        {0.98\textwidth}
+        \centering
+            \includegraphics[width=\textwidth]{all_FCC_medium_b.png}
+            \caption{FCCs for intermediate nutrient quality $ b \in [10^{-3}, 10] $.}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+    \begin{minipage}
+        {0.98\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{all_flux_small_b.png}
+        \caption{Fluxes for low nutrient quality $ b \in [5 \times 10^{-5}, 10^{-4}] $.}
+    \end{minipage}
+    \\[1cm]
+    \begin{minipage}
+        {0.98\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{all_FCC_small_b.png}
+        \caption{FCCs for low nutrient quality $ b \in [5 \times 10^{-5}, 10^{-4}] $.}
+    \end{minipage}
+\end{figure}
+
+\newpage
+\section{\large Convexity and Monotonicity}
+In \textcolor{ForestGreen}{[Yamagishi, J. F., \& Hatakeyama, T. S. (2025). Global constraint principle for microbial growth laws. Proceedings of the National Academy of Sciences of the United States of America, 122(40), e2515031122.]}, it is claimed that growth rate is a convex and monotonic increasing function of nutrient quality, which they show holds true under the assumption of Michaelis-Menten kinetics and certain global nutrient quality constraints. 
+
+Contrary to their claims, the model exhibits non-convexity and non-monotonicity for intermediate nutrient qualities. For instance, we show in Figures \ref{fig:large_mol_frac} and \ref{fig:small_mol_frac} the dependence of growth rate on small (metabolite) and large (peptide and protein complex) molecule fractions. Indeed, it is experimentally observed that growth rate does not always increase with nutrient quality, and there is a nutrient quality threshold past which the growth rate decreases due to a number of biological factors, including toxicity, osmotic stress, and membrane crowding effects.
+
+\begin{figure}[htbp]
+    \begin{minipage}
+        {0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{large.png}
+        \caption{Large molecule fraction versus growth rate $ \lambda $ for $ b \in [10^{-3}, 10] $. The dependence is monotone but non-convex.}
+        \label{fig:large_mol_frac}
+    \end{minipage}
+    \hfill
+    \begin{minipage}
+        {0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{small.png}
+        \caption{Small molecule fraction versus growth rate $ \lambda $ for $ b \in [10^{-3}, 10] $. The dependence is monotone but non-convex.}
+        \label{fig:small_mol_frac}
+    \end{minipage}
+\end{figure}
+
+\newpage
+\section{\large Elaboration on Optimization Objective}
+
+\subsection{The Objective Function is Fitness}
+What's usually optimized is long-term \emph{fitness} in a particular ecological context, and this does not necessarily correspond to fastest growth.
+
+\emph{For non-interacting unicellular organisms in constant environments, fitness is equivalent to growth rate} \textcolor{ForestGreen}{[Bruggeman, F. J., Remeijer et al. (2023). Whole-cell metabolic control analysis. BioSystems, 234, 105067.]}, \textcolor{ForestGreen}{[Dourado, H., \& Lercher, M. J. (2020). An analytical theory of balanced cellular growth. Nature Communications, 11, 1226.]}. 
+
+Consider two asexual strains in a constant environment with the same death rate and resource access, but different exponential growth rates $\lambda_1 > \lambda_2$. Their abundance ratio is
+\[
+\frac{N_1(t)}{N_2(t)}
+    = \frac{N_1(0)}{N_2(0)} e^{(\lambda_1 - \lambda_2)t}.
+\]
+The strain with higher $\lambda$ (Malthusian parameter) takes over. In this example, growth rate is equal to fitness. However, we discuss a few counter cases where maximizing the growth rate does not lead to the evolutionary outcome, and \emph{our model results do not apply}.
+
+\begin{itemize}
+    \item Yield may be favored over growth rate in nutrient-poor or closed systems, because the population that turns limited resources into the largest final population can leave more descendants \textcolor{ForestGreen}{[Lipson, D. A. (2015). The complex relationship between microbial growth rate and yield and its implications for ecosystem processes. Frontiers in Microbiology, 6, 615.]}, \textcolor{ForestGreen}{[Abram, F., Arcari, T., Guerreiro, D., \& O'Byrne, C. P. (2021). Evolutionary trade-offs between growth and survival: The delicate balance between reproductive success and longevity in bacteria.]}. This underpins the \emph{copiotroph-oligotroph dichotomy}: Fast-growing copiotrophs: high $ \lambda $, low efficiency; Slow-growing oligotrophs: low $ \lambda $, high efficiency, adapted to chronically low resource.
+    
+    \item In fluctuating environments, the genotype with slower exponential growth but much better stress response can have higher long-term fitness \textcolor{ForestGreen}{[Zhu, M., \& Dai, X. (2024). Shaping of microbial phenotypes by trade-offs. Nature Communications, 15, 4238.]}. Furthermore, phenotypes with non-optimal growth rate may have better response to antibiotics \textcolor{ForestGreen}{[Kratz, J. C., \& Banerjee, S. (2024). Gene expression tradeoffs determine bacterial survival and adaptation to antibiotic stress. PRX Life, 2, 013010.]}.
+    
+    \item Bet-hedging requires slower or heterogeneous growth, such as \textcolor{ForestGreen}{[Muntoni, A. P., Braunstein, A., Pagnani, A., De Martino, D., \& De Martino, A. (2022). Relationship between fitness and heterogeneity in exponentially growing microbial populations. Biophysical Journal, 121(10), 1919-1930.]}, where a subpopulation sacrifices growth to enter a stress-resistant dormant state. Moreover, a faster growing phenotype may be subject to the \textbf{Kill-the-Winner hypothesis}, where viruses or predators target the fastest growing, and thus most abundant type, giving an advantage to slower growers \textcolor{ForestGreen}{[Thingstad TF, Lignell R (July 1997). "Theoretical models for the control of bacterial growth rate, abundance, diversity and carbon demand". Aquatic Microbial Ecology. 13: 19-27.]}. 
+\end{itemize}
+
+
+\newpage
+\section{Notes on (p)ppGpp Regulation}
+(p)ppGpp were first identified by Michael Cashel in 1969 \textcolor{ForestGreen}{[Potrykus, K., \& Cashel, M. (2008). (p)ppGpp: Still magical? Annual Review of Microbiology, 62, 35-51.]}, and were found to accumulate rapidly in \textit{Escherichia coli} cells starved for amino acids. They are also known as the "magic spot" nucleotides \textcolor{ForestGreen}{[Dalebroux, Z. D., \& Swanson, M. S. (2012). ppGpp: Magic beyond the spot. Nature Reviews Microbiology, 10(3), 203-212.]}, and are involved in the stringent response in bacteria that cause RNA synthesis inhibition.
+
+\subsection{Enzymatic Control of (p)ppGpp Levels}In \textit{Escherichia coli}, the intracellular concentration of (p)ppGpp is modulated by RelA and SpoT. RelA is a ribosome-associated (p)ppGpp synthetase activated via the "rel" mechanism. When an uncharged tRNA occupies the ribosomal A-site due to amino acid starvation, RelA senses the stalled ribosome and catalyzes the transfer of a pyrophosphate group from ATP to the 3' position of GDP or GTP, synthesizing ppGpp or pppGpp, respectively\textcolor{ForestGreen}{[Hauryliuk, V., Atkinson, G. C., Murakami, K. S., Tenson, T., \& Gerdes, K. (2015). Recent functional insights into the role of (p)ppGpp in bacterial physiology. Nature Reviews Microbiology, 13(5), 298-309.]}. In contrast, SpoT is an enzyme capable of both synthesizing and hydrolyzing (p)ppGpp. The hydrolysis activity of SpoT is essential for rapid recovery once stress conditions are alleviated, degrading (p)ppGpp back into GDP/GTP and pyrophosphate. This distinct balance between RelA-mediated synthesis and SpoT-mediated hydrolysis/synthesis constitutes the \textit{RelA/SpoT Homologue} (RSH) superfamily regulation.
+
+\subsection{Mechanism of Transcriptional Regulation}The primary target of (p)ppGpp is RNA Polymerase (RNAP). In \textit{E. coli}, (p)ppGpp binds to two distinct sites on RNAP \textcolor{ForestGreen}{[Ross, W., Vrentas, C. E., Sanchez-Vazquez, P., Gaal, T., \& Gourse, R. L. (2016). The magic spot: A ppGpp binding site on E. coli RNA polymerase responsible for regulation of transcription initiation. Molecular Cell, 62(6), 897-912]}. Specifically, (p)ppGpp destabilizes the open complexes formed at rRNA promoters. Since rRNA promoters form unstable complexes that require high concentrations of initiating nucleoside triphosphates (iNTPs), the presence of (p)ppGpp dramatically reduces rRNA transcription. Conversely, (p)ppGpp facilitates the transcription of amino acid biosynthesis operons by favoring alternative sigma factors over the housekeeping sigma factor, effectively \emph{redirecting cellular resources from growth and division to survival and stress adaptation} \textcolor{ForestGreen}{[Gourse, R. L., Chen, A. Y., Gopalkrishnan, S., Sanchez-Vazquez, P., Myers, A., \& Ross, W. (2018). Transcriptional responses to ppGpp and DksA. Annual Review of Microbiology, 72, 163-184.]}. Beyond RNA synthesis inhibition, the accumulation of (p)ppGpp exerts pleiotropic effects on bacterial physiology: First, (p)ppGpp inhibits DNA primase (DnaG) and polymerase activity, stopping the initiation of DNA replication to prevent genomic instability during starvation.
+
+\newpage
+
+\section{\large Appendix}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Dourado.png}
+    \caption{The linear relationship between ribosomal allocation fraction and growth rate in the intermediate regime, and convex relation during starvation as predicted by GBA.}
+    \label{fig:dourado_fig2}
+\end{figure}
+
+\end{document}

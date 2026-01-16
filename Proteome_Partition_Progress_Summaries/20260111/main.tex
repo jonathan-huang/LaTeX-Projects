@@ -1,0 +1,844 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={16cm, 23cm}]{geometry}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./Figures/}{#1.pdf_tex}
+}
+
+\usepackage{scrextend}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem} % enumerate with letters
+\usepackage{ulem}
+% \usepackage[normalem]{ulem}
+\usepackage{indentfirst}
+\usepackage{pifont}
+\usepackage{fancyhdr}   % 頁首頁尾
+\usepackage{amssymb}
+\usepackage{empheq} % box around multiple equations
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+% figures
+\usepackage{graphicx} % Required for inserting images
+\usepackage{wrapfig} 
+\usepackage{subfig}
+\usepackage{makecell} % table wrap text
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\usepackage{lmodern,bm}                
+\usepackage[T1]{sansmath} 
+\SetMathAlphabet{\mathsfbf}{sans}{\sansmathencoding}{\sfdefault}{bx}{sl}
+\usepackage{etoolbox}
+\AtBeginEnvironment{sansmath}{\let\bm\mathsfbf}{}{}
+\usepackage{mdframed}
+\usepackage{amsmath, nccmath}
+\usepackage{mathtools} % for text above and under arrows
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{bbm}
+\usepackage{bbold} % blackboard bold font
+
+\usepackage{relsize} % math symbol size
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\usepackage{thmtools}
+\usepackage{mdframed}
+\usepackage[dvipsnames]{xcolor} % different colors
+
+
+\declaretheoremstyle[
+    headfont=\sffamily\bfseries\color{black}, % Sans-serif, bold, blue title
+    bodyfont=\normalfont,
+    headpunct={.}, % Adds a period after the theorem heading
+    postheadspace=1em,
+]{mydefstyle}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Definition,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{definition}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Claim,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{claim}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Proposition,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{proposition}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Example,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+\newcommand{\mycomment}[1]{} % block comments
+
+% figures
+\usepackage{wrapfig} 
+\usepackage{subfig}
+\usepackage{cleveref}
+
+\title{%
+  20251225 - 20260121 Summary \\
+}
+\author{Shao-Kai Jonathan Huang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% 
+\section{\large Review of Dourado \& Lercher (2020)}
+
+\subsection{Balanced growth states (BGS)}
+A \emph{balanced growth state (BGS)} is an exponentially growing state with growth rate $\mu$ in which all intracellular concentrations are constant in time, so that production balances dilution by growth.
+
+Let $\mathbf{v}\in\mathbb{R}^n$ be reaction fluxes, $P$ the total protein concentration, and $\mathbf{a}=(a_\alpha)$ the vector of reactant (non-protein) concentrations. Define the component vector
+\begin{equation}\label{eq:x_def}
+\mathbf{x} \;=\;
+\begin{pmatrix}
+P\\
+\mathbf{a}
+\end{pmatrix}.
+\end{equation}
+Let $A$ be the \emph{active matrix}, which is defined to be the stoichiometry restricted to the components that must be maintained during growth. We assume that $A$ has full column rank, and that the dependent columns are omitted to yield a square matrix. Let $ \mu $ be the (instantaneous) growth rate, then the \emph{balanced-growth constraint} can be written as
+\begin{equation}\label{eq:Av_eq_mux}
+A\,\mathbf{v} \;=\; \mu\,\mathbf{x}.
+\end{equation}
+
+\begin{theorem}[de Groot et al.]
+    ~ 
+    
+    \begin{enumerate}[(i)]
+        \item Optimal solutions to balanced growth problems are elementary growth modes (EGMs). 
+        \item The active stoichiometric matrix of EGMs have full rank.
+    \end{enumerate}
+\end{theorem}
+
+\subsection{Constraints For Kinetics and Protein Allocation}
+The assumptions used are 
+\begin{enumerate}[(i)]
+    \item 
+\end{enumerate}
+
+Some basic definitions used are as follows: 
+
+\begin{enumerate}[(1)]
+    \item Each flux is limited by a \emph{catalyst (protein) concentration} $p_j$ and a \emph{kinetic rate} $k_j(\mathbf{a})$:
+    \begin{equation}\label{eq:kinetics}
+        v_j \;=\; p_j\,k_j(\mathbf{a}),\qquad j=1,\dots,n.
+    \end{equation}
+    Total protein $ P $ is the sum of protein concentrations:
+    \begin{equation}\label{eq:P_sum_pj}
+        P \;=\; \sum_{j=1}^n p_j.
+    \end{equation}
+
+    \item A bound on total cellular dry-mass density (or crowding): 
+    \begin{equation}\label{eq:density_constraint}
+        P \;+\; \sum_{\alpha} a_\alpha \;\le\; \rho,
+    \end{equation}
+    with equality holding at the growth optimum under typical assumptions.
+
+    \item Investment matrix and growth equation: Choose a \emph{basis} $\mathbf{x}_B\in\mathbb{R}^m$ of independent components and the corresponding basis matrix $B$. Then balanced growth implies that fluxes scale linearly with $\mu$:
+    \begin{equation}\label{eq:v_mu_Binvx}
+    \mathbf{v} \;=\; \mu\,B^{-1}\mathbf{x}_B.
+    \end{equation}
+    Interpreting $B^{-1}$ as an \emph{investment matrix}, combine \eqref{eq:kinetics} and \eqref{eq:v_mu_Binvx} to obtain the protein requirement for reaction $j$:
+    \begin{equation}\label{eq:pj_requirement}
+    p_j \;=\; \frac{v_j}{k_j(\mathbf{a})}
+    \;=\;
+    \frac{\mu}{k_j(\mathbf{a})}\sum_{i=1}^m (B^{-1})_{ji}\,(x_B)_i.
+    \end{equation}
+    Summing \eqref{eq:pj_requirement} over $j$ and using \eqref{eq:P_sum_pj} yields the GBA \emph{growth equation}:
+    \begin{equation}\label{eq:growth_equation}
+    \mu(\mathbf{x}_B)
+    \;=\;
+    \frac{P}{
+    \displaystyle
+    \sum_{j=1}^n
+    \left(
+    \frac{1}{k_j(\mathbf{a})}\sum_{i=1}^m (B^{-1})_{ji}\,(x_B)_i
+    \right)
+    }.
+    \end{equation}
+    Equivalently, $1/\mu$ is a weighted sum of \emph{protein investment times}.
+
+    \item Marginal net benefits and balance equations: Define the \emph{marginal net benefit} of basis component $(x_B)_i$ as
+    \begin{equation}\label{eq:eta_def}
+    \eta_i
+    \;\equiv\;
+    \frac{1}{\mu}\frac{\partial \mu}{\partial (x_B)_i}.
+    \end{equation}
+    At the growth optimum (subject to the density constraint), GBA yields balance conditions of the form
+    \begin{equation}\label{eq:balance_equation_generic}
+    \eta_i \;=\; \kappa_i\,\eta_\rho,
+    \end{equation}
+    where $\eta_\rho$ is the Lagrange multiplier / shadow price for density and $\kappa_i$ is a density factor, where often $\kappa_i=1$ for components that contribute linearly to \eqref{eq:density_constraint}.
+\end{enumerate}
+
+
+\section{\large Worked GBA example: translation model and ribosomal proteome fraction}
+Consider a translation reaction in which ternary complex $a_T$ is consumed to produce protein, catalyzed by ribosomes. Assume \emph{irreversible Michaelis-Menten kinetics}:
+\begin{equation}\label{eq:kR_MM}
+    k_R(a_T) \;=\; k_{\mathrm{cat}}\frac{a_T}{a_T+K_m}.
+\end{equation}
+
+GBA yields a \textbf{closed-form expression} for the ribosomal proteome fraction $\phi_R(\mu)$:
+\begin{equation}\label{eq:phiR_eq34}
+    \phi_R(\mu) = \frac{\mu\, r_P}{k_{\mathrm{cat}}} \left[ 1+\frac{K_m}{2P} \left( \sqrt{ 1+\frac{4P}{K_m}\left(\frac{k_{\mathrm{cat}}}{\mu}-1\right)} -1\right)\right],
+\end{equation}
+where $r_P$ is the protein mass fraction of a ribosome, including RNA, and $P$ is the total protein concentration.
+
+\subsection{Numerical Plug-In Example}
+Using parameter values
+\begin{equation}\label{eq:phiR_params}
+    r_P = 0.35845,\qquad
+    k_{\mathrm{cat}} = 4.55~\mathrm{h^{-1}},\qquad
+    K_m = 8.30~\mathrm{g\,L^{-1}},\qquad
+    P = 127.4~\mathrm{g\,L^{-1}},
+\end{equation}
+Eq.~\eqref{eq:phiR_eq34} with $\mu=2.0~\mathrm{h^{-1}}$ gives the following values: 
+
+We have $\left(\frac{k_{\mathrm{cat}}}{\mu}-1\right)=1.275$ and
+\begin{equation}\label{eq:phiR_mu2_sqrt}
+\sqrt{1+\frac{4P}{K_m}\left(\frac{k_{\mathrm{cat}}}{\mu}-1\right)}
+\approx
+\sqrt{1+61.40\times 1.275}
+\approx 8.904,
+\end{equation}
+so the bracket is $\approx 1+0.03258(8.904-1)\approx 1.258$, the prefactor is
+$\frac{2\times 0.35845}{4.55}\approx 0.1576$, and
+\begin{equation}\label{eq:phiR_mu2_value}
+\phi_R(2.0)\approx 0.1576\times 1.258 \approx 0.198.
+\end{equation}
+
+
+% 
+\newpage
+\section{\large Example Calculation Using GBA}
+
+\subsection{State variables, allocation variables, and constraints}
+Let
+\begin{equation}\label{eq:Ydef}
+\mathbf{Y}=(Y_1,Y_2,Y_3,Y_4,Y_5)^\top,\qquad Y_i\ge 0,\qquad \sum_{i=1}^5 Y_i = 1,
+\end{equation}
+where $Y_1,Y_2$ are ``small-molecule'' fractions and $Y_3,Y_4,Y_5$ are ``large-molecule/protein'' fractions.
+We interpret $Y_5$ as the ribosomal protein fraction.
+
+Proteome partition is represented by $\boldsymbol{\theta}=(\theta_1,\theta_2,\theta_3)$ with
+\begin{equation}\label{eq:thetaconst}
+\theta_1+\theta_2+\theta_3=1,\qquad \theta_i\ge 0.
+\end{equation}
+
+\subsection{Reaction network and fluxes (GBA kinetic form)}
+We define five reaction fluxes $\mathbf{v}=(v_0,v_1,v_2,v_3,v_4)^\top$:
+\begin{align}
+v_0 &= b\,Y_3,
+&&\text{(uptake: } \varnothing \to Y_1\text{; catalyst }Y_3),\label{eq:v0}\\
+v_1 &= a_1\,Y_4\,\frac{Y_1}{k_1+Y_1},
+&&\text{(metabolism: }Y_1\to Y_2\text{; catalyst }Y_4),\label{eq:v1}\\
+v_2 &= \theta_1\,a_2\,Y_5\,\frac{Y_2}{k_2+Y_2},
+&&\text{(translation: }Y_2\to Y_3\text{; catalyst }\theta_1 Y_5),\label{eq:v2}\\
+v_3 &= \theta_2\,a_2\,Y_5\,\frac{Y_2}{k_2+Y_2},
+&&\text{(translation: }Y_2\to Y_4\text{; catalyst }\theta_2 Y_5),\label{eq:v3}\\
+v_4 &= \theta_3\,a_2\,Y_5\,\frac{Y_2}{k_2+Y_2},
+&&\text{(translation: }Y_2\to Y_5\text{; catalyst }\theta_3 Y_5).\label{eq:v4}
+\end{align}
+
+This is already in the GBA form
+\begin{equation}\label{eq:GBAkin}
+v_j = p_j\,k_j(\mathbf{a}),
+\end{equation}
+with reactants $\mathbf{a}=(Y_1,Y_2)$, kinetic rates
+\begin{equation}\label{eq:krates}
+k_0=b,\qquad
+k_1(Y_1)=a_1\frac{Y_1}{k_1+Y_1},\qquad
+k_T(Y_2)=a_2\frac{Y_2}{k_2+Y_2},
+\end{equation}
+and catalyst ``amounts''
+\begin{equation}\label{eq:catalysts}
+p_0=Y_3,\quad p_1=Y_4,\quad p_2=\theta_1 Y_5,\quad p_3=\theta_2 Y_5,\quad p_4=\theta_3 Y_5.
+\end{equation}
+
+\subsection{Balanced growth constraints in GBA matrix form}
+A balanced growth state (BGS) with growth rate $\mu$ satisfies the GBA balance equation
+\begin{equation}\label{eq:Avmub}
+A\,\mathbf{v} = \mu\,\mathbf{x}.
+\end{equation}
+In a mass-fraction formulation with constant dry-mass density $\rho$, one may take
+\begin{equation}\label{eq:xrhoY}
+\mathbf{x}=\rho\,\mathbf{Y}.
+\end{equation}
+Under the normalization \eqref{eq:Ydef} we can set $\rho=1$ so that $\mathbf{x}=\mathbf{Y}$.
+
+For the network \eqref{eq:v0}--\eqref{eq:v4}, the active matrix (rows $Y_1,\dots,Y_5$; columns $v_0,\dots,v_4$) is
+\begin{equation}\label{eq:Amat}
+A=
+\begin{pmatrix}
+1&-1&0&0&0\\
+0&1&-1&-1&-1\\
+0&0&1&0&0\\
+0&0&0&1&0\\
+0&0&0&0&1
+\end{pmatrix}.
+\end{equation}
+Notably, $A$ is invertible, hence the flux vector required to maintain balanced growth is
+\begin{equation}\label{eq:vmuAinvx}
+\mathbf{v}=\mu\,A^{-1}\mathbf{x}.
+\end{equation}
+Here
+\begin{equation}\label{eq:Ainv}
+A^{-1}=
+\begin{pmatrix}
+1&1&1&1&1\\
+0&1&1&1&1\\
+0&0&1&0&0\\
+0&0&0&1&0\\
+0&0&0&0&1
+\end{pmatrix},
+\end{equation}
+so the associated \emph{investment vector} (per unit growth) is
+\begin{equation}\label{eq:investment}
+A^{-1}\mathbf{x}=
+\begin{pmatrix}
+x_1+x_2+x_3+x_4+x_5\\
+x_2+x_3+x_4+x_5\\
+x_3\\
+x_4\\
+x_5
+\end{pmatrix}
+=
+\begin{pmatrix}
+\rho\\
+\rho-x_1\\
+x_3\\
+x_4\\
+x_5
+\end{pmatrix}.
+\end{equation}
+
+\subsection{BGS identities (immediate consequences)}
+From the last three rows of \eqref{eq:Avmub} we obtain
+\begin{equation}\label{eq:muYi}
+\mu x_3=v_2,\qquad \mu x_4=v_3,\qquad \mu x_5=v_4.
+\end{equation}
+Using \eqref{eq:v4} and cancelling $x_5$ gives the key growth identity
+\begin{equation}\label{eq:mu_theta3}
+\mu = \theta_3\,a_2\,\frac{x_2}{k_2+x_2}
+\qquad (\text{equivalently } \mu=\theta_3\,k_T(x_2)).
+\end{equation}
+Moreover, dividing the $x_3$ and $x_4$ equations by the $x_5$ equation yields the sector ratios
+\begin{equation}\label{eq:sector_ratios}
+\frac{x_3}{x_5}=\frac{\theta_1}{\theta_3},\qquad
+\frac{x_4}{x_5}=\frac{\theta_2}{\theta_3}.
+\end{equation}
+In the normalized form $\mathbf{x}=\mathbf{Y}$, \eqref{eq:mu_theta3}--\eqref{eq:sector_ratios} become
+\begin{equation}\label{eq:mu_theta3_Y}
+\mu = \theta_3\,a_2\,\frac{Y_2}{k_2+Y_2},
+\qquad
+\frac{Y_3}{Y_5}=\frac{\theta_1}{\theta_3},\qquad
+\frac{Y_4}{Y_5}=\frac{\theta_2}{\theta_3}.
+\end{equation}
+
+\subsection{Protein/catalyst requirement as GBA ``time investment''}
+Combining \eqref{eq:vmuAinvx} with the kinetic form \eqref{eq:GBAkin} gives, for each reaction $j$,
+\begin{equation}\label{eq:pj_general}
+p_j = \frac{v_j}{k_j(\mathbf{a})}
+     = \frac{\mu\,(A^{-1}\mathbf{x})_j}{k_j(\mathbf{a})}.
+\end{equation}
+Specializing with \eqref{eq:investment}--\eqref{eq:catalysts} and $\mathbf{a}=(x_1,x_2)$:
+\begin{align}
+x_3 &= p_0 = \frac{\mu\,\rho}{b},\label{eq:p0}\\
+x_4 &= p_1 = \frac{\mu\,(\rho-x_1)}{k_1(x_1)},\label{eq:p1}\\
+\theta_1 x_5 &= p_2 = \frac{\mu\,x_3}{k_T(x_2)},\label{eq:p2}\\
+\theta_2 x_5 &= p_3 = \frac{\mu\,x_4}{k_T(x_2)},\label{eq:p3}\\
+\theta_3 x_5 &= p_4 = \frac{\mu\,x_5}{k_T(x_2)}.\label{eq:p4}
+\end{align}
+Equation \eqref{eq:p4} is equivalent to the growth identity \eqref{eq:mu_theta3}.
+
+% Optional: ODE form (mass-fraction dynamics)
+\subsection{ODE form (mass-fraction dynamics)}
+If $\mathbf{S}$ denotes the stoichiometric matrix in \eqref{eq:Amat} and the system is written in mass fractions,
+a standard balanced-growth ODE representation is
+\begin{equation}\label{eq:ODE}
+\dot{\mathbf{Y}} = A\,\mathbf{v}(\mathbf{Y}) - \mu(\mathbf{Y})\,\mathbf{Y},
+\end{equation}
+with $\mu$ determined self-consistently (e.g.\ via the normalization constraint $\sum_i Y_i=1$ or via a designated
+growth-limiting flux identity such as $\mu=bY_3$ in the normalized setting).
+
+%
+\section{\large Metabolic Control Analysis and Its Interpretation}
+
+\begin{definition}[flux control coefficient]
+    The flux control coefficient of enzyme $i$ on flux $J$ is defined as
+    \[C_i^J = \frac{\mathrm{d} \ln J}{\mathrm{d} \ln E_i} = \frac{E_i}{J} \frac{\mathrm{d} J}{\mathrm{d} E_i} \]
+\end{definition}
+
+\begin{definition}[concentration control coefficient]
+    The concentration control coefficient of enzyme $i$ on concentration $S$ is defined as
+    \[C_i^S = \frac{\mathrm{d} \ln S}{\mathrm{d} \ln E_i} = \frac{E_i}{S} \frac{\mathrm{d} S}{\mathrm{d} E_i} \]
+\end{definition}
+
+\begin{definition}[elasticity coefficient]
+    The elasticity coefficient of enzyme $i$ on reaction rate $v_j$ is defined as
+    \[\varepsilon_i^{v_j} = \frac{\mathrm{d} \ln v_j}{\mathrm{d} \ln E_i} = \frac{E_i}{v_j} \frac{\mathrm{d} v_j}{\mathrm{d} E_i} \]
+\end{definition}
+
+A problem arises when we try to calculate the total derivatvie above, as changing one enzyme mass fraction will affect the steady state mass fraction of all other metabolites and enzymes. 
+
+\begin{example}
+    In thermodynamics, the differential of a state function $ F = F(x,y,x) $ subject an equation of state $ G(x,y,z)=0 $ may be calculated using 
+    \begin{equation}
+        \frac{\mathrm{d}F}{\mathrm{d}x} = \left(\frac{\partial F}{\partial x}\right)_{y} + \left(\frac{\partial F}{\partial y}\right)_{x} \frac{\mathrm{d}y}{\mathrm{d}x}
+    \end{equation}
+\end{example}
+
+\subsection{Interpretation}
+Two schemes:
+\begin{itemize}
+    \item Independently shifting target biomass fraction: this breaks the normalization condition. This works when we use concentration, as it is a control parameter that can be varied independently in \textit{in vivo} (?) experiments.
+    \item Shifting everything in proportion: this does not break normalization. Enforcing a proportionality condition in effect reduces the problem to a single degree of freedom, and is equivalent to restricting to moving on the subspace of the boundary of the simplex.
+\end{itemize}
+
+It makes sense to shift everything in proportion due to the following argument: 
+
+
+% 
+\newpage
+\section{\large Corrected MCA Calculations}
+
+
+% 
+\newpage
+\section{Control Theory ChatGPT}
+\subsection*{Control-theoretic formulation of proteome partition in scalable reaction networks}
+
+We re-interpret proteome partition as a constrained control problem for a nonlinear intracellular ``plant'' operating at balanced growth. 
+Let $Y(t)\in\mathbb{R}^m_{\ge 0}$ denote the coarse-grained \emph{biomass fractions} (Eulerian composition variables) and let 
+$\theta\in\mathbb{R}^n_{\ge 0}$ denote the \emph{proteome partition} (allocation variables). 
+Both are subject to simplex constraints,
+\begin{align}
+\mathbf{1}^\top Y(t) &= 1, 
+&
+\mathbf{1}^\top \theta &= 1,
+\qquad (Y\ge 0,\ \theta\ge 0),
+\label{eq:simplex_constraints}
+\end{align}
+encoding a global density/proteome budget. Environmental nutrient availability enters as an exogenous input $b$.
+The scalable reaction network (SNR) induces nonlinear composition dynamics together with a growth-rate output:
+\begin{align}
+\dot{Y} &= f\!\left(Y,\theta,b\right), 
+\label{eq:plant_dynamics}
+\\
+\lambda &= \ell\!\left(Y,\theta,b\right).
+\label{eq:growth_output}
+\end{align}
+Balanced growth corresponds to equilibria $Y^\ast(\theta,b)$ satisfying
+\begin{align}
+f\!\left(Y^\ast(\theta,b),\theta,b\right)=0,
+\qquad 
+\lambda^\ast(\theta,b)=\ell\!\left(Y^\ast(\theta,b),\theta,b\right).
+\label{eq:balanced_growth_equilibrium}
+\end{align}
+
+In this language, proteome partition is a constrained (steady-state) optimal control problem: for each environment $b$, the cell chooses
+$\theta$ to maximize the steady exponential growth rate,
+\begin{align}
+\theta^\ast(b)\in 
+\arg\max_{\theta\ge 0,\ \mathbf{1}^\top\theta=1}\ 
+\lambda^\ast(\theta,b).
+\label{eq:steady_state_optimal_control}
+\end{align}
+Equivalently, introducing the Lagrangian (shadow price) for the proteome budget,
+\begin{align}
+\mathcal{L}(\theta,\eta)
+=
+\ln \lambda^\ast(\theta,b)
+-\eta\left(\mathbf{1}^\top\theta-1\right),
+\label{eq:lagrangian}
+\end{align}
+the interior optimality (KKT) conditions take the equal-marginal form
+\begin{align}
+\frac{\partial \ln \lambda^\ast(\theta,b)}{\partial \theta_i}
+=\eta,
+\qquad i\ \text{in the interior of the simplex}.
+\label{eq:kkt_equal_marginal}
+\end{align}
+This motivates a control-theoretic analogue of growth control coefficients: define the (scaled) allocation control residual
+\begin{align}
+\Gamma_i^{\lambda}
+:=
+\frac{\partial \ln \lambda^\ast(\theta,b)}{\partial \theta_i}
+-\eta.
+\label{eq:growth_control_residual}
+\end{align}
+At an optimal partition, $\Gamma_i^\lambda=0$ for all interior components, while away from optimum
+$\Gamma_i^\lambda$ provides an objective measure of suboptimality: its sign predicts whether increasing $\theta_i$ (while compensating other sectors to keep $\mathbf{1}^\top\theta=1$) would increase or decrease $\lambda^\ast$ to first order.
+
+This control viewpoint also clarifies the regime dependence of the optimal ``controller'' $\theta^\ast(b)$ (a gain schedule in $b$).
+In the starvation limit ($b/a_i\ll 1$ in our Michaelis--Menten setting), the KKT system admits an explicit perturbative solution,
+implying a characteristic square-root scaling of the optimal allocation:
+\begin{align}
+\theta_1^\ast(b) &= 1 + O\!\left(b^{1/2}\right),
+&
+\theta_j^\ast(b) &= O\!\left(b^{1/2}\right)\quad (j\ge 2),
+\qquad (b\to 0),
+\label{eq:starvation_scaling}
+\end{align}
+consistent with the analytic expansion derived in the manuscript (cf.\ Eq.~(11)). 
+Conversely, in the nutrient overabundance limit ($b\to\infty$), the optimum generically approaches the boundary of the feasible simplex,
+reflecting a shift from input limitation to internal-capacity limitation; this motivates asymptotic expansions in $b^{-1}$ and complementary approximations (e.g.\ the low-metabolite-fraction regime) to capture boundary optima.
+
+Finally, this framework links ``growth laws'' to controlled equilibria: the experimentally observed near-linear relation between ribosomal content and growth rate emerges as a macroscopic input--output property of the closed-loop map
+$b\mapsto \theta^\ast(b)\mapsto \lambda^\ast(b)$ in an intermediate operating regime, even though the underlying SNR dynamics are nonlinear.
+As a representative example, in the minimal two-sector reduction we obtain an explicit steady-state growth-rate law
+\begin{align}
+\lambda^\ast(b)
+=
+\frac{b}{\left(1+\sqrt{b/r}\right)^2},
+\label{eq:minimal_model_growth_law}
+\end{align}
+which provides a tractable baseline for interpreting how nutrient influx and bottlenecks reshape optimal allocation and growth.
+
+%
+\newpage
+\section{\large Analysis of the Linear Regime}
+
+\subsection{Identification of a quasi-linear $Y_5$--$\lambda$ regime}
+\label{sec:linear-regime}
+
+For each external nutrient level $b$, we computed the optimal allocation $\theta^\ast(b)$ by numerically maximizing the balanced-growth rate $\lambda$ under the model constraints, yielding a discrete set of optimal states
+\begin{equation}
+\left\{ \bigl(\lambda_i,\, Y_{5,i},\, b_i \bigr) \right\}_{i=1}^{N},
+\label{eq:data-pairs}
+\end{equation}
+where $Y_5$ denotes the ribosome-sector (protein synthesis) mass fraction and $\lambda$ is the resulting exponential growth rate. Because our analytic approximations apply only in the asymptotic limits of very small or very large $b$, we sought an objective, reproducible definition of the intermediate regime in which the relationship $Y_5(\lambda)$ is approximately linear (the ``growth-law'' regime).
+
+We identified this regime using a sliding-window linearity score. After ordering the data by increasing $\lambda$, we considered contiguous windows $W$ of $w$ consecutive points. Within each window, we fit an ordinary least-squares model
+\begin{equation}
+Y_5 \;=\; \alpha_W + \beta_W \lambda + \varepsilon,
+\label{eq:window-fit}
+\end{equation}
+and computed the coefficient of determination $R_W^2$ as a measure of linearity. To ensure that the inferred linear regime corresponds to an interval of approximately constant slope (as expected for a bona fide growth law), we additionally quantified slope constancy within each window by refitting \eqref{eq:window-fit} on overlapping subwindows of size $w_{\mathrm{sub}}$ and computing the coefficient of variation
+\begin{equation}
+\mathrm{CV}_W \;=\; \frac{\mathrm{sd}\!\left(\{\hat\beta_{W,j}\}_j\right)}{\left|\mathrm{mean}\!\left(\{\hat\beta_{W,j}\}_j\right)\right|}.
+\label{eq:slope-cv}
+\end{equation}
+We classified a window as quasi-linear if it satisfied the two thresholds
+\begin{equation}
+R_W^2 \ge R_{\min}^2,
+\qquad
+\mathrm{CV}_W \le \tau,
+\label{eq:accept-criteria}
+\end{equation}
+with $(R_{\min}^2,\tau)$ fixed \emph{a priori} and held constant across parameter sweeps. Among all accepted windows and window sizes $w\in[w_{\min},w_{\max}]$, we selected the interval with the largest $\lambda$-span (ties broken by larger $R_W^2$ and smaller $\mathrm{CV}_W$) and then greedily expanded its boundaries as long as the expanded interval continued to satisfy \eqref{eq:accept-criteria}. Finally, we refit \eqref{eq:window-fit} on the selected interval to obtain the reported slope $\beta$ and intercept $\alpha$.
+
+\paragraph{Biological interpretation.}
+In coarse-grained proteome-allocation theories, a linear relationship
+\begin{equation}
+Y_5 \;\approx\; \alpha + \beta\,\lambda
+\label{eq:growth-law}
+\end{equation}
+is the hallmark of a regime in which the effective translational capacity per ribosome is approximately constant across conditions, so that increases in growth rate require an approximately proportional increase in ribosome allocation. In this interpretation, the slope $\beta \simeq dY_5/d\lambda$ quantifies the ribosome investment required per unit increase in growth rate (an inverse effective translation efficiency), while the intercept $\alpha$ captures the baseline ribosome-sector fraction extrapolated to vanishing growth, which may reflect non-growth-associated proteome demands and/or inactive ribosomes in the coarse-grained description. The sliding-window procedure above provides a reproducible way to isolate the intermediate-nutrient regime where this growth-law approximation holds in our numerically optimized model, enabling direct comparison to experimentally measured ribosome growth laws.
+
+
+% 
+\newpage
+\section{Definition of Symbols}
+The following table is for copy-and-paste: 
+
+\begin{longtable}{p{0.15\textwidth} p{0.80\textwidth}}
+\caption{List of symbols and definitions used in the model.} \label{tab:symbols} \\
+\toprule
+\textbf{Symbol} & \textbf{Definition} \\
+\midrule
+\endfirsthead
+
+\multicolumn{2}{c}%
+{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Symbol} & \textbf{Definition} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{2}{r}{{Continued on next page}} \\
+\bottomrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\multicolumn{2}{l}{\textbf{State Variables and Network Topology}} \\
+\midrule
+$\mathcal{S}$ & Index set of chemical species $\{1, 2, ..., m\}$ [dimensionless] \\
+$\mathcal{R}$ & Index set of reactions $\{1, 2, ..., r\}$ [dimensionless] \\
+$X$ & Vector of species biomass contents in $\mathbb{R}_{\ge0}^{m}$ [mass] \\
+$X_i$ & Biomass amount of species $i$ [mass] \\
+$N$ & Total biomass of the system, defined as $\sum X_i$ [mass] \\
+$Y$ & Biomass fraction vector, where $Y = X/N$ [dimensionless] \\
+$Y_i$ & Biomass fraction of species $i$ [dimensionless] \\
+$n$ & Number of proteome sectors in the generalized model [dimensionless] \\
+$x_j$ & Node label in the generalized model [dimensionless] \\
+
+\midrule
+\multicolumn{2}{l}{\textbf{Kinetic Parameters and Fluxes}} \\
+\midrule
+$J(X)$ & Vector of reaction fluxes (reaction rates) [mass $\cdot$ time$^{-1}$] \\
+$S$ & Stoichiometric matrix ($m \times r$) [dimensionless] \\
+$b$ & Nutrient quality parameter (nutrient influx rate) [time$^{-1}$] \\
+$a_i$ & Effective maximum reaction rate parameter (catalytic rate constant) [time$^{-1}$] \\
+$k_i$ & Michaelis-Menten saturation constant (relative to total biomass $N$) [dimensionless] \\
+$r, r_i$ & Reaction rate constants in the mass-action limit ($x \ll k$) [time$^{-1}$] \\
+$\mu(Y)$ & Instantaneous growth rate [time$^{-1}$] \\
+$\lambda$ & Long-term steady-state growth rate, $\lambda = \lim_{t\to\infty} \frac{1}{t} \log \frac{N(t)}{N(0)}$ [time$^{-1}$] \\
+$\kappa_t, \kappa_n$ & Translational capacity and nutritional capacity [time$^{-1}$] \\
+
+\midrule
+\multicolumn{2}{l}{\textbf{Partitioning and Allocation}} \\
+\midrule
+$\theta$ & Proteome partition vector $(\theta_1, \theta_2, ..., \theta_n)$ [dimensionless] \\
+$\theta_i$ & Translation fraction (partition strength) for sector $i$ [dimensionless] \\
+$P_i$ & Proteome fraction for sector $i$ (equivalent to $\theta_i$ without degradation) [dimensionless] \\
+$R$ & Ribosomal protein biomass fraction (denoted $Y_5$ in 3-sector model; $Y_{2n-1}$ in generalized model) [dimensionless] \\
+$\text{Small}$ & Fraction of small molecules (intermediate metabolites) [dimensionless] \\
+$\text{Large}$ & Fraction of large molecules (macromolecules/proteins) [dimensionless] \\
+
+\midrule
+\multicolumn{2}{l}{\textbf{Auxiliary Functions and Constants}} \\
+\midrule
+$p_{MM}(c, k, m)$ & Fixed point solution function under Michaelis-Menten kinetics [dimensionless] \\
+$p_{MA}(w, m)$ & Fixed point solution function under Mass Action kinetics [dimensionless] \\
+$c_j$ & Dimensionless ratio $\sqrt{k_j/a_j}$, used in starvation limit expansions [dimensionless] \\
+$A, B, C, D$ & Symmetric constant combinations of $a_i$ and $k_i$ used in perturbative expansions [units vary] \\
+$\tau_i$ & Waiting time at the $i$-th non-terminal node [time] \\
+$T$ & Total waiting time of the system [time] \\
+\end{longtable}
+
+% 
+\newpage
+\section{\large Random Note on Literature}
+{
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.18\textwidth} >{\raggedright\arraybackslash}p{0.14\textwidth} >{\raggedright\arraybackslash}p{0.20\textwidth} >{\raggedright\arraybackslash}p{0.19\textwidth} >{\raggedright\arraybackslash}p{0.21\textwidth}}
+\caption{Early balanced-growth studies establishing the dependence of cellular RNA / ribosome content on growth rate in bacteria.} \label{tab:classic_rna_growth_laws} \\
+\hline
+\textbf{Study} & \textbf{Organism(s)} & \textbf{Growth control / conditions} &
+\textbf{Measured observable(s)} & \textbf{Key finding on RNA / ribosomes vs.\ growth rate} \\
+\hline
+\endfirsthead
+
+\multicolumn{5}{c}%
+{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\hline
+\textbf{Study} & \textbf{Organism(s)} & \textbf{Growth control / conditions} &
+\textbf{Measured observable(s)} & \textbf{Key finding on RNA / ribosomes vs.\ growth rate} \\
+\hline
+\endhead
+
+\hline
+\multicolumn{5}{r}{{Continued on next page}} \\
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
+    Schaechter, Maal\o e \& Kjeldgaard (1958), 
+    \emph{J.\ Gen.\ Microbiol.\ 19, 592--606} &
+    \emph{Salmonella typhimurium} &
+    Balanced growth at different media richness and temperatures
+    (batch cultures adjusted to steady exponential phase) &
+    Cell size, dry mass, DNA, RNA, and protein per cell &
+    Total RNA per cell increases strongly with growth rate $\mu$; protein per unit RNA is roughly constant. Establishes the first quantitative ``growth law'' relating RNA (ribosomal sector proxy) to $\mu$. \\[0.5em]
+    Neidhardt \& Magasanik (1960), 
+    \emph{Biochim.\ Biophys.\ Acta 42, 99--116} &
+    \emph{Aerobacter aerogenes} &
+    Continuous culture (chemostat); steady states at controlled dilution rates spanning a range of $\mu$ &
+    Total RNA, protein, DNA per cell and RNA/protein ratio as functions of $\mu$ &
+    RNA/protein ratio is a monotone function of growth rate at fixed temperature. Provides a clean RNA fraction vs.\ $\mu$ relation in balanced growth. \\[0.5em]
+    Kjeldgaard \& Kurland (1963), 
+    \emph{J.\ Mol.\ Biol.\ 6, 341--348} &
+    \emph{Escherichia coli} (laboratory strain) &
+    Balanced growth in different media; steady exponential phase at various $\mu$ &
+    Total RNA partitioned into ribosomal RNA and soluble RNA (fractionation of ribosomes vs.\ non-ribosomal RNA); RNA/protein &
+    Shows that both total RNA and the \emph{ribosomal} RNA pool increase with $\mu$. One of the first explicit measurements of ribosome abundance and its fraction of total RNA as a function of growth rate. \\[0.5em]
+    Rosset, Julien \& Monier (1966), 
+    \emph{J.\ Mol.\ Biol.\ 18, 308--320} &
+    \emph{E.\ coli}, \emph{S.\ typhimurium}, \emph{A.\ aerogenes} &
+    Balanced growth across a wide range of growth rates (different media and conditions, species compared side-by-side) &
+    Detailed RNA composition (16S and 23S rRNA, tRNA, other RNA species) vs.\ $\mu$ for multiple species &
+    Provides systematic, multi-species curves of rRNA and other RNA fractions vs.\ $\mu$. Consolidates the picture that the ribosomal RNA sector expands with growth rate in diverse bacteria. \\
+\end{longtable}
+}
+
+% 
+\section{\large Large b Limit for MM}
+
+The growth rate is
+\begin{equation}
+    \lambda = \frac{a_1 a_2}{(1+k_1)k_2 b}\left(\frac{\theta_2\theta_3}{\theta_1}\right) - \frac{a_1 a_2}{(1+k_1)^3k_2^2b^2}\left(\frac{\theta_2\theta_3}{\theta_1^2}\right) \left[(1+k_1)^2a_2\theta_3 + (1+k_1+k_1k_2)a_1\theta_2\right].
+\end{equation}
+
+Again by the method of Lagrange multipliers, set the Lagrangian to $L(\theta) = \lambda(\theta) - \mu(\theta_1 + \theta_2 + \theta_3 - 1)$ with Lagrange multiplier $\mu$. Then 
+\begin{subequations}
+    \begin{align}
+        \frac{\partial L}{\partial \theta_1} &= -\frac{a_1a_2\theta_2\theta_3}{(1+k_1)k_2\theta_1^2b} + \frac{2a_1a_2\theta_2\theta_3\left[(1+k_1+k_1k_2)a_1\theta_2 + (1+k_1)^2a_2\theta_3\right]}{(1+k_1)^3k_2^2\theta_1^3b^2} - \mu, \label{equ:lagrange_high1}\\ 
+        \frac{\partial L}{\partial\theta_2} &= \frac{a_1a_2\theta_3}{(1+k_1)k_2\theta_1 b} - \frac{a_1a_2\theta_3\left[2(1+k_1+k_1k_2)a_1\theta_2 + (1+k_1)^2a_2\theta_3\right]}{(1+k_1)^3k_2^2\theta_1^2b^2} - \mu, \label{equ:lagrange_high2}\\
+        \frac{\partial L}{\partial\theta_3} &= \frac{a_1a_2\theta_2}{(1+k_1)k_2\theta_1 b} - \frac{a_1a_2\theta_2\left[(1+k_1+k_1k_2)a_1\theta_2 + 2(1+k_1)^2a_2\theta_3\right]}{(1+k_1)^3k_2^2\theta_1^2b^2} - \mu. \label{equ:lagrange_high3}
+    \end{align}
+\end{subequations}
+
+\subsection{Scaling Analysis}
+
+We analyze the asymptotic behavior of the growth rate $\lambda$ in the limit of high metabolite abundance ($b \rightarrow \infty$). The growth rate expression is given by:
+\begin{equation}
+\lambda = \frac{a_1 a_2}{(1+k_1)k_2 b} \left( \frac{\theta_2 \theta_3}{\theta_1} \right) - \frac{a_1 a_2}{(1+k_1)^3 k_2^2 b^2} \left( \frac{\theta_2 \theta_3}{\theta_1^2} \right) \left[ (1+k_1)^2 a_2 \theta_3 + \tilde{a}_1 \theta_2 \right],
+\end{equation}
+where we have defined $\tilde{a}_1 = (1+k_1+k_1 k_2) a_1$ for brevity.
+Inspection of this equation reveals two competing contributions: a leading ``production'' term scaling as $O((b\theta_1)^{-1})$ and a quadratic ``burden'' term scaling as $O((b\theta_1)^{-2})$.
+
+If the transporter fraction $\theta_1$ scales as $O(1)$, the production term dominates but the overall growth rate vanishes as $O(b^{-1})$. Conversely, if $\theta_1$ scales as $O(b^{-2})$, the negative burden term dominates, leading to unphysical negative growth. To achieve a finite, optimal growth rate as $b \to \infty$, the production and burden terms must be of the same asymptotic order. This balance necessitates the scaling ansatz:
+\begin{equation}
+\theta_1 \sim O(b^{-1}).
+\end{equation}
+Consequently, we define the scaled transporter variable $\tilde{\theta}_1 = b \theta_1$, which remains $O(1)$. The remaining proteome fractions $\theta_2$ and $\theta_3$ are $O(1)$ and satisfy the approximate constraint $\theta_2 + \theta_3 \approx 1$.
+To simplify the optimality conditions, we introduce the rescaled variables $U$ and $V$, analogous to the mass action variables:
+\begin{equation}
+U = r_1 \frac{\theta_2}{b \theta_1}, \quad V = r_2 \frac{\theta_3}{b \theta_1},
+\end{equation}
+where the effective reaction constants are defined as:
+\begin{equation}
+r_1 = \frac{\tilde{a}_1}{(1+k_1)^2 k_2}, \quad r_2 = \frac{a_2}{k_2}.
+\end{equation}
+
+\subsection{Optimality Conditions}
+
+We maximize $\lambda$ subject to the normalization constraint $\sum \theta_i = 1$ using the method of Lagrange multipliers. The Lagrangian is $\mathcal{L} = \lambda - \mu(\theta_1 + \theta_2 + \theta_3 - 1)$. The first-order optimality conditions are:
+\begin{equation}
+\frac{\partial \mathcal{L}}{\partial \theta_1} = \frac{\partial \lambda}{\partial \theta_1} - \mu = 0, \quad \frac{\partial \mathcal{L}}{\partial \theta_2} = \frac{\partial \lambda}{\partial \theta_2} - \mu = 0, \quad \frac{\partial \mathcal{L}}{\partial \theta_3} = \frac{\partial \lambda}{\partial \theta_3} - \mu = 0.
+\end{equation}
+Using the scaled variables $U$ and $V$, and defining $S = U + V$, we can express the derivatives of the growth rate (up to leading order) as:
+\begin{align}
+\frac{\partial \lambda}{\partial \theta_2} &\approx K \frac{V}{r_2} (1 - 2U - V), \\
+\frac{\partial \lambda}{\partial \theta_3} &\approx K \frac{U}{r_1} (1 - U - 2V),
+\end{align}
+where $K = \frac{a_1 a_2}{(1+k_1)k_2}$.
+For the transporter fraction $\theta_1$, the derivative contains terms of higher order in $b$. Substituting the scaling ansatz $\theta_1 \sim O(b^{-1})$, the condition becomes:
+\begin{equation}
+\frac{\partial \lambda}{\partial \theta_1} \approx - b \frac{K UV}{r_1 r_2} (1 - 2S).
+\end{equation}
+For the Lagrange multiplier $\mu$ to remain finite (consistent with $\partial_{\theta_2} \lambda$ and $\partial_{\theta_3} \lambda$), the term proportional to $b$ in $\partial_{\theta_1} \lambda$ must vanish at leading order. This imposes the critical condition on the sum of the scaled variables:
+\begin{equation}
+1 - 2S_0 = 0 \implies S_0 = U_0 + V_0 = \frac{1}{2}.
+\end{equation}
+This condition determines the optimal total investment in enzymatic machinery relative to transport. The partitioning between the two enzymes is then determined by equating the remaining optimality conditions $\partial_{\theta_2} \lambda = \partial_{\theta_3} \lambda$:
+\begin{equation}
+\frac{V_0}{r_2}(1 - 2U_0 - V_0) = \frac{U_0}{r_1}(1 - U_0 - 2V_0).
+\end{equation}
+
+\subsection{Asymptotic Solution for the Michaelis-Menten Model}
+
+We consider the Michaelis-Menten model in the low metabolite limit ($b \to \infty$). We maximize the growth rate $\lambda$ subject to $\sum \theta_i = 1$. The growth rate is given by:
+\begin{equation}
+\lambda = \frac{a_1 a_2}{(1+k_1)k_2 b} \left( \frac{\theta_2 \theta_3}{\theta_1} \right) - \frac{a_1 a_2}{(1+k_1)^3 k_2^2 b^2} \left( \frac{\theta_2 \theta_3}{\theta_1^2} \right) \left[ (1+k_1)^2 a_2 \theta_3 + \tilde{a}_1 \theta_2 \right],
+\end{equation}
+where $\tilde{a}_1 = (1+k_1+k_1 k_2) a_1$.
+Inspection of the growth rate reveals two competing terms: a source term scaling as $(b\theta_1)^{-1}$ and a burden term scaling as $(b\theta_1)^{-2}$. To achieve a finite, optimal growth rate, these terms must balance, implying $\theta_1 \sim O(b^{-1})$. We define the scaled variables:
+\begin{equation}
+U = r_1 \frac{\theta_2}{b \theta_1}, \quad V = r_2 \frac{\theta_3}{b \theta_1},
+\end{equation}
+with effective rates $r_1 = \frac{\tilde{a}_1}{(1+k_1)^2 k_2}$ and $r_2 = \frac{a_2}{k_2}$. The optimality conditions derive from $\frac{\partial \lambda}{\partial \theta_i} = \mu$.
+For the transporter fraction $\theta_1$, the leading order terms $O(b)$ must cancel for $\mu$ to remain finite:
+\begin{equation}
+\frac{\partial \lambda}{\partial \theta_1} \propto - \frac{1}{b \theta_1^2} + \frac{2 S}{b^2 \theta_1^3} \approx 0 \implies b \theta_1 \propto 2S.
+\end{equation}
+In the notation of the mass action derivation, this cancellation condition requires the sum of scaled variables $S = U + V$ to satisfy:
+\begin{equation}
+1 - 2S_0 = 0 \implies S_0 = \frac{1}{2}.
+\end{equation}
+For the enzymes $\theta_2, \theta_3$, equating the Lagrange multiplier $\mu$ yields the balance relation:
+\begin{equation}
+\frac{V_0}{r_2}(1 - 2U_0 - V_0) = \frac{U_0}{r_1}(1 - U_0 - 2V_0).
+\end{equation}
+Using $U_0 + V_0 = 1/2$, this simplifies to:
+\begin{equation}
+\frac{V_0^2}{r_2} = \frac{U_0^2}{r_1} \implies \frac{U_0}{V_0} = \sqrt{\frac{r_1}{r_2}}.
+\end{equation}
+Solving for the leading order terms:
+\begin{equation}
+U_0 = \frac{\sqrt{r_1}}{2(\sqrt{r_1} + \sqrt{r_2})}, \quad V_0 = \frac{\sqrt{r_2}}{2(\sqrt{r_1} + \sqrt{r_2})}.
+\end{equation}
+The optimal proteome fractions at leading order are thus:
+\begin{equation}
+\theta_1 \approx \frac{1}{b(U_0/r_1 + V_0/r_2)}, \quad \theta_2 \approx \frac{U_0/r_1}{U_0/r_1 + V_0/r_2}, \quad \theta_3 \approx \frac{V_0/r_2}{U_0/r_1 + V_0/r_2}.
+\end{equation}
+
+\subsubsection*{Leading Order Solution}
+For the Lagrange multiplier $\mu$ to remain finite and non-zero (specifically of order $O(1)$) as $b \to \infty$, the term scaling with $b$ in Eq.~(\ref{eq:mu1}) must vanish at leading order. This imposes the condition on the zeroth-order sum $S_0$:
+\begin{equation}
+1 - 2S_0 = 0 \implies S_0 = U_0 + V_0 = \frac{1}{2}.
+\end{equation}
+Equating the expressions for $\mu$ in (\ref{eq:mu2}) and (\ref{eq:mu3}) at leading order, and using the relations derived from $S_0=1/2$ (specifically $1-2U_0-V_0 = V_0$ and $1-U_0-2V_0 = U_0$), we find:
+\begin{equation}
+\frac{V_0^2}{r_2} = \frac{U_0^2}{r_1} \implies \frac{U_0}{V_0} = \sqrt{\frac{r_1}{r_2}}.
+\end{equation}
+Solving the system $U_0 + V_0 = 1/2$ and $U_0 \sqrt{r_2} = V_0 \sqrt{r_1}$ yields the leading order components:
+\begin{equation}
+U_0 = \frac{\sqrt{r_1}}{2(\sqrt{r_1} + \sqrt{r_2})}, \quad V_0 = \frac{\sqrt{r_2}}{2(\sqrt{r_1} + \sqrt{r_2})}.
+\end{equation}
+
+\subsubsection*{First Order Correction}
+We introduce a perturbation parameter $\epsilon$ such that $S = 1/2 + \epsilon$, where $\epsilon \sim O(b^{-1})$. From Eq.~(\ref{eq:mu1}), the Lagrange multiplier is approximately:
+\begin{equation}
+\frac{\mu}{K} \approx - b \frac{U_0 V_0}{r_1 r_2} (-2\epsilon) = \frac{2 b U_0 V_0 \epsilon}{r_1 r_2}.
+\end{equation}
+Matching this with the value derived from Eq.~(\ref{eq:mu2}), $\frac{\mu}{K} \approx \frac{V_0^2}{r_2}$, we solve for $\epsilon$:
+\begin{equation}
+\frac{V_0^2}{r_2} = \frac{2 b U_0 V_0 \epsilon}{r_1 r_2} \implies \epsilon = \frac{r_1 V_0}{2 b U_0} = \frac{\sqrt{r_1 r_2}}{2b}.
+\end{equation}
+Defining $k = b\epsilon = \frac{\sqrt{r_1 r_2}}{2}$ and $D_0 = \frac{U_0}{r_1} + \frac{V_0}{r_2}$, the optimal proteome fractions up to order $O(b^{-1})$ are given by:
+\begin{equation}
+\theta_1 = \frac{1}{b D_0} + O(b^{-2}), \quad \theta_2 = \frac{U_0}{r_1 D_0} + O(b^{-1}), \quad \theta_3 = \frac{V_0}{r_2 D_0} + O(b^{-1}).
+\end{equation}
+Notably, the ratio of the enzyme fractions at the leading order is determined purely by the reaction parameters:
+\begin{equation}
+\frac{\theta_2}{\theta_3} \approx \frac{U_0/r_1}{V_0/r_2} = \sqrt{\frac{r_2}{r_1}} = \sqrt{\frac{a_2 (1+k_1)^2}{a_1 (1+k_1+k_1 k_2)}}.
+\end{equation}
+
+To leading order, the optimal partition fractions and growth rate are given by 
+\begin{equation}
+    \theta_1^{(0)}=\frac{u^*}{b} = \frac{2}{(1+k_1)^2k_2\,b}\sqrt{pq} \frac{2}{(1+k_1)^2k_2\,b}\sqrt{pq}, \quad 
+    \theta_2^{(0)}=\frac{\sqrt{p}}{\sqrt{p}+\sqrt{q}}, \quad 
+    \theta_3^{(0)}=\frac{\sqrt{q}}{\sqrt{p}+\sqrt{q}},
+\end{equation} 
+and 
+\begin{equation}
+    \lambda^{(0)}_{\max} = \frac{a_1a_2(1+k_1)}{4\big(\sqrt{p}+\sqrt{q}\big)^2} = \frac{a_1a_2(1+k_1)}{ 4\Big((1+k_1)\sqrt{a_2}+\sqrt{(1+k_1+k_1k_2)a_1}\Big)^2 }.
+\end{equation}
+
+
+The Lagrangian method provides necessary condition for optimality. However, since the solution is unique and positive, the necessary condition is also sufficient.
+
+\end{document}

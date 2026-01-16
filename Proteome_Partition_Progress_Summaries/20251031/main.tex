@@ -1,0 +1,569 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={16cm, 20cm}]{geometry}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./Figures/}{#1.pdf_tex}
+}
+
+\usepackage{scrextend}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem} % enumerate with letters
+\usepackage{ulem}
+% \usepackage[normalem]{ulem}
+\usepackage{indentfirst}
+\usepackage{pifont}
+\usepackage{fancyhdr}   % 頁首頁尾
+\usepackage{amssymb}
+\usepackage{empheq} % box around multiple equations
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+% figures
+\usepackage{graphicx} % Required for inserting images
+\usepackage{float} % For [H] placement specifier
+\usepackage{wrapfig} 
+\usepackage{subfig}
+\usepackage{makecell} % table wrap text
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\usepackage{lmodern,bm}                
+\usepackage[T1]{sansmath} 
+\SetMathAlphabet{\mathsfbf}{sans}{\sansmathencoding}{\sfdefault}{bx}{sl}
+\usepackage{etoolbox}
+\AtBeginEnvironment{sansmath}{\let\bm\mathsfbf}{}{}
+\usepackage{mdframed}
+\usepackage{amsmath, nccmath}
+\usepackage{mathtools} % for text above and under arrows
+
+\usepackage{bbm}
+\usepackage{bbold} % blackboard bold font
+
+\usepackage{relsize} % math symbol size
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\usepackage{thmtools}
+\usepackage{mdframed}
+\usepackage[dvipsnames]{xcolor} % different colors
+
+
+\declaretheoremstyle[
+    headfont=\sffamily\bfseries\color{black}, % Sans-serif, bold, blue title
+    bodyfont=\normalfont,
+    headpunct={.}, % Adds a period after the theorem heading
+    postheadspace=1em,
+]{mydefstyle}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Definition,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{definition}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Example,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+\newcommand{\mycomment}[1]{} % block comments
+
+% figures
+\usepackage{wrapfig} 
+\usepackage{subfig}
+
+\title{%
+  20251029 - 20251102 Summary \\
+}
+\author{Jonathan (Shao-Kai) Huang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{\large General System in Starvation Limit}
+
+\subsection{Example Calculation for Four Partitions}
+The solution for four-sector partition is
+\begin{subequations}
+    \begin{align}
+        Y_1 &= \frac{1}{2}\left[\sqrt{\left(\frac{a_1\theta_2}{b\theta_1} + k_1 - 1\right)^2 + 4k_1} - \left(\frac{a_1\theta_2}{b\theta_1} + k_1 - 1\right)\right], \\
+        Y_2 &= \frac{1}{2}\left\{\sqrt{\left[\frac{a_2\theta_3}{b\theta_1} + k_2 - \left(1-Y_1\right)\right]^2 + 4k_2\left(1 - Y_1\right)} - \left[\frac{a_2\theta_3}{b\theta_1} + k_2 - \left(1 - Y_1\right)\right]\right\}, \\
+        Y_3 &= \frac{1}{2}\left\{\sqrt{\left[\frac{a_3\theta_4}{b\theta_1} + k_3 - \left(1-Y_1-Y_2\right)\right]^2 + 4k_3\left(1 - Y_1 - Y_2\right)} - \left[\frac{a_3\theta_4}{b\theta_1} + k_3 - \left(1 - Y_1 - Y_2\right)\right]\right\}, \\
+        Y_4 &= \left(\frac{a_3 \theta_4}{b}\right) \frac{Y_3}{k_3 + Y_3}, \quad Y_5 = \frac{\theta_2}{\theta_1}Y_4, \quad Y_6 = \frac{\theta_3}{\theta_1}Y_4, \quad Y_7 = \frac{\theta_4}{\theta_1}Y_4.
+    \end{align}
+\end{subequations}
+
+Expand in the limit of small $b$, then the growth rate $ \lambda = b Y^\ast $ is given by  
+\begin{equation}
+    \lambda = b\theta_1 \left[1 - b\theta_1 \left(\frac{k_1}{a_1\theta_2} + \frac{k_2}{a_2\theta_3} + \frac{k_3}{a_3\theta_4}\right)\right] + O(b^3) ,
+\end{equation}
+similar to that of the three-sector case. Let $A_4 = \sqrt{\frac{k_1}{a_1}} + \sqrt{\frac{k_2}{a_2}} + \sqrt{\frac{k_3}{a_3}}$. Carrying out the same computations of Lagrange multipliers, we find 
+\begin{equation}
+    \theta_2 \;\colon\; \theta_3 \;\colon\; \theta_4 = \sqrt{\frac{k_1}{a_1}} \;\colon\; \sqrt{\frac{k_2}{a_2}} \;\colon\; \sqrt{\frac{k_3}{a_3}}
+\end{equation}
+and
+\begin{subequations}
+    \begin{align}
+        \frac{\theta_1}{\theta_{j+1}} &= \sqrt{\frac{a_j}{k_j}}\left(\frac{1}{\sqrt{b}} - A_4 + \frac{1}{2}A_4^2\sqrt{b}\right) + O(b), \quad j = 1, 2, 3. \\
+    \end{align}
+\end{subequations}
+Solve for $\theta_1$ by the normalization condition, then solve for $\theta_{j=2, 3, 4}$. This gives similar formulae as in the three-sector case but with $ A $ replaced by $ A_4 $.
+\begin{subequations}
+    \begin{align}
+        \theta_1 &= \left(1 + \frac{\theta_2}{\theta_1} + \frac{\theta_3}{\theta_1} + \frac{\theta_4}{\theta_1}\right)^{-1} = 1 - A_4\sqrt{b} + \frac{1}{2} A_4^3 b^{3/2} + O(b^{5/2}), \\
+        \theta_{j+1} &= \sqrt{\frac{k_j}{a_j}} \left[\sqrt{b} - \frac{1}{2}A_4^2 b^{3/2} + \right] + O(b^{5/2}), \quad j = 1, 2, 3.
+    \end{align}
+\end{subequations}
+We have an expression that is invariant under permutation of indices $1 \leftrightarrow 2 \leftrightarrow 3$.
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{equation}
+    \lambda = b - 2A_4 b^{3/2} + \left( \frac{5}{2} A_4^2 + \frac{1}{2} B_4 - F_4\right)b^2 + O(b^{5/2}),
+\end{equation}
+\end{mdframed}
+where 
+\begin{equation}
+    B_4 = \frac{k_1}{a_1} + \frac{k_2}{a_2} + \frac{k_3}{a_3}, \quad F_4 = \frac{1}{a_1} + \frac{1}{a_2} + \frac{1}{a_3}.
+\end{equation}
+
+\subsection{Proof of Proposition}
+As suggested by the above calculation, we claim that in the general $n$-sector partition model during starvation (small $b$), the partition strengths are given by
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{subequations}
+    \begin{align}
+        \theta_1 &= 1 - A \sqrt{b} + \frac{1}{2} A^3 b^{3/2} + O(b^{5/2}), \\
+        \theta_j &= \sqrt{\frac{k_{j-1}}{a_{j-1}}}\left[\sqrt{b} - \frac{1}{2} A^2 b^{3/2} + O(b^{5/2})\right], \quad (2 \le j \le n),
+    \end{align}
+\end{subequations}
+where
+\begin{equation}
+    A = \sqrt{\frac{k_1}{a_1}} + \sqrt{\frac{k_2}{a_2}} + \cdots + \sqrt{\frac{k_n}{a_n}}.
+\end{equation}
+\end{mdframed}
+Showing this is equivalent to showing that in a system of $ n $ partitions, the following property holds: 
+
+\begin{proposition}
+    \label{prop:fixedb_n_partition}
+    In the $ b \to 0 $ limit, the biomass fraction $ Y_n $ of an $ n $-partition system has the form 
+    \begin{equation}
+        Y_n = \theta_1 - b \theta_1^2 \left(\sum^{n-1}_{i=1} \frac{k_i}{a_i \theta_{i+1}}\right) + O(b^2).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    First consider the following expansion
+    \begin{equation}
+        \frac{1}{2} \left[\sqrt{(z+u)^2 + 4k} - (z+u) \right] = \frac{k}{z} - \frac{ku}{z^2} + O(z^{-3}),
+    \end{equation}
+    when $ z $ is very large. In the $ b \to 0 $ limit, notice that the quantity $ \alpha_i = \frac{a_i \theta_{i+1}}{b \theta_1} \to \infty $.
+
+    The $ n $-sector system consists of both \emph{terminal nodes} and \emph{nonterminal nodes}, whose biomass fraction expression have distinct forms.
+    \begin{enumerate}[(1)]
+        \item Nonterminal nodes: These are the nodes with index $ 1 \leq i \leq n-1 $. Apply the above expansion and notice that $ \alpha_i \to \infty $. 
+        \begin{equation}
+            Y_1 = \frac{1}{2} \left[\sqrt{(\alpha_1 + k_1 - 1)^2 + 4k_1} - \left(\alpha_1 + k_1 - 1\right) \right] = \frac{k_1}{\alpha_1} + O(b^{2}) = \frac{b k_1 \theta_1}{a_1 \theta_2} + O(b^{2}),
+        \end{equation}
+        \begin{equation}
+            \begin{split}
+                Y_i &= \frac{1}{2} \left[\sqrt{\left(\alpha_i + k_i - \left(1 - \sum_{r=1}^{i-1} Y_r\right)\right)^2 + 4 k_i} - \left(\alpha_i + k_i - \left(1 - \sum_{r=1}^{i-1} Y_r \right) \right)\right] \\
+                &= \frac{k_i}{\alpha_i} + O(b^{2}) = \frac{b k_i \theta_{1}}{a_i \theta_{i+1}} + O(b^{2}),
+            \end{split}
+        \end{equation}
+        for $ 2 \leq i \leq n-1 $. We used the fact that $ \sum_{r=1}^{i-1} Y_r = O(b) $ vanishes in the $ b \to 0 $ limit.
+        \item Terminal nodes: These are the nodes with index $ n \leq i \leq 2n-1 $. The biomass fractions satisfy 
+        \begin{equation}
+            Y_{n+1} = \frac{\theta_2}{\theta_1} Y_n, \quad Y_{n+2} = \frac{\theta_3}{\theta_1} Y_n, \quad \ldots, \quad Y_{2n-1} = \frac{\theta_n}{\theta_1} Y_n,
+        \end{equation}
+        subject to the condition $ \sum_{i=1}^n \theta_i = 1 $. Using $ \sum_{i=1}^{2n-1} Y_i = 1 $, we have  
+        \begin{equation}
+            Y_n + Y_{n+1} + \ldots + Y_{2n-1} = \left(1 + \frac{\theta_2}{\theta_1} + \ldots + \frac{\theta_n}{\theta_1}\right) Y_n = 1 - \sum_{i=1}^{n-1} Y_i, 
+        \end{equation} 
+        and hence
+        \begin{equation}
+            Y_n = \frac{\theta_1}{\theta_1 + \cdots + \theta_n} \left(1 - \sum_{i=1}^{n-1} Y_i\right) = \theta_1 \left(1 - \sum_{i=1}^{n-1} Y_i\right).
+        \end{equation}
+        Up to order $ O(b) $, plug in previous results for $ Y_i $, $ 1 \leq i \leq n-1 $, we have 
+        \begin{equation}
+            Y_n = \theta_1 - b \theta_1^2 \left(\frac{k_1}{a_1 \theta_2} + \frac{k_2}{a_2 \theta_3} + \cdots + \frac{k_{n-1}}{a_{n-1} \theta_n}\right) + O(b^2). 
+        \end{equation}  
+    \end{enumerate}
+\end{proof}
+
+According to Proposition \ref{prop:fixedb_n_partition}, the Lagrangian function for our system is given by 
+\begin{equation}
+    L(\theta, \mu) = b \theta_1 - b^2 \theta_1^2 \left( \sum_{i=1}^{n-1}  \frac{k_{i} }{a_{i} \theta_{i+1}} \right) - \mu \left(\sum_{i=1}^n \theta_i - 1\right).
+\end{equation}
+Then the relevant partial derivatives are
+\begin{subequations}
+    \begin{align}
+        \frac{\partial L}{\partial \theta_1} &= b - 2b^2 \theta_1 \left(\sum_{i=1}^{n-1} \frac{k_i}{a_i \theta_{i+1}}\right) = \mu, \\
+        \frac{\partial L}{\partial \theta_j} &= b^2 \theta_1^2 \left(\frac{k_{j-1}}{a_{j-1} \theta_j^2}\right) = \mu, \quad (2 \le j \le n).
+    \end{align}
+\end{subequations}
+The $ 2\leq j \leq n $ equations can be used to solve for the ratio, which agrees with our claim:  
+\begin{equation}
+    \theta_2 \;\colon\; \theta_3 \;\colon\; \cdots \;\colon\; \theta_n = \sqrt{\frac{k_1}{a_1}} \;\colon\; \sqrt{\frac{k_2}{a_2}} \;\colon\; \cdots \;\colon\; \sqrt{\frac{k_{n-1}}{a_{n-1}}}.
+\end{equation}
+Moreover, substituting back into the normalization condition and expanding in powers of $ b $ gives the expressions for $\theta_1$ and $\theta_{j=2, \ldots, n}$ as claimed: 
+\begin{subequations}
+    \begin{align}
+        \theta_1 &= 1 - A \sqrt{b} + \frac{1}{2} A^3 b^{3/2} + O(b^{5/2}), \\ 
+        \theta_j &= \sqrt{\frac{k_{j-1}}{a_{j-1}}}\left[\sqrt{b} - \frac{1}{2} A^2 b^{3/2} + O(b^{5/2})\right], \quad (2 \le j \le n), \\
+        A &= \sqrt{\frac{k_1}{a_1}} + \sqrt{\frac{k_2}{a_2}} + \cdots + \sqrt{\frac{k_{n-1}}{a_{n-1}}}.
+    \end{align}
+\end{subequations}
+Therefore, \emph{the $ \sqrt{b} $ relationship is universal for all $ n $-sector partition models during starvation, for all $ n \geq 2 $.} Note that $ \theta_1 $ and $ \lambda $ in this case are invariant under exchange of indices.
+
+%
+\newpage
+\section{\large Two-Sector Proteome Partition Model}
+Consider a simplified model with only two sectors: the translational sector and the ribosomal sector. This will help us understand the basic principles of the more complex three-sector model. Many results from the two-sector model can be extended to the three-sector, and hence $ n $-sector case.
+
+In the $ (Y,N) $ coordinates, we can write:  
+\begin{subequations}
+    \begin{align}
+        \frac{\mathrm{d} Y_1}{\mathrm{d} t} &= b Y_2 - \frac{a Y_1 Y_3}{ k + Y_1} - b Y_2 Y_1 ,\\
+        \frac{\mathrm{d} Y_2}{\mathrm{d} t} &= \theta_1 \left(\frac{a Y_1}{ k + Y_1}\right) Y_3 - b Y_2^2 ,\\
+        \frac{\mathrm{d} Y_3}{\mathrm{d} t} &= \theta_2 \left(\frac{ a Y_1}{ k + Y_1}\right) Y_3 - b Y_2 Y_3
+    \end{align}
+\end{subequations}
+
+The unique nonnegative steady states for this system are given by
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{subequations}
+    \begin{align}
+        Y_1 &= \frac{1}{2} \left[ \sqrt{\left(\frac{a \theta_2}{b \theta_1} + k - 1\right)^{2} + 4k} - \left(\frac{a \theta_2}{b \theta_1} + k - 1\right) \right], \\
+        Y_2 &= \left(\frac{a \theta_2}{b}\right) \frac{Y_1}{k + Y_1} \\
+        Y_3 &= \left(\frac{a \theta_2^2}{b \theta_1}\right) \frac{Y_1}{k + Y_1}
+    \end{align}
+\end{subequations}
+\end{mdframed}
+as in the general $ n $-sector case which we will see later. 
+
+\subsection{Starvation and Overabundance Limits}
+In the $ b \to 0 $ limit, apply Lagrangian multipliers on $ L(\theta , \mu) = b Y_2 (\theta) - \mu (\theta_1 + \theta_2 - 1) $ gives 
+\begin{subequations}
+    \begin{align}
+        Y_1 &= k \left(\frac{ b \theta_{1}}{a_{1} \theta_{2}}\right) + k (1 - k) \left(\frac{ b \theta_{1}}{a_{1} \theta_{2}}\right)^2 + O(b^3),\\[4pt]
+        Y_2 &= \theta_{1} \left[1 - k \left(\frac{ b \theta_{1}}{a_{1} \theta_{2}}\right) + k (1- k) \left(\frac{ b \theta_{1}}{a_{1} \theta_{2}}\right)^2\right] + O(b^3), \\[4pt]
+        Y_3 &= \theta_{2} \left[1 - k \left(\frac{ b \theta_{1}}{a_{1} \theta_{2}}\right) + k (1- k) \left(\frac{ b \theta_{1}}{a_{1} \theta_{2}}\right)^2\right] + O(b^3). 
+    \end{align}
+\end{subequations}
+and
+\begin{subequations}
+    \begin{align}
+        \frac{\partial L}{\partial \theta_1} &= b - 2b^2\theta_1 \left(\frac{k_1}{a_1\theta_2} + \frac{k_2}{a_2\theta_3}\right) - \mu = 0, \label{equ:two_sector_lagrange1} \\
+        \frac{\partial L}{\partial \theta_3} &= \left(\frac{k_2\theta_1^2}{a_2\theta_3^2}\right) b^2 - \mu = 0, \label{equ:two_sector_lagrange2}
+    \end{align}
+\end{subequations}
+and hence 
+
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{subequations}
+    \begin{align}
+        \theta_1 &= 1 - \sqrt{\frac{k}{a}} \sqrt{b} + \frac{1}{2} \left(\frac{k}{a}\right)^{3/2} b^{3/2} + O(b^{5/2}), \\
+        \theta_2 &= \sqrt{\frac{k}{a}} \sqrt{b} - \frac{1}{2} \left(\frac{k}{a}\right) b^{3/2} + O(b^{5/2}), \\
+        \lambda &= b - 2 \sqrt{\frac{k}{a}} b^{3/2} - \left(\frac{1 - 2k}{a}\right) b^2 + O(b^{5/2}).  
+    \end{align}
+\end{subequations}
+\end{mdframed}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_theta1_small.png}
+        \caption{$ \theta_1 $ in the starvation limit.}
+        \label{fig:MM2_theta1_low_b}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_theta2_small.png}
+        \caption{$ \theta_2 $ in the starvation limit.}
+        \label{fig:MM2_theta2_low_b}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{two_lambda_b_small.png}
+    \caption{Growth rate $ \lambda $ versus $ b $ in the starvation limit.}
+    \label{fig:MM2_lambda_low_b}
+\end{figure}
+
+
+On the other hand, in the $ b \to \infty $ limit we have  
+\begin{subequations}
+    \begin{align}
+        Y_1 &= 1 - \frac{1}{1 + k} \left(\frac{a \theta_{2}}{b \theta_{1}}\right) + \frac{k}{(1 + k)^3} \left(\frac{a \theta_{2}}{b \theta_{1}}\right)^2 + O\!\left(b^{-3}\right),\\[4pt]
+        Y_2 &= \theta_1 \left[\frac{1}{1 + k} \left(\frac{a \theta_{2}}{b \theta_{1}}\right) - \frac{k}{(1 + k)^3} \left(\frac{a \theta_{2}}{b \theta_{1}}\right)^2\right] + O\!\left(b^{-3}\right), \\[4pt]
+        Y_3 &= \theta_2 \left[\frac{1}{1 + k} \left(\frac{a \theta_{2}}{b \theta_{1}}\right) - \frac{k}{(1 + k)^3} \left(\frac{a \theta_{2}}{b \theta_{1}}\right)^2\right] + O\!\left(b^{-3}\right).
+    \end{align}
+\end{subequations}
+
+Then apply Lagrangian multipliers on $ L $ up to order $ b^{-2} $, where 
+\begin{equation}
+    L(\theta, \mu) = b \theta_1 \left[\frac{1}{1 + k} \left(\frac{a \theta_{2}}{b \theta_{1}}\right) - \frac{k}{(1 + k)^3} \left(\frac{a \theta_{2}}{b \theta_{1}}\right)^2\right] - \mu (\theta_1 + \theta_2 - 1).
+\end{equation}
+Then we have
+\begin{subequations}
+    \begin{align}
+        \frac{\partial L}{\partial \theta_1} &= \frac{k a^{2}}{(1+k)^{3}} \left(\frac{\theta_2}{\theta_1}\right)^2 \frac{1}{b} - \mu = 0, \\
+        \frac{\partial L}{\partial \theta_2} &= \frac{a}{1+k} - \frac{k}{(1+k)^3} \frac{2 a_1^{2} \theta_2}{b \theta_1} - \mu = 0.
+    \end{align}
+\end{subequations}
+
+Solving for $ \theta_2 / \theta_1 $ gives
+\begin{equation}
+    \frac{a}{1+k} - \frac{2ka^2}{(1+k)^3}\left(\frac{\theta_2}{\theta_1}\right) \frac{1}{b} = \mu = \frac{k a^2}{(1+k)^2} \left(\frac{\theta_2}{\theta_1}\right)^2 \frac{1}{b}
+\end{equation}
+\begin{equation}
+    \Longrightarrow\; \frac{\theta_2}{\theta_1} = -1 + \sqrt{1 + \frac{(1+k)^2}{ka} b}, \quad \text{ up to order $ O(b) $.}
+\end{equation}
+We have \emph{$ \theta_1 = O(1 / \sqrt{b}) $, $ \theta_2 = O(1) $}. Unlike the $ b \to 0 $ limit, the $ b \to \infty $ limit is different from the $ n \geq 3 $-sector models in that we can solve for $ \theta_2 / \theta_1 $ nicely without further approximations. More precisely, we have 
+
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{subequations}
+    \begin{align}
+        \theta_1 &= \frac{\sqrt{k}}{1+k} \sqrt{\frac{a}{b}} - \frac{k}{2(1+k)^2} \left(\frac{a}{b}\right)^{3/2} + O\left(\left(a/b\right)^{5/2}\right), \\
+        \theta_2 &= 1 - \frac{\sqrt{k}}{1+k} \sqrt{\frac{a}{b}} + \frac{k}{2(1+k)^2} \left(\frac{a}{b}\right)^{3/2} + O\left(\left(a/b\right)^{5/2}\right), \\
+        \lambda &= \frac{a}{1+k} - \frac{2a\sqrt{k}}{(1+k)^{2}}\,\sqrt{\frac{a}{b}} + \frac{2k}{(1+k)^{3}}\frac{a^{2}}{b} + O\!\left( b^{-2}\right).
+    \end{align}
+\end{subequations}
+\end{mdframed}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_theta1_large.png}
+        \caption{$ \theta_1 $ in the overabundance limit.}
+        \label{fig:MM2_theta1_large_b}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_theta2_large.png}
+        \caption{$ \theta_2 $ in the overabundance limit.}
+        \label{fig:MM2_theta2_large_b}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{two_lambda_b_large.png}
+    \caption{Growth rate $ \lambda $ versus $ b $ in the overabundance limit.}
+    \label{fig:MM2_lambda_large_b}
+\end{figure}
+
+\subsection{Bottleneck Limit}
+In the $ a \to 0 $ limit, the expansion is identical to the $ b \to \infty $ limit for the two-sector model, since \emph{it is only meaninful to consider the dimensionless parameter $ a / b $ in the system}, instead of $ a $ and $ b $ as absolute quantities. Applying Lagrange multipliers on $ L $ gives, as before, 
+\begin{equation}
+    w\; \frac{\theta_2}{\theta_1} = -1 + \sqrt{1 + \frac{(1+k)^2}{ka} b}, \quad \text{ up to order $ O(b) $.}
+\end{equation}
+We have \emph{$ \theta_1 = O(\sqrt{a}) $, $ \theta_2 = O(1) $}, and $ \theta_1, \theta_2 $ are as given above.
+
+
+%
+\newpage
+\section{\large Special Functions for MM and MA Calculations}
+
+\subsection{Michaelis-Menten Calculations}
+The equation 
+\begin{equation}
+    1 - mx = \frac{cx}{k+x} \label{equ:MM_special}
+\end{equation}
+is ubiquitous in the analysis of Michaelis-Menten fluxes. It admits the nonnegative solution given by
+\begin{equation}
+    p_{\text{MM}} (c, k, m) = \frac{1}{2m}\left[(1 - c - mk) + \sqrt{(1 - c- mk)^2 + 4mk} \right]. 
+\end{equation}
+The quantity $ p_{\text{MM}}(c,k,m) $ always lies between $ 0 $ and $ 1/m $, is an increasing function of $ c $, $ m $, and a decreasing function of $ k $. For our system, we can express the fixed point solution as
+
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{subequations}
+    \begin{align}
+        Y^\ast_1 &= p_{\text{MM}}\left(\frac{a_1 \theta_2}{b \theta_1}, k_1, 1\right) \equiv p_{\text{MM}}(c_1, k_1, m_1), \\
+        Y^\ast_2 &= p_{\text{MM}}\left(\frac{a_2 \theta_3}{a_1 \theta_2} \frac{k_1 + Y^\ast_1}{Y^\ast_1}, k_2, \frac{b \theta_1}{a_1 \theta_2} \frac{k_1 + Y^\ast_1}{Y^\ast_1}\right) \equiv p_{\text{MM}}(c_2, k_2, m_2), \\
+        Y^\ast_{k+2} &= \theta_k \left(1 - Y^\ast_1 - Y^\ast_2\right), \quad k = 1,2,3.
+    \end{align}
+\end{subequations}
+\end{mdframed}
+
+We can \emph{express the general solution to the $ n $-partition model using the $ p_{\text{MM}} $ function}. This will help us in showing the system has a unique nonnegative fixed point.
+
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{subequations}
+    \begin{align}
+        Y_1^\ast &= p_{\text{MM}}\left(\frac{a_1 \theta_2}{b \theta_1}, k_1, 1\right), \\
+        Y_i^\ast &= p_{\text{MM}}\left(\frac{a_i \theta_{i+1}}{a_{i-1} \theta_i} \frac{k_{i-1} + Y_{i-1}^\ast}{Y_{i-1}^\ast}, k_i, \frac{b \theta_1}{a_{i-1} \theta_i} \frac{k_{i-1} + Y_{i-1}^\ast}{Y_{i-1}^\ast}\right), \quad i = 2, \ldots, n-1, \\
+        Y_{k+n-1}^\ast &= \theta_k \left(1 - \sum_{i=1}^{k-1} Y_k^\ast\right), \quad k = 1, \dots , n.
+    \end{align}
+\end{subequations} 
+\end{mdframed}
+
+Since $ p_\text{MM}(c,k,m) $ is the intersection of the line $ 1 - mx = 0 $ and the Michaelis-Menten curve $ (cx)/(k+x) $, it is clear that for any $ c, k, m > 0 $, there is a unique nonnegative solution to equation (\ref{equ:MM_special}). By iterating $ p_\text{MM} $ and applying the Intermediate Value Theorem, we immediately see that the $ n $-partition model has a unique nonnegative fixed point for any choice of positive parameters.
+
+Let's consider the relevant limits of $ p_{\text{MM}}(c,k,m) $ for the $ b \to 0 $ and $ b \to \infty $ limits. When $ b \to 0 $, we have $ c_1 \to \infty $ and $ c_2 \to \infty $. Here, even though it seems like $ m_2 \to 0 $, we simultaneously have $ Y_1^\ast \to 0 $, so in fact $ m_2 = O(1) $. When $ b \to \infty $, we have $ c_1 \to 0 $, $ Y_1^\ast \to 1 $, and hence $ m_2 \to \infty $.
+
+\begin{enumerate}[(1)]
+    \item $ c \to 0 $: By direct expansion of $ p(c,k,m) $ about $ c=0 $, we have 
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{equation}
+        p(c,k,m) = \frac{1}{m} - \frac{c}{m\,(k m + 1)} + \frac{k}{(k m + 1)^3}\,c^{2} + \frac{k\,(1 - k m)}{(k m + 1)^5}\,c^{3} + O(c^{4}).
+    \end{equation}      
+    \end{mdframed}
+    \item $ c \to \infty $: By direct expansion of $ p(c,k,m) $ about $ c = \infty $, we have 
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{equation}
+        p(c,k,m) = \frac{k}{c} + \frac{k - k^{2} m}{c^{2}} + \frac{k\,(k^{2} m^{2} - 3 k m + 1)}{c^{3}} + O(c^{-4}).
+    \end{equation}
+    \end{mdframed}
+    \item $ m \to \infty $: By direct expansion of $ p(c,k,m) $ about $ m = \infty $, we have  
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{equation}
+        p(c,k,m) = \frac{1}{m} - \frac{c}{k\,m^{2}} + \frac{c(1 + c)}{k^{2}\,m^{3}} + O(m^{-4}).
+    \end{equation}
+    \end{mdframed}
+\end{enumerate}
+
+
+\subsubsection{Starvation Limit Calculations}
+We use the special function expansions to illustrate the \emph{leading-order behavior} of the system in the starvation ($ b \to 0 $) and overabundance ($ b \to \infty $) limits.
+
+When $ b \to 0 $, we have $ c_1 \to \infty $, $ c_2 \to \infty $, and $ m_2 = O(1) $. Therefore, using the $ c \to \infty $ expansion on $ c_1 $, we have
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{equation}
+    Y_1 = k_1 \left(\frac{b \theta_1}{a_1 \theta_2}\right) + k_1 (1 - k_1) \left(\frac{b \theta_1}{a_1 \theta_2}\right)^2 + O \left( n_1^3 \right), 
+\end{equation}
+\end{mdframed}
+and
+\begin{align}
+    \frac{Y_1^\ast}{k_1 + Y_1^\ast} &= \left(\frac{b \theta_1}{a_1 \theta_2}\right) - k_1 \left(\frac{b \theta_1}{a_1 \theta_2}\right)^2 + O\left(n_1^3\right), \\
+    \frac{k_1 + Y_1^\ast}{Y_1^\ast} &= \left(\frac{a_1 \theta_2}{b \theta_1}\right) + k_1 + O\left(n_1^3\right).
+\end{align}
+Then, using the same expansion on $ c_2 $, we have 
+\begin{equation}
+    \frac{1}{c_2} = \left(\frac{a_1 \theta_2}{a_2 \theta_3}\right) \left(\frac{Y_1^\ast}{k_1 + Y_1^\ast}\right) = \frac{b \theta_1}{a_2 \theta_3} - k_1 \left(\frac{b \theta_1}{a_2 \theta_3}\right) \left(\frac{b \theta_1}{a_1 \theta_2}\right) + O\left(n_2^3\right), 
+\end{equation}
+\begin{equation}
+    m_2 = \frac{b \theta_1}{a_1 \theta_2} \frac{k_1 + Y_1^\ast}{Y_1^\ast} = 1 + k_1 \left(\frac{b \theta_1}{a_1 \theta_2}\right) + O\left(n_1^2\right).
+\end{equation}
+Applying the $ c \to \infty $ expansion on $ Y_2^\ast $, we have
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{equation}
+    Y_2 = k_2 \left(\frac{b \theta_1}{a_2 \theta_3}\right) - \frac{k_2 (a_1 k_2 \theta_2 - a_1 \theta_2 + a_2 k_1 \theta_3)}{a_1 \theta_2 } \left(\frac{b \theta_1}{a_2 \theta_3}\right)^2 + O\left(n_2^3\right),
+\end{equation}
+\end{mdframed}
+so $ Y_3^\ast, Y_4^\ast, Y_5^\ast $ can be computed accordingly. \emph{This agrees with the full calculation.} In effect, we are computing the series expansion with respect to the dimensionless quantity $ n_1 = b \theta_1 / a_1 \theta_2 $ and $ n_2 = b \theta_1 / a_2 \theta_3 $. Similar analysis for the overabundance limit $ b \to \infty $ using the $ c \to 0 $ expansion also agrees with the full calculation.
+
+\begin{align}
+    Y_1 &= k_1 \left(\frac{b \theta_1}{a_1 \theta_2}\right) + \frac{k_1 \theta_2 (1 - k_1)}{\theta_2} \left(\frac{b \theta_1}{a_1 \theta_2}\right)^2 + O \left( n_1^3 \right), \\
+    Y_2 &= k_2 \left(\frac{b \theta_1}{a_2 \theta_3}\right) - \frac{k_2 (a_1 k_2 \theta_2 - a_1 \theta_2 + a_2 k_1 \theta_3)}{a_1 \theta_2 } \left(\frac{b \theta_1}{a_2 \theta_3}\right)^2 + O\left(n_2^3\right).
+\end{align}
+
+\subsection{Mass Action Calculations}
+Take the limit of the Michaelis-Menten equation when $ x \ll k $, and rename $ \frac{c}{k} \to w $. The equation becomes
+\begin{equation}
+    1 - mx = w x
+\end{equation}
+with $ m, w, x \geq 0$, $ x < 1 $. This equation admits the nonnegative solution
+\begin{equation}
+    p_{\text{MA}}(w, m) = \frac{1}{m + w}.
+\end{equation}
+The quantity $ p_{\text{MA}}(w, m) $ always lies between $ 0 $ and $ 1/m $, and is a decreasing function of $ w $ and $ m $. For the three-sector model, we can express the fixed point solution as
+
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{subequations}
+    \begin{align}
+        Y^\ast_1 &= p_{\text{MA}}\left(1, \frac{r_1 \theta_2}{b \theta_1} \right) \equiv p_{\text{MA}}(w_1, m_1), \\
+        Y^\ast_2 &= p_{\text{MA}}\left(\frac{b \theta_1}{r_1 \theta_2} \frac{1}{Y_1^\ast}, \frac{r_2 \theta_3}{r_1 \theta_2} \frac{1}{Y^\ast_1}\right) \equiv p_{\text{MA}}(w_2, m_2), \\
+        Y^\ast_{k+2} &= \theta_k W^\ast, \quad W^\ast \equiv 1 - Y^\ast_1 - Y^\ast_2, \quad k = 1,2,3.
+    \end{align}
+\end{subequations}
+\end{mdframed}
+
+\begin{proposition}
+    \label{prop:MA_MM_relation}
+    ~ 
+
+    \begin{enumerate}[(1)]
+        \item The function $ p_\text{MM}(c,k,m) $ satisfies the rescaling relation 
+        \begin{equation}
+            p_{\text{MM}} (c,k,m) = \frac{1}{m} p_\text{MM} (c, km, 1) \equiv \frac{1}{m} \Phi (c, km),
+        \end{equation}
+        \item The function $ p_\text{MM}(c,k,m) $ satisfies the rescaling relation 
+        \begin{equation}
+            p_{\text{MM}} (c,k,m) = k p_\text{MM} (c, 1, km) \equiv \frac{1}{m} \Psi (c, km),
+        \end{equation}
+        \item Rescaling $ p_\text{MM} $ by $ k $ and taking the limit $ x \to 0 $ gives $ p_\text{MA} $.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    ~
+
+    \begin{enumerate}[(1)]
+        \item Let $ \xi = mx $, then 
+        \[
+            1 - \xi = \frac{c \, \xi}{km + \xi} \;\Longrightarrow\; x = \frac{\xi}{m} = \frac{1}{m} p_\text{MM}(c, km, 1).
+        \]
+        \item Let $ \xi = x / k $, then
+        \[
+            1 - km \xi = \frac{c \, \xi}{1 + \xi} \;\Longrightarrow\; x = k \, \xi = k \, p_\text{MM}(c, 1, km).
+        \]
+        \item Let $ \xi = x / k $, then
+        \[
+            1 - km \xi = \frac{c \, \xi}{1 + \xi} \to c \, \xi .
+        \]
+        Hence, we have $ p_{\text{MA}} (m, w) \equiv k \, p_{\text{MM}} (c, 1, km) $ when $ x \ll 1 $.
+    \end{enumerate}
+\end{proof}
+
+As shown in proposition \ref{prop:MA_MM_relation}, we can express the general solution to the $ n $-partition model using the $ p_{\text{MA}} $ function. This will again help us in showing the system has a unique nonnegative fixed point.
+
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{subequations}
+    \begin{align}
+        Y_1^\ast &= p_{\text{MA}}\left(1, \frac{r_1 \theta_2}{b \theta_1} \right), \\
+        Y_i^\ast &= p_{\text{MA}}\left(\frac{b \theta_1}{r_{i-1} \theta_i} \frac{1}{Y_{i-1}^\ast}, \frac{r_i \theta_{i+1}}{r_{i-1} \theta_i} \frac{1}{Y_{i-1}^\ast}\right), \quad i = 2, \ldots, n-1, \\
+        Y_{k+n-1}^\ast &= \theta_k \left(1 - \sum_{i=1}^{k-1} Y_k^\ast\right), \quad k = 1, \dots , n.
+    \end{align}
+\end{subequations}
+\end{mdframed}
+
+
+% 
+\newpage
+\section{\large Special Function Plots}
+A log-scale plot of the Michaelis-Menten special function $ p_{\text{MM}}(c,k,m) $ is shown in Figure \ref{fig:special_function_plot} below, with $ m = \frac{1}{2} $. We can see that as $ c $ increases, $ p_{\text{MM}}(c,k,m) $ increases from $ 0 $ to $ \frac{1}{m} = 2 $. As $ k $ increases, $ p_{\text{MM}}(c,k,m) $ decreases for fixed $ c $. This behavior is consistent with our earlier analysis.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{special.png}
+    \caption{Plotted with $ m = \frac{1}{2} $.}
+    \label{fig:special_function_plot}
+\end{figure}
+
+\section{\large Overrabundance Limit for Three-Sector Model}
+In progress...
+
+\section{\large Bottleneck Limit for N-Sector Mass Action Model}
+In progress...
+
+\end{document}

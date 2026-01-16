@@ -1,0 +1,708 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={16cm, 20cm}]{geometry}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./Figures/}{#1.pdf_tex}
+}
+
+\usepackage{scrextend}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem} % enumerate with letters
+\usepackage{ulem}
+% \usepackage[normalem]{ulem}
+\usepackage{indentfirst}
+\usepackage{pifont}
+\usepackage{fancyhdr}   % 頁首頁尾
+\usepackage{amssymb}
+\usepackage{empheq} % box around multiple equations
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+% figures
+\usepackage{graphicx} % Required for inserting images
+\usepackage{wrapfig} 
+\usepackage{subfig}
+\usepackage{makecell} % table wrap text
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\usepackage{lmodern,bm}                
+\usepackage[T1]{sansmath} 
+\SetMathAlphabet{\mathsfbf}{sans}{\sansmathencoding}{\sfdefault}{bx}{sl}
+\usepackage{etoolbox}
+\AtBeginEnvironment{sansmath}{\let\bm\mathsfbf}{}{}
+\usepackage{mdframed}
+\usepackage{amsmath, nccmath}
+\usepackage{mathtools} % for text above and under arrows
+
+\usepackage{bbm}
+\usepackage{bbold} % blackboard bold font
+
+\usepackage{relsize} % math symbol size
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\usepackage{thmtools}
+\usepackage{mdframed}
+\usepackage[dvipsnames]{xcolor} % different colors
+
+
+\declaretheoremstyle[
+    headfont=\sffamily\bfseries\color{black}, % Sans-serif, bold, blue title
+    bodyfont=\normalfont,
+    headpunct={.}, % Adds a period after the theorem heading
+    postheadspace=1em,
+]{mydefstyle}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Definition,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{definition}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Claim,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{claim}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Proposition,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{proposition}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Example,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+\newcommand{\mycomment}[1]{} % block comments
+
+% figures
+\usepackage{wrapfig} 
+\usepackage{subfig}
+\usepackage{cleveref}
+
+\title{%
+  20251114 - 20251126 Summary \\
+}
+\author{Jonathan Shao-Kai Huang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+%
+\section{\large Demonstration of Proteome Partition}
+
+Here I provide a few demonstrations of how the proteome partition strategy affects the steady state biomass fractions and growth rate. This will be shown by constructing "artificial cells" where the proteome partition is forced to certain fixed values over a range of nutrient levels, and comparing the resulting growth rates to the optimal growth rate. We use the parameters $ a_1 = 23.8, \, a_2 = 1.4, \, k_1 = 0.01, \, k_2 = 0.003 $ as in the original model, and different nutrient levels $ b \in [5.0 \times 10^{-5}, 1.0 \times 10^{-3}] $, $ b \in [5.0 \times 10^7, 1.0 \times 10^8] $. 
+
+\subsection{When Nutrient Level is Low}
+It f we force a high ribosomal fraction, e.g., $ (\theta_1, \theta_2, \theta_3) = (0.0005, 0.0005, 0.9990) $, which is not the optimal strategy here, the biomass fractions and growth rate become lower than optimal. This is given in \Cref{fig:low2to3,fig:low4to5,fig:low6to7}.
+
+\begin{figure}[htbp]
+    \centering
+    \subfloat[High ribosomal protein level expressed.]{\includegraphics[width=0.48\textwidth]{low2.png}\label{fig:low2to3_sub1}}
+    \hfill
+    \subfloat[High metabolic protein level expressed.]{\includegraphics[width=0.48\textwidth]{low3.png}\label{fig:low2to3_sub2}}
+    \caption{One of the three translation fractions is extensively expressed. It agrees with our intuition that forcing high transporter fraction will lead to optimal -- and hence realistic -- growth rate.}
+    \label{fig:low2to3}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \subfloat[High transporter protein level expressed.]{\includegraphics[width=0.48\textwidth]{low4.png}\label{fig:low4to5_sub1}}
+    \hfill 
+    \subfloat[Ribosomal protein level suppressed.]{\includegraphics[width=0.48\textwidth]{low5.png}\label{fig:low4to5_sub2}}
+    \caption{One of the three translation fractions is extensively expressed. It agrees with our intuition that forcing high transporter fraction will lead to optimal -- and hence realistic -- growth rate.}
+    \label{fig:low4to5}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \subfloat[Metabolic protein level suppressed.]{\includegraphics[width=0.48\textwidth]{low6.png}\label{fig:low6to7_sub1}}
+    \hfill
+    \subfloat[Transporter protein level suppressed.]{\includegraphics[width=0.48\textwidth]{low7.png}\label{fig:low6to7_sub2}}
+    \caption{One of the three translation fractions is extensively suppressed.}
+    \label{fig:low6to7}
+\end{figure}
+
+\subsection{When Nutrient Level is High}
+It is interesting to note that when the nutrient level is high, forcing high ribosomal or metabolic protein fractions leads to \emph{sub-optimal} growth rates. This is because even when nutrient is abundant, the cell needs sufficient transporters and metabolic enzymes to bring in and process the nutrients. Hence, there is a maximal ribosomal fraction beyond which the growth rate decreases. In our simplified model, it is actually the case that $ \theta = (0.3333, 0.3333, 0.3333) $ leads to the best growth rate when nutrient is abundant. This is given in \Cref{fig:high2to3,fig:high4to5,fig:high6to7,fig:high8}.
+
+For some reason, the artificial cell gives higher growth rates than the optimal cell when one of the proteome fractions is suppressed. This may be an artifact of code errors, which I will investigate later.
+
+\begin{figure}[htbp]
+    \centering
+    \subfloat[High ribosomal protein level expressed.]{\includegraphics[width=0.48\textwidth]{high2.png}\label{fig:high2to3_sub1}}
+    \hfill
+    \subfloat[High metabolic protein level expressed.]{\includegraphics[width=0.48\textwidth]{high3.png}\label{fig:high2to3_sub2}}
+    \hfill
+    \caption{One of the three translation fractions is extensively expressed. It agrees with our intuition that forcing high transporter fraction will lead to optimal -- and hence realistic -- growth rate.}
+    \label{fig:high2to3}
+\end{figure}
+\begin{figure}
+    \centering
+    \subfloat[High transporter protein level expressed.]{\includegraphics[width=0.48\textwidth]{high4.png}\label{fig:high4to5_sub1}}
+    \hfill
+    \subfloat[Ribosomal protein level suppressed.]{\includegraphics[width=0.48\textwidth]{high5.png}\label{fig:high4to5_sub2}}
+    \caption{One of the three translation fractions is extensively expressed. It agrees with our intuition that forcing high transporter fraction will lead to optimal -- and hence realistic -- growth rate.}
+    \label{fig:high4to5}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \hfill
+    \subfloat[Metabolic protein level suppressed.]{\includegraphics[width=0.48\textwidth]{high6.png}\label{fig:high6to7_sub1}}
+    \hfill
+    \subfloat[Transporter protein level suppressed.]{\includegraphics[width=0.48\textwidth]{high7.png}\label{fig:high6to7_sub2}}
+    \caption{One of the three translation fractions is extensively suppressed.}
+    \label{fig:high6to7}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{high1.png}
+    \caption{The optimal growth rate arises when there are equal amount of each proteome fraction.}
+    \label{fig:high8}
+\end{figure}
+
+\subsection{When There is Bottleneck}
+Work in progress...
+
+% 
+\newpage
+\section{\large Overabundance Limit}
+\emph{Summary:} The overabundance limit corresponds to the case where $ b \to \infty $. In this limit, the optimized proteome partition strengths have been derived for the first time, and verified with numerical simulations. For completeness, numerical check for the starvation limit ($ b \to 0 $) is also provided.
+
+\subsection{Mass Action Kinetics}
+For mass action kinetics, the steady state equations are
+\begin{subequations}
+    \begin{align}
+        Y_1 &= \left( 1 + \frac{r_1 \theta_{2}}{b \theta_{1}} \right)^{-1}, \\
+        Y_2 &= \left(\frac{r_1 \theta_{2}}{b \theta_{1}}\right) \left[ \left(1 + \frac{r_2 \theta_{3}}{b \theta_{1}} \right)\left( 1 + \frac{r_1 \theta_{2}}{b \theta_{1}} \right) \right] ^{-1}, \\
+        Y_3 &= \left(\frac{r_{2}\theta_{3}}{b}Y_2 \right), \quad Y_4 = \left(\frac{r_2 \theta_2 \theta_3 }{b \theta_1} \right) Y_2, \quad Y_5 = \left(\frac{r_2 \theta_3^2 }{b \theta_1} \right) Y_2.
+    \end{align}
+\end{subequations}
+
+In the $ b \to \infty $ limit, we can carry out the asymptotic expansion in $ \frac{1}{b} $ and obtain
+\begin{subequations}
+    \begin{align}
+        Y_1 &= 1 - \frac{r_1 \theta_2}{b \theta_1} + \left(\frac{r_1 \theta_2}{b \theta_1}\right)^2 + O\left(b^{-3}\right), \\
+        Y_2 &= \frac{r_1 \theta_2}{b \theta_1} - \left(\frac{r_1 \theta_2}{b \theta_1}\right)^2 \left(1 + \frac{r_2 \theta_3}{b \theta_1}\right) + O\left(b^{-3}\right), \\
+        Y_3 &= \frac{r_1 r_2 \theta_2 \theta_3}{b^2 \theta_1^2} + O\left(b^{-3}\right), \quad Y_4 = \frac{\theta_2}{\theta_1} Y_3, \quad Y_5 = \frac{\theta_3}{\theta_1} Y_3.
+    \end{align}
+\end{subequations}
+
+Let the objective function in this case be given by $ L(\theta, \mu) = bY_3 - \mu (\theta_1 + \theta_2 + \theta_3 - 1) $. The optimality conditions $ \frac{\partial L}{\partial \theta_i} = 0 $ lead to the solution
+\begin{subequations}
+    \begin{align}
+        \frac{\partial L}{\partial \theta_1} &= - \frac{r_1 r_2 \theta_2 \theta_3}{\theta_1^2 b} + \frac{2r_1 r_2 \theta_2 \theta_3 (r_1 l_2 + r_2 \theta_3)}{\theta_1^2 b^2} - \mu = 0, \\
+        \frac{\partial L}{\partial \theta_2} &= \frac{r_1 r_2 \theta_3}{\theta_1 b} - \frac{r_1 r_2 \theta_3 (2r_1 \theta_2 + r_2 \theta_3)}{\theta_1^2 b^2} - \mu = 0, \\
+        \frac{\partial L}{\partial \theta_3} &= \frac{r_1 r_2 \theta_2}{\theta_1 b} - \frac{r_1 r_2 \theta_2 (r_1 \theta_2 + 2 r_2 \theta_3)}{\theta_1^2 b^2} - \mu = 0.
+    \end{align}
+\end{subequations}
+
+As in the Michaelis-Menten case, keeping the leading order leads to unphysical results where $ \theta_2 = \theta_3 \to \frac{1}{2} $. Let's analyze the solution by including the next order terms. Define 
+\begin{equation}
+    p = \frac{\theta_2}{b \theta_1}, \qquad 
+    q = \frac{\theta_3}{b \theta_1}, \qquad 
+    P = r_1 p, \qquad 
+    Q = r_2 q, \qquad
+    \mu^{\prime} = \frac{\mu}{r_1 r_2},
+\end{equation}
+Then, the optimality conditions become
+\begin{subequations}
+    \begin{align}
+        - bPQ \left[1 - 2 (r_1 P + r_2 Q)\right] &= \mu^{\prime}, \\
+        Q \left[1 - (2r_1 P + r_2 Q)\right] &= \mu^{\prime} , \\
+        P \left[1 - (r_1 P + r_2 Q)\right] &= \mu^{\prime}.
+    \end{align}
+\end{subequations}
+
+When $ b \to \infty $, the quantities $ P, Q \to 0 $. In fact, we can further define $ U = r_1 P $, $ V = r_2 Q $, $ S = U + V $, and find that $ U, V \to 0 $ as $ b \to \infty $ as well. The optimality conditions become
+\begin{equation}
+    \label{eq:opt_cond_overabundance}
+    \frac{\mu}{r_1 r_2} = - b \frac{UV}{r_1 r_2} (1 - 2S) = \frac{V}{r_2} (1 - 2U - V) = \frac{U}{r_1} (1 - U - 2V). 
+\end{equation}
+
+\begin{claim}
+    The Lagrange multiplier $ \mu^{\prime} = O(b^0) $.
+\end{claim}
+\begin{proof}
+    From the third equality, we have $ \mu^{\prime} = \frac{U}{r_1}(1-S) \geq 0 $. But also from this equality, we have 
+    \begin{equation}
+        \mu^{\prime} = \frac{U}{r_1} (1-S) \leq \frac{1}{r_1}S(1-S) \leq \frac{1}{4r_1},
+    \end{equation}
+    hence $ 0 \leq \mu^{\prime} (b) \leq \frac{1}{4 r_1} $. Taking the limit $ b\to \infty $ proves the claim. 
+\end{proof}
+
+By our claim and the first equality, $ bUV(1-2S) = O(b^0) $. If $ U, V = O\left(b^{m > 0}\right) $, then $ S = O\left(b^{m > 0}\right) $ also, contradicting the fact that $ \mu^\prime = O(b^0) $. Therefore, $ S = O(b^{m \leq 0}) $. It must be that $ U, V, S = O(b^0) $, and $ 1-2S = O(b^0) $. Hence, the leading order terms $ U_0, V_0, S_0 $ satisfy 
+\begin{equation}
+    S_0 = \frac{1}{2} = U_0 + V_0.
+\end{equation}
+
+\begin{enumerate}[(1)]
+    \item $ b^0 $: By the second equality of equation~(\ref{eq:opt_cond_overabundance}), we have 
+    \begin{equation}
+        \frac{U_0}{r_1} (1 - 2U_0 - V_0) = \frac{V_0}{r_2} (1 - U_0 - V_0) \implies 2 r_1 V_0^2 = r_2 U_0.
+    \end{equation}
+    Along with the condition $ U_0 + V_0 = \frac{1}{2} $, we can solve for $ U_0 $ and $ V_0 $ as 
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{equation}
+        U_0 = \frac{2r_1 + r_2 - \sqrt{r_2^2 + 4r_1 r_2}}{4r_1} \quad V_0 = \frac{-r_2 + \sqrt{r_2^2 + 4r_1 r_2}}{4 r_1}.
+    \end{equation} 
+    \end{mdframed}
+
+    \item $ b^1 $: To find the next order terms $ U_1, V_1 $, we can write $ S = S_0 + \varepsilon $, where $ \varepsilon = \varepsilon (b) = O\left(b^{m<0}\right) $ is a small pertubation. Then, we have 
+    \begin{equation}
+        U = U_0 + U_1 \varepsilon , \quad V = V_0 + V_1 \varepsilon,
+    \end{equation}
+    such that $ U_0 + V_0 = S_0 = \frac{1}{2} $ and $ U_1 + V_1 = S_1 $, and 
+    \begin{equation}
+        \frac{\mathrm{d}U}{\mathrm{d}S} = U_1, \quad \frac{\mathrm{d}V}{\mathrm{d}S} = V_1 \implies U_1 + V_1 = 1.
+    \end{equation}
+    
+    Substitute $ U $ and $ V $ into equation~(\ref{eq:opt_cond_overabundance}), we have
+    \begin{equation}
+        \frac{U}{2 r_1} = \frac{2b}{r_1 r_2} UV \varepsilon \implies \varepsilon = \frac{r_2}{4 V_0 b} = O(b^{-1}).
+    \end{equation}
+
+    Next, we use equation~(\ref{eq:opt_cond_overabundance}) to define the function $ f: \mathbb{R}^2 \to \mathbb{R} $, given by  
+    \begin{equation}
+        f(U,V) = r_1 V (1 - 2U - V) - r_2 U (1 - U - 2V).
+    \end{equation}
+    Consider the set $ \mathcal{S} = \{ U, V \in \mathbb{R} \mid f(U,V) = 0, U+V=S \} $. We will differentiate the system at $ S=\frac{1}{2} $. Then we have
+    \begin{subequations}
+        \begin{align}
+            U_1 &= \left.\frac{\partial_V f}{\partial_V f - \partial_U f}\right|_{\varepsilon=0} = \frac{r_2 U_0}{r_2 U_0 + (2r_1 + r_2)V_0}, \\
+            V_1 &= 1 - U_1 = \frac{(2r_1 + r_2)V_0}{r_2 U_0 + (2r_1 + r_2)V_0}.
+        \end{align}
+    \end{subequations}
+
+    To simplify the expressions, further define 
+    \begin{equation}
+        D_0 = \frac{U_0}{r_1} + \frac{V_0}{r_2}, \quad D_1 = \frac{U_1}{r_1} + \frac{V_1}{r_2}, \quad \kappa = \frac{r_2}{4 V_0}
+    \end{equation}
+    Then, the partition strengths up to $ O(b^{-1}) $ are symbolically given by 
+    \begin{equation}
+        \theta_1 = \dfrac{1}{1 + b \left(\frac{U}{r_1} + \frac{V}{r_2}\right)}, \quad \theta_2 = \dfrac{\frac{b U}{r_1}}{1 + b \left(\frac{U}{r_1} + \frac{V}{r_2}\right)}, \quad \theta_3 = \dfrac{\frac{b V}{r_2}}{1 + b \left(\frac{U}{r_1} + \frac{V}{r_2}\right)}.
+    \end{equation}
+    Expand up to $ O(\varepsilon) $ gives
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{subequations}
+        \begin{align}
+            \theta_1 &= \frac{1}{b D_0} - \frac{1 + \kappa D_1}{b^2 D_0^2} + O\left(b^{-3}\right), \\
+            \theta_2 &= \frac{U_0}{r_1 D_0} + \left[\frac{\kappa U_1}{r_1 D_0} - \frac{U_0 (1 + \kappa D_1)}{r_1 D_0^2}\right]\frac{1}{b} + O\left(b^{-2}\right), \\
+            \theta_3 &= \frac{V_0}{r_2 D_0} + \left[\frac{\kappa V_1}{r_2 D_0} - \frac{V_0 (1 + \kappa D_1)}{r_2 D_0^2}\right]\frac{1}{b} + O\left(b^{-2}\right).
+        \end{align}
+    \end{subequations}
+    \end{mdframed}
+\end{enumerate}
+
+Up to leading order, the transporter fraction $ \theta_1 \to 0 $, while the enzyme and R-protein fractions approach constants determined by the reaction rates $ r_1, r_2 $:
+\begin{equation}
+    \frac{\theta_3}{\theta_2} = \frac{V_0 r_1}{U_0 r_2} = \frac{r_1}{r_2} \left(\frac{2r_1 + r_2 - \sqrt{r_2^2 + 4r_1 r_2}}{-r_2 + \sqrt{r_2^2 + 4r_1 r_2}}\right). 
+\end{equation}
+
+\begin{example}[Two metabolic steps have the same reaction rate]
+    To illustrate the solution, let's consider a simpler case where $ r_1 = r_2 = r $. Then, the leading order terms become
+    \begin{equation}
+        U_0 = \frac{3 - \sqrt{5}}{4} = \frac{1}{2 \varphi^2}, \quad V_0 = \frac{-1 + \sqrt{5}}{4} = \frac{1}{2 \varphi},
+    \end{equation}
+    where $ \varphi = \frac{1 + \sqrt{5}}{2} $ is the golden ratio. Here we recall a few properties of the golden ratio:
+    \begin{itemize}
+        \item $ \varphi \approx 1.61803398875 $ and $ - \frac{1}{\varphi} = 1 - \varphi \approx -0.61803398875 $ are the roots of $ x^2 - x - 1 $. 
+        \item Reduction of order: $ \varphi^2 = \varphi + 1 $. 
+        \item Reciprocal: $ \frac{1}{\varphi} = \varphi - 1 $.
+    \end{itemize}
+
+    Next, we compute 
+    \begin{equation}
+        D_0 = \frac{1}{r} (U_0 + V_0) = \frac{1}{2r}, \quad D_1 = \frac{1}{r} (U_1 + V_1) = \frac{1}{r}, \quad \kappa = \frac{r}{4 V_0} = \frac{r \varphi}{2}.
+    \end{equation}
+    Therefore, after some simplification and using the above properties, the optimal partition strengths are found to be
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{subequations}
+        \begin{align}
+            \theta_1 &= \frac{2r}{b} + \frac{2r^2 (2 + \varphi)}{b^2} + O\left(b^{-3}\right), \\
+            \theta_2 &= \frac{1}{\varphi^2} - \left(\frac{4 \varphi}{1+ 3 \varphi}\right) \frac{r}{b} + O\left(b^{-2}\right), \\
+            \theta_3 &= \frac{1}{\varphi} - \left(\frac{2 + 2\varphi}{1 + 3 \varphi}\right) \frac{r}{b} + O\left(b^{-2}\right).
+        \end{align}
+    \end{subequations}
+    \end{mdframed}
+
+    To leading order, the transporter partition fraction $ \theta_1 \to 0 $, while the enzyme and R-protein fractions approach constants determined by the golden ratio:
+    \begin{equation}
+        \theta_2 \to \frac{1}{\varphi^2} \approx 0.381966, \quad \theta_3 \to \frac{1}{\varphi} \approx 0.618034,
+    \end{equation}
+    while $ \theta_3/\theta _2 \to \varphi = 1.1.61803 $ approaches the golden ratio. 
+\end{example}
+
+\medskip
+
+\begin{example}[Bottleneck reaction in the overabundance limit]
+    We can analyze the effect of a bottleneck reaction in the overabundance limit. If the first step is extremely slow, i.e $ r_1 \ll r_2 $, then, from the leading order solution, we have
+    \begin{equation}
+        U_0 \approx \frac{1}{2}, \quad V_0 \approx \frac{r_1}{4 r_2} \ll U_0.
+    \end{equation}
+    Therefore, the optimal partition fractions become
+    \begin{equation}
+        \theta_1 \approx \frac{2 r_1}{b}, \quad \theta_2 \approx 1 - \frac{r_1}{2 r_2}, \quad \theta_3 \approx \frac{r_1}{2 r_2}.
+    \end{equation}
+    In this case, most of the proteome is allocated to the enzyme of the bottleneck reaction (first step), while very little is allocated to the downstream enzyme and transporter, as we expect. If the second step is the bottleneck instead, i.e., $ r_2 \ll r_1 $, then
+    \begin{equation}
+        U_0 \approx \frac{r_2}{4 r_1} \ll V_0 \approx \frac{1}{2},
+    \end{equation}
+    and the optimal partition fractions become
+    \begin{equation}
+        \theta_1 \approx \frac{2 r_2}{b}, \quad \theta_2 \approx \frac{r_2}{2 r_1}, \quad \theta_3 \approx 1 - \frac{r_2}{2 r_1}.
+    \end{equation}
+    In this case, most of the proteome is allocated to the enzyme of the bottleneck reaction (second step), while very little is allocated to the upstream enzyme and transporter. This is because the bottleneck reaction limits the overall flux, so it is more economic to allocatie more resources to the bottleneck step in order to process the accumulated biomass. 
+\end{example}
+
+% 
+\newpage
+\section{\large Applications in Metabolic Control}
+
+\subsection{Introduction to Metabolic Control Analysis}
+The field of \emph{metabolic control analysis (MCA)} provides a framework to analyze how changes in \emph{enzyme activities}\footnote{Enzyme activity refers to the concentration of the active portion of an enzyme in the pathway.} affect the overall flux through a metabolic pathway. This arose from the idea of metabolic engineering, where one aims to optimize the production of a desired metabolite or protein by manipulating the activities of enzymes in the pathway.
+
+The input and output concentrations can be controlled externally, while the internal activities are determined by the metabolic network itself. Enzyme activities are called \emph{system parameters}, since they can be varied independently of system dynamics. On the other hand, metabolite concentrations depend on the system parameters, and are called \emph{system variables}. Changing the system parameters will affect the fluxes in the pathway both directly and indirectly through changes in system variables.
+
+\subsection{Example Calculation for the Starvation Limit}
+Consider the two-step metabolic pathway with Michaelis-Menten kinetics as described in the main text. The fluxes are 
+\begin{subequations}
+    \begin{align}
+        J_1 &= J[\phi_1] = b Y_3, \\
+        J_2 &= J[\phi_2] = \frac{a_1 Y_1 Y_4}{k_1 + Y_4}, \\
+        J_3 &= J[\phi_3] = \frac{a_2 Y_2 Y_5}{k_2 + Y_5}.
+    \end{align}
+\end{subequations}
+
+In the starvation limit ($ b \to 0 $), the steady state biomass fractions are given by
+\begin{subequations}
+    \begin{align}
+        Y_1^* &= c_1 \sqrt{b} + \left(\frac{1-k_1}{a_1} - A c_1\right) b + \left[\frac{1}{2}A^2 c_1 - 2A \left(\frac{1-k_1}{a_1}\right)\right] b^{3/2} + O(b^2), \\
+        Y_2^* &= c_2 \sqrt{b}  + \left[\frac{1-k_2}{a_2} - \left(A + c_1\right)c_2\right] b + \left[\frac{1}{2} A^2 c_2 + 2A \left(\frac{1-k_2}{a_2} + c_1 c_2\right)\right] b^{3/2} + O(b^2), \\
+        Y_3^* &= 1 - 2A \sqrt{b} + (2A^2 - B) b - (A^3 + 3AB) b^{3/2} + O(b^2), \\
+        Y_4^* &= c_1 \left[ \sqrt{b} - Ab + \left(\frac{3}{2} A^2 - 1 - c_1 c_2 \right) b^{3/2} \right] + O(b^2), \\
+        Y_5^* &= c_2 \left[ \sqrt{b} - Ab + \left( \frac{3}{2} A^2 - 1 - c_1 c_2 \right) b^{3/2} \right] + O(b^2),
+    \end{align} 
+\end{subequations}
+where 
+\begin{equation}
+    c_1 = \sqrt{\frac{k_1}{a_1}}, \quad c_2 = \sqrt{\frac{k_2}{a_2}}, \quad A = c_1 + c_2, \quad B = \frac{1-k_1}{a_1} + \frac{1-k_2}{a_2} - c_1 c_2.
+\end{equation}
+
+Let's define the \emph{flux control coefficient} (FCC) for each enzyme as
+\begin{equation}
+    C_{E_i}^J = \frac{\mathrm{d} \ln J}{\mathrm{d} \ln E_i} = \frac{E_i}{J} \frac{\mathrm{d} J}{\mathrm{d} E_i},
+\end{equation}
+where $ J $ is the steady state flux through the pathway, and $ E_i $ is the activity of enzyme $ i $. The FCC quantifies the relative change in flux resulting from a relative change in enzyme activity.
+
+Assume the enzyme activity is proportional to its concentration, i.e., $ E_i = \gamma Y_i^* $ for $ i = 1, \dots , 5 $, where $ \gamma $ is a proportionality constant. Then, we have
+\begin{equation}
+    C^{J_k}_{E_i} = \frac{\mathrm{d} \ln J_k}{\mathrm{d} \ln E_i} = \frac{E_i}{J_k} \frac{\mathrm{d} J_k}{\mathrm{d} E_i} = \frac{Y_i^*}{J_k} \frac{\mathrm{d} J_k}{\mathrm{d} Y_i^*}.
+\end{equation}
+The full derivative is expanded as the sum of direct effct ($ Y_i^* $ ) and indirect effect (via other system variables $ Y_j^* $):
+\begin{equation}
+    \frac{\mathrm{d} J_k}{\mathrm{d} Y_i^*} = \frac{\partial J_k}{\partial Y_i^*} + \sum_{j \neq i} \frac{\partial J_k}{\partial Y_j^*} \frac{\mathrm{d} Y_j^*}{\mathrm{d} Y_i^*}.
+\end{equation}
+
+\newpage 
+\begin{enumerate}
+    \item Transporter flux ($ \phi_1 $): The flux under steady state is given by
+    \begin{equation}
+        J_1 = b Y_3^* = b - 2 A b^{3/2} + (2A^2 - B) b^2 + O(b^{5/2}).
+    \end{equation}
+    The FCCs for each enzyme $ x_3 $, $ x_4 $, $ x_5 $ (which we will label as $ P $, $ Q $, $ R $), with activitis $ E_3 $, $ E_4 $, $ E_5 $, respectively, are given by\footnote{The detailed calculations for the boxed results are messy and not important, so they are provided in the appendix at the end of the summmary.} 
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{align}
+        % 3
+        C^{J_1}_{P} &= b \text{ exactly}, \\
+        % 4
+        C^{J_1}_{Q} &= -\frac{2A}{c_1} b - \frac{2B}{c_1} b^{3/2} + O(b^2),\\
+        % 5
+        C^{J_1}_{R} &= -\frac{2A}{c_2} b - \frac{2B}{c_2} b^{3/2} + O(b^2).
+    \end{align}
+    \end{mdframed}
+    As transporters increase, the influx increases linearly, while increasing downstream enzymes decreases the flux due to depletion of intermediates. This also shows the concept of proteome partition, as increasing downstream enzymes takes away proteome resources from transporters.
+
+    \item Metabolic chain flux ($ \phi_2 $): The flux under steady state is given by
+    \begin{equation}
+        J_2 = J_2 (J_1^*, J_4^*) = \frac{a_1 Y_1^* Y_4^*}{k_1 + Y_1^*}.
+    \end{equation}
+    The FCCs for each protein (or, more specifically, enzyme) $ x_3 $, $ x_4 $, $ x_5 $ (which we will label as $ P $, $ Q $, $ R $), with activitis $ E_3 $, $ E_4 $, $ E_5 $, respectively, are given by
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{align}
+        C^{J_2}_{P} &= -\frac{1}{A}\, b^{-1/2} + \left(1 + \frac{3 c_1}{2 A} + \frac{B}{A^2}\right) + O\!\big(b^{1/2}\big), \\
+        C^{J_2}_{Q} &= \frac{1}{c_1}\, b^{1/2} - \left( 1 + \frac{A}{c_1} \right) b + O\!\big(b^{3/2}\big), \\
+        C^{J_2}_{R} &= \frac{2}{c_2}\, b^{1/2} - \left(\frac{2A + 3c_1}{c_2}\right)\, b + O\!\big(b^{3/2}\big).
+    \end{align} 
+    \end{mdframed}
+    As metabolic enzymes increase, the flux increases due to enhanced catalytic capacity.
+
+    \item Translation flux ($ \phi_3 $): The flux under steady state is an explicit function of $ Y_2^* $ and $ Y_5^* $:
+    \begin{equation}
+        J_3 = J_3 (Y_2^*, Y_5^*) = \frac{a_2 Y_2^* Y_5^*}{k_2 + Y_5^*}.
+    \end{equation}
+    The FCCs for each protein (enzyme) $ x_3 $, $ x_4 $, $ x_5 $ (which we will label as $ P $, $ Q $, $ R $), with activities $ E_3 $, $ E_4 $, $ E_5 $, respectively, are given by
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{align}
+        C^{J_3}_{P} &= -\frac{1}{A}\, b^{-1/2} +  \left(\frac{A^2 + B}{A^2} - \frac{1-k_2}{A k_2}\right) \, b + O\!\big(b^{1/2}\big), \\
+        C^{J_3}_{Q} &= \frac{2}{c_1}\, b^{1/2} - \left(4 + \frac{7c_2}{c_1} - \frac{2 c_2}{k_2 c_1}\right)\, b + O\!\big(b^{3/2}\big), \\
+        C^{J_3}_{R} &= \frac{2}{c_2}\, b^{1/2} - \left( \frac{4c_1}{c_2} + 7 - \frac{2}{k_2} \right)\, b + O\!\big(b^{3/2}\big) = \frac{c_1}{c_2} C^{J_3}_{Q}.
+    \end{align}
+    \end{mdframed}
+\end{enumerate}
+
+\begin{remark}
+    For reference: 
+    \begin{align}
+        % Y1
+        \frac{\partial Y_1}{\partial b} &= \frac{1}{2} c_1 b^{-1/2} + \left(\frac{1-k_1}{a_1} - Ac_1\right) + \frac{3}{2}\left[\frac{1}{2} A^2 c_1 - 2A \left(\frac{1-k_1}{a_1}\right)\right] \sqrt{b} + O(b), \\
+        % Y2
+        \frac{\partial Y_2^*}{\partial b} &= \frac{1}{2} c_2 b^{-1/2} + \left[\frac{1-k_2}{a_2} - (A+c_1)c_2\right] + \frac{3}{2} \left[\frac{1}{2} A^2 c_2 + 2A \left(\frac{1-k_2}{a_2} + c_1 c_2\right)\right] \sqrt{b} + O(b), \\
+        % Y3
+        \frac{\partial Y_3^*}{\partial b} &= -A b^{1/2} + (2 A^2 - B)b - \frac{3}{2}(A^3 - 3AB) b^{3/2} + O(b^2), \\
+        % Y4
+        \frac{\partial Y_4^*}{\partial b} &= c_1 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b), \\
+        % Y5
+        \frac{\partial Y_5^*}{\partial b} &= c_2 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b).
+    \end{align}
+\end{remark}
+
+Alternatively, we can define the \emph{concentration control coefficient} (CCC) for each enzyme as
+\begin{equation}
+    C_{E_i}^{S_j} = \frac{\mathrm{d} \ln S_j}{\mathrm{d} \ln E_i} = \frac{E_i}{S_j} \frac{\mathrm{d} S_j}{\mathrm{d} E_i},
+\end{equation}
+where $ S_j $ is the concentration of metabolite $ j $. The CCC quantifies the sensitivity of metabolite concentration to changes in enzyme activity. In this case, we do not distinguish between active and inactive enzyme forms, and simply use the enzyme concentration as a proxy for enzyme activity, hence, $ C_{E_i}^{S_j} = \delta_{ij} $.
+
+Next, we can define the \emph{elasticity coefficient} (EC) for each enzyme as
+\begin{equation}
+    \varepsilon_{E_i}^{S_j} = \frac{\mathrm{d} \ln v_i}{\mathrm{d} \ln S_j} = \frac{S_j}{v_i} \frac{\mathrm{d} v_i}{\mathrm{d} S_j},
+\end{equation}
+where $ v_i $ is the rate of reaction catalyzed by enzyme $ i $, and $ S_j $ is the concentration of substrate $ j $. \emph{The EC quantifies the sensitivity of the reaction rate to changes in substrate concentration.} Since $ S_j = E_j \propto Y_j^* $, we have 
+\begin{equation}
+    \varepsilon_{E_i}^{S_j} = \frac{Y_j^*}{v_i} \frac{\partial v_i}{\partial Y_j^*}, \quad j = 1, 2, 3.
+\end{equation}
+Again, we can expand the full derivative as 
+\begin{equation}
+    \frac{\mathrm{d} v_i}{\mathrm{d} Y_j^*} = \sum_{k=1}^5 \frac{\partial v_i}{\partial Y_k^*} \frac{\mathrm{d} Y_k^*}{\mathrm{d} Y_j^*} = \sum_{k=1}^5 \frac{\partial v_i}{\partial Y_k^*} \left(\frac{\partial Y_k^* / \partial b}{\partial Y_j^* / \partial b}\right).
+\end{equation}
+
+Note that, in our case, the reaction rates during steady state (in our case, exponential growth) are given by
+\begin{subequations}
+    \begin{align}
+        v_1 &= b X_3^*, \\
+        v_2 &= \frac{a_1 X_1^* X_4^*}{k_1 N^* + X_1^*}, \\
+        v_3 &= \frac{a_2 X_2^* X_5^*}{k_2 N^* + X_2^*},
+    \end{align}
+\end{subequations}
+so even though we consider the steady state of protein fraction, and hence $ \frac{\mathrm{d}Y_i}{\mathrm{d}t} = 0 $ for $ i = 3,4,5 $, the reaction rates $ v_i $ are still non-zero. Therefore, the elasticity coefficients are well-defined. 
+
+To solve for the reaction rates at steady state, we would need the steady state expressions for absolute biomass $ X_i^* $ as a series in $ b $. From previous calculations, during steady state we have 
+\begin{equation}
+    \lambda (b) = b - 2 A b^{3/2} + (2A^2 - B) b^2 + O(b^3).
+\end{equation}
+Since $ \lambda $ is well-defined and positive, the total biomass $ N(t) $ exhibits exponential growth during \emph{steady state of biomass proportion}. Then, the absolute biomass for each species is simply 
+\begin{equation}
+    X_i^* (t) = N(t) Y_i^*, \quad i = 1, 2, \dots , 5,
+\end{equation}
+where $ N(t) = N(0) \exp \left(\lambda (b) t \right) $, and $ N(0) $ is the total biomass at the beginning of the experiment. We have the growth rate $ \lambda (b) $ exponential given by
+\begin{equation}
+    \exp\!\left[\left( b - 2 A b^{3/2} + O(b^2) \right) t\right] = 1 + t\,b - 2 A t\, b^{3/2} + O\!\left(b^{2}\right)
+\end{equation} 
+for very small $ b $ and fixed $ t $. However, this naive picture does not hold throughout $ t \in [0, \infty) $, as for $ t \sim \frac{1}{b} $ and $ t \gg \frac{1}{b} $, the expansion no longer holds. Fortunately, the normalization step in the definition of EC makes it independent of total biomass scale, and thus EC is dependent only on the steady-state biomass fractions $ Y_i^* $. Then, writing $ X_i $ in place of $ X_i^* $: 
+\begin{subequations}
+    \begin{align}
+        X_1 (t) &= N(0) \, e^{\lambda t} \left[ c_1 \sqrt{b} + \left(\frac{1-k_1}{a_1} - A c_1\right) b + O\!\left(b^{3/2}\right) \right],\\
+        X_2 (t) &= N(0) \, e^{\lambda t} \left[ c_2 \sqrt{b} + \left(\frac{1-k_2}{a_2} - A c_2 - c_1 c_2\right) b + O\! \left(b^{3/2}\right) \right], \\
+        X_3 (t) &= N(0) \, e^{\lambda t} \left[ 1 - 2 A \sqrt{b} + O\!\left(b\right) + (2A^2 - B)b + O\!\left(b^{3/2}\right)\right], \\
+        X_4 (t) &= N(0) \, e^{\lambda t} \left[ c_1 \left( \sqrt{b} - Ab + O\!\left(b^{3/2}\right) \right) \right] , \\
+        X_5 (t) &= N(0) \, e^{\lambda t} \left[ c_2 \left( \sqrt{b} - Ab + O\!\left(b^{3/2}\right) \right) \right].
+    \end{align}
+\end{subequations} 
+
+\begin{remark}
+    The time-independence of EC warrants discussion about the definition of reaction rate under balanced growth, that is, steady states of $ Y_i (t) $, in MCA. There are two natural notions of reaction rate in the context of a metabolic system: 
+    \begin{enumerate}
+        \item \textbf{Extensive flux}: Still time-dependent during balanced growth, since $ X_i (t) $ grows exponentially with time, i.e. $ X_i (t) = X_i (0) e^{\lambda t} $.
+        \begin{equation}
+            V_i (X) = \frac{\mathrm{d} X_i}{\mathrm{d} t} \sim \text{(\# of molecules of sector $ i $ produced per unit time)}.
+        \end{equation}
+        \item \textbf{Specific flux}: Time-independent during balanced growth, since $ Y_i (t) = \text{const.} $
+        \begin{equation}
+            q_i (Y) \sim \text{(flux of molecules of sector $ i $ per unit biomass)}.
+        \end{equation}
+    \end{enumerate}
+    In our model, the two are related by 
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{equation}
+        V_i (t) = N(t) q_i (Y(t)) \implies V_i (t) = N(0) e^{\lambda t} q_i (Y^*) \quad \text{(during balanced growth)} .
+    \end{equation}
+    \end{mdframed}
+    We will show that the elasticity coefficients defined using either notion of flux are equivalent during balanced growth, i.e.,
+    \begin{equation}
+        \varepsilon_{E_i}^{S_j} = \frac{S_j}{V_i} \frac{\mathrm{d} V_i}{\mathrm{d} S_j} = \frac{S_j}{q_i} \frac{\mathrm{d} q_i}{\mathrm{d} S_j}.
+    \end{equation}
+    This is because, during balanced growth, we have
+    \begin{equation}
+        \frac{\mathrm{d}V_i (t)}{\mathrm{d} S_j} = N(0) e^{\lambda t} \frac{\mathrm{d} q_i (Y^*)}{\mathrm{d} S_j},
+    \end{equation}
+    Hence, even if one chooses the extensive flux, the exponential growth factor cancels out in the definition of EC, so we will choose whichever is more convenient for calculation.
+\end{remark}
+
+For steady-state variables, we write $ X_i \equiv X_i(0) e^{\lambda t} $ or $ N \equiv N(0) e^{\lambda t} $ (even though they are still time-dependent). Then, the extensive reaction rates at steady state are given by 
+\begin{subequations}
+    \begin{align}
+        V_1 (t) &= b X_3^* = N(0) e^{\lambda t} \left[ b - 2 A b^{3/2} + O(b^2) \right], \\
+        V_2 (t) &= \frac{a_1 X_1 X_4}{k_1 N + X_1} - \frac{a_2 X_2 X_5}{k_2 + X_2} = N(0) e^{\lambda t} \left[ b - 2 A b^{3/2} + O(b^2) \right], \\
+    \end{align}
+\end{subequations}
+
+Also, we have $ \lambda = bY_3^* $, and the specific flux at steady state are given by
+\begin{subequations}
+    \begin{align}
+        v_1 &= b X_3 = b N(0) e^{b Y_3^* t} \left[c_1 \sqrt{b} + \left(\frac{1-k_1}{a_1} - Ac_1\right)b + O\!\left(b^{3/2}\right) \right], \\
+        v_2 &= \frac{a_1 X_1 X_4}{k_1 N + X_1} = N(0) \, e^{b Y_3^* t} \left(\frac{a_1 Y_1^* Y_4^*}{k_1 + Y_1^*}\right) \notag \\
+        &= , \\
+        v_3 &= \frac{a_2 X_2 X_5}{k_2 N + X_2} = N(0) \, e^{b Y_3^* t} \left(\frac{a_2 Y_2^* Y_5^*}{k_2 + Y_2^*}\right) \notag\\
+        &= 
+    \end{align}
+\end{subequations}
+
+\begin{remark}
+    for record: 
+    \begin{align}
+        Y_1^* &= c_1 \sqrt{b} + \left(\frac{1-k_1}{a_1} - A c_1\right) b + \left[\frac{1}{2}A^2 c_1 - 2A \left(\frac{1-k_1}{a_1}\right)\right] b^{3/2} + O(b^2), \\
+        Y_2^* &= c_2 \sqrt{b} + \left[\frac{1-k_2}{a_2} - \left(A + c_1\right)c_2\right] b + \left[\frac{1}{2} A^2 c_2 + 2A \left(\frac{1-k_2}{a_2} + c_1 c_2\right)\right] b^{3/2} + O(b^2), \\
+        Y_3^* &= 1 - 2A \sqrt{b} + (2A^2 - B) b - (A^3 + 3AB) b^{3/2} + O(b^2), \\
+        Y_4^* &= c_1 \left[ \sqrt{b} - Ab + \left(\frac{3}{2} A^2 - 1 - c_1 c_2 \right) b^{3/2} \right] + O(b^2), \\
+        Y_5^* &= c_2 \left[ \sqrt{b} - Ab + \left( \frac{3}{2} A^2 - 1 - c_1 c_2 \right) b^{3/2} \right] + O(b^2),
+    \end{align}
+\end{remark}
+
+\begin{enumerate}
+    \item Transporter reaction ($ \phi_1 $): Work in progress... 
+    \item Metabolic chain reaction ($ \phi_2 $): Work in progress...
+    \item Translation reaction ($ \phi_3 $): Work in progress...
+\end{enumerate}
+
+
+\subsection{Analysis of the Summation and Connectivity Theorems}
+The main theorems of MCA are the \emph{summation theorem} and the \emph{connectivity theorem}. These theorems provide relationships between the FCCs, CCCs, and ECs, and we will state them and their interpretations below.
+
+\begin{theorem}[Summation Theorem]
+    The sum of all FCCs for a given flux equals one:
+    \begin{equation}
+        \sum_{i} C_{E_i}^J = \sum_{i} \frac{\mathrm{d}\ln J}{\mathrm{d}\ln E_i} = 1.
+    \end{equation}
+\end{theorem}
+
+\begin{theorem}[Connectivity Theorem]
+    For each metabolite $ S_j $, the sum of the products of FCCs and ECs over all enzymes equals zero:
+    \begin{equation}
+        \sum_{i} C_{E_i}^J \varepsilon_{E_i}^{S_j} = 0.
+    \end{equation}
+\end{theorem}
+
+\begin{remark}
+    Since the CCCs are all equal to one in our current model, the connectivity theorem simplifies to
+    \begin{equation}
+        \sum_{i} C_{E_i}^J \varepsilon_{E_i}^{S_j} = \sum_{i} \frac{\mathrm{d} \ln J}{\mathrm{d}\ln E_i} \frac{Y_j^*}{v_i} \frac{\partial v_i}{\partial Y_j^*} = 0.
+    \end{equation}    
+\end{remark}
+
+
+% 
+\newpage
+\section{\large Appendix}
+
+The derivations of the FCCs for each flux are provided here for completeness. Note that the series expansion is assisted by \emph{ChatGPT 5.1 Thinking mode} and checked by MATLAB and by hand for correctness for a few of the nine cases. The final results are boxed in the main text, and will need further rigorous checking with MATLAB.
+
+\medskip
+
+\noindent \textbf{1.} Transporters: Explictly, the FCCs are calculated to be  
+\small
+\begin{align}
+    % 3
+    C^{J_1}_{P} &= \frac{\partial J_1}{\partial Y_3^*} = b, \\
+    % 4
+    C^{J_1}_{Q} &= \frac{\partial J_1}{\partial Y_3^*} \frac{\partial Y_3^*}{\partial Y_4^*} = \left. \left(\frac{\partial J_1}{\partial Y_3}\right) \right|_{Y_3^*} \left(\frac{\partial Y_3^* / \partial b}{\partial Y_4^* / \partial b}\right) \notag \\
+    &= \frac{-A b^{1/2} + (2 A^2 - B)b - \frac{3}{2}(A^3 - 3AB) b^{3/2} + O(b^2)}{c_1 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b)} \notag \\
+    &= -\frac{2A}{c_1} b - \frac{2B}{c_1} b^{3/2} + O(b^2),\\
+    % 5
+    C^{J_1}_{R} &= \frac{\partial J_1}{\partial Y_3^*} \frac{\partial Y_3^*}{\partial Y_5^*} = \left. \left(\frac{\partial J_1}{\partial Y_3}\right) \right|_{Y_3^*} \left(\frac{\partial Y_3^* / \partial b}{\partial Y_5^* / \partial b}\right) \notag \\
+    &= \frac{-A b^{1/2} + (2 A^2 - B)b - \frac{3}{2}(A^3 - 3AB) b^{3/2} + O(b^2)}{c_2 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b)} \notag \\
+    &= -\frac{2A}{c_2} b - \frac{2B}{c_2} b^{3/2} + O(b^2).
+\end{align}
+\normalsize
+
+\newpage
+\noindent \textbf{2.} Metabolic enzymes: Explictly, the FCCs are calculated to be 
+\small
+\begin{align}
+    % 3 
+    C^{J_2}_{P} &= \frac{\partial J_2}{\partial Y_1^*} \frac{\partial Y_1^*}{\partial Y_3^*} + \frac{\partial J_2}{\partial Y_4^*} \frac{\partial Y_4^*}{\partial Y_3^*} = \left. \left(\frac{\partial J_2}{\partial Y_1}\right) \right|_{Y_1^*, Y_4^*} \left(\frac{\partial Y_1^* / \partial b}{\partial Y_3 ^* / \partial b}\right) + \left. \left(\frac{\partial J_2}{\partial Y_4}\right) \right|_{Y_1^*, Y_4^*} \left(\frac{\partial Y_4^* / \partial b}{\partial Y_3^* / \partial b}\right) \notag \\
+    &= \left(\frac{a_1 Y_4^*}{k_1 + Y_1^*} - \frac{a_1 Y_1^* Y_4^*}{(k_1 + Y_1^*)^2}\right) \left[
+        \frac{\frac{1}{2} c_1 b^{-1/2} + \left(\frac{1-k_1}{a_1} - Ac_1\right) + \frac{3}{2}\left[\frac{1}{2} A^2 c_1 - 2A \left(\frac{1-k_1}{a_1}\right)\right] \sqrt{b} + O(b)}{-A b^{1/2} + (2 A^2 - B)b - \frac{3}{2}(A^3 - 3AB) b^{3/2} + O(b^2)}
+    \right] \notag \\
+    &\quad + \left(\frac{a_1 Y_1^*}{k_1 + Y_1^*}\right) \left[
+        \frac{c_1 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b)}{-A b^{1/2} + (2 A^2 - B)b - \frac{3}{2}(A^3 - 3AB) b^{3/2} + O(b^2)}
+    \right] \notag \\
+    &= -\frac{1}{A}\, b^{-1/2} + \left(1 + \frac{3 c_1}{2 A} + \frac{B}{A^2}\right) + O\!\big(b^{1/2}\big),\\
+    % 4
+    C^{J_2}_{Q} &= \frac{\partial J_2}{\partial Y_1^*} \frac{\partial Y_1^*}{\partial Y_4^*} + \frac{\partial J_2}{\partial Y_4^*} = \left. \left(\frac{\partial J_2}{\partial Y_1}\right) \right|_{Y_1^*, Y_4^*} \left(\frac{\partial Y_1^* / \partial b}{\partial Y_4^* / \partial b}\right) + \frac{\partial J_2}{\partial Y_4^*} \notag \\
+    &= \left(\frac{a_1 Y_4^*}{k_1 + Y_1^*} - \frac{a_1 Y_1^* Y_4^*}{(k_1 + Y_1^*)^2}\right) \left(\frac{\partial Y_1^* / \partial b}{\partial Y_4^* / \partial b}\right) + \frac{a_1 Y_1^*}{k_1 + Y_1^*} \notag \\
+    &= \left(\frac{a_1 Y_4^*}{k_1 + Y_1^*} - \frac{a_1 Y_1^* Y_4^*}{(k_1 + Y_1^*)^2}\right) \left[\frac{\frac{1}{2} c_1 b^{-1/2} + \left(\frac{1-k_1}{a_1} - Ac_1\right) + \frac{3}{2}\left[\frac{1}{2} A^2 c_1 - 2A \left(\frac{1-k_1}{a_1}\right)\right] \sqrt{b} + O(b)}{c_1 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b)}\right] \notag \\
+    &= \frac{1}{c_1}\, b^{1/2} - \left( 1 + \frac{A}{c_1} \right) b + O\!\big(b^{3/2}\big), \\
+    % 5
+    C^{J_2}_{R} &= \frac{\partial J_2}{\partial Y_1^*} \frac{\partial Y_1^*}{\partial Y_5^*} + \frac{\partial J_2}{\partial Y_4^*} \frac{\partial Y_4^*}{\partial Y_5^*} = \left. \left(\frac{\partial J_2}{\partial Y_1}\right) \right|_{Y_1^*, Y_4^*} \left(\frac{\partial Y_1^* / \partial b}{\partial Y_5^* / \partial b}\right) + \left. \left(\frac{\partial J_2}{\partial Y_4}\right) \right|_{Y_1^*, Y_4^*} \left(\frac{\partial Y_4^* / \partial b}{\partial Y_5^* / \partial b}\right) \notag \\
+    &= \left(\frac{a_1 Y_4^*}{k_1 + Y_1^*} - \frac{a_1 Y_1^* Y_4^*}{(k_1 + Y_1^*)^2}\right) \left[
+        \frac{\frac{1}{2} c_1 b^{-1/2} + \left(\frac{1-k_1}{a_1} - Ac_1\right) + \frac{3}{2}\left[\frac{1}{2} A^2 c_1 - 2A \left(\frac{1-k_1}{a_1}\right)\right] \sqrt{b} + O(b)}{c_2 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b)} 
+    \right] \\
+    &\quad + \left(\frac{a_1 Y_1^*}{k_1 + Y_1^*}\right) \frac{c_1}{c_2} \notag \\
+    &= \frac{2}{c_2}\, b^{1/2} - \frac{c_1\big(2 A a_1 c_1 k_1 + 3 k_1^2\big)}{c_2 k_1^2}\, b + O\!\big(b^{3/2}\big).
+\end{align}    
+\normalsize
+
+\newpage
+\noindent \textbf{3.} Translation proteins (r-proteins): Explictly, the FCCs are calculated to be
+\small
+\begin{align}
+    % 3 
+    C^{J_3}_{P} &= \frac{\partial J_3}{\partial Y_2^*}\frac{\partial Y_2^*}{\partial Y_3^*} + \frac{\partial J_2}{\partial Y_5^*} \frac{\partial Y_5^*}{\partial Y_3^*} 
+    = \left. \left(\frac{\partial J_3}{\partial Y_2}\right) \right|_{Y_2^*, Y_5^*} \left(\frac{\partial Y_2^* / \partial b}{\partial Y_3^* / \partial b}\right) + \left. \left(\frac{\partial J_3}{\partial Y_5}\right) \right|_{Y_2^*, Y_5^*} \left(\frac{\partial Y_5^* / \partial b}{\partial Y_3^* / \partial b}\right) \notag \\
+    &= \left(\frac{a_2 Y_5^*}{k_2 + Y_2^*} - \frac{a_2 Y_2^* Y_5^*}{(k_2 + Y_2^*)^2}\right) \notag \\
+    &\quad \times \left[\frac{\frac{1}{2} c_2 b^{-1/2} + \left[\frac{1-k_2}{a_2} - (A+c_1)c_2\right] + \frac{3}{2} \left[\frac{1}{2} A^2 c_2 + 2A \left(\frac{1-k_2}{a_2} + c_1 c_2\right)\right] \sqrt{b} + O(b)}{-A b^{1/2} + (2 A^2 - B)b - \frac{3}{2}(A^3 - 3AB) b^{3/2} + O(b^2)} \right] \notag \\
+    &\quad + \left(\frac{a_2 Y_5^*}{k_2 + Y_2^*}\right) \left[\frac{c_2 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b)}{-A b^{1/2} + (2 A^2 - B)b - \frac{3}{2}(A^3 - 3AB) b^{3/2} + O(b^2)} \right] \notag \\
+    &= -\frac{1}{A}\, b^{-1/2} +  \left(\frac{A^2 + B}{A^2} - \frac{1-k_2}{A k_2}\right) \, b + O\!\big(b^{1/2}\big),\\
+    % 4
+    C^{J_3}_{Q} &= \frac{\partial J_3}{\partial Y_2^*}\frac{\partial Y_2^*}{\partial Y_4^*} + \frac{\partial J_2}{\partial Y_5^*} \frac{\partial Y_5^*}{\partial Y_4^*} 
+    = \left. \left(\frac{\partial J_3}{\partial Y_2}\right) \right|_{Y_2^*, Y_5^*} \left(\frac{\partial Y_2^* / \partial b}{\partial Y_4^* / \partial b}\right) + \left. \left(\frac{\partial J_3}{\partial Y_5}\right) \right|_{Y_2^*, Y_5^*} \left(\frac{\partial Y_5^* / \partial b}{\partial Y_4^* / \partial b}\right) \notag \\
+    &= \left(\frac{a_2 Y_5^*}{k_2 + Y_2^*} - \frac{a_2 Y_2^* Y_5^*}{(k_2 + Y_2^*)^2}\right) \notag \\
+    &\quad \times \left[\frac{\frac{1}{2} c_2 b^{-1/2} + \left[\frac{1-k_2}{a_2} - (A+c_1)c_2\right] + \frac{3}{2} \left[\frac{1}{2} A^2 c_2 + 2A \left(\frac{1-k_2}{a_2} + c_1 c_2\right)\right] \sqrt{b} + O(b)}{c_1 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b)} \right] \notag \\
+    &\quad + \left(\frac{a_2 Y_5^*}{k_2 + Y_2^*}\right) \left[\frac{c_2 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b)}{c_1 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b)} \right] \notag\\
+    &= \frac{2}{c_1}\, b^{1/2} - \left(4 + \frac{7c_2}{c_1} - \frac{2 c_2}{k_2 c_1}\right)\, b + O\!\big(b^{3/2}\big),\\
+    % 5
+    C^{J_3}_{R} &= \frac{\partial J_2}{\partial Y_2^*} \frac{\partial Y_2^*}{\partial Y_5^*} + \frac{\partial J_3}{\partial Y_5^*} = \left. \left(\frac{\partial J_3}{\partial Y_2}\right) \right|_{Y_2^*, Y_5^*} \left(\frac{\partial Y_2^* / \partial b}{\partial Y_5^* / \partial b}\right) + \frac{\partial J_3}{\partial Y_5^*} \notag \\
+    &= \left(\frac{a_2 Y_5^*}{k_2 + Y_2^*} - \frac{a_2 Y_2^* Y_5^*}{(k_2 + Y_2^*)^2}\right) \notag \\
+    &\quad \times \left[\frac{\frac{1}{2} c_2 b^{-1/2} + \left[\frac{1-k_2}{a_2} - (A+c_1)c_2\right] + \frac{3}{2} \left[\frac{1}{2} A^2 c_2 + 2A \left(\frac{1-k_2}{a_2} + c_1 c_2\right)\right] \sqrt{b} + O(b)}{c_2 \left[\frac{1}{2} b^{-1/2} - A + \frac{3}{2} \left(\frac{3}{2} A^2 - 1 - c_1 c_2\right) \sqrt{b} \right] + O(b)} \right] \notag \\
+    &\quad + \left(\frac{a_2 Y_5^*}{k_2 + Y_2^*}\right) \notag \\
+    &= \frac{2}{c_2}\, b^{1/2} - \left( \frac{4c_1}{c_2} + 7 - \frac{2}{k_2} \right)\, b + O\!\big(b^{3/2}\big) = \frac{c_1}{c_2} C^{J_3}_{E_4}.
+\end{align}
+\normalsize
+
+\end{document}

@@ -1,0 +1,647 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={16cm, 20cm}]{geometry}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./Figures/}{#1.pdf_tex}
+}
+
+\usepackage{scrextend}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem} % enumerate with letters
+\usepackage{ulem}
+% \usepackage[normalem]{ulem}
+\usepackage{indentfirst}
+\usepackage{pifont}
+\usepackage{fancyhdr}   % 頁首頁尾
+\usepackage{amssymb}
+\usepackage{empheq} % box around multiple equations
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+% figures
+\usepackage{graphicx} % Required for inserting images
+\usepackage{wrapfig} 
+\usepackage{subfig}
+\usepackage{makecell} % table wrap text
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\usepackage{lmodern,bm}                
+\usepackage[T1]{sansmath} 
+\SetMathAlphabet{\mathsfbf}{sans}{\sansmathencoding}{\sfdefault}{bx}{sl}
+\usepackage{etoolbox}
+\AtBeginEnvironment{sansmath}{\let\bm\mathsfbf}{}{}
+\usepackage{mdframed}
+\usepackage{amsmath, nccmath}
+\usepackage{mathtools} % for text above and under arrows
+
+\usepackage{bbm}
+\usepackage{bbold} % blackboard bold font
+
+\usepackage{relsize} % math symbol size
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\usepackage{thmtools}
+\usepackage{mdframed}
+\usepackage[dvipsnames]{xcolor} % different colors
+
+
+\declaretheoremstyle[
+    headfont=\sffamily\bfseries\color{black}, % Sans-serif, bold, blue title
+    bodyfont=\normalfont,
+    headpunct={.}, % Adds a period after the theorem heading
+    postheadspace=1em,
+]{mydefstyle}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Definition,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{definition}
+
+\declaretheorem[
+    style=mydefstyle,
+    name=Example,
+    numberwithin=section % <-- THIS makes it Definition 1.1, 1.2, etc.
+]{example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bvec}[1]{\mathbf{#1}} % vector
+\newcommand{\mycomment}[1]{} % block comments
+
+% figures
+\usepackage{wrapfig} 
+\usepackage{subfig}
+
+\title{%
+  20251107 - 20251114 Summary \\
+}
+\author{Jonathan Shao-Kai Huang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{\large Two-Sector Model with Mass Action Kinetics}
+
+\emph{The two-sector model under mass action kinetics has an analytic solution}, and can be used as an introductory example. 
+
+\subsection{Optimal Partition Strength}
+The two-sector model with MA kinetics has a unique steady state solution given by 
+\begin{subequations}
+    \begin{align}
+        Y_1 &= \left(1 + \frac{r \theta_2}{b \theta_1}\right)^{-1}, \\
+        Y_2 &= \frac{r \theta_2}{b} Y_1 = \frac{r \theta_2}{b} \left(1 + \frac{r \theta_2}{b \theta_1}\right)^{-1}, \\
+        Y_3 &= \frac{r \theta_2^2}{b \theta_1} Y_1 = \frac{r \theta_2^2}{b \theta_1} \left(1 + \frac{r \theta_2}{b \theta_1}\right)^{-1}.
+    \end{align}
+\end{subequations}
+
+The Lagrangian as a function of $ \theta = (\theta_1, \theta_2) $ and $ \mu  $ has a simple form given by 
+\begin{equation}
+    L(\theta, \mu) = \frac{r \theta_2}{1 + \dfrac{r \theta_2}{b \theta_1}} - \mu (\theta_1 + \theta_2 - 1).
+\end{equation}
+
+If we carry out the method of Lagrange multipliers as before, we obtain the optimality condition
+\begin{subequations}
+    \begin{align}
+        \frac{\partial L}{\partial \theta_1} = \frac{1}{b} \left(\frac{r \theta_2}{\theta_1}\right)^2 \left(1 + \frac{r \theta_2}{b \theta_1}\right)^{-2} - \mu &= 0, \\
+        \frac{\partial L}{\partial \theta_2} = r \left(1 + \frac{r \theta_2}{b \theta_1}\right)^{-2} - \mu &= 0.
+    \end{align}
+\end{subequations}
+
+Solve the equations simultaneously, we obtain the optimal solution
+\begin{equation}
+    \frac{1}{b} \left(\frac{r \theta_2}{\theta_1}\right)^2 \left(1 + \frac{r \theta_2}{b \theta_1}\right)^{-2} = r \left(1 + \frac{r \theta_2}{b \theta_1}\right)^{-2} \;\Longrightarrow\; \frac{\theta_2}{\theta_1} = \sqrt{\frac{b}{r}} \quad \text{for all } b > 0.
+\end{equation}
+Therefore, $ \theta_1 = (1 + \theta_2 / \theta_1)^{-1} $ and $ \theta_2 = 1 - \theta_1 $ gives 
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{equation}
+    \theta_1^* = \frac{1}{1 + \sqrt{b/r}}, \quad \theta_2^* = \frac{\sqrt{b/r}}{1 + \sqrt{b/r}}, \quad \text{for all } b > 0.
+\end{equation}
+\end{mdframed}
+
+A demonstration of the optimal proteome partitioning is shown in Figure~\ref{fig:two_analytic}, and theoretical result is compared to simulation in Figures~\ref{fig:MA2_theta1_all_b} and \ref{fig:MA2_theta2_all_b}.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{two_analytic.jpg}
+    \caption{The optimal proteome partitioning in the two-sector model with mass action kinetics is shown for a wide range of nutrient levels $ b $.}
+    \label{fig:two_analytic}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_MA_theta1.png}
+        \caption{$ \theta_1 $ with mass action kinetics.}
+        \label{fig:MA2_theta1_all_b}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_MA_theta2.png}
+        \caption{$ \theta_2 $ with mass action kinetics.}
+        \label{fig:MA2_theta2_all_b}
+    \end{minipage}
+\end{figure}
+
+\subsection{Biomass Fractions Under Optimal Condition}
+Using the optimal partition strengths derived above, the biomass fractions at optimality have a closed form given by 
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{subequations}
+    \begin{align}
+        Y_1 &= \frac{\sqrt{b/r}}{1 + \sqrt{b/r}}, \quad Y_2 = \frac{1}{\left(1 + \sqrt{b/r}\right)^2}, \quad Y_3 = \frac{\sqrt{b/r}}{\left(1 + \sqrt{b/r}\right)^2}, \\
+        \text{Small} &= Y_1 = \frac{\sqrt{b/r}}{1 + \sqrt{b/r}}, \quad \text{Large} = Y_2 + Y_3 = \frac{1}{1 + \sqrt{b/r}}.
+    \end{align}
+\end{subequations}
+\end{mdframed}
+
+The relationship between growth rate $ \lambda $ and optimal "ribosome biomass fraction" $ Y_3^\ast $ is then found to be exactly
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{subequations}
+    \begin{align}
+        \lambda &= b Y_2 = \frac{b}{\left(1+\sqrt{b/r}\right)^2}, \\
+        Y_3^* &= Y_3^* (\lambda) = \sqrt{\frac{\lambda}{r}} - \frac{\lambda}{r}.
+    \end{align}
+\end{subequations}
+\end{mdframed}
+Here "ribosomal protein biomass fraction" $ Y_3^* $ has a nice closed-form relationship with $ \lambda $, but not the other way round since $ \lambda $ is not a function of $ Y_3^* $, as shown in Figure~\ref{fig:MA2_lambda_Y3}. Notice that there is clearly a maximum ribosomal biomass fraction which does not correspond to the maximum growth rate. In Figures \ref{fig:MA2_lambda_b}, \ref{fig:MA2_Y1_b}, \ref{fig:MA2_Y2_b}, \ref{fig:MA2_Y3_b}, and \ref{fig:MA2_Y2_b}, we show the relationships between growth rate and biomass fractions for a large range of nutrient quality $ b $.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_MA_lambda_b.png}
+        \caption{Growth rate $ \lambda $ as a function of nutrient quality $ b $.}
+        \label{fig:MA2_lambda_b}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_MA_lambda_Y3.png}
+        \caption{Optimal "ribosomal protein biomass fraction" $ Y_3^* $ as a function of growth rate $ \lambda $.}
+        \label{fig:MA2_lambda_Y3}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_MA_Y1_b.png}
+        \caption{Metabolite biomass fraction $ Y_1 $ as a function of nutrient quality $ b $.}
+        \label{fig:MA2_Y1_b}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_MA_Y2_b.png}
+        \caption{Transporter protein biomass fraction $ Y_2 $ as a function of nutrient quality $ b $.}
+        \label{fig:MA2_Y2_b}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_MA_Y3_b.png}
+        \caption{Ribosomal biomass fraction $ Y_3 $ as a function of nutrient quality $ b $.}
+        \label{fig:MA2_Y3_b}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{two_MA_Large_b.png}
+        \caption{Biomass fraction of large molecules as a function of nutrient quality.}
+        \label{fig:MA2_Y2_b}
+    \end{minipage}
+\end{figure}
+
+In the case of low nutrient quality $ b \to 0 $, there is a linear law between growth rate and ribosomal biomass fraction:
+
+\subsection{No Meaningful Closed Form for Michaelis-Menten Kinetics}
+Following the calculations for Michaelis-Menten kinetics, we try to calculate the derivative of $ L $ after substituting $ \theta_2 = 1 - \theta_1 $. This gives 
+\begin{equation}
+    L(\theta_1, \mu) = b Y_2 = a (1-\theta_1) \left[ \dfrac{- \left(\frac{a}{b}\frac{1-\theta_1}{\theta_1} + k - 1\right) + \sqrt{\left(\frac{a}{b}\frac{1-\theta_1}{\theta_1} + k - 1\right)^2 + 4k}}{-\left(\frac{a}{b}\frac{1-\theta_1}{\theta_1} - k - 1\right) + \sqrt{\left(\frac{a}{b}\frac{1-\theta_1}{\theta_1} + k - 1\right)^2 + 4k} } \right].
+\end{equation}
+
+Carrying out the differentiation using WolframAlpha differentiator and doing some simplification, we get 
+\begin{equation}
+    \begin{split}
+        \frac{2ak}{b}\frac{1-\theta_1}{\theta_1^2} &= \left(- \frac{a}{b} \frac{1-\theta_1}{\theta_1} + k + 1\right) \sqrt{\left(\frac{a}{b} \frac{1-\theta_1}{\theta_1} + k - 1\right)^2 + 4k} \\
+        &+ \left(\frac{a}{b} \frac{1-\theta_1}{\theta_1} + k - 1\right)^2 + 4k .
+    \end{split}
+\end{equation}
+This is a high-order polynomial equation in $ \theta_1 $, which does not admit a simple solution. So, while mass action is a good toy example, \emph{using a series expansion in powers of $ b/a $ is a better way to approach the Michaelis-Menten example.}
+
+%
+\newpage
+\section{\large Waiting Time Analysis of Starvation Limit}
+In the picture of ODEs, the optimality condition can be viewed as the solution that minimizes the waiting time of the system. In the starvation limit, we can write down the leading order waiting time explicitly as an expression of the model parameters.
+
+For the $ i $-th non-terminal node, the waiting time is 
+\begin{equation}
+    \frac{1}{\tau_i} = \theta_{i+1} \frac{a_i Y_i}{k_i + Y_i}, \quad 1 \leq i \leq n-1. 
+\end{equation}
+In the starvation limit, $ Y_i \ll k_i $, and we have
+\begin{equation}
+    \frac{1}{\tau_i} = \theta_{i+1} \frac{a_i Y_i}{k_i}, \quad 1 \leq i \leq n-1,
+\end{equation}
+and thus the total waiting time $ T $ as $ b \to 0 $ is
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{equation}
+    T = \frac{1}{\theta_2} \frac{k_1}{a_1 Y_1} + \frac{1}{\theta_3} \frac{k_2}{a_2 Y_2} + \cdots + \frac{1}{\theta_n} \frac{k_{n-1}}{a_{n-1} Y_{n-1}}.
+\end{equation}
+\end{mdframed}
+
+To further analyze this equation, let's invoke the following assumption: \emph{The product $ Y_i \theta_{i+1} $ is independent of $ Y_j \theta_{j+1} $ for all $ j \neq i $.} The assumption can be justified by the fact that, during starvation, the flux through each node is approximately balanced, so exchanging any two nodes will not change the growth rate, and hence the waiting time. Under this assumption, since each term in the total waiting time is positive, the arithmetic-geometric inequality tells us that the total waiting time is minimized when each term is equal, i.e.,
+\begin{equation}
+    \theta_2 \frac{a_1 Y_1}{k_1} = \theta_3 \frac{a_2 Y_2}{k_2} = \cdots = \theta_n \frac{a_{n-1} Y_{n-1}}{k_{n-1}}.
+\end{equation}
+
+The minimum total waiting time is then
+\begin{equation}
+    T = \sum_{i=1}^{n-1} \frac{1}{\theta_{i+1}} \frac{k_i}{a_i Y_i} \geq (n-1) \left( \prod_{i=1}^{n-1} \frac{1}{\theta_{i+1}} \frac{k_i}{a_i Y_i} \right)^{\frac{1}{n-1}} = (n-1) \frac{1}{\theta_2} \frac{a_1 Y_1}{k_1}.
+\end{equation}  
+The optimized total waiting time should satisfy $ T^* = (n-1) / \theta_1 b $ (?), so 
+\begin{equation}
+    T \geq (n-1) \frac{1}{\theta_2} \frac{a_1 Y_1}{k_1} = T^* = \frac{n-1}{\theta_1 b },
+\end{equation}
+and rearranging gives
+\begin{equation}
+    Y_i = \left(\frac{k_i \theta_1}{a_i \theta_{i+1}}\right) b, \quad 1 \leq i \leq n-1,
+\end{equation}
+which agrees with the rigorous derivation shown earlier. 
+
+% 
+\newpage
+\section{\large General Model in the Starvation Limit}
+Summary: Derive the explicit formula for \emph{optimal partition strength} and \emph{optimal biomass fraction} for the general model in the starvation limit.
+
+\subsection{Detailed Calculation for Five Partitions}
+Following the spirit of last weeks' calculation, the steady state equations for the five-sector model are
+\begin{subequations}
+    \begin{align}
+        Y_1 &= \frac{k_1\,\theta_1}{a_1\,\theta_2}\,b + \frac{k_1\,\theta_1^2(1-k_1)}{a_1^2\,\theta_2^2}\,b^2,\\
+        Y_2 &= \frac{k_2\,\theta_1}{a_2\,\theta_3}\,b - \,k_2\,\theta_1^2\!\left[\frac{k_2-1}{a_2^2\,\theta_3^2}+\frac{k_1}{a_1 a_2\,\theta_2\theta_3}\right] b^2,\\
+        Y_3 &= \frac{k_3\,\theta_1}{a_3\,\theta_4}\,b - \,k_3\,\theta_1^2\!\left[\frac{k_3-1}{a_3^2\,\theta_4^2}+\frac{k_2}{a_2 a_3\,\theta_3\theta_4}+\frac{k_1}{a_1 a_3\,\theta_2\theta_4}\right] b^2,\\
+        Y_4 &= \frac{k_4\,\theta_1}{a_4\,\theta_5}\,b - \,k_4\,\theta_1^2\!\left(\frac{k_4-1}{a_4^2\,\theta_5^2}+\frac{k_3}{a_3 a_4\,\theta_4\theta_5}+\frac{k_2}{a_2 a_4\,\theta_3\theta_5}+\frac{k_1}{a_1 a_4\,\theta_2\theta_5}\right) b^2,\\
+        Y_5 &= \theta_1 \left[ 1 - b \theta_1 \!\left(\sum_{i=1}^4 \frac{k_i}{a_i\theta_{i+1}} \right) + b^2 \theta_1^2 \!\left(\sum_{i=1}^{4}\frac{k_i^2-k_i}{a_i^2\,\theta_{i+1}^2}+\sum_{1\le i<j\le 4}\frac{k_i k_j}{a_i a_j\,\theta_{i+1}\theta_{j+1}}\right) \right],\\
+        Y_6 &= \frac{\theta_2}{\theta_1} Y_5, \quad Y_7 = \frac{\theta_3}{\theta_1} Y_5, \quad Y_8 = \frac{\theta_4}{\theta_1} Y_5, \quad Y_9 = \frac{\theta_5}{\theta_1} Y_5.
+    \end{align}
+\end{subequations}
+
+The form of the partition strength in the five-partition model during starvation (small $b$) has been found in the result from 20251029 - 20251102. Let $ c_j = \sqrt{k_j / a_j} $, $ 1 \leq j\leq 4 $, $ A = c_1 + c_2 + c_3 + c_3 $, and
+\begin{equation}
+    B = \frac{1-k_1}{a_1} + \frac{1-k_2}{a_2} + \frac{1-k_3}{a_3} + \frac{1-k_4}{a_4} - (c_1 c_2 + c_1 c_3 + c_1 c_4 + c_2 c_3 + c_2 c_4 + c_3 c_4).
+\end{equation}
+Both $ A $ and $ B $ are invariant under exchange of indices.
+
+% Leave one page to display the equation
+\newpage
+The optimal biomass fractions up to order $ b^2 $ are listed below:
+\begin{subequations}
+    \begin{align}
+        Y_1^* &= c_1 \sqrt{b} + \left(\frac{1-k_1}{a_1} - A c_1\right) b + \left[\frac{1}{2}A^2 c_1 - 2A \left(\frac{1-k_1}{a_1}\right)\right] b^{3/2}, \\
+        Y_2^* &= c_2 \sqrt{b}  + \left[\frac{1-k_2}{a_2} - \left(A + c_1\right)c_2\right] b + \left[\frac{1}{2} A^2 c_2 + 2A \left(\frac{1-k_2}{a_2} + c_1 c_2\right)\right] b^{3/2}, \\
+        Y_3^* &= c_3 \sqrt{b} + \left[\frac{1-k_3}{a_3} - \left(A + c_1 + c_2\right)c_3\right] b \notag \\
+        &\quad + \left[\frac{1}{2} A^2 c_3 + 2A \left(\frac{1-k_3}{a_3} + (c_1 + c_2) c_3\right)\right] b^{3/2}, \\
+        Y_4^* &= c_4 \sqrt{b} + \left[\frac{1-k_4}{a_4} - \left(A + c_1 + c_2 + c_3\right)c_4\right] b \notag \\
+        &\quad + \left[\frac{1}{2} A^2 c_4 + 2A \left(\frac{1-k_4}{a_4} + (c_1 + c_2 + c_3) c_4\right)\right] b^{3/2}, \\ 
+        Y_5^* &= 1 - 2A \sqrt{b} + (2A^2 - B) b - (A^3 + 3AB) b^{3/2}, \\
+        Y_6^* &= c_1 \left\{ \sqrt{b} - Ab + \left[\frac{1}{2} A^2 - (1-c_1^2) + \sum_{i\neq 1} c_i^2 + c_1 \sum_{i\neq 1} c_i + \sum_{i<j, i \neq 1} c_i c_j \right] b^{3/2} \right\}, \\
+        Y_7^* &= c_2 \left\{ \sqrt{b} - Ab + \left[\frac{1}{2} A^2 - (1-c_2^2) + \sum_{i\neq 2} c_i^2 + c_2 \sum_{i\neq 2} c_i + \sum_{i<j, i, j \neq 2} c_i c_j \right] b^{3/2} \right\}, \\
+        Y_8^* &= c_3 \left\{ \sqrt{b} - Ab + \left[\frac{1}{2} A^2 - (1-c_3^2) + \sum_{i\neq 3} c_i^2 + c_3 \sum_{i\neq 3} c_i + \sum_{i<j, i, j \neq 3} c_i c_j \right] b^{3/2} \right\}, \\
+        Y_9^* &= c_4 \left\{ \sqrt{b} - Ab + \left[\frac{1}{2} A^2 - (1-c_4^2) + \sum_{i\neq 4} c_i^2 + c_4 \sum_{i\neq 4} c_i + \sum_{i<j, i, j \neq 4} c_i c_j \right] b^{3/2} \right\}.
+    \end{align} 
+\end{subequations}
+
+\newpage
+\subsection{Proof of Propositions}
+The form of the partition strength in the general $n$-sector partition model during starvation (small $b$) has been shown to be 
+\begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+\begin{subequations}
+    \begin{align}
+        \theta_1 &= 1 - A \sqrt{b} + \frac{1}{2} A^3 b^{3/2} + O(b^{5/2}), \\
+        \theta_j &= \sqrt{\frac{k_{j-1}}{a_{j-1}}}\left[\sqrt{b} - \frac{1}{2} A^2 b^{3/2} + O(b^{5/2})\right], \quad (2 \le j \le n),
+    \end{align}
+\end{subequations}
+where
+\begin{equation}
+    A = \sqrt{\frac{k_1}{a_1}} + \sqrt{\frac{k_2}{a_2}} + \cdots + \sqrt{\frac{k_n}{a_n}}.
+\end{equation}
+\end{mdframed}
+
+As suggested by the above calculation, we make the following claims about the form of the biomass fraction in the general $n$-sector partition model during starvation (small $b$) to one more order. 
+
+\begin{proposition}[Expansion in the Starvation Limit]
+    In the $ b \to 0 $ limit, the biomass fractions of the nonterminal nodes ($1 \leq j \leq n-1$) and the terminal nodes ($ n \leq j \leq 2n-1 $) are given by
+    \begin{subequations}
+        \begin{align}
+            Y_j &= \frac{b\,\theta_1\,k_j}{a_j\theta_{j+1}} - \frac{b^2\,\theta_1^{2}\,k_j\,(k_j-1)}{a_j^{2}\theta_{j+1}^{2}}, \quad 1 \le j \le n-1, \\
+            Y_j &= \theta_{j-n+1} \left[ 1 - b\theta_1\sum_{i=1}^{n-1}\frac{k_i}{a_i\theta_{i+1}} + b^{2}\,\theta_1^{2}\sum_{i=1}^{n-1}\frac{k_i(k_i-1)}{a_i^{2}\theta_{i+1}^{2}} \right], \quad n \le j \le 2n-1,
+        \end{align}
+    \end{subequations}
+    up to second order in $ b $.
+\end{proposition}
+
+\begin{proof}
+    The proof is a generalization of the one provided in the 20251029 - 20251102 summary. First, recall the expansion 
+    \begin{equation}
+        \frac{1}{2} \left[\sqrt{(z+u)^2 + 4k} - (z+u) \right] = \frac{k}{z} - \frac{ku}{z^2} + O(z^{-3}),
+    \end{equation}
+    when $ z $ is very large. In the $ b \to 0 $ limit, notice that the quantity $ \alpha_i = \frac{a_i \theta_{i+1}}{b \theta_1} \to \infty $.
+
+    Again, since the $ n $-sector system consists of both \emph{terminal nodes} and \emph{nonterminal nodes}, whose biomass fraction expression have distinct forms, we will discuss them separately.
+    \begin{enumerate}[(1)]
+        \item Nonterminal nodes: These are the nodes with index $ 1 \leq i \leq n-1 $. Let 
+        \begin{equation}
+            \alpha_i = \frac{a_i \theta_{i+1}}{b \theta_1}, \quad u_i = k_i - 1 - \sum_{r=1}^{i-1} Y_r , 
+        \end{equation}
+        and write the nonterminal node biomass fraction as
+        \begin{equation}
+            \begin{split}
+                Y_1 &= \frac{1}{2} \left[\sqrt{(\alpha_1 + k_1 - 1)^2 + 4k_1} - \left(\alpha_1 + k_1 - 1\right) \right] \\
+                &= \frac{k_1}{\alpha_1} + \frac{k_1 (k_1 - 1)}{\alpha_1^2} + O(b^{2}) = \frac{b k_1 \theta_1}{a_1 \theta_2} + \frac{b^2 \theta_1^2 k_1 (k_1 - 1)}{a_1^2 } + O(b^{3}),
+            \end{split}
+        \end{equation}
+        and
+        \begin{equation}
+            \begin{split}
+                Y_i &= \frac{1}{2} \left[\sqrt{\left(\alpha_i + k_i - \left(1 - \sum_{r=1}^{i-1} Y_r\right)\right)^2 + 4 k_i} - \left(\alpha_i + k_i - \left(1 - \sum_{r=1}^{i-1} Y_r \right) \right)\right] \\
+                &= \frac{k_i}{\alpha_i} + \frac{k_i u_i}{\alpha_i^2} + O(b^{2}) = \frac{b k_i \theta_{1}}{a_i \theta_{i+1}} + \frac{b^2 \theta_1^2 k_i (k_i - 1)}{a_i^2 \theta_{i+1}^2} + O(b^{3}),
+            \end{split}
+        \end{equation}
+        for $ 2 \leq i \leq n-1 $. We used the fact that $ u_i = k_i - 1 - \sum_{r=1}^{i-1} Y_r = k_i - 1 + O(b) $.
+
+        \item Terminal nodes: These are the nodes with index $ n \leq i \leq 2n-1 $.
+        \begin{equation}
+            Y_{n+1} = \frac{\theta_2}{\theta_1} Y_n, \quad Y_{n+2} = \frac{\theta_3}{\theta_1} Y_n, \quad \ldots, \quad Y_{2n-1} = \frac{\theta_n}{\theta_1} Y_n,
+        \end{equation}
+        subject to the condition $ \sum_{i=1}^n \theta_i = 1 $. Using $ \sum_{i=1}^{2n-1} Y_i = 1 $, we have  
+        \begin{equation}
+            Y_n + Y_{n+1} + \ldots + Y_{2n-1} = \left(1 + \frac{\theta_2}{\theta_1} + \ldots + \frac{\theta_n}{\theta_1}\right) Y_n = 1 - \sum_{i=1}^{n-1} Y_i, 
+        \end{equation} 
+        and hence
+        \begin{equation}
+            Y_n = \frac{\theta_1}{\theta_1 + \cdots + \theta_n} \left(1 - \sum_{i=1}^{n-1} Y_i\right) = \theta_1 \left(1 - \sum_{i=1}^{n-1} Y_i\right).
+        \end{equation}
+        Up to order $ O(b^2) $, plug in results for $ Y_i $, $ 1 \leq i \leq n-1 $, we have 
+        \begin{equation}
+            \begin{split}
+                Y_n = \theta_1 \left[ 1 - b\theta_1\sum_{i=1}^{n-1}\frac{k_i}{a_i\theta_{i+1}} + b^{2}\,\theta_1^{2}\sum_{i=1}^{n-1}\frac{k_i(k_i-1)}{a_i^{2}\theta_{i+1}^{2}} \right] + O(b^3), \quad Y_j = \frac{\theta_{j-n+1}}{\theta_1} Y_n. 
+            \end{split}
+        \end{equation}
+    \end{enumerate}
+\end{proof}
+
+\newpage
+\begin{proposition}[Optimized Biomass Fractions in the Starvation Limit]
+    In the $ b \to 0 $ limit, the optimized biomass fractions of the nonterminal nodes ($1 \leq j \leq n-1$) and the terminal nodes ($ n \leq j \leq 2n-1 $) are given by
+    \begin{mdframed}[linewidth=1.0pt, linecolor=black, innertopmargin=3pt, innerbottommargin=10pt]
+    \begin{subequations}
+        \begin{align}
+            Y_1^* &= c_1 \sqrt{b} + \left(\frac{1-k_1}{a_1} - A c_1\right) b + \left[\frac{1}{2}A^{2} c_1 - 2A \left(\frac{1-k_1}{a_1}\right) \right] b^{3/2}, \\
+            Y_j^* &= c_j \sqrt{b} + \left[\frac{1-k_j}{a_j} - \left(A + \sum_{i=1}^{j-1} c_i \right) c_j \right]b + \left[\frac{1}{2}A^2 c_j + 2A \left(\frac{1-k_j}{a_j} + c_j \sum_{i=1}^{j-1} c_i \right)\right] b^{3/2}, \notag \\
+            &\quad (2 \le j \le n-1), \\
+            Y_n^* &= 1 - 2A \sqrt{b} + \left(2A^{2}-B \right) b - (A^3 + 3AB) b^{3/2}, \\
+            Y_{j+n}^* &= c_j \left\{ \sqrt{b} - Ab + \left[\frac{1}{2} A^2 - (1- c_j^2) + \sum_{i\neq j}c_i^2 + c_j \sum_{i\neq j} c_i + \sum_{\substack{i,l \neq j, i<l}} c_i c_l \right] b^{3/2} \right\}, \notag\\
+            &\quad (1 \le j \le n-1),   
+        \end{align}
+    \end{subequations}
+    \end{mdframed}
+    up to second order in $ b $. Here, $ c_j \equiv \sqrt{k_j / a_j} $ for $ 1 \leq j \leq n-1 $, and 
+    \begin{equation}
+        A \equiv \sum_{i=1}^{n-1} c_i, \quad B \equiv \sum_{i=1}^{n-1} \left(\frac{1-k_i}{a_i}\right) - \sum_{1 \leq i < j \leq n-1} c_i c_j.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+It is convenient to introduce the notation $ s \equiv \sqrt{b} $ and to work in powers of $ s $ instead of $ b $.
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item Optimal partition: The optimal solution in the starvation limit satisfies
+    \begin{equation}
+        \theta_1^* = 1 - A s + \frac{1}{2} A^3 s^3 + O(s^5), \quad \theta_{2 \leq j \leq n}^* = c_{j-1} \left(s - \frac{1}{2} A^2 s^3 + O(s^5)\right).
+    \end{equation}
+
+    From these we obtain the expansions of the reciprocals:
+    \begin{subequations}
+        \begin{align}
+            \frac{1}{\theta_{j+1}^*}
+            &= \frac{1}{c_j}\,\left(s^{-1} + \frac{1}{2}A^2 s\right) + O(s^3), \\
+            \frac{1}{(\theta_{j+1}^*)^2}
+            &= \frac{1}{c_j^2}\,\left(s^{-2} + A^2  \right) + O(s^2),
+        \end{align}
+    \end{subequations}
+    and likewise
+    \begin{equation}
+        \theta_1^* = 1 - A s + O(s^3), \qquad
+        (\theta_1^*)^2 = 1 - 2A s + A^2 s^2 + O(s^3).
+    \end{equation}
+
+    \item Nonterminal nodes: For $1\le j\le n-1$, Proposition~1 gives
+    \begin{equation}
+        Y_j = \frac{b\,\theta_1 k_j}{a_j\theta_{j+1}}
+        - \frac{b^2\,\theta_1^{2}k_j(k_j-1)}{a_j^{2}\theta_{j+1}^{2}}
+        + O(b^3) 
+        = \frac{\theta_1 k_j}{a_j\theta_{j+1}} s^2
+        - \frac{(\theta_1)^2 k_j(k_j-1)}{a_j^{2}\theta_{j+1}^{2}}s^4
+        + O(s^6).
+    \end{equation}
+
+    For the case $j=1$, we have $\theta_2^* = c_1(s - \frac{1}{2}A^2 s^3 + O(s^5))$, $ c_1^2 = k_1/a_1 $, and 
+    \begin{equation}
+        \frac{k_1(k_1-1)}{a_1^2} = c_1^2 \left(\frac{k_1-1}{a_1}\right).
+    \end{equation}
+    Using the expansions in \textbf{1.}, we obtain
+    \begin{equation}
+        \frac{b\,\theta_1^* k_1}{a_1\theta_2^*} 
+        = c_1 \theta_1^*\,s + \frac{1}{2}A^2 c_1 \theta_1^* \, s^3 + O(s^4),
+    \end{equation}
+    so that, expanding $\theta_1^*$ to the relevant order,
+    \[
+        \frac{b\,\theta_1^* k_1}{a_1\theta_2^*}
+        = c_1 s
+        + \left(\frac{1-k_1}{a_1} - A c_1\right)s^2
+        + \left(\frac{1}{2}A^2 c_1\right)s^3
+        + O(s^4).
+    \]
+    The second term contributes at order $s^3$:
+    \[
+        \frac{b^2 (\theta_1^*)^2 k_1(k_1-1)}{a_1^2 (\theta_2^*)^2}
+        = \frac{k_1(k_1-1)}{a_1^2 c_1^2} (\theta_1^*)^2 s^2 + O(s^4).
+    \]
+    Using $k_1/a_1 = c_1^2$, we have
+    \(
+        \frac{k_1(k_1-1)}{a_1^2c_1^2} = \frac{k_1-1}{a_1},
+    \)
+    and the $s^3$ term from $(\theta_1^*)^2$ gives
+    \[
+        -\,\frac{b^2 (\theta_1^*)^2 k_1(k_1-1)}{a_1^2 (\theta_2^*)^2}
+        = -\,2A\,\frac{1-k_1}{a_1}\,s^3 + O(s^4).
+    \]
+    Adding the $O(s)$, $O(s^2)$, and $O(s^3)$ contributions together yields
+    \[
+        Y_1^* = c_1 s
+        + \left(\frac{1-k_1}{a_1} - A c_1\right)s^2
+        + \left[\frac{1}{2}A^{2} c_1
+                - 2A\left(\frac{1-k_1}{a_1}\right)\right] s^3
+        + O(s^4),
+    \]
+    which is exactly the claimed expansion for $Y_1^*$ once we revert to $s=\sqrt{b}$.
+
+    For the remaining nonterminal nodes $2\le j\le n-1$, we have
+    \[
+        \theta_{j+1}^* = c_j\left(s - \tfrac{1}{2}A^2 s^3\right) + O(s^5),\quad
+        \frac{1}{\theta_{j+1}^*}
+        = \frac{1}{c_j}s^{-1} + \frac{1}{2}A^2 c_j^{-1} s + O(s^3),
+    \]
+    and using $ u_j = k_j-1-\sum_{r=1}^{j-1}Y_r $, $ Y_r = O(s) $, we have
+    \[
+        \frac{b\,\theta_1^* k_j}{a_j\theta_{j+1}^*}
+        = c_j s
+        + \left[\frac{1-k_j}{a_j}
+            - \bigg(A + \sum_{i=1}^{j-1}c_i\bigg)c_j\right]s^2
+        + \left(\frac{1}{2}A^2 c_j + 2A c_j\sum_{i=1}^{j-1}c_i\right) \, s^3
+        + O(s^4),
+    \]
+    while the $b^2$--term contributes again an order--$s^3$ correction
+    proportional to $\frac{k_j(k_j-1)}{a_j^2}$, which combines with
+    the above to give
+    \begin{equation}
+        \begin{split}
+            Y_j^* &= c_j s
+            + \left[\frac{1-k_j}{a_j} - \bigg(A + \sum_{i=1}^{j-1}c_i\bigg)c_j\right]s^2 \\
+            &+ \left[\frac{1}{2}A^2 c_j + 2A\left(\frac{1-k_j}{a_j} + c_j\sum_{i=1}^{j-1}c_i\right)\right]s^3 + O(s^4).
+        \end{split}
+    \end{equation}
+    Rewriting in powers of $b$ gives the desired formula for $Y_j^*$.
+    
+    \item Terminal node $Y_n^*$: 
+        By Proposition~1 we have, for the terminal root node,
+    \[
+        Y_n = \theta_1\left[
+            1 - b\theta_1\sum_{i=1}^{n-1}\frac{k_i}{a_i\theta_{i+1}}
+            + b^{2}\theta_1^{2}\sum_{i=1}^{n-1}
+                \frac{k_i(k_i-1)}{a_i^{2}\theta_{i+1}^{2}}
+        \right] + O(b^3).
+    \]
+    Define the two sums
+    \[
+        S_1(b) \equiv \sum_{i=1}^{n-1}\frac{k_i}{a_i\theta_{i+1}},\qquad
+        S_2(b) \equiv \sum_{i=1}^{n-1}
+                \frac{k_i(k_i-1)}{a_i^{2}\theta_{i+1}^{2}}.
+    \]
+    Using the expansions from Step~1, we find
+    \begin{align*}
+        \frac{k_i}{a_i\theta_{i+1}^*}
+        &= \frac{c_i^2}{c_i s}\left(1+\frac{1}{2}A^2 s^2\right)
+        + O(s^3)
+        = c_i s^{-1} + \frac{1}{2}A^2 c_i s + O(s^3),\\
+        \frac{k_i(k_i-1)}{a_i^{2}(\theta_{i+1}^*)^{2}}
+        &= \frac{k_i(k_i-1)}{a_i^{2}}
+        \left(\frac{1}{c_i^2}s^{-2} + A^2 c_i^{-2} + O(s^2)\right)\\
+        &= \frac{k_i-1}{a_i}s^{-2}
+        + A^2\frac{k_i-1}{a_i} + O(s^2),
+    \end{align*}
+    so that
+    \begin{align*}
+        S_1(b)
+        &= A\,s^{-1} + \frac{1}{2}A^3 s + O(s^3),\\
+        S_2(b)
+        &= \left(\sum_{i=1}^{n-1}\frac{k_i-1}{a_i}\right)s^{-2}
+        + A^2\sum_{i=1}^{n-1}\frac{k_i-1}{a_i} + O(s^2).
+    \end{align*}
+    A short but straightforward calculation using
+    $\theta_1^* = 1 - A s + \frac{1}{2} A^3 s^3 + O(s^5)$ then yields
+    \[
+        Y_n^*
+        = 1 - 2A s + (2A^2 - B) s^2
+        - (A^3 + 3AB) s^3 + O(s^4),
+    \]
+    where the combination $B$ is precisely
+    \[
+        B = \sum_{i=1}^{n-1}\frac{1-k_i}{a_i}
+            - \sum_{1\le i<j\le n-1} c_i c_j,
+    \]
+    arising from the $s^2$ and $s^3$ coefficients in the product
+    $\theta_1^*[1 - s^2\theta_1^* S_1(b) + s^4(\theta_1^*)^2 S_2(b)]$.
+    Rewriting again in powers of $b$ gives the stated form of $Y_n^*$.
+
+    \item Remaining terminal nodes $Y_{n+j}^*$: 
+    For $1\le j\le n-1$, Proposition~1 gives
+    \[
+        Y_{n+j} = \frac{\theta_{j+1}}{\theta_1}\,Y_n.
+    \]
+    Hence, under the optimal partition,
+    \[
+        Y_{n+j}^*
+        = \frac{\theta_{j+1}^*}{\theta_1^*}\,Y_n^*.
+    \]
+    Using the expansions from Step~1,
+    \[
+        \frac{\theta_{j+1}^*}{\theta_1^*}
+        = c_j\left\{
+            s - A s^2
+            + \left[\tfrac{1}{2}A^2
+                    - (1-c_j^2)
+                    + \sum_{i\ne j} c_i^2
+                    + c_j\sum_{i\ne j}c_i
+                    + \!\!\sum_{\substack{i,\ell\ne j\\ i<\ell}}\!c_i c_\ell\right]s^3
+            + O(s^4)
+        \right\},
+    \]
+    and multiplying by the expression for $Y_n^*$ from Step~3, we obtain
+    \[
+        Y_{n+j}^*
+        = c_j\left\{
+            s - A s^2
+            + \left[\tfrac{1}{2}A^2
+                    - (1-c_j^2)
+                    + \sum_{i\ne j} c_i^2
+                    + c_j\sum_{i\ne j}c_i
+                    + \!\!\sum_{\substack{i,\ell\ne j\\ i<\ell}}\!c_i c_\ell\right]s^3
+            \right\}
+        + O(s^4),
+    \]
+    which, upon replacing $s$ by $\sqrt{b}$, is exactly the form claimed for
+    $Y_{j+n}^*$ in the proposition.
+\end{enumerate}
+
+Collecting the results of \textbf{2.} - \textbf{4.}, we prove the formulas of the proposition.
+\end{proof}
+
+% 
+\newpage
+\section{\large Special Function Plots}
+A log-scale plot of the Michaelis-Menten special function $ p_{\text{MM}}(c,k,m) $ is shown in Figure \ref{fig:special_function_plot} below, with $ m = \frac{1}{2} $. We can see that as $ c $ increases, $ p_{\text{MM}}(c,k,m) $ increases from $ 0 $ to $ \frac{1}{m} = 2 $. As $ k $ increases, $ p_{\text{MM}}(c,k,m) $ decreases for fixed $ c $. This behavior is consistent with our earlier analysis.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{special.png}
+    \caption{Plotted with $ m = \frac{1}{2} $.}
+    \label{fig:special_function_plot}
+\end{figure}
+
+
+% 
+\newpage
+\section{\large Literature References}
+See attached notes. 
+
+\end{document}
