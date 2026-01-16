@@ -1,7 +1,0 @@
-\contentsline {section}{\numberline {1}什麼是熱力學}{2}{section.1}%
-\contentsline {subsection}{\numberline {1.1}歷史背景}{2}{subsection.1.1}%
-\contentsline {section}{\numberline {2}熱力學}{3}{section.2}%
-\contentsline {subsection}{\numberline {2.1}理想氣體}{3}{subsection.2.1}%
-\contentsline {section}{\numberline {3}統計力學}{4}{section.3}%
-\contentsline {subsection}{\numberline {3.1}多粒子系統的統計性質}{4}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}系綜}{4}{subsection.3.2}%

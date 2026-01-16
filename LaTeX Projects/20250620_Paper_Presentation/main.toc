@@ -1,5 +1,0 @@
-\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
-\beamer@sectionintoc {2}{Proteomic Coarse-Graining and Electric Circuit}{33}{0}{2}
-\beamer@sectionintoc {3}{Applications}{48}{0}{3}
-\beamer@sectionintoc {4}{Concluding Remarks}{65}{0}{4}
-\beamer@sectionintoc {5}{References}{74}{0}{5}
